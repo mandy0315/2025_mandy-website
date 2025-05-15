@@ -1,19 +1,19 @@
-export const useCategory = () => {
+export const useCategory = (type: "posts" | "notes" = "posts") => {
   const router = useRouter();
 
   const goToCategoriesPage = (category: string) => {
-    const path = encodeURI(`/categories/${category}`);
+    const path = encodeURI(`/categories-${type}/${category}`);
     router.push(path);
   };
 
   const getCategories = async (limit?: number) => {
     try {
-      const selectItemInPosts = await queryCollection("posts")
+      const selectItemInList = await queryCollection(type)
         .order("date", "DESC")
         .select("categories")
         .all();
 
-      let categories = selectItemInPosts.map((item) => item.categories).flat();
+      let categories = selectItemInList.map((item) => item.categories).flat();
 
       if (limit) {
         categories = categories.slice(0, limit);
