@@ -4,7 +4,7 @@ const categories = await getCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
 const { updatePosts, posts, isLoading } = usePost();
-await useAsyncData('posts', () => updatePosts(currentPage.value, currentSort.value));
+await useAsyncData('postList', () => updatePosts(currentPage.value, currentSort.value));
 
 watch([currentPage, currentSort], ([page, sort]) => {
   updatePosts(page, sort);
@@ -48,7 +48,7 @@ watch([currentPage, currentSort], ([page, sort]) => {
           {{ category }}
         </BaseTag>
       </div>
-      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories">更多分類</NuxtLink>
+      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories-posts">更多分類</NuxtLink>
     </template>
   </NuxtLayout>
 </template>
