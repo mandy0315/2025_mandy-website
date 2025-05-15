@@ -1,6 +1,6 @@
 import { pageMap } from "@/utils/mainMap";
 
-type Collection = "posts";
+type Collection = "posts" | "notes";
 interface Post {
   title: string;
   description: string;
@@ -13,21 +13,29 @@ interface Page {
 
 const useSearch = () => {
   const isShowSearchModal = useState<boolean>("isShowSearchModal", () => false);
-  const { getCategories } = useCategory();
+
   const posts = useState<Post[]>("searchPosts", () => []);
-  const categories = useState<string[]>("searchCategories", () => []);
+  const notes = useState<Post[]>("searchNotes", () => []);
+  const categories_posts = useState<string[]>(
+    "searchCategoriesPosts",
+    () => []
+  );
+  const categories_notes = useState<string[]>(
+    "searchCategoriesNotes",
+    () => []
+  );
   const pages = useState<Page[]>("searchPages", () => []);
   const keywords = useState<string>("keywords", () => "");
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
-  // 搜尋文章
-  const searchInPosts = async (
+  // 搜尋(文章/筆記)列表
+  const searchInList = async (
     collection: Collection,
     keyword: string,
     fields: string[]
   ) => {
     try {
-      const posts = await queryCollection(collection)
+      const list = await queryCollection(collection)
         .orWhere((q) => {
           for (const field of fields) {
             q.where(field, "LIKE", `%${keyword}%`);
@@ -37,16 +45,20 @@ const useSearch = () => {
         .select("title", "description", "path")
         .all();
       if (keyword === "") {
-        return posts.slice(0, LIMIT_COUNT) || [];
+        return list.slice(0, LIMIT_COUNT) || [];
       }
-      return posts;
+      return list;
     } catch (error) {
       console.error("搜尋文章錯誤", error);
       return [];
     }
   };
   // 搜尋分類
-  const searchInCategories = async (keyword: string) => {
+  const searchInCategories = async (
+    collection: Collection,
+    keyword: string
+  ) => {
+    const { getCategories } = useCategory(collection);
     const categories = await getCategories();
     if (keyword === "") {
       return categories.slice(0, LIMIT_COUNT) || [];
@@ -76,14 +88,19 @@ const useSearch = () => {
   };
   // 設定搜尋列表
   const setSearchList = async () => {
-    const [kPosts, kCategories] = await Promise.all([
-      searchInPosts("posts", keywords.value, ["title", "description"]),
-      searchInCategories(keywords.value),
-    ]);
+    const [kPosts, kNotes, kCategoriesPosts, kCategoriesNotes] =
+      await Promise.all([
+        searchInList("posts", keywords.value, ["title", "description"]),
+        searchInList("notes", keywords.value, ["title", "description"]),
+        searchInCategories("posts", keywords.value),
+        searchInCategories("notes", keywords.value),
+      ]);
     const kPages = searchInPages(keywords.value);
 
     posts.value = kPosts;
-    categories.value = kCategories;
+    notes.value = kNotes;
+    categories_posts.value = kCategoriesPosts;
+    categories_notes.value = kCategoriesNotes;
     pages.value = kPages;
   };
 
@@ -94,14 +111,18 @@ const useSearch = () => {
 
   const clearAllSearchList = () => {
     posts.value = [];
-    categories.value = [];
+    notes.value = [];
+    categories_notes.value = [];
+    categories_posts.value = [];
     pages.value = [];
   };
 
   return {
     keywords,
     posts,
-    categories,
+    notes,
+    categories_posts,
+    categories_notes,
     pages,
     updatedKeywords,
     isShowSearchModal,

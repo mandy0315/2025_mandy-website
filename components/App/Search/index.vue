@@ -2,7 +2,7 @@
 import { AppSearchItemTitle } from '#components';
 import { useDebounceFn } from '@vueuse/core';
 
-const { keywords, isShowSearchModal, posts, categories, pages, clearAllSearchList, updatedKeywords } = useSearch();
+const { keywords, isShowSearchModal, posts, categories_posts, notes, categories_notes, pages, clearAllSearchList, updatedKeywords } = useSearch();
 const { goToCategoriesPage } = useCategory();
 const debouncedSearch = useDebounceFn((newKeywords: string) => {
   updatedKeywords(newKeywords);
@@ -29,7 +29,7 @@ const setCloseModalAndToCategoriesPage = (category: string) => {
 };
 
 const isShowSearchList = computed(() => {
-  return posts.value.length > 0 || categories.value.length > 0 || pages.value.length > 0;
+  return posts.value.length > 0 || categories_posts.value.length > 0 || pages.value.length > 0;
 });
 </script>
 
@@ -62,9 +62,19 @@ const isShowSearchList = computed(() => {
         <AppSearchItemButton v-for="(post, idx) in posts" :key="idx" :keywords="keywords" :title="post.title"
           :description="post.description" @handleToPage="setCloseModalAndToPage(post.path)" />
 
-        <!-- 分類 -->
-        <AppSearchItemTitle v-if="categories.length > 0" title="分類" />
-        <AppSearchItemButton v-for="(category, idx) in categories" icon="solar:folder-bold" :key="idx"
+        <!-- 文章分類 -->
+        <AppSearchItemTitle v-if="categories_posts.length > 0" title="文章分類" />
+        <AppSearchItemButton v-for="(category, idx) in categories_posts" icon="solar:folder-bold" :key="idx"
+          :keywords="keywords" :title="category" @handleToPage="setCloseModalAndToCategoriesPage(category)" />
+
+        <!-- 筆記 -->
+        <AppSearchItemTitle v-if="notes.length > 0" title="筆記" />
+        <AppSearchItemButton v-for="(note, idx) in notes" :key="idx" :keywords="keywords" :title="note.title"
+          :description="note.description" @handleToPage="setCloseModalAndToPage(note.path)" />
+
+        <!-- 筆記分類 -->
+        <AppSearchItemTitle v-if="categories_notes.length > 0" title="筆記分類" />
+        <AppSearchItemButton v-for="(category, idx) in categories_notes" icon="solar:folder-bold" :key="idx"
           :keywords="keywords" :title="category" @handleToPage="setCloseModalAndToCategoriesPage(category)" />
 
         <!-- 頁面 -->
