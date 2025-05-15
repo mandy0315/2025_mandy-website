@@ -29,7 +29,7 @@ const loadDisqus = () => {
   window.disqus_config = disqusConfig;
 
   const script: HTMLScriptElement = document.createElement('script');
-  script.src = 'https://mandy-031315.disqus.com/embed.js';
+  script.src = 'https://2025-mandy-website.disqus.com/embed.js';
   script.setAttribute('data-timestamp', String(+new Date()));
   script.async = true;
   document.head.appendChild(script);
@@ -74,6 +74,10 @@ const reloadDisqus = async (): Promise<void> => {
 
   // 重置載入狀態
   loaded.value = false;
+  // 等待 1 秒後重新載入 Disqus
+  setTimeout(() => {
+    loadDisqus();
+  }, 1000);
 };
 
 onMounted(() => {
@@ -90,7 +94,6 @@ watch(() => route.path, async () => {
 
 watch(colorMode, async () => {
   await reloadDisqus();
-  loadDisqus();
 });
 </script>
 
