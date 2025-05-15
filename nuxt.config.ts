@@ -32,7 +32,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-02-17",
 
   nitro: {
-    preset: process.env.VERCEL_BUILD ? "vercel" : undefined,
+    preset: process.env.VL_BUILD ? "vercel" : undefined,
     prerender: {
       crawlLinks: true, // 連結預先渲染
       routes: ["/", "/posts", "/categories-notes/**", "/categories-posts/**"], // 預先渲染的路由
