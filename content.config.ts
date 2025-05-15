@@ -14,5 +14,17 @@ export default defineContentConfig({
         date: z.string(),
       }),
     }),
+    notes: defineCollection({
+      source: "notes/*.md",
+      type: "page",
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        categories: z.array(z.string()),
+        navigation: z.boolean(),
+        image: z.string(),
+        date: z.string(),
+      }),
+    }),
   },
 });
