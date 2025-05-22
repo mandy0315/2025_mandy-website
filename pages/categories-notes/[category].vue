@@ -10,7 +10,7 @@ updateNotesInCategory(currentPage.value, currentCategory.value);
   <ClientOnly>
     <div>
       <div class="grid grid-cols-3 gap-4">
-        <BasePostCard v-for="note in notes.list" v-bind="note" :key="note.title" class="col-span-1" />
+        <BaseCard v-for="note in notes.list" v-bind="note" :key="note.title" class="col-span-1" />
       </div>
 
       <BasePagination v-if="notes.totalPage" v-model:current-page="currentPage" :totalPage="notes.totalPage" />
