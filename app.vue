@@ -5,6 +5,7 @@ const { isShowSearchModal } = useSearch();
 
 <template>
   <Body :class="{ 'overflow-hidden': isShowSearchModal }">
+    <AppPageLoading />
 
     <AppHeader />
 
