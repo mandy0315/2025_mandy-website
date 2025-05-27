@@ -2,13 +2,13 @@ export const usePageLoading = () => {
   const minLoadingTime = 2000;
   const minRenderDuration = 300;
   const progress = useState<number>("progress", () => 0);
-  const isLoading = useState<boolean>("isLoading", () => true);
+  const isLoading = useState<boolean>("isLoading", () => false);
   const toggleStartLoading = useState<boolean>(
     "toggleStartLoading",
     () => false
   );
   let timeoutId: ReturnType<typeof setTimeout>;
-  let renderStart: number;
+  let renderStart = performance.now();
 
   const resetRenderStart = () => {
     renderStart = performance.now();
