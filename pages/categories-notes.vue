@@ -1,22 +1,11 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['categories']
+})
 const route = useRoute();
 
-const { goToCategoriesPage, getCategories } = useCategory('notes');
-const categories = useState<string[]>('categories', () => []);
+const { categories, goToCategoriesPage } = useCategory('notes');
 const currentCategory = computed(() => route.params.category || '');
-const categoriesLen = computed(() => categories.value.length || 0);
-
-
-const checkAndToCategorylist = async () => {
-  if (categoriesLen.value > 0 && currentCategory.value === '') {
-    await navigateTo('/categories-notes/' + categories.value[0]);
-  }
-};
-
-onMounted(async () => {
-  categories.value = await getCategories();
-  checkAndToCategorylist();
-});
 </script>
 <template>
   <div>
