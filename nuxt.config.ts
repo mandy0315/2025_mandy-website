@@ -35,16 +35,14 @@ export default defineNuxtConfig({
     preset: process.env.VL_BUILD ? "vercel" : undefined,
     prerender: {
       crawlLinks: true, // 連結預先渲染
-      routes: ["/", "/posts", "/categories-notes/**", "/categories-posts/**"], // 預先渲染的路由
+      routes: ["/", "/posts"], // 預先渲染的路由
     },
   },
 
   routeRules: {
-    // 靜態页面
+    // 靜態頁面
     "/": { prerender: true },
     "/posts": { prerender: true },
-    "/categories-posts/**": { prerender: true },
-    "/categories-notes/**": { prerender: true },
 
     // 動態路由 - SSR模式
     "/posts/**": {
@@ -60,6 +58,12 @@ export default defineNuxtConfig({
         maxAge: 60 * 10, // 緩存10分鐘
         staleMaxAge: 60 * 60 * 24, // 過期後可用 24 小時，並同時在後台更新
       },
+    },
+    "/categories-posts/**": {
+      prerender: false,
+    },
+    "/categories-notes/**": {
+      prerender: false,
     },
   },
 
