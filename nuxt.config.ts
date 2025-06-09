@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     preset: process.env.VL_BUILD ? "vercel" : undefined,
     prerender: {
       crawlLinks: true, // 連結預先渲染
-      routes: ["/", "/posts"], // 預先渲染的路由
+      routes: ["/", "/posts", "/works"], // 預先渲染的路由
     },
   },
 
@@ -43,6 +43,7 @@ export default defineNuxtConfig({
     // 靜態頁面
     "/": { prerender: true },
     "/posts": { prerender: true },
+    "/works": { prerender: true },
 
     // 動態路由 - SSR模式
     "/posts/**": {
