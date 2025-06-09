@@ -45,7 +45,8 @@ watch(imageData, async () => {
   deep: true
 })
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   initObserver();
 })
 onUnmounted(() => {
@@ -54,33 +55,40 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <section class="flex items-center justify-between">
-    <h1>Works</h1>
-    <div class="grid grid-cols-2 gap-x-4">
-      <div class="col-span-1">
-        <p>Category</p>
-        <button @click="currentCategory = 'all'" class="block"
-          :class="{ 'text-c-light-blue': currentCategory === 'all' }">all</button>
-        <button v-for="category in WorkCategories" :key="category" class="block" @click="currentCategory = category"
-          :class="{ 'text-c-light-blue': currentCategory === category }">{{
-            category }}</button>
+  <div>
+    <section class="flex items-center justify-between">
+      <h1>Works</h1>
+      <div class="grid grid-cols-2 gap-x-4">
+        <div class="col-span-1">
+          <p>Category</p>
+          <button @click="currentCategory = 'all'" class="block"
+            :class="{ 'text-c-light-blue': currentCategory === 'all' }">all</button>
+          <button v-for="category in WorkCategories" :key="category" class="block" @click="currentCategory = category"
+            :class="{ 'text-c-light-blue': currentCategory === category }">{{
+              category }}</button>
+        </div>
+        <div class="col-span-1">
+          <p>Type</p>
+          <button @click="currentType = 'all'" class="block"
+            :class="{ 'text-c-light-blue': currentType === 'all' }">all</button>
+          <button v-for="type in WorkTypes" :key="type" class="block" @click="currentType = type"
+            :class="{ 'text-c-light-blue': currentType === type }">{{
+              type }}</button>
+        </div>
       </div>
-      <div class="col-span-1">
-        <p>Type</p>
-        <button @click="currentType = 'all'" class="block"
-          :class="{ 'text-c-light-blue': currentType === 'all' }">all</button>
-        <button v-for="type in WorkTypes" :key="type" class="block" @click="currentType = type"
-          :class="{ 'text-c-light-blue': currentType === type }">{{
-            type }}</button>
-      </div>
-    </div>
-  </section>
-  <ul class="col-start-2 col-end-6 grid grid-cols-3">
-    <li v-for="(data, index) in imageData" :key="data.id"
-      class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]">
-      <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
-        class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" alt="image" />
-    </li>
-  </ul>
+    </section>
+    <ClientOnly>
+      <section>
+        <ul class="col-start-2 col-end-6 grid grid-cols-3">
+          <li v-for="(data, index) in imageData" :key="data.id"
+            class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]">
+            <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
+              class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" alt="image" />
+          </li>
+        </ul>
+      </section>
+    </ClientOnly>
+  </div>
+
 
 </template>
