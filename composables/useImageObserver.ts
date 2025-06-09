@@ -4,6 +4,13 @@ export const useImageObserver = () => {
   const visibleImages = ref<Set<number>>(new Set());
   const loadedImages = ref<Set<number>>(new Set());
 
+  const resetImageRefsState = () => {
+    imgRefs.value = [];
+    observer.value = null;
+    visibleImages.value.clear();
+    loadedImages.value.clear();
+  };
+
   const loadImagesSequentially = () => {
     const unloadedImages = Array.from(visibleImages.value)
       .filter((index) => !loadedImages.value.has(index))
@@ -58,5 +65,6 @@ export const useImageObserver = () => {
     imgRefs,
     initObserver,
     disconnectedObserver,
+    resetImageRefsState,
   };
 };
