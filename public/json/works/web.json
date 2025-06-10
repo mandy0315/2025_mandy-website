@@ -3,9 +3,9 @@
     "id": "web-1",
     "category": "web",
     "type": "commercial",
-    "title": "永大電機官方網站",
-    "description": "整體以「 斜角 」代表手扶梯、「 直角 」代表電梯的方式呈現，表達公司產品與引導動線;內頁以簡約背景襯托大量資訊，並且加入側選單，讓每區獨立達到動線清晰，能夠快速找到資訊。",
-    "link": "https://www.yungtay.com.tw/",
+    "title": "永大電機企業官網",
+    "description": "整體以「 斜角 」代表手扶梯、「 直角 」代表電梯的方式呈現，表達公司產品與引導動線;內頁以簡約背景襯托大量資訊，並且加入側選單，讓每區獨立達到動線清晰，能夠快速找到資訊。此專案負責網站設計到開發。",
+    "link": null,
     "image": "/images/works/web/yungtay.jpg",
     "client": "永大電機",
     "skills": [
@@ -13,6 +13,192 @@
       "Sketch",
       "CSS3",
       "Wordpress-Elementor"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-2",
+    "category": "web",
+    "type": "commercial",
+    "title": "宇恩到府月子護理長一頁式官網",
+    "description": "「溫馨可愛風格」做為核心主題，網頁給人親近、信賴感；色彩以嬰兒色淡粉紅、淡藍、淡黃為主；內容加入可愛插圖，講解到府的服務，並且加入簡易圖表，了解與一般月子中心的差異。此專案僅負責網站設計。",
+    "link": null,
+    "image": "/images/works/web/yuennurse.jpg",
+    "client": "宇恩到府月子護理長",
+    "skills": [
+      "Photoshop",
+      "Illustrator"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-3",
+    "category": "web",
+    "type": "personal",
+    "title": "微品咖啡練習網站",
+    "description": "「咖啡廳」做為練習主題，主視覺以咖啡特寫其他物品放置在旁，表達暫時放下忙碌先喝杯咖啡；色彩以黑色沉靜搭配咖啡色；內頁以簡約風格凸顯產品與內容。此練習專案從設計到開發。",
+    "link": "https://mandy0315.github.io/2019_wipcafe/",
+    "image": "/images/works/web/wipCafe.jpg",
+    "client": null,
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "HTML",
+      "CSS3",
+      "SASS",
+      "jQuery"
+    ],
+    "year": 2019,
+    "status": "completed"
+  },
+  {
+    "id": "web-4",
+    "category": "web",
+    "type": "commercial",
+    "title": "維克數位創意企業官網",
+    "description": "「插畫設計」做為網頁風格，首頁以公司提供文字「DNA（Digital Network Advisor 網路顧問）」發想，繪製各部門角色維護、製造網路世界；色彩沿用公司企業色藍綠色為網站主要色；內容取自老闆曾說「順水推舟，趨吉避凶」，以「海」的主題，探險尋寶網頁的知識與內容。此專案負責網站設計到開發。",
+    "link": null,
+    "image": "/images/works/web/vicdna.jpg",
+    "client": "維克數位創意",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "HTML",
+      "CSS3",
+      "SASS",
+      "jQuery"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-5",
+    "category": "web",
+    "type": "commercial",
+    "title": "路博邁Ｎ級別活動網站",
+    "description": "主打長期投資的N系列三檔基金，自由搭配購買，視覺以「火箭能量」的理念，帶入長期投資代表儲存能量，收益成長代表火箭一飛沖天；色彩以企業藍為主色，黃為輔助色；內容以繪製簡易圖表，讓資訊一目了然。此專案負責網站設計到開發。",
+    "link": null,
+    "image": "/images/works/web/nb.jpg",
+    "client": "路博邁",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "HTML",
+      "CSS3",
+      "SASS",
+      "Hype3",
+      "jQuery"
+    ],
+    "year": 2019,
+    "status": "completed"
+  },
+  {
+    "id": "web-6",
+    "category": "web",
+    "type": "commercial",
+    "title": "未來流通研究所企業官網",
+    "description": "配合瀏覽者大部分是日商，網頁視覺以「日式和風」吸引客群，色彩使用暖色，有別於以往資訊網站的冷色，希望傳遞有溫度的資訊；內容加入ICON圖示，能夠了解資訊、標題並且提升整體質感。此專案負責網站設計到開發。",
+    "link": "https://www.mirai.com.tw/",
+    "image": "/images/works/web/mirai.jpg",
+    "client": "未來流通研究所",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "Wordpress-Elementor",
+      "CSS3",
+      "jQuery"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-7",
+    "category": "web",
+    "type": "commercial",
+    "title": "吉美建設企業官網",
+    "description": "接續首頁視覺，內頁使用工地、建設情境照，裝飾背景與文字，並且加入錯落排版，讓設計有層次；內容呈現大量建設作品資訊，在各區設計總攬頁、側邊欄，達到動線清晰的資訊網站。此專案負責網站內頁設計到開發。",
+    "link": "https://www.jimei.com.tw/",
+    "image": "/images/works/web/jimei.jpg",
+    "client": "吉美建設",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "Wordpress-Elementor編輯",
+      "CSS3"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-8",
+    "category": "web",
+    "type": "commercial",
+    "title": "捷美海空運集團企業官網",
+    "description": "延續首頁視覺，內頁使用空運、海運情境照，裝飾背景與文字，並加入可愛運輸圖案，凸顯每頁傳達的資訊；色彩以企業紅為主色黃為輔色，文字上重點以黃色標示，讓文字階層明顯。此專案負責網站內頁設計到開發。",
+    "link": "https://www.gmclogistics.com/",
+    "image": "/images/works/web/gmclogistics.jpg",
+    "client": "捷美海空運集團",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "Wordpress-Elementor編輯",
+      "CSS3",
+      "jQuery"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-9",
+    "category": "web",
+    "type": "commercial",
+    "title": "集思傢俱設計企業官網",
+    "description": "「室內設計圖」做為發想，採用黑、白色調打造簡約設計美感；整體以作品、情境照呈現，加入裝飾線條與動態，讓網頁生動活潑；背景以白、藍、簡約線條，達到網頁舒適排版。此專案負責網站設計到開發。",
+    "link": "https://www.gees.com.tw/",
+    "image": "/images/works/web/gees.jpg",
+    "client": "集思傢俱設計",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "Wordpress-Elementor編輯",
+      "CSS3",
+      "jQuery"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-10",
+    "category": "web",
+    "type": "commercial",
+    "title": "太穎法律事務所企業官網",
+    "description": "網頁以簡約、國際化作為訴求，色彩以企業紅為主色藍為輔助色，整體採用單純框架、幾何背景、情境圖，襯托複雜的法律資訊，讓網頁簡約時尚。此專案負責網站設計到開發。",
+    "link": "https://www.elitelaw.com/",
+    "image": "/images/works/web/eliteLaw.jpg",
+    "client": "太穎法律事務所",
+    "skills": [
+      "Photoshop",
+      "Illustrator",
+      "Wordpress-Elementor編輯",
+      "CSS3"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "web-11",
+    "category": "web",
+    "type": "personal",
+    "title": "CodePain練習網站",
+    "description": "致敬 CodePen 所打造的復刻專案「CodePain」，由 6 人歷時 1.5 個月共同開發，作為功能型網站開發的實戰練習。專案核心功能包含使用 Ace 套件實作線上編輯器，並透過 API 實現資料的新增、存取與修改。另設計社群互動功能，如愛心、鎖定、留言等，強化使用者參與感；會員系統則結合 Rails Devise 套件與第三方登入機制，打造完整的登入驗證流程。",
+    "link": null,
+    "image": "/images/works/web/codePain.jpg",
+    "client": null,
+    "skills": [
+      "React-Hooks",
+      "Rails"
     ],
     "year": null,
     "status": "completed"
