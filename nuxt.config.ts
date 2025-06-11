@@ -71,4 +71,8 @@ export default defineNuxtConfig({
   content: {
     experimental: { nativeSqlite: true },
   },
+
+  imports: {
+    dirs: ["composables"],
+  },
 });
