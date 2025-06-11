@@ -81,7 +81,8 @@ onUnmounted(() => {
             class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
             :to="`/works/${data.id}`">
             <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
-              class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" alt="image" />
+              class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0"
+              :alt="data.title" />
           </NuxtLink>
         </div>
       </section>
