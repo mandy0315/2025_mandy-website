@@ -19,9 +19,11 @@ export const useImageObserver = () => {
     unloadedImages.forEach((index, position) => {
       const img = imgRefs.value[index];
       const src = img?.getAttribute("data-src");
-      if (img && src) {
+      if (img) {
         setTimeout(() => {
-          img.src = src;
+          const defaultSrc = "/images/default-image.jpg";
+          img.src = src || defaultSrc;
+          console.log(img.src);
           img.style.opacity = "1";
           loadedImages.value.add(index);
         }, position * 200); // 只對可見圖片計算延遲
