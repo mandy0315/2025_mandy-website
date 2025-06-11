@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pageMap } from "@/utils/mainMap";
+import { pageMap } from "@/utils/appMap";
 </script>
 <template>
   <header

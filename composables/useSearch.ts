@@ -1,4 +1,4 @@
-import { pageMap } from "@/utils/mainMap";
+import { pageMap } from "@/utils/appMap";
 
 type Collection = "posts" | "notes";
 interface Post {
