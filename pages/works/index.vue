@@ -10,7 +10,7 @@ const currentType = ref<WorkTypesType | 'all'>('all');
 const WorkTypes = ['commercial', 'personal'] as const;
 const WorkCategories = ["ui", "vision", "web"] as const;
 
-const imageData = computed(() => {
+const workData = computed(() => {
   // 先處理 tag 
   const selectedDataInCategories = (currentCategory.value === 'all' ? [...workDataMap.values()] : [workDataMap.get(currentCategory.value)]).flat();
   // 再處理 category 
@@ -30,7 +30,7 @@ const { imgRefs,
   initObserver,
   disconnectedObserver, resetImageRefsState } = useImageObserver();
 
-watch(imageData, async () => {
+watch(workData, async () => {
   resetImageRefsState();
   await nextTick();
   initObserver();
@@ -73,7 +73,7 @@ onUnmounted(() => {
     <ClientOnly>
       <section>
         <div class="col-start-2 col-end-6 grid grid-cols-3">
-          <NuxtLink v-for="(data, index) in imageData" :key="data.id"
+          <NuxtLink v-for="(data, index) in workData" :key="data.id"
             class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
             :to="`/works/${data.id}`">
             <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
