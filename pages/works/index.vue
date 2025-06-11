@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { workDataMap } from '@/utils/workDataMap'
+import { workDataMap, type WorkItem } from '@/utils/workDataMap'
 
 
 type WorkCategoriesType = (typeof WorkCategories)[number];
@@ -11,10 +11,14 @@ const WorkTypes = ['commercial', 'personal'] as const;
 const WorkCategories = ["ui", "vision", "web"] as const;
 
 const workData = computed(() => {
+  const allData = [...workDataMap.values()].flat();
   // 先處理 tag 
-  const selectedDataInCategories = (currentCategory.value === 'all' ? [...workDataMap.values()] : [workDataMap.get(currentCategory.value)]).flat();
+  const selectedDataInCategories = currentCategory.value === 'all' ? allData : workDataMap.get(currentCategory.value) || [];
+
+  if (selectedDataInCategories.length === 0) return [];
+
   // 再處理 category 
-  const selectedDataInTypes = currentType.value === 'all' ? selectedDataInCategories : selectedDataInCategories.filter((item) => item.type === currentType.value);
+  const selectedDataInTypes = currentType.value === 'all' ? selectedDataInCategories : selectedDataInCategories.filter((item: WorkItem) => item.type === currentType.value);
   return selectedDataInTypes;
 })
 
