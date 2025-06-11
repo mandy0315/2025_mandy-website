@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import UIData from '@/public/json/works/ui.json'
-import VisionData from '@/public/json/works/vision.json'
-import WebData from '@/public/json/works/web.json'
+import { workDataMap } from '@/utils/workDataMap'
+
 
 type WorkCategoriesType = (typeof WorkCategories)[number];
 type WorkTypesType = (typeof WorkTypes)[number];
 
 const currentCategory = ref<WorkCategoriesType | 'all'>('all');
 const currentType = ref<WorkTypesType | 'all'>('all');
-const WorkCategories = ['ui', 'vision', 'web'] as const;
 const WorkTypes = ['commercial', 'personal'] as const;
-
-const workDataMap = new Map<WorkCategoriesType, any>([
-  ['ui', UIData],
-  ['vision', VisionData],
-  ['web', WebData],
-]);
+const WorkCategories = ["ui", "vision", "web"] as const;
 
 const imageData = computed(() => {
   // 先處理 tag 
@@ -79,13 +72,14 @@ onUnmounted(() => {
     </section>
     <ClientOnly>
       <section>
-        <ul class="col-start-2 col-end-6 grid grid-cols-3">
-          <li v-for="(data, index) in imageData" :key="data.id"
-            class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]">
+        <div class="col-start-2 col-end-6 grid grid-cols-3">
+          <NuxtLink v-for="(data, index) in imageData" :key="data.id"
+            class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
+            :to="`/works/${data.id}`">
             <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
               class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" alt="image" />
-          </li>
-        </ul>
+          </NuxtLink>
+        </div>
       </section>
     </ClientOnly>
   </div>
