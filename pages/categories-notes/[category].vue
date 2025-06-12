@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const { updateNotesInCategory, notes } = useNote();
+const { updateNotesInCategory, notes } = await useNote();
 const currentPage = ref(1);
 const currentCategory = computed(() => route.params.category as string);
 

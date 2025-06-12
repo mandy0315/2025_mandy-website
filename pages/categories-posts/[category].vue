@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const { updatePostsInCategory, posts } = usePost();
+const { updatePostsInCategory, posts } = await usePost();
 const currentPage = ref(1);
 const currentCategory = computed(() => route.params.category as string);
 
