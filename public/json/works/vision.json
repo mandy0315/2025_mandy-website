@@ -1,6 +1,6 @@
 [
   {
-    "id": "vision-1",
+    "id": "agriculturalBankDM",
     "category": "vision",
     "type": "commercial",
     "title": "全國農業金庫DM",
@@ -11,6 +11,37 @@
     "skills": [
       "Photoshop",
       "Illustrator"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "vicFestival",
+    "category": "vision",
+    "type": "commercial",
+    "title": "維克中秋節賀卡",
+    "description": "中秋節將至，設計以傳說中的「月兔」為主角，融合月亮與團圓意象，透過幽默情節：吃太多月餅導致無法跳回天上，傳達節慶祝福。整體視覺使用維克企業標誌性的藍綠色為背景，搭配黃色強調視覺重點，並以剪影城市、雲朵與小兔子陪襯主角，營造集中且溫馨的視覺焦點。",
+    "link": null,
+    "image": "/images/works/vision/vicFestival.gif",
+    "client": "維克數位設計",
+    "skills": [
+      "Photoshop",
+      "Illustrator"
+    ],
+    "year": null,
+    "status": "completed"
+  },
+  {
+    "id": "pchomeBanners",
+    "category": "vision",
+    "type": "commercial",
+    "title": "PChome FB Banners",
+    "description": "廣告偏向生活類商品，商品去背、精修與比例優化，提升整體視覺清晰度；價格資訊透過配色與尺寸強化吸睛效果，並結合具廣告主題性的標題設計。",
+    "link": null,
+    "image": "/images/works/vision/pchomeBanners.jpg",
+    "client": "PChome",
+    "skills": [
+      "Photoshop"
     ],
     "year": null,
     "status": "completed"

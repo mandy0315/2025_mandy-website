@@ -1,6 +1,6 @@
 [
   {
-    "id": "ui-1",
+    "id": "citiChatbot",
     "category": "ui",
     "type": "commercial",
     "title": "花旗 ChatBot",
@@ -9,6 +9,7 @@
     "image": "/images/works/ui/citiChatbot.jpg",
     "client": "花旗銀行",
     "skills": [
+      "Illustrator",
       "Photoshop",
       "Sketch"
     ],
