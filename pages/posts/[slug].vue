@@ -3,7 +3,7 @@
 const { currSection,
   setNavListener } = useNavListener();
 const route = useRoute();
-const { goToCategoriesPage } = useCategory();
+const { goToCategoriesPage } = await useCategory();
 
 // 文章
 const { data: post } = await useAsyncData('post', () => {

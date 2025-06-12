@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { getCategories, goToCategoriesPage } = useCategory();
-const categories = await getCategories(10);
+const { setCategories, goToCategoriesPage, categories } = await useCategory();
+await setCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
 const { updatePosts, posts, isLoading } = await usePost();

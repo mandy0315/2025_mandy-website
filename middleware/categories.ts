@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     });
   }
   const type = pathName === "categories-posts" ? "posts" : "notes";
-  const { setCategories, categories } = useCategory(type);
+  const { setCategories, categories } = await useCategory(type);
   await setCategories();
 
   // 如果沒有 category 參數，重定向到第一個分類

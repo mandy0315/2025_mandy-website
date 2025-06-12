@@ -58,13 +58,13 @@ const useSearch = () => {
     collection: Collection,
     keyword: string
   ) => {
-    const { getCategories } = useCategory(collection);
-    const categories = await getCategories();
+    const { setCategories, categories } = await useCategory(collection);
+    await setCategories();
     if (keyword === "") {
-      return categories.slice(0, LIMIT_COUNT) || [];
+      return categories.value.slice(0, LIMIT_COUNT) || [];
     }
     return (
-      categories?.filter((category) => {
+      categories.value?.filter((category) => {
         return category.toLowerCase().includes(keyword.toLowerCase());
       }) || []
     );

@@ -1,4 +1,4 @@
-export const useCategory = (type: "posts" | "notes" = "posts") => {
+export const useCategory = async (type: "posts" | "notes" = "posts") => {
   const router = useRouter();
   const categories = useState<string[]>("categories", () => []);
 
@@ -7,15 +7,30 @@ export const useCategory = (type: "posts" | "notes" = "posts") => {
     router.push(path);
   };
 
+  const { data: categoriesData, refresh } = await useAsyncData(
+    `category-${type}`,
+    async () => {
+      return await queryCollection(type)
+        .order("date", "DESC")
+        .select("categories")
+        .all();
+    }
+  );
+
   const setCategories = async (limit?: number) => {
     categories.value = [];
     try {
+      await refresh();
       const selectItemInList = await queryCollection(type)
         .order("date", "DESC")
         .select("categories")
         .all();
 
-      let selectedCategories = selectItemInList
+      if (!categoriesData.value) {
+        categoriesData.value = [];
+      }
+
+      let selectedCategories = categoriesData.value
         .map((item) => item.categories)
         .flat();
 
@@ -30,30 +45,8 @@ export const useCategory = (type: "posts" | "notes" = "posts") => {
     }
   };
 
-  const getCategories = async (limit?: number) => {
-    try {
-      const selectItemInList = await queryCollection(type)
-        .order("date", "DESC")
-        .select("categories")
-        .all();
-
-      let categories = selectItemInList.map((item) => item.categories).flat();
-
-      if (limit) {
-        categories = categories.slice(0, limit);
-      }
-
-      const uniqueCategories = Array.from(new Set(categories));
-      return uniqueCategories;
-    } catch (error) {
-      console.error("取得分類錯誤", error);
-      return [];
-    }
-  };
-
   return {
     goToCategoriesPage,
-    getCategories,
     setCategories,
     categories,
   };

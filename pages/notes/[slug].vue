@@ -2,7 +2,7 @@
 const { currSection,
   setNavListener } = useNavListener();
 const route = useRoute();
-const { goToCategoriesPage } = useCategory('notes');
+const { goToCategoriesPage } = await useCategory('notes');
 
 
 // 文章

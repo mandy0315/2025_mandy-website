@@ -3,7 +3,6 @@ import { AppSearchItemTitle } from '#components';
 import { useDebounceFn } from '@vueuse/core';
 
 const { keywords, isShowSearchModal, posts, notes, pages, clearAllSearchList, updatedKeywords } = useSearch();
-const { goToCategoriesPage } = useCategory();
 const debouncedSearch = useDebounceFn((newKeywords: string) => {
   updatedKeywords(newKeywords);
 }, 1000);
