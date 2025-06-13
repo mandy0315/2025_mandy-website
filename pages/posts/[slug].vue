@@ -1,38 +1,15 @@
 <script setup lang="ts">
+const route = useRoute();
 
 const { currSection,
   setNavListener } = useNavListener();
-const route = useRoute();
 const { goToCategoriesPage } = await useCategory();
+const { prevData, nextData } = await useNavigation('posts', route.path);
 
 // 文章
-const { data: post } = await useAsyncData('post', () => {
-  return queryCollection('posts').path(`/posts/${route.params.slug}`).first();
+const { data: post } = await useAsyncData('post', async () => {
+  return await queryCollection('posts').path(`/posts/${route.params.slug}`).first();
 })
-
-// 上下篇文章
-const { data: prevPost } = await useAsyncData('prevPost', async () => {
-  const posts = await queryCollection('posts').select("title", "path", "description").all();
-  if (posts.length <= 1) return null;
-  const index = posts.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  // 如果有上一篇文章，返回上一篇，如果沒有，循環到最後一篇
-  if (index > 0) {
-    return posts[index - 1];
-  }
-  return posts[posts.length - 1];
-});
-const { data: nextPost } = await useAsyncData('nextPost', async () => {
-  const posts = await queryCollection('posts').select("title", "path", "description").all();
-  if (posts.length <= 1) return null;
-  const index = posts.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  if (index < posts.length - 1) {
-    return posts[index + 1];
-  }
-  // 如果沒有下一篇文章，循環到第一篇
-  return posts[0];
-});
 
 // 右側目錄
 type Section = {
@@ -129,10 +106,14 @@ onMounted(() => {
 
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4 ">
-          <BaseSurroundCard v-if="prevPost" class="col-span-1" :path="prevPost.path" :title="prevPost.title" :idx="0"
-            :description="prevPost.description" />
-          <BaseSurroundCard v-if="nextPost" class="col-span-1" :path="nextPost.path" :title="nextPost.title" :idx="1"
-            :description="nextPost.description" />
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+              :description="prevData.description" />
+          </div>
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+              :description="nextData.description" />
+          </div>
         </div>
       </div>
     </template>

@@ -1,38 +1,15 @@
 <script setup lang="ts">
+const route = useRoute();
+
 const { currSection,
   setNavListener } = useNavListener();
-const route = useRoute();
 const { goToCategoriesPage } = await useCategory('notes');
-
+const { prevData, nextData } = await useNavigation('notes', route.path);
 
 // 文章
 const { data: note } = await useAsyncData('note', () => {
   return queryCollection('notes').path(`/notes/${route.params.slug}`).first();
 })
-
-// 上下篇文章
-const { data: prevNote } = await useAsyncData('prevNote', async () => {
-  const notes = await queryCollection('notes').select("title", "path", "description").all();
-  if (notes.length <= 1) return null;
-  const index = notes.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  // 如果有上一篇文章，返回上一篇，如果沒有，循環到最後一篇
-  if (index > 0) {
-    return notes[index - 1];
-  }
-  return notes[notes.length - 1];
-});
-const { data: nextNote } = await useAsyncData('nextNote', async () => {
-  const notes = await queryCollection('notes').select("title", "path", "description").all();
-  if (notes.length <= 1) return null;
-  const index = notes.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  if (index < notes.length - 1) {
-    return notes[index + 1];
-  }
-  // 如果沒有下一篇文章，循環到第一篇
-  return notes[0];
-});
 
 // 右側目錄
 type Section = {
@@ -129,10 +106,14 @@ onMounted(() => {
 
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4 ">
-          <BaseSurroundCard v-if="prevNote" class="col-span-1" :path="prevNote.path" :title="prevNote.title" :idx="0"
-            :description="prevNote.description" />
-          <BaseSurroundCard v-if="nextNote" class="col-span-1" :path="nextNote.path" :title="nextNote.title" :idx="1"
-            :description="nextNote.description" />
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+              :description="prevData.description" />
+          </div>
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+              :description="nextData.description" />
+          </div>
         </div>
       </div>
     </template>
