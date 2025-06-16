@@ -13,49 +13,39 @@ const { data: post } = await useAsyncData('post', async () => {
 
 // 右側目錄
 type Section = {
+  id: string;
   title: string;
   element: HTMLElement | null;
   level: number;
 };
-const sectionsInfo = ref<Section[] | null>(null);
-const handleScrollToSection = (section: Section) => {
-  const MARGIN_TOP = 10;
-  if (section?.element) {
-    window.scrollTo({
-      top: section?.element.offsetTop - MARGIN_TOP,
-      behavior: 'smooth',
+
+const { data: tocInPosts } = await useAsyncData('tocInPosts', () => {
+  return queryCollectionSearchSections('posts');
+});
+const tocInfo = ref<Section[] | null>(null);
+const setTocInfo = async () => {
+  const currSections = tocInPosts.value?.filter(section =>
+    section.id.startsWith(route.path)
+  ) || [];
+  const thanLevel2Sections = currSections.filter(section => section.level >= 2);
+
+  if (thanLevel2Sections.length > 0) {
+    tocInfo.value = thanLevel2Sections.map((section) => {
+      const target = section.id.replace('#', '').replace(route.path, '');
+      return {
+        id: `#${target}`,
+        title: section.title,
+        element: document.getElementById(target),
+        level: section.level
+      };
     });
-  };
-}
-const setSectionsInfo = async () => {
-  try {
-    const allSectionsInPosts = await queryCollectionSearchSections('posts');
-    const currPosts = allSectionsInPosts.filter(section =>
-      section.id.startsWith(route.path)
-    ) || [];
-    const thanLevel2Sections = currPosts.filter(section => section.level >= 2);
-
-    if (thanLevel2Sections.length > 0) {
-      sectionsInfo.value = thanLevel2Sections.map((section) => {
-        const target = section.id.replace('#', '').replace(route.path, '');
-        return {
-          title: section.title,
-          element: document.getElementById(target),
-          level: section.level
-        };
-      });
-    }
-
-  } catch (error) {
-    console.error('取得文章段落錯誤', error);
   }
 };
-
-const initRightSide = async () => {
-  await setSectionsInfo();
-  if (!sectionsInfo.value) return;
+const initToc = async () => {
+  await setTocInfo();
+  if (!tocInfo.value) return;
   setNavListener({
-    navs: sectionsInfo.value.map(section => {
+    navs: tocInfo.value.map(section => {
       return {
         title: section.title,
         element: section.element
@@ -64,7 +54,7 @@ const initRightSide = async () => {
   });
 }
 onMounted(() => {
-  initRightSide();
+  initToc();
 })
 </script>
 
@@ -119,15 +109,17 @@ onMounted(() => {
     </template>
     <template #right-side>
       <BaseSidebarTitle>目錄</BaseSidebarTitle>
-      <ul class="c-text-gray">
-        <li v-for="section in sectionsInfo">
-          <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
-            :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-            @click="handleScrollToSection(section)">
-            {{ section.title }}
-          </div>
-        </li>
-      </ul>
+      <ClientOnly>
+        <ul class="c-text-gray">
+          <li v-for="section in tocInfo">
+            <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
+              :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
+              :to="`${route.path}${section.id}`">
+              {{ section.title }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </ClientOnly>
     </template>
   </NuxtLayout>
 </template>
