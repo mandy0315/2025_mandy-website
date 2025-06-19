@@ -14,9 +14,10 @@ onMounted(() => {
 });
 
 const setCloseModalAndToPage = (path: string) => {
-  isShowSearchModal.value = false;
+  navigateTo(path);
+
   setTimeout(() => {
-    navigateTo(path);
+    isShowSearchModal.value = false;
   }, 300);
 };
 
@@ -79,7 +80,7 @@ watch([posts, pages], async () => {
           :title="page.title" @handleToPage="setCloseModalAndToPage(page.path)" />
       </div>
 
-      <div @click.stop="isShowSearchModal = false" class="fixed inset-0 w-full h-full bg-black/80 z-100"></div>
+      <div @click.stop="isShowSearchModal = false" class="fixed inset-0 w-full h-full bg-black/40 z-100"></div>
     </div>
   </Teleport>
 
