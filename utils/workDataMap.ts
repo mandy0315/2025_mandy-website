@@ -15,7 +15,7 @@ export interface WorkItem {
   image: string | null;
   client: string | null;
   skills: string[];
-  year: number | null;
+  date: number | null;
   /** string:"commercial" | "personal" */
   status: string;
 }

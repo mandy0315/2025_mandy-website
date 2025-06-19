@@ -12,7 +12,7 @@
       "Photoshop",
       "Illustrator"
     ],
-    "year": null,
+    "date": null,
     "status": "completed"
   },
   {
@@ -28,7 +28,7 @@
       "Photoshop",
       "Illustrator"
     ],
-    "year": null,
+    "date": null,
     "status": "completed"
   },
   {
@@ -43,7 +43,7 @@
     "skills": [
       "Photoshop"
     ],
-    "year": null,
+    "date": null,
     "status": "completed"
   }
 ]
