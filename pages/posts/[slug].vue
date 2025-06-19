@@ -109,17 +109,15 @@ onMounted(() => {
     </template>
     <template #right-side>
       <BaseSidebarTitle>目錄</BaseSidebarTitle>
-      <ClientOnly>
-        <ul class="c-text-gray">
-          <li v-for="section in tocInfo">
-            <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
-              :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-              :to="`${route.path}${section.id}`">
-              {{ section.title }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </ClientOnly>
+      <ul class="c-text-gray">
+        <li v-for="section in tocInfo">
+          <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
+            :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
+            :to="`${route.path}${section.id}`">
+            {{ section.title }}
+          </NuxtLink>
+        </li>
+      </ul>
     </template>
   </NuxtLayout>
 </template>
