@@ -1,6 +1,6 @@
 export const useCategory = async (type: "posts" | "notes" = "posts") => {
   const router = useRouter();
-  const categories = useState<string[]>("categories", () => []);
+  const categories = useState<string[]>(`categories-${type}`, () => []);
 
   const goToCategoriesPage = (category: string) => {
     const path = encodeURI(`/categories-${type}/${category}`);
@@ -8,7 +8,7 @@ export const useCategory = async (type: "posts" | "notes" = "posts") => {
   };
 
   const { data: categoriesData, refresh } = await useAsyncData(
-    `category-${type}`,
+    `category-${type}-data`,
     async () => {
       return await queryCollection(type)
         .order("date", "DESC")
