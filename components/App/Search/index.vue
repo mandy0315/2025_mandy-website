@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { AppSearchItemTitle } from '#components';
-import { useDebounceFn } from '@vueuse/core';
+import { watchDebounced } from '@vueuse/core';
 
-const { keywords, isShowSearchModal, posts, notes, pages, clearAllSearchList, updatedKeywords } = useSearch();
-const debouncedSearch = useDebounceFn((newKeywords: string) => {
-  updatedKeywords(newKeywords);
-}, 1000);
-watch(keywords, (newVal) => {
-  debouncedSearch(newVal);
-});
+
+const { isSearch, keywords, isShowSearchModal, posts, notes, pages, categories_posts, categories_notes, works, updatedKeywords } = await useSearch();
+watchDebounced(
+  keywords,
+  (newVal) => {
+    updatedKeywords(newVal);
+  },
+  { debounce: 400 }
+);
 onMounted(() => {
   updatedKeywords('');
 });
@@ -21,10 +23,6 @@ const setCloseModalAndToPage = (path: string) => {
   }, 300);
 };
 
-const isShowSearchList = computed(() => {
-  return posts.value.length > 0 || pages.value.length > 0;
-});
-
 const searchListEl = ref<HTMLElement | null>(null);
 
 const setSearchListHeight = () => {
@@ -32,9 +30,16 @@ const setSearchListHeight = () => {
   searchListEl.value.style.height = 'auto';
   searchListEl.value.style.height = `${searchListEl.value.scrollHeight}px`;
 };
-watch([posts, pages], async () => {
-  await nextTick();
-  setSearchListHeight();
+
+const isSearchListNotEmpty = computed(() => {
+  return works.value.length > 0 || posts.value.length > 0 || notes.value.length > 0 || pages.value.length > 0 || categories_posts.value.length > 0 || categories_notes.value.length > 0;
+});
+
+watch(isSearch, async (value) => {
+  if (value) {
+    await nextTick();
+    setSearchListHeight();
+  }
 }, {
   immediate: true,
 });
@@ -54,25 +59,40 @@ watch([posts, pages], async () => {
         </button>
         <label
           class="relative w-full h-12 flex bg-white rounded-t border border-gray-300 dark:border-gray-500 dark:bg-gray-800">
-          <input type="text" v-model="keywords" @input="clearAllSearchList"
+          <input type="text" v-model="keywords"
             class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
           <Icon name="solar:magnifer-linear" class="absolute top-3.5 left-3 text-gray-500 z-10 text-lg" />
         </label>
       </div>
 
       <div ref="searchListEl"
-        class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white dark:bg-gray-800 rounded-b border-l border-r border-gray-300 shadow-lg z-110  dark:border-gray-500  overflow-y-scroll border-b"
-        :class="{ 'p-4 border-b': isShowSearchList }">
+        class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white  dark:bg-gray-800 rounded-b border-l border-r border-gray-300 shadow-lg z-110  dark:border-gray-500  overflow-y-scroll border-b "
+        :class="[{ 'p-4 border-0': isSearchListNotEmpty }, { 'max-h-120': isSearch }]">
+
+        <!-- 作品 -->
+        <AppSearchItemTitle v-if="works.length > 0" title="作品" />
+        <AppSearchItemButton v-for="(work, idx) in works" :key="idx" :keywords="keywords" :title="work.title"
+          icon="solar:gallery-round-bold" @handleToPage="setCloseModalAndToPage(`/works/${work.id}`)" />
 
         <!-- 文章 -->
-        <AppSearchItemTitle v-if="posts.length > 0" title="文章" />
+        <AppSearchItemTitle v-if="posts.length > 0 || categories_posts.length > 0" title="文章" />
         <AppSearchItemButton v-for="(post, idx) in posts" :key="idx" :keywords="keywords" :title="post.title"
           :description="post.description" @handleToPage="setCloseModalAndToPage(post.path)" />
+        <div v-if="categories_posts.length > 0" class="pt-1">
+          <p class="text-xs c-text-gray">分類</p>
+          <AppSearchItemButton v-for="(posts, idx) in categories_posts" :key="idx" :keywords="keywords" :title="posts"
+            @handleToPage="setCloseModalAndToPage(`/categories-posts/${notes}`)" />
+        </div>
 
         <!-- 筆記 -->
-        <AppSearchItemTitle v-if="notes.length > 0" title="筆記" />
+        <AppSearchItemTitle v-if="notes.length > 0 || categories_notes.length > 0" title="筆記" />
         <AppSearchItemButton v-for="(note, idx) in notes" :key="idx" :keywords="keywords" :title="note.title"
           :description="note.description" @handleToPage="setCloseModalAndToPage(note.path)" />
+        <div v-if="categories_notes.length > 0" class="pt-1">
+          <p class="text-xs c-text-gray">分類</p>
+          <AppSearchItemButton v-for="(notes, idx) in categories_notes" :key="idx" :keywords="keywords" :title="notes"
+            @handleToPage="setCloseModalAndToPage(`/categories-notes/${notes}`)" />
+        </div>
 
         <!-- 頁面 -->
         <AppSearchItemTitle v-if="pages.length > 0" title="頁面" />
