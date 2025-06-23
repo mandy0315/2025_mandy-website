@@ -18,9 +18,13 @@ defineEmits<{
 
 const keywordsHighlight = (keywords: string, text: string) => {
   if (!keywords || keywords.trim() === '') return text;
-  const reg = new RegExp(keywords, 'g');
+
+  // 跳脫特殊正規表達式字元
+  const escapedKeywords = keywords.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const reg = new RegExp(escapedKeywords, 'gi');
   if (!reg.test(text)) return text;
-  return text.replace(reg, `<mark>${keywords}</mark>`);
+
+  return text.replace(reg, `<mark>$&</mark>`); // 使用 $& 保留原始匹配的大小寫
 };
 </script>
 <template>
