@@ -5,7 +5,7 @@ withDefaults(
     title: string;
     description?: string;
     keywords: string;
-    icon?: 'solar:file-text-bold' | 'solar:folder-bold';
+    icon?: string;
   }>(),
   {
     icon: 'solar:file-text-bold',
@@ -18,15 +18,19 @@ defineEmits<{
 
 const keywordsHighlight = (keywords: string, text: string) => {
   if (!keywords || keywords.trim() === '') return text;
-  const reg = new RegExp(keywords, 'g');
+
+  // 跳脫特殊正規表達式字元
+  const escapedKeywords = keywords.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const reg = new RegExp(escapedKeywords, 'gi');
   if (!reg.test(text)) return text;
-  return text.replace(reg, `<mark>${keywords}</mark>`);
+
+  return text.replace(reg, `<mark>$&</mark>`); // 使用 $& 保留原始匹配的大小寫
 };
 </script>
 <template>
   <button @click="$emit('handleToPage')" class="flex group items-start text-left c-rounded-btn border-none w-full">
-    <Icon :name="icon" class="text-gray-500 text-lg mt-1 group-hover:dark:text-white" />
-    <div class="ml-2">
+    <Icon :name="icon" size="1rem" class="text-gray-500 mt-1 group-hover:dark:text-white" />
+    <div class="pl-2 w-8/10">
       <p v-html="keywordsHighlight(keywords, title)"></p>
       <p v-if="description" v-html="keywordsHighlight(keywords, description)" class="text-sm c-text-gray"></p>
     </div>

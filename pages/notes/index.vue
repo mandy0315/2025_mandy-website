@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { getCategories, goToCategoriesPage } = useCategory('notes');
-const categories = await getCategories(10);
+const { setCategories, goToCategoriesPage, categories } = await useCategory('notes');
+await setCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
-const { updateNotes, notes, isLoading } = useNote();
+const { updateNotes, notes, isLoading } = await useNote();
 await useAsyncData('noteList', () => updateNotes(currentPage.value, currentSort.value));
 
 watch([currentPage, currentSort], ([page, sort]) => {

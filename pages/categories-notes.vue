@@ -4,7 +4,7 @@ definePageMeta({
 })
 const route = useRoute();
 
-const { categories, goToCategoriesPage } = useCategory('notes');
+const { categories, goToCategoriesPage } = await useCategory('notes');
 const currentCategory = computed(() => route.params.category || '');
 </script>
 <template>

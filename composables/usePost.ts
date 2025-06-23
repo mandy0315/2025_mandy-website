@@ -8,9 +8,10 @@ interface Post {
 }
 
 type SortOrder = "ASC" | "DESC";
-export const usePost = () => {
+export const usePost = async () => {
   const limitCount = 9;
   const isLoading = useState<boolean>("loading", () => false);
+  const currentSort = useState<SortOrder>("currentSort", () => "DESC");
   const posts = useState<{
     list: Post[];
     totalPosts: number;
@@ -22,8 +23,14 @@ export const usePost = () => {
       totalPosts: 0,
     };
   });
+  const { data: postsData, refresh } = await useAsyncData("posts", async () => {
+    return await queryCollection("posts")
+      .order("date", currentSort.value)
+      .select("title", "path", "categories", "image", "description", "date")
+      .all();
+  });
 
-  const validateAndFormatSortOrder = (sort: string) => {
+  const validateAndFormatSortOrder = (sort: string): SortOrder | null => {
     if (["desc", "asc"].includes(sort)) {
       return sort.toUpperCase() as SortOrder;
     } else {
@@ -31,18 +38,17 @@ export const usePost = () => {
         statusCode: 404,
         statusMessage: "Page Not Found",
       });
+      return null;
     }
   };
 
-  const setPosts = async (sort: SortOrder = "DESC") => {
+  const setPosts = async () => {
     try {
-      const data = await queryCollection("posts")
-        .order("date", sort)
-        .select("title", "path", "categories", "image", "description", "date")
-        .all();
+      await refresh();
+      if (!postsData.value) return;
 
-      posts.value.list = data;
-      posts.value.totalPosts = data.length;
+      posts.value.list = postsData.value;
+      posts.value.totalPosts = postsData.value.length;
     } catch (error) {
       console.error("取得文章錯誤", error);
     }
@@ -83,13 +89,14 @@ export const usePost = () => {
     };
   };
 
-  const updatePosts = async (currentPage = 1, currentSort = "desc") => {
+  const updatePosts = async (page = 1, sort = "desc") => {
     isLoading.value = true;
-    const sort = validateAndFormatSortOrder(currentSort);
+    const sortToUpper = validateAndFormatSortOrder(sort);
+    if (sortToUpper) currentSort.value = sortToUpper;
 
-    await setPosts(sort || "DESC");
+    await setPosts();
 
-    setPaginatePosts(limitCount, currentPage);
+    setPaginatePosts(limitCount, page);
     isLoading.value = false;
   };
 

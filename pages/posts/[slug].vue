@@ -1,84 +1,51 @@
 <script setup lang="ts">
+const route = useRoute();
 
 const { currSection,
   setNavListener } = useNavListener();
-const route = useRoute();
-const { goToCategoriesPage } = useCategory();
+const { goToCategoriesPage } = await useCategory();
+const { prevData, nextData } = await useNavigation('posts', route.path);
 
 // 文章
-const { data: post } = await useAsyncData('post', () => {
-  return queryCollection('posts').path(`/posts/${route.params.slug}`).first();
+const { data: post } = await useAsyncData('post', async () => {
+  return await queryCollection('posts').path(`/posts/${route.params.slug}`).first();
 })
-
-// 上下篇文章
-const { data: prevPost } = await useAsyncData('prevPost', async () => {
-  const posts = await queryCollection('posts').select("title", "path", "description").all();
-  if (posts.length <= 1) return null;
-  const index = posts.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  // 如果有上一篇文章，返回上一篇，如果沒有，循環到最後一篇
-  if (index > 0) {
-    return posts[index - 1];
-  }
-  return posts[posts.length - 1];
-});
-const { data: nextPost } = await useAsyncData('nextPost', async () => {
-  const posts = await queryCollection('posts').select("title", "path", "description").all();
-  if (posts.length <= 1) return null;
-  const index = posts.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  if (index < posts.length - 1) {
-    return posts[index + 1];
-  }
-  // 如果沒有下一篇文章，循環到第一篇
-  return posts[0];
-});
 
 // 右側目錄
 type Section = {
+  id: string;
   title: string;
   element: HTMLElement | null;
   level: number;
 };
-const sectionsInfo = ref<Section[] | null>(null);
-const handleScrollToSection = (section: Section) => {
-  const MARGIN_TOP = 10;
-  if (section?.element) {
-    window.scrollTo({
-      top: section?.element.offsetTop - MARGIN_TOP,
-      behavior: 'smooth',
+
+const { data: tocInPosts } = await useAsyncData('tocInPosts', () => {
+  return queryCollectionSearchSections('posts');
+});
+const tocInfo = ref<Section[] | null>(null);
+const setTocInfo = async () => {
+  const currSections = tocInPosts.value?.filter(section =>
+    section.id.startsWith(route.path)
+  ) || [];
+  const thanLevel2Sections = currSections.filter(section => section.level >= 2);
+
+  if (thanLevel2Sections.length > 0) {
+    tocInfo.value = thanLevel2Sections.map((section) => {
+      const target = section.id.replace('#', '').replace(route.path, '');
+      return {
+        id: `#${target}`,
+        title: section.title,
+        element: document.getElementById(target),
+        level: section.level
+      };
     });
-  };
-}
-const setSectionsInfo = async () => {
-  try {
-    const allSectionsInPosts = await queryCollectionSearchSections('posts');
-    const currPosts = allSectionsInPosts.filter(section =>
-      section.id.startsWith(route.path)
-    ) || [];
-    const thanLevel2Sections = currPosts.filter(section => section.level >= 2);
-
-    if (thanLevel2Sections.length > 0) {
-      sectionsInfo.value = thanLevel2Sections.map((section) => {
-        const target = section.id.replace('#', '').replace(route.path, '');
-        return {
-          title: section.title,
-          element: document.getElementById(target),
-          level: section.level
-        };
-      });
-    }
-
-  } catch (error) {
-    console.error('取得文章段落錯誤', error);
   }
 };
-
-const initRightSide = async () => {
-  await setSectionsInfo();
-  if (!sectionsInfo.value) return;
+const initToc = async () => {
+  await setTocInfo();
+  if (!tocInfo.value) return;
   setNavListener({
-    navs: sectionsInfo.value.map(section => {
+    navs: tocInfo.value.map(section => {
       return {
         title: section.title,
         element: section.element
@@ -87,7 +54,7 @@ const initRightSide = async () => {
   });
 }
 onMounted(() => {
-  initRightSide();
+  initToc();
 })
 </script>
 
@@ -129,22 +96,26 @@ onMounted(() => {
 
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4 ">
-          <BaseSurroundCard v-if="prevPost" class="col-span-1" :path="prevPost.path" :title="prevPost.title" :idx="0"
-            :description="prevPost.description" />
-          <BaseSurroundCard v-if="nextPost" class="col-span-1" :path="nextPost.path" :title="nextPost.title" :idx="1"
-            :description="nextPost.description" />
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+              :description="prevData.description" />
+          </div>
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+              :description="nextData.description" />
+          </div>
         </div>
       </div>
     </template>
     <template #right-side>
       <BaseSidebarTitle>目錄</BaseSidebarTitle>
       <ul class="c-text-gray">
-        <li v-for="section in sectionsInfo">
-          <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
+        <li v-for="section in tocInfo">
+          <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
             :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-            @click="handleScrollToSection(section)">
+            :to="`${route.path}${section.id}`">
             {{ section.title }}
-          </div>
+          </NuxtLink>
         </li>
       </ul>
     </template>

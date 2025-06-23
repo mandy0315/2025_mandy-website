@@ -8,9 +8,10 @@ interface Note {
 }
 
 type SortOrder = "ASC" | "DESC";
-export const useNote = () => {
+export const useNote = async () => {
   const limitCount = 9;
   const isLoading = useState<boolean>("loading_notes", () => false);
+  const currentSort = useState<SortOrder>("currentSort_notes", () => "DESC");
   const notes = useState<{
     list: Note[];
     totalNotes: number;
@@ -21,6 +22,13 @@ export const useNote = () => {
       list: [],
       totalNotes: 0,
     };
+  });
+
+  const { data: notesData, refresh } = await useAsyncData("notes", async () => {
+    return await queryCollection("notes")
+      .order("date", currentSort.value)
+      .select("title", "path", "categories", "image", "description", "date")
+      .all();
   });
 
   const validateAndFormatSortOrder = (sort: string) => {
@@ -34,15 +42,13 @@ export const useNote = () => {
     }
   };
 
-  const setNotes = async (sort: SortOrder = "DESC") => {
+  const setNotes = async () => {
     try {
-      const data = await queryCollection("notes")
-        .order("date", sort)
-        .select("title", "path", "categories", "image", "description", "date")
-        .all();
+      await refresh();
+      if (!notesData.value) return;
 
-      notes.value.list = data;
-      notes.value.totalNotes = data.length;
+      notes.value.list = notesData.value;
+      notes.value.totalNotes = notesData.value.length;
     } catch (error) {
       console.error("取得文章錯誤", error);
     }
@@ -83,13 +89,14 @@ export const useNote = () => {
     };
   };
 
-  const updateNotes = async (currentPage = 1, currentSort = "desc") => {
+  const updateNotes = async (page = 1, sort = "desc") => {
     isLoading.value = true;
-    const sort = validateAndFormatSortOrder(currentSort);
+    const sortToUpper = validateAndFormatSortOrder(sort);
+    if (sortToUpper) currentSort.value = sortToUpper;
 
-    await setNotes(sort || "DESC");
+    await setNotes();
 
-    setPaginateNotes(limitCount, currentPage);
+    setPaginateNotes(limitCount, page);
     isLoading.value = false;
   };
 

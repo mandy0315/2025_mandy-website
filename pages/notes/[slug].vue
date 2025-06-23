@@ -1,84 +1,51 @@
 <script setup lang="ts">
+const route = useRoute();
+
 const { currSection,
   setNavListener } = useNavListener();
-const route = useRoute();
-const { goToCategoriesPage } = useCategory('notes');
-
+const { goToCategoriesPage } = await useCategory('notes');
+const { prevData, nextData } = await useNavigation('notes', route.path);
 
 // 文章
 const { data: note } = await useAsyncData('note', () => {
   return queryCollection('notes').path(`/notes/${route.params.slug}`).first();
 })
 
-// 上下篇文章
-const { data: prevNote } = await useAsyncData('prevNote', async () => {
-  const notes = await queryCollection('notes').select("title", "path", "description").all();
-  if (notes.length <= 1) return null;
-  const index = notes.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  // 如果有上一篇文章，返回上一篇，如果沒有，循環到最後一篇
-  if (index > 0) {
-    return notes[index - 1];
-  }
-  return notes[notes.length - 1];
-});
-const { data: nextNote } = await useAsyncData('nextNote', async () => {
-  const notes = await queryCollection('notes').select("title", "path", "description").all();
-  if (notes.length <= 1) return null;
-  const index = notes.findIndex((post) => post.path === route.path);
-  if (index === -1) return null;
-  if (index < notes.length - 1) {
-    return notes[index + 1];
-  }
-  // 如果沒有下一篇文章，循環到第一篇
-  return notes[0];
-});
-
 // 右側目錄
 type Section = {
+  id: string;
   title: string;
   element: HTMLElement | null;
   level: number;
 };
-const sectionsInfo = ref<Section[] | null>(null);
-const handleScrollToSection = (section: Section) => {
-  const MARGIN_TOP = 10;
-  if (section?.element) {
-    window.scrollTo({
-      top: section?.element.offsetTop - MARGIN_TOP,
-      behavior: 'smooth',
+
+const { data: tocInNote } = await useAsyncData('tocInNote', () => {
+  return queryCollectionSearchSections('notes');
+});
+const tocInfo = ref<Section[] | null>(null);
+const setTocInfo = async () => {
+  const currSections = tocInNote.value?.filter(section =>
+    section.id.startsWith(route.path)
+  ) || [];
+  const thanLevel2Sections = currSections.filter(section => section.level >= 2);
+
+  if (thanLevel2Sections.length > 0) {
+    tocInfo.value = thanLevel2Sections.map((section) => {
+      const target = section.id.replace('#', '').replace(route.path, '');
+      return {
+        id: `#${target}`,
+        title: section.title,
+        element: document.getElementById(target),
+        level: section.level
+      };
     });
-  };
-}
-const setSectionsInfo = async () => {
-  try {
-    const allSectionsInNotes = await queryCollectionSearchSections('notes');
-    const currNotes = allSectionsInNotes.filter(section =>
-      section.id.startsWith(route.path)
-    ) || [];
-    const thanLevel2Sections = currNotes.filter(section => section.level >= 2);
-
-    if (thanLevel2Sections.length > 0) {
-      sectionsInfo.value = thanLevel2Sections.map((section) => {
-        const target = section.id.replace('#', '').replace(route.path, '');
-        return {
-          title: section.title,
-          element: document.getElementById(target),
-          level: section.level
-        };
-      });
-    }
-
-  } catch (error) {
-    console.error('取得文章段落錯誤', error);
   }
 };
-
-const initRightSide = async () => {
-  await setSectionsInfo();
-  if (!sectionsInfo.value) return;
+const initToc = async () => {
+  await setTocInfo();
+  if (!tocInfo.value) return;
   setNavListener({
-    navs: sectionsInfo.value.map(section => {
+    navs: tocInfo.value.map(section => {
       return {
         title: section.title,
         element: section.element
@@ -87,7 +54,7 @@ const initRightSide = async () => {
   });
 }
 onMounted(() => {
-  initRightSide();
+  initToc();
 })
 </script>
 
@@ -129,22 +96,26 @@ onMounted(() => {
 
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4 ">
-          <BaseSurroundCard v-if="prevNote" class="col-span-1" :path="prevNote.path" :title="prevNote.title" :idx="0"
-            :description="prevNote.description" />
-          <BaseSurroundCard v-if="nextNote" class="col-span-1" :path="nextNote.path" :title="nextNote.title" :idx="1"
-            :description="nextNote.description" />
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+              :description="prevData.description" />
+          </div>
+          <div class="col-span-1">
+            <BaseSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+              :description="nextData.description" />
+          </div>
         </div>
       </div>
     </template>
     <template #right-side>
       <BaseSidebarTitle>目錄</BaseSidebarTitle>
       <ul class="c-text-gray">
-        <li v-for="section in sectionsInfo">
-          <div v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
+        <li v-for="section in tocInfo">
+          <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
             :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-            @click="handleScrollToSection(section)">
+            :to="`${route.path}${section.id}`">
             {{ section.title }}
-          </div>
+          </NuxtLink>
         </li>
       </ul>
     </template>

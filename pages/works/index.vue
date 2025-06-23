@@ -80,19 +80,17 @@ onUnmounted(() => {
         </div>
       </div>
     </section>
-    <ClientOnly>
-      <section>
-        <div class="col-start-2 col-end-6 grid grid-cols-3">
-          <NuxtLink v-for="(data, index) in workData" :key="data.id"
-            class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
-            :to="`/works/${data.id}`">
-            <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
-              class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" :alt="data.title"
-              @error="handleImageError($event)" />
-          </NuxtLink>
-        </div>
-      </section>
-    </ClientOnly>
+    <section>
+      <div class="col-start-2 col-end-6 grid grid-cols-3">
+        <NuxtLink v-for="(data, index) in workData" :key="data.id"
+          class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
+          :to="`/works/${data.id}`">
+          <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
+            class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" :alt="data.title"
+            @error="handleImageError($event)" />
+        </NuxtLink>
+      </div>
+    </section>
   </div>
 
 
