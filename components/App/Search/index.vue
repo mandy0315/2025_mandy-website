@@ -81,7 +81,7 @@ watch(isSearch, async (value) => {
         <div v-if="categories_posts.length > 0" class="pt-1">
           <p class="text-xs c-text-gray">分類</p>
           <AppSearchItemButton v-for="(posts, idx) in categories_posts" :key="idx" :keywords="keywords" :title="posts"
-            @handleToPage="setCloseModalAndToPage(`/categories-posts/${notes}`)" />
+            @handleToPage="setCloseModalAndToPage(`/categories-posts/${posts}`)" />
         </div>
 
         <!-- 筆記 -->
