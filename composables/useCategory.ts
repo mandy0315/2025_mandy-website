@@ -21,10 +21,6 @@ export const useCategory = async (type: "posts" | "notes" = "posts") => {
     categories.value = [];
     try {
       await refresh();
-      const selectItemInList = await queryCollection(type)
-        .order("date", "DESC")
-        .select("categories")
-        .all();
 
       if (!categoriesData.value) {
         categoriesData.value = [];
