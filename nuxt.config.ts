@@ -3,17 +3,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "MandySpace",
       htmlAttrs: {
         lang: "en",
       },
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
       meta: [
-        {
-          name: "description",
-          content:
-            "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～",
-        },
         {
           name: "author",
           content: "蔡敏佳 (Mandy Tsai)",
@@ -21,15 +15,6 @@ export default defineNuxtConfig({
         {
           name: "copyright",
           content: "2025 mandy space. All rights reserved.",
-        },
-        {
-          property: "og:title",
-          content: "MandySpace",
-        },
-        {
-          property: "og:description",
-          content:
-            "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～",
         },
         // {
         //   property: "og:image",

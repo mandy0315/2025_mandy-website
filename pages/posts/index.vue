@@ -1,4 +1,7 @@
 <script setup lang="ts">
+usePageSEO({
+  title: '文章',
+})
 const { setCategories, goToCategoriesPage, categories } = await useCategory();
 await setCategories(10);
 const currentPage = ref(1);

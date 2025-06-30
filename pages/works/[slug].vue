@@ -23,6 +23,10 @@ const currentWork = computed(() => {
   return allData.find((item: WorkItem) => item.id === currentSlug);
 });
 
+usePageSEO({
+  title: currentWork.value?.title || '',
+  description: currentWork.value?.description || '',
+})
 </script>
 <template>
   <article v-if="currentWork" class="py-10">
