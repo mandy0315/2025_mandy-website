@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isShowSearchModal } = useSearch();
+const { isShowSearchModal } = await useSearch();
 
 </script>
 
