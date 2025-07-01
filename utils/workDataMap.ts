@@ -22,7 +22,7 @@ export interface WorkItem {
 }
 
 export const workDataMap = new Map<WorkCategories, WorkItem[]>([
+  ["web", WebData],
   ["ui", UIData],
   ["vision", VisionData],
-  ["web", WebData],
 ]);

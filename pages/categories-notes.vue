@@ -2,6 +2,9 @@
 definePageMeta({
   middleware: ['categories']
 })
+usePageSEO({
+  title: '筆記分類',
+})
 const route = useRoute();
 
 const { categories, goToCategoriesPage } = await useCategory('notes');

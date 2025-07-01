@@ -1,4 +1,7 @@
 <script setup lang="ts">
+usePageSEO({
+  title: '作品',
+})
 import { workDataMap, type WorkItem } from '@/utils/workDataMap'
 
 

@@ -4,7 +4,7 @@
     "category": "web",
     "type": "personal",
     "title": "CodePain練習網站",
-    "description": "致敬 CodePen 所打造的復刻專案「CodePain」，由 6 人歷時 1.5 個月共同開發，作為功能型網站開發的實戰練習。專案核心功能包含使用 Ace 套件實作線上編輯器，並透過 API 實現資料的新增、存取與修改。另設計社群互動功能，如愛心、鎖定、留言等，強化使用者參與感；會員系統則結合 Rails Devise 套件與第三方登入機制，打造完整的登入驗證流程。",
+    "description": "致敬 CodePen 開發部分功能，由 6 人歷時 1.5 個月共同開發，作為功能型網站開發的實戰練習。專案核心功能包含使用 Ace 套件實作線上編輯器，並透過 API 實現資料的新增、存取與修改。另設計社群互動功能，如愛心、鎖定、留言等，強化使用者參與感；會員系統則結合 Rails Devise 套件與第三方登入機制，打造完整的登入驗證流程。",
     "link": null,
     "image": "/images/works/web/codePain.jpg",
     "client": null,
@@ -185,22 +185,6 @@
       "jQuery"
     ],
     "date": 2019,
-    "status": "completed"
-  },
-  {
-    "id": "yuennurse",
-    "category": "web",
-    "type": "commercial",
-    "title": "宇恩到府月子護理長一頁式官網",
-    "description": "「溫馨可愛風格」做為核心主題，網頁給人親近、信賴感；色彩以嬰兒色淡粉紅、淡藍、淡黃為主；內容加入可愛插圖，講解到府的服務，並且加入簡易圖表，了解與一般月子中心的差異。此專案僅負責網站設計。",
-    "link": null,
-    "image": "/images/works/web/yuennurse.jpg",
-    "client": "宇恩到府月子護理長",
-    "skills": [
-      "Photoshop",
-      "Illustrator"
-    ],
-    "date": null,
     "status": "completed"
   }
 ]

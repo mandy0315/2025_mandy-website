@@ -1,6 +1,32 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      meta: [
+        {
+          name: "author",
+          content: "蔡敏佳 (Mandy Tsai)",
+        },
+        {
+          name: "copyright",
+          content: "2025 mandy space. All rights reserved.",
+        },
+        // {
+        //   property: "og:image",
+        //   content: "/images/og-image.png",
+        // },
+        // {
+        //   property: "og:url",
+        //   content: "https://mandy.space",
+        // },
+      ],
+    },
+  },
   devtools: { enabled: true },
 
   modules: [

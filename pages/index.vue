@@ -1,4 +1,7 @@
 <script setup lang="ts">
+usePageSEO({
+  title: '首頁',
+})
 </script>
 
 <template>

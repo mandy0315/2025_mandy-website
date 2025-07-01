@@ -11,6 +11,11 @@ const { data: note } = await useAsyncData('note', () => {
   return queryCollection('notes').path(`/notes/${route.params.slug}`).first();
 })
 
+usePageSEO({
+  title: note.value?.title || '',
+  description: note.value?.description || '',
+})
+
 // 右側目錄
 type Section = {
   id: string;
