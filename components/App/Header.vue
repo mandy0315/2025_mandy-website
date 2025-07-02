@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { pageMap } from "@/utils/appMap";
+
+const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 </script>
 <template>
   <header
@@ -10,9 +14,9 @@ import { pageMap } from "@/utils/appMap";
     <!-- menu -->
     <ul class="flex items-center gap-4">
       <li v-for="(item, index) in pageMap.values()" :key="index">
-        <NuxtLink v-if="item.title !== '首頁'" :to="item.path"
+        <NuxtLink v-if="item.title !== 'home'" :to="item.path"
           class="text-[var(--text-color)] hover:text-[var(--primary-color)] transition-all duration-300 ease-in-out">
-          {{ item.title }}
+          {{ capitalize(item.title) }}
         </NuxtLink>
       </li>
     </ul>
