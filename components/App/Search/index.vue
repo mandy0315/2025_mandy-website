@@ -47,9 +47,8 @@ watch(isSearch, async (value) => {
 
 <template>
 
-  <button @click="isShowSearchModal = !isShowSearchModal"
-    class="w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-100/20 rounded">
-    <Icon name="solar:magnifer-linear" class="align-middle" size="1.2rem" />
+  <button @click="isShowSearchModal = !isShowSearchModal" class="pr-2  rounded lg:pr-0">
+    <Icon name="solar:magnifer-linear" class="align-middle" size="0.9rem" />
   </button>
   <Teleport to="body">
     <div v-if="isShowSearchModal">
