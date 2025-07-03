@@ -12,22 +12,10 @@ const capitalize = (str: string) => {
     </NuxtLink>
     <!-- bg-[var(--bg-color)]/80 -->
     <div
-      class="backdrop-blur-sm h-c-mobile-header-height flex border-b c-border-gray w-full fixed top-0 justify-between items-center z-50">
-
-      <!-- menu -->
-      <!-- <ul class="flex items-center gap-4">
-      <li v-for="(item, index) in pageMap.values()" :key="index">
-        <NuxtLink v-if="item.title !== 'home'" :to="item.path"
-          class="text-[var(--text-color)] hover:text-[var(--primary-color)] transition-all duration-300 ease-in-out">
-          {{ capitalize(item.title) }}
-        </NuxtLink>
-      </li>
-    </ul> -->
-      <!-- tools -->
-      <div class="flex items-center">
-        <AppSearch />
-        <AppColorModel />
-      </div>
+      class="bg-amber-300 backdrop-blur-sm h-c-mobile-header-height flex border-b c-border-gray w-full fixed top-0 justify-between items-center z-50 flex-row-reverse px-4">
+      <AppMenu class="px-1.5" />
+      <AppSearch class="px-1.5" />
+      <AppColorModel class="ml-auto" />
     </div>
   </header>
 
