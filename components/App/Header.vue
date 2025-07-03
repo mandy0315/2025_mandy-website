@@ -6,24 +6,29 @@ const capitalize = (str: string) => {
 };
 </script>
 <template>
-  <header
-    class="bg-[var(--bg-color)]/80 backdrop-blur-sm h-c-header-height flex border-b c-border-gray w-full sticky top-0 justify-between items-center z-50">
-    <NuxtLink to="/">
+  <header>
+    <NuxtLink to="/" class="fixed top-4 left-4 z-100">
       Logo
     </NuxtLink>
-    <!-- menu -->
-    <ul class="flex items-center gap-4">
+    <!-- bg-[var(--bg-color)]/80 -->
+    <div
+      class="backdrop-blur-sm h-c-mobile-header-height flex border-b c-border-gray w-full fixed top-0 justify-between items-center z-50">
+
+      <!-- menu -->
+      <!-- <ul class="flex items-center gap-4">
       <li v-for="(item, index) in pageMap.values()" :key="index">
         <NuxtLink v-if="item.title !== 'home'" :to="item.path"
           class="text-[var(--text-color)] hover:text-[var(--primary-color)] transition-all duration-300 ease-in-out">
           {{ capitalize(item.title) }}
         </NuxtLink>
       </li>
-    </ul>
-    <!-- tools -->
-    <div class="flex items-center">
-      <AppSearch />
-      <AppColorModel />
+    </ul> -->
+      <!-- tools -->
+      <div class="flex items-center">
+        <AppSearch />
+        <AppColorModel />
+      </div>
     </div>
   </header>
+
 </template>

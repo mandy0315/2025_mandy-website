@@ -6,18 +6,12 @@ const { isShowSearchModal } = await useSearch();
 <template>
   <Body :class="{ 'overflow-hidden': isShowSearchModal }">
     <AppPageLoading />
-
-
-    <NuxtLink to="/" class="fixed top-4 left-4 z-100">
-      Logo
-    </NuxtLink>
-
-    <AppHeader />
-
-    <main class="max-w-[1200px] px-4 mx-auto min-h-[calc(100vh-theme(spacing.c-header-height))]">
-      <NuxtPage />
-    </main>
-
-    <AppFooter />
+    <div id="container" class="flex flex-col min-h-screen">
+      <AppHeader />
+      <main class="flex-1 mt-c-mobile-header-height">
+        <NuxtPage />
+      </main>
+      <AppFooter />
+    </div>
   </Body>
 </template>

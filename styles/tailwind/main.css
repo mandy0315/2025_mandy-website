@@ -6,7 +6,7 @@
 
 @theme {
   --color-c-light-blue: #62a4f5;
-  --spacing-c-header-height: 3.2rem;
+  --spacing-c-mobile-header-height: 3.2rem;
 }
 
 @layer base {
