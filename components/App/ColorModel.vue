@@ -5,7 +5,6 @@ const toggleTheme = () => {
 }
 </script>
 <template>
-
   <div>
     <ClientOnly>
       <button @click="toggleTheme" class="rounded pr-2 lg:pr-0">
