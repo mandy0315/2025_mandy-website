@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { pageMap } from "@/utils/appMap";
 
-const capitalize = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
 </script>
 <template>
   <header>

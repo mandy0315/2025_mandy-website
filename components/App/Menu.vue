@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { pageMap } from "@/utils/appMap";
+
+const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 const isOpenModal = ref(false);
 </script>
 <template>
@@ -15,8 +20,16 @@ const isOpenModal = ref(false);
           :class="{ '-rotate-35 translate-x-[2px]': isOpenModal }"></div>
       </div>
     </button>
-    <div v-if="isOpenModal" class="fixed z-80 top-0 left-0 w-full h-full bg-white ">
-      menu
+    <div
+      class="fixed flex items-center flex-col justify-start z-80 top-0 left-0 h-full w-full transition-transform duration-700 bg-[var(--bg-color)] pt-20 lg:flex-row lg:pt-0 "
+      :class="isOpenModal ? 'translate-x-0' : 'translate-x-full'">
+      <div class="w-7/10 h-50 bg-c-image-gray mb-6 lg:h-full lg:mb-0">image</div>
+      <div class="lg:mx-auto">
+        <NuxtLink v-for="(item, index) in pageMap.values()" :key="index" :to="item.path" @click="isOpenModal = false"
+          class="py-4 block">
+          {{ capitalize(item.title) }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 
