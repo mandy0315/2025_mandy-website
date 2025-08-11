@@ -61,18 +61,18 @@ export default defineNuxtConfig({
     preset: process.env.VL_BUILD ? "vercel" : undefined,
     prerender: {
       crawlLinks: true, // 連結預先渲染
-      routes: ["/", "/posts", "/works"], // 預先渲染的路由
+      routes: ["/", "/blog", "/works"], // 預先渲染的路由
     },
   },
 
   routeRules: {
     // 靜態頁面
     "/": { prerender: true },
-    "/posts": { prerender: true },
+    "/blog": { prerender: true },
     "/works": { prerender: true },
 
     // 動態路由 - SSR模式
-    "/posts/**": {
+    "/blog/**": {
       prerender: false,
       cache: {
         maxAge: 60 * 10, // 緩存10分鐘
