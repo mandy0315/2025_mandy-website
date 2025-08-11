@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const path = String(to.path || "");
   const pathName = path
-    .match(/\/categories-(posts|notes)/)?.[0]
+    .match(/\/categories-(blog|notes)/)?.[0]
     ?.replace("/", "");
 
   const pathParam = String(to.params?.category || "").trim();
@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       statusMessage: "Page Not Found",
     });
   }
-  const type = pathName === "categories-posts" ? "posts" : "notes";
+  const type = pathName === "categories-blog" ? "blog" : "notes";
   const { setCategories, categories } = await useCategory(type);
   await setCategories();
 

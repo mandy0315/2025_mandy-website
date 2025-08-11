@@ -24,7 +24,7 @@ export const usePost = async () => {
     };
   });
   const { data: postsData, refresh } = await useAsyncData("posts", async () => {
-    return await queryCollection("posts")
+    return await queryCollection("blog")
       .order("date", currentSort.value)
       .select("title", "path", "categories", "image", "description", "date")
       .all();

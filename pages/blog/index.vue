@@ -51,7 +51,7 @@ watch([currentPage, currentSort], ([page, sort]) => {
           {{ category }}
         </BaseTag>
       </div>
-      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories-posts">更多分類</NuxtLink>
+      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories-blog">更多分類</NuxtLink>
     </template>
   </NuxtLayout>
 </template>

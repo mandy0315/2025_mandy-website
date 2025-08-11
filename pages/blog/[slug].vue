@@ -4,11 +4,11 @@ const route = useRoute();
 const { currSection,
   setNavListener } = useNavListener();
 const { goToCategoriesPage } = await useCategory();
-const { prevData, nextData } = await useNavigation('posts', route.path);
+const { prevData, nextData } = await useNavigation('blog', route.path);
 
 // 文章
 const { data: post } = await useAsyncData('post', async () => {
-  return await queryCollection('posts').path(`/posts/${route.params.slug}`).first();
+  return await queryCollection('blog').path(`/blog/${route.params.slug}`).first();
 })
 
 usePageSEO({
@@ -25,7 +25,7 @@ type Section = {
 };
 
 const { data: tocInPosts } = await useAsyncData('tocInPosts', () => {
-  return queryCollectionSearchSections('posts');
+  return queryCollectionSearchSections('blog');
 });
 const tocInfo = ref<Section[] | null>(null);
 const setTocInfo = async () => {

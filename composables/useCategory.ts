@@ -1,16 +1,16 @@
-export const useCategory = async (type: "posts" | "notes" = "posts") => {
+export const useCategory = async (collection: "blog" | "notes" = "blog") => {
   const router = useRouter();
-  const categories = useState<string[]>(`categories-${type}`, () => []);
+  const categories = useState<string[]>(`categories-${collection}`, () => []);
 
   const goToCategoriesPage = (category: string) => {
-    const path = encodeURI(`/categories-${type}/${category}`);
+    const path = encodeURI(`/categories-${collection}/${category}`);
     router.push(path);
   };
 
   const { data: categoriesData, refresh } = await useAsyncData(
-    `category-${type}-data`,
+    `category-${collection}-data`,
     async () => {
-      return await queryCollection(type)
+      return await queryCollection(collection)
         .order("date", "DESC")
         .select("categories")
         .all();
