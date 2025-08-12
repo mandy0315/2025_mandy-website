@@ -4,13 +4,13 @@ usePageSEO({
 })
 const { refreshCategories, goToCategoriesPage, categories } = await useCategory('notes');
 await refreshCategories(10);
-const currentPage = ref(1);
-const currentSort = ref('desc');
-const { updateNotes, notes, isLoading } = await useNote();
-await useAsyncData('noteList', () => updateNotes(currentPage.value, currentSort.value));
 
-watch([currentPage, currentSort], ([page, sort]) => {
-  updateNotes(page, sort);
+const currentPage = ref(1);
+const { initPosts, refreshPosts, posts, isLoading, currentSort } = await usePosts('notes');
+initPosts(currentPage.value);
+
+watch([currentPage, currentSort], async () => {
+  await refreshPosts(currentPage.value);
 });
 
 </script>
@@ -23,7 +23,7 @@ watch([currentPage, currentSort], ([page, sort]) => {
           筆記
           <template #directions>
             目前有
-            <span class="text-c-light-blue font-medium">"{{ notes.totalNotes || 0 }}"</span>
+            <span class="text-c-light-blue font-medium">"{{ posts.totalPosts || 0 }}"</span>
             篇文章，紀錄著我生活大小事，歡迎閱讀！
           </template>
         </BaseListTitle>
@@ -31,16 +31,16 @@ watch([currentPage, currentSort], ([page, sort]) => {
         <div class="pb-4 ml-auto text-right">
           <p class="c-text-gray inline-block">文章排序：</p>
           <select v-model="currentSort" class="c-rounded-btn rounded py-1 px-2">
-            <option value="desc">新到舊</option>
-            <option value="asc">舊到新</option>
+            <option value="DESC">新到舊</option>
+            <option value="ASC">舊到新</option>
           </select>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          <BaseCard v-for="note in notes.list" v-bind="note" :key="note.title" class="col-span-1" />
+          <BaseCard v-for="note in posts.list" v-bind="note" :key="note.title" class="col-span-1" />
         </div>
 
-        <BasePagination v-if="notes.totalPage" v-model:current-page="currentPage" :totalPage="notes.totalPage" />
+        <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />
 
       </div>
     </template>
