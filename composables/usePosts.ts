@@ -10,7 +10,7 @@ interface Post {
 type SortOrder = "ASC" | "DESC";
 export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   const limitCount = 9;
-  const currentSort = useState<SortOrder>("currentSort", () => "DESC");
+  const currentSort = useState<SortOrder>(`${collection}-sort`, () => "DESC");
   const posts = useState<{
     list: Post[];
     totalPosts: number;
@@ -69,39 +69,35 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     };
   };
 
-  const initPosts = (page = 1) => {
-    if (!postsData.value) return;
-
-    posts.value.list = postsData.value;
-    posts.value.totalPosts = postsData.value.length;
-    setPaginatePosts(limitCount, page);
+  const setPosts = (page = 1) => {
+    if (postsData.value) {
+      posts.value.list = postsData.value;
+      posts.value.totalPosts = postsData.value.length;
+      setPaginatePosts(limitCount, page);
+    }
   };
 
   const refreshPosts = async (page = 1) => {
     await refresh();
-    if (!postsData.value) return;
-
-    posts.value.list = postsData.value;
-    posts.value.totalPosts = postsData.value.length;
-    setPaginatePosts(limitCount, page);
+    setPosts(page);
   };
 
   const refreshCategoryPosts = async (page = 1, category: string) => {
     currentSort.value = "DESC";
     await refresh();
-    if (!postsData.value) return;
-
-    posts.value.list = postsData.value;
-    posts.value.totalPosts = postsData.value.length;
-    setCategoryPosts(category);
-    setPaginatePosts(limitCount, page);
+    if (postsData.value) {
+      posts.value.list = postsData.value;
+      posts.value.totalPosts = postsData.value.length;
+      setCategoryPosts(category);
+      setPaginatePosts(limitCount, page);
+    }
   };
 
   return {
     posts,
     pending, // 使用 useAsyncData 內建的 pending 狀態
     currentSort,
-    initPosts,
+    setPosts,
     refreshPosts,
     refreshCategoryPosts,
   };
