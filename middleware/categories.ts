@@ -1,30 +1,27 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const path = String(to.path || "");
-  const pathName = path
-    .match(/\/categories-(blog|notes)/)?.[0]
-    ?.replace("/", "");
-
-  const pathParam = String(to.params?.category || "").trim();
-
-  if (!pathName) {
+  const path = String(to.path) || "";
+  const collectionMatch =
+    path.match(/\/(blog|notes)/)?.[0]?.replace("/", "") || "";
+  if (collectionMatch === "") {
     showError({
       statusCode: 404,
       statusMessage: "Page Not Found",
     });
   }
-  const type = pathName === "categories-blog" ? "blog" : "notes";
-  const { setCategories, categories } = await useCategory(type);
-  await setCategories();
+  const collection = collectionMatch as "blog" | "notes";
+  const { setCategories, categories } = await useCategory(collection);
+  setCategories();
 
-  // 如果沒有 category 參數，重定向到第一個分類
-  if (!pathParam && categories.value.length > 0) {
-    return navigateTo(`/categories-${type}/${categories.value[0]}`, {
+  const category = String(to.params?.category || "");
+  console.log(categories.value, category);
+  // 沒有 category 並有分類列表，重定向到第一個分類
+  if (category === "" && categories.value.length > 0) {
+    return navigateTo(`/${collection}/categories/${categories.value[0]}`, {
       replace: true, // 使用 replace 以避免在歷史記錄中留下重定向
     });
   }
-
-  // 如果有 category 參數但不在有效分類中
-  if (pathParam && !categories.value.includes(pathParam)) {
+  // 分類裡沒有該分類
+  if (category && !categories.value.includes(category)) {
     throw createError({
       statusCode: 404,
       statusMessage: "Category Not Found",
