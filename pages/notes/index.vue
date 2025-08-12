@@ -6,7 +6,7 @@ const { refreshCategories, goToCategoriesPage, categories } = await useCategory(
 await refreshCategories(10);
 
 const currentPage = ref(1);
-const { initPosts, refreshPosts, posts, isLoading, currentSort } = await usePosts('notes');
+const { initPosts, refreshPosts, posts, pending, currentSort } = await usePosts('notes');
 initPosts(currentPage.value);
 
 watch([currentPage, currentSort], async () => {
@@ -17,7 +17,7 @@ watch([currentPage, currentSort], async () => {
 <template>
   <NuxtLayout name="content-with-sidebar">
     <template #content>
-      <div v-if="isLoading">loading....</div>
+      <div v-if="pending">載入中....</div>
       <div v-else>
         <BaseListTitle>
           筆記
@@ -37,7 +37,7 @@ watch([currentPage, currentSort], async () => {
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          <BaseCard v-for="note in posts.list" v-bind="note" :key="note.title" class="col-span-1" />
+          <BaseCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
         </div>
 
         <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />

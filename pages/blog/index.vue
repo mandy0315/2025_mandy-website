@@ -5,8 +5,7 @@ usePageSEO({
 const { refreshCategories, goToCategoriesPage, categories } = await useCategory();
 await refreshCategories(10);
 const currentPage = ref(1);
-const currentSort = ref('desc');
-const { initPosts, refreshPosts, posts, isLoading } = await usePosts('blog');
+const { initPosts, refreshPosts, posts, pending, currentSort } = await usePosts('blog');
 initPosts(currentPage.value)
 
 watch([currentPage, currentSort], async () => {
@@ -17,7 +16,7 @@ watch([currentPage, currentSort], async () => {
 <template>
   <NuxtLayout name="content-with-sidebar">
     <template #content>
-      <div v-if="isLoading">loading....</div>
+      <div v-if="pending">載入中....</div>
       <div v-else>
         <BaseListTitle>
           文章
@@ -31,13 +30,13 @@ watch([currentPage, currentSort], async () => {
         <div class="pb-4 ml-auto text-right">
           <p class="c-text-gray inline-block">文章排序：</p>
           <select v-model="currentSort" class="c-rounded-btn rounded py-1 px-2">
-            <option value="desc">新到舊</option>
-            <option value="asc">舊到新</option>
+            <option value="DESC">新到舊</option>
+            <option value="ASC">舊到新</option>
           </select>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
-          <BaseCard v-for="blog in posts.list" v-bind="blog" :key="blog.title" class="col-span-1" />
+          <BaseCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
         </div>
 
         <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />

@@ -10,7 +10,6 @@ interface Post {
 type SortOrder = "ASC" | "DESC";
 export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   const limitCount = 9;
-  const isLoading = useState<boolean>("loading", () => false);
   const currentSort = useState<SortOrder>("currentSort", () => "DESC");
   const posts = useState<{
     list: Post[];
@@ -24,15 +23,16 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     };
   });
 
-  const { data: postsData, refresh } = await useAsyncData(
-    `${collection}-posts-data`,
-    async () => {
-      return await queryCollection(collection)
-        .order("date", currentSort.value)
-        .select("title", "path", "categories", "image", "description", "date")
-        .all();
-    }
-  );
+  const {
+    data: postsData,
+    refresh,
+    pending,
+  } = await useAsyncData(`${collection}-posts-data`, async () => {
+    return await queryCollection(collection)
+      .order("date", currentSort.value)
+      .select("title", "path", "categories", "image", "description", "date")
+      .all();
+  });
 
   const setCategoryPosts = (category: string) => {
     const list = posts.value.list;
@@ -78,42 +78,28 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   };
 
   const refreshPosts = async (page = 1) => {
-    try {
-      isLoading.value = true;
-      await refresh();
-      if (!postsData.value) return;
+    await refresh();
+    if (!postsData.value) return;
 
-      posts.value.list = postsData.value;
-      posts.value.totalPosts = postsData.value.length;
-      setPaginatePosts(limitCount, page);
-    } catch (error) {
-      console.error("取得文章錯誤", error);
-    } finally {
-      isLoading.value = false;
-    }
+    posts.value.list = postsData.value;
+    posts.value.totalPosts = postsData.value.length;
+    setPaginatePosts(limitCount, page);
   };
 
   const refreshCategoryPosts = async (page = 1, category: string) => {
     currentSort.value = "DESC";
-    try {
-      isLoading.value = true;
-      await refresh();
-      if (!postsData.value) return;
+    await refresh();
+    if (!postsData.value) return;
 
-      posts.value.list = postsData.value;
-      posts.value.totalPosts = postsData.value.length;
-      setCategoryPosts(category);
-      setPaginatePosts(limitCount, page);
-    } catch (error) {
-      console.error("取得文章錯誤", error);
-    } finally {
-      isLoading.value = false;
-    }
+    posts.value.list = postsData.value;
+    posts.value.totalPosts = postsData.value.length;
+    setCategoryPosts(category);
+    setPaginatePosts(limitCount, page);
   };
 
   return {
     posts,
-    isLoading,
+    pending, // 使用 useAsyncData 內建的 pending 狀態
     currentSort,
     initPosts,
     refreshPosts,
