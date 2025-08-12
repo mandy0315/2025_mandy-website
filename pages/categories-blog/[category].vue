@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const route = useRoute();
-const { updatePostsInCategory, posts } = await usePost();
+const { updateBlogInCategory, posts } = await useBlog();
 const currentPage = ref(1);
 const currentCategory = computed(() => route.params.category as string);
 
-updatePostsInCategory(currentPage.value, currentCategory.value);
+updateBlogInCategory(currentPage.value, currentCategory.value);
 </script>
 <template>
   <div>

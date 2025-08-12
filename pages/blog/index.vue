@@ -6,11 +6,11 @@ const { setCategories, goToCategoriesPage, categories } = await useCategory();
 await setCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
-const { updatePosts, posts, isLoading } = await usePost();
-await useAsyncData('postList', () => updatePosts(currentPage.value, currentSort.value));
+const { updateBlog, posts, isLoading } = await useBlog();
+await useAsyncData('postList', () => updateBlog(currentPage.value, currentSort.value));
 
 watch([currentPage, currentSort], ([page, sort]) => {
-  updatePosts(page, sort);
+  updateBlog(page, sort);
 });
 
 </script>

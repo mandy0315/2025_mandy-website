@@ -8,7 +8,7 @@ interface Post {
 }
 
 type SortOrder = "ASC" | "DESC";
-export const usePost = async () => {
+export const useBlog = async () => {
   const limitCount = 9;
   const isLoading = useState<boolean>("loading", () => false);
   const currentSort = useState<SortOrder>("currentSort", () => "DESC");
@@ -17,18 +17,21 @@ export const usePost = async () => {
     totalPosts: number;
     currentPage?: number;
     totalPage?: number;
-  }>("posts", () => {
+  }>("blog", () => {
     return {
       list: [],
       totalPosts: 0,
     };
   });
-  const { data: postsData, refresh } = await useAsyncData("posts", async () => {
-    return await queryCollection("blog")
-      .order("date", currentSort.value)
-      .select("title", "path", "categories", "image", "description", "date")
-      .all();
-  });
+  const { data: blogData, refresh } = await useAsyncData(
+    "blogData",
+    async () => {
+      return await queryCollection("blog")
+        .order("date", currentSort.value)
+        .select("title", "path", "categories", "image", "description", "date")
+        .all();
+    }
+  );
 
   const validateAndFormatSortOrder = (sort: string): SortOrder | null => {
     if (["desc", "asc"].includes(sort)) {
@@ -42,13 +45,13 @@ export const usePost = async () => {
     }
   };
 
-  const setPosts = async () => {
+  const setBlog = async () => {
     try {
       await refresh();
-      if (!postsData.value) return;
+      if (!blogData.value) return;
 
-      posts.value.list = postsData.value;
-      posts.value.totalPosts = postsData.value.length;
+      posts.value.list = blogData.value;
+      posts.value.totalPosts = blogData.value.length;
     } catch (error) {
       console.error("取得文章錯誤", error);
     }
@@ -89,32 +92,32 @@ export const usePost = async () => {
     };
   };
 
-  const updatePosts = async (page = 1, sort = "desc") => {
+  const updateBlog = async (page = 1, sort = "desc") => {
     isLoading.value = true;
     const sortToUpper = validateAndFormatSortOrder(sort);
     if (sortToUpper) currentSort.value = sortToUpper;
 
-    await setPosts();
+    await setBlog();
 
     setPaginatePosts(limitCount, page);
     isLoading.value = false;
   };
 
-  const updatePostsInCategory = async (
+  const updateBlogInCategory = async (
     currentPage = 1,
     currentCategory = ""
   ) => {
     isLoading.value = true;
-    await setPosts();
+    await setBlog();
     filteredPostsInCategory(currentCategory);
     setPaginatePosts(limitCount, currentPage);
     isLoading.value = false;
   };
 
   return {
-    updatePosts,
+    updateBlog,
     posts,
     isLoading,
-    updatePostsInCategory,
+    updateBlogInCategory,
   };
 };
