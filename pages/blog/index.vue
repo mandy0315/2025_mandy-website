@@ -2,8 +2,8 @@
 usePageSEO({
   title: '文章',
 })
-const { setCategories, goToCategoriesPage, categories } = await useCategory();
-await setCategories(10);
+const { refreshCategories, goToCategoriesPage, categories } = await useCategory();
+await refreshCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
 const { updateBlog, posts, isLoading } = await useBlog();

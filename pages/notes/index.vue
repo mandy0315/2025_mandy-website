@@ -2,8 +2,8 @@
 usePageSEO({
   title: '筆記',
 })
-const { setCategories, goToCategoriesPage, categories } = await useCategory('notes');
-await setCategories(10);
+const { refreshCategories, goToCategoriesPage, categories } = await useCategory('notes');
+await refreshCategories(10);
 const currentPage = ref(1);
 const currentSort = ref('desc');
 const { updateNotes, notes, isLoading } = await useNote();
@@ -51,7 +51,7 @@ watch([currentPage, currentSort], ([page, sort]) => {
           {{ category }}
         </BaseTag>
       </div>
-      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/categories-notes">更多分類</NuxtLink>
+      <NuxtLink class="c-text-link my-4 text-sm block px-2" to="/notes/categories">更多分類</NuxtLink>
     </template>
   </NuxtLayout>
 </template>
