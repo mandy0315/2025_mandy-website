@@ -55,16 +55,16 @@ usePageSEO({
         </article>
 
         <!-- Disqus 留言 -->
-        <BaseDisqus class="py-6" :id="post.id" :title="post.title" />
+        <PostDetailDisqus class="py-6" :id="post.id" :title="post.title" />
 
         <!-- 上下篇文章 -->
         <div class="grid grid-cols-2 gap-x-4 ">
           <div class="col-span-1">
-            <BaseSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+            <PostDetailSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
               :description="prevData.description" />
           </div>
           <div class="col-span-1">
-            <BaseSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+            <PostDetailSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
               :description="nextData.description" />
           </div>
         </div>
