@@ -20,10 +20,10 @@ watch([currentPage, currentSort], async () => {
       <div v-if="pending">載入中....</div>
       <div v-else>
         <div class="py-4">
-          <h1 class="text-4xl text-center font-bold pb-4">
+          <BaseTitle>
             <span v-if="collection === 'blog'">部落格</span>
             <span v-else>筆記</span>
-          </h1>
+          </BaseTitle>
           <p v-if="posts.list.length > 0" class="text-lg text-center c-text-gray">
             目前有
             <span class="text-c-light-blue font-medium">{{ posts.totalPosts || 0 }}</span>
