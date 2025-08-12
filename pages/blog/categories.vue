@@ -1,9 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['categories']
+  middleware: ['new-categories']
 })
 usePageSEO({
-  title: '文章分類',
+  title: '部落格-分類',
 })
 const route = useRoute();
 

@@ -3,7 +3,7 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
   const categories = useState<string[]>(`categories-${collection}`, () => []);
 
   const goToCategoriesPage = (category: string) => {
-    const path = encodeURI(`/categories-${collection}/${category}`);
+    const path = encodeURI(`/${collection}/categories/${category}`);
     router.push(path);
   };
 

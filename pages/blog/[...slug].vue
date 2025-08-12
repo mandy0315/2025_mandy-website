@@ -70,7 +70,7 @@ onMounted(() => {
         <div class="border-b pb-6 pt-4 c-border-gray">
           <!-- 麵包屑 -->
           <nav class="c-text-gray">
-            <NuxtLink to="/posts" class="hover:text-blue-400">文章列表</NuxtLink>
+            <NuxtLink to="/blog" class="hover:text-blue-400">文章列表</NuxtLink>
             <span class="px-2">></span>
             <span class="text-c-light-blue cursor-default">{{ post.title }}</span>
           </nav>
