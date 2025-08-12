@@ -17,25 +17,29 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
     }
   );
 
-  const setCategories = async (limit?: number) => {
+  const setCategories = (limit?: number) => {
+    if (!categoriesData.value) {
+      categoriesData.value = [];
+    }
+
+    let selectedCategories = categoriesData.value
+      .map((item) => item.categories)
+      .flat();
+
+    if (limit) {
+      selectedCategories = selectedCategories.slice(0, limit);
+    }
+
+    const uniqueCategories = Array.from(new Set(selectedCategories));
+    categories.value = uniqueCategories;
+  };
+
+  const refreshCategories = async (limit?: number) => {
     categories.value = [];
     try {
       await refresh();
 
-      if (!categoriesData.value) {
-        categoriesData.value = [];
-      }
-
-      let selectedCategories = categoriesData.value
-        .map((item) => item.categories)
-        .flat();
-
-      if (limit) {
-        selectedCategories = selectedCategories.slice(0, limit);
-      }
-
-      const uniqueCategories = Array.from(new Set(selectedCategories));
-      categories.value = uniqueCategories;
+      setCategories(limit);
     } catch (error) {
       console.error("取得分類錯誤", error);
     }
@@ -43,6 +47,7 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
 
   return {
     goToCategoriesPage,
+    refreshCategories,
     setCategories,
     categories,
   };
