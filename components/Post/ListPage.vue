@@ -48,7 +48,7 @@ watch([currentPage, currentSort], async () => {
       </div>
     </template>
     <template #right-side>
-      <BaseSidebarTitle>分類</BaseSidebarTitle>
+      <p>分類</p>
       <div class="flex flex-wrap gap-2">
         <BaseTag v-for="category in categories" :key="category" @click="goToCategoriesPage(category)">
           {{ category }}
