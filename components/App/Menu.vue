@@ -27,7 +27,7 @@ const isOpenModal = ref(false);
       <div class="lg:mx-auto">
         <NuxtLink v-for="(item, index) in pageMap.values()" :key="index" :to="item.path" @click="isOpenModal = false"
           class="py-4 block">
-          {{ capitalize(item.title) }}
+          {{ item.title }}
         </NuxtLink>
       </div>
     </div>

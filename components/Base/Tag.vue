@@ -9,7 +9,7 @@ withDefaults(
 );
 </script>
 <template>
-  <button class="c-rounded-btn rounded-2xl px-3 hover:text-c-light-blue" :class="{ 'text-c-light-blue': isAction }">
+  <button class="c-rounded-btn rounded-2xl px-3 hover:text-c-light-brown" :class="{ 'text-c-light-brown': isAction }">
     <slot />
   </button>
 </template>

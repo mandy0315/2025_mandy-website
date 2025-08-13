@@ -30,7 +30,7 @@ usePageSEO({
           <nav class="c-text-gray">
             <NuxtLink to="/notes" class="hover:text-blue-400">筆記列表</NuxtLink>
             <span class="px-2">></span>
-            <span class="text-c-light-blue cursor-default">{{ post.title }}</span>
+            <span class="text-c-light-brown cursor-default">{{ post.title }}</span>
           </nav>
 
 

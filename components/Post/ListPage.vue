@@ -26,7 +26,7 @@ watch([currentPage, currentSort], async () => {
           </BaseTitle>
           <p v-if="posts.list.length > 0" class="text-lg text-center c-text-gray">
             目前有
-            <span class="text-c-light-blue font-medium">{{ posts.totalPosts || 0 }}</span>
+            <span class="text-c-light-brown font-medium">{{ posts.totalPosts || 0 }}</span>
             篇
           </p>
         </div>

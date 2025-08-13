@@ -68,17 +68,17 @@ onUnmounted(() => {
         <div class="col-span-1">
           <p>Category</p>
           <button @click="currentCategory = 'all'" class="block"
-            :class="{ 'text-c-light-blue': currentCategory === 'all' }">all</button>
+            :class="{ 'text-c-light-brown': currentCategory === 'all' }">all</button>
           <button v-for="category in WorkCategories" :key="category" class="block" @click="currentCategory = category"
-            :class="{ 'text-c-light-blue': currentCategory === category }">{{
+            :class="{ 'text-c-light-brown': currentCategory === category }">{{
               category }}</button>
         </div>
         <div class="col-span-1">
           <p>Type</p>
           <button @click="currentType = 'all'" class="block"
-            :class="{ 'text-c-light-blue': currentType === 'all' }">all</button>
+            :class="{ 'text-c-light-brown': currentType === 'all' }">all</button>
           <button v-for="type in WorkTypes" :key="type" class="block" @click="currentType = type"
-            :class="{ 'text-c-light-blue': currentType === type }">{{
+            :class="{ 'text-c-light-brown': currentType === type }">{{
               type }}</button>
         </div>
       </div>

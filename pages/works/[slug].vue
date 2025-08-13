@@ -34,7 +34,7 @@ usePageSEO({
       <nav class="c-text-gray">
         <NuxtLink to="/works" class="hover:text-blue-400">作品列表</NuxtLink>
         <span class="px-2">></span>
-        <span class="text-c-light-blue cursor-default">{{ currentWork.title }}</span>
+        <span class="text-c-light-brown cursor-default">{{ currentWork.title }}</span>
       </nav>
       <h2 class="text-3xl py-4">{{ currentWork.title }}</h2>
     </section>

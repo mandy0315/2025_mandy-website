@@ -10,7 +10,7 @@
 @source "./app.vue";
 
 @theme {
-  --color-c-light-blue: #62a4f5;
+  --color-c-light-brown: #cdb8a3;
   --color-c-image-gray: #99a1af;
   --spacing-c-mobile-header-height: 3.2rem;
   --spacing-c-web-header-width: 3.2rem;
@@ -19,7 +19,7 @@
 @layer base {
   :root {
     --text-color: #111827;
-    --bg-color: #fff;
+    --bg-color: #f9f9f9;
   }
 
   .dark {
@@ -33,6 +33,7 @@
     color: var(--text-color);
     background-color: var(--bg-color);
     scroll-behavior: smooth;
+    font-family: 'Courier New', Courier, monospace;
     /* RWD 控制文字大小與尺寸 
       限制數值在指定範圍:clamp(最小值, 理想值, 最大值)
       寬度: min-width: 320px;
@@ -57,7 +58,7 @@
   }
 
   .c-text-link {
-    @apply underline underline-offset-4 hover:text-c-light-blue;
+    @apply underline underline-offset-4 hover:text-c-light-brown;
   }
 }
 
