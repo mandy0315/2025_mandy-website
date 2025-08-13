@@ -4,6 +4,11 @@
 /* colorMode 黑暗模式可以使用 dark:[style] */
 @custom-variant dark (&:where(.dark, .dark *));
 
+@source "./components";
+@source "./layouts";
+@source "./pages";
+@source "./app.vue";
+
 @theme {
   --color-c-light-blue: #62a4f5;
   --color-c-image-gray: #99a1af;
