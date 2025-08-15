@@ -12,26 +12,39 @@
 @theme {
   --color-c-light-brown: #cdb8a3;
   --color-c-image-gray: #99a1af;
-  --spacing-c-mobile-header-height: 3.2rem;
   --spacing-c-web-header-width: 3.2rem;
+
+  --animate-rotating: rotating 2s ease-in-out;
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
+
 
 @layer base {
   :root {
     --text-color: #111827;
-    --bg-color: #f9f9f9;
+    --bg-color: #ffecdd;
   }
 
   .dark {
     --text-color: #fff;
-    --bg-color: #111827;
+    --bg-color: #1c1a3a;
   }
 
   html,
   body {
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     color: var(--text-color);
-    background-color: var(--bg-color);
+    background: var(--bg-color);
+    /* fallback */
     scroll-behavior: smooth;
     font-family: 'Courier New', Courier, monospace;
     /* RWD 控制文字大小與尺寸 
@@ -45,6 +58,7 @@
 }
 
 @layer components {
+
   .c-text-gray {
     @apply text-gray-500 dark:text-gray-300;
   }
