@@ -15,7 +15,7 @@ const toggleSidebar = () => {
 <template>
   <div class="flex">
     <div class="pb-10 relative w-full">
-      <BaseButton class="sticky top-c-mobile-header-height left-full z-50" @click="toggleSidebar">
+      <BaseButton class="sticky top-0 left-full z-50" @click="toggleSidebar">
         <ClientOnly>
           <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" size="1.5rem"
             class="align-middle" />
@@ -32,8 +32,7 @@ const toggleSidebar = () => {
     <ClientOnly>
       <div class="transition-all ease-in delay-150" :class="isShowSidebar ? 'w-60' : 'w-0'">
         <!-- 右側目錄 -->
-        <aside class="sticky top-c-mobile-header-height transition-all pt-10 px-4"
-          :class="isShowSidebar ? 'opacity-100 delay-300' : 'opacity-0'">
+        <aside class="sticky transition-all pt-10 px-4" :class="isShowSidebar ? 'opacity-100 delay-300' : 'opacity-0'">
           <slot name="right-side" />
         </aside>
       </div>
