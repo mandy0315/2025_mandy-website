@@ -16,7 +16,7 @@ usePageSEO({
       </section>
 
       <div class="lg:hidden">
-        <HomeKV />
+        <VisualKV />
       </div>
 
       <!-- profile 段落 -->
@@ -29,7 +29,7 @@ usePageSEO({
     <!-- 右側圖片：sticky 只在這個容器內有效 -->
     <div
       class="hidden lg:flex lg:w-5/10 lg:sticky lg:pointer-events-none top-0 h-screen ml-auto justify-center items-center ">
-      <HomeKV />
+      <VisualKV />
     </div>
   </div>
 
