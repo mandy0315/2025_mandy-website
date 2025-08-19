@@ -29,7 +29,7 @@ usePageSEO({
 })
 </script>
 <template>
-  <article v-if="currentWork" class="py-10">
+  <article v-if="currentWork" class="c-container py-10">
     <section>
       <nav class="">
         <NuxtLink to="/works" class="hover:text-blue-400">作品列表</NuxtLink>

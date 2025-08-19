@@ -3,7 +3,7 @@
 <template>
   <header>
     <NuxtLink to="/" class="fixed z-100 p-5 backdrop-blur-sm">
-      <IconLogo class="w-24 dark:fill-white" />
+      <IconLogo class="w-18 dark:fill-white lg:w-24" />
     </NuxtLink>
     <div
       class="flex items-end fixed z-100 right-4 top-4 flex-row-reverse gap-x-2 lg:flex-col lg:items-center lg:gap-y-2">

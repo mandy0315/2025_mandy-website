@@ -1,3 +1,3 @@
 <template>
-  <PostDetailPage collection="notes" />
+  <PostDetailPage collection="notes" class="c-container" />
 </template>

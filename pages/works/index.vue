@@ -61,7 +61,7 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <div>
+  <div class="c-container">
     <section class="flex items-center justify-between">
       <h1>Works</h1>
       <div class="grid grid-cols-2 gap-x-4">

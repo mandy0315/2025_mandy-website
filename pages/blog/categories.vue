@@ -7,5 +7,5 @@ usePageSEO({
 })
 </script>
 <template>
-  <PostCategoriesLayout collection="blog" />
+  <PostCategoriesLayout collection="blog" class="c-container" />
 </template>

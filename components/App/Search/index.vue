@@ -56,8 +56,7 @@ watch(isSearch, async (value) => {
           <button @click="updatedKeywords('')" class="absolute top-3 right-3 text-gray-500 z-20 text-2xl ">
             <Icon name="solar:close-circle-bold" class="dark:hover:text-white" />
           </button>
-          <label
-            class="relative w-full h-12 flex bg-white rounded-t border border-gray-300 dark:border-gray-500 dark:bg-gray-800">
+          <label class="relative w-full h-12 flex bg-white rounded-t border c-border-secondary dark:bg-gray-800">
             <input type="text" v-model="keywords"
               class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
             <Icon name="solar:magnifer-linear" class="absolute top-3.5 left-3 text-gray-500 z-10 text-lg" />
@@ -65,7 +64,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white  dark:bg-gray-800 rounded-b border-l border-r border-gray-300 shadow-lg z-110  dark:border-gray-500  overflow-y-scroll border-b "
+          class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-white c-border-secondary dark:bg-gray-800 rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b "
           :class="[{ 'p-4 border-0': isSearchListNotEmpty }, { 'max-h-120': isSearch }]">
 
           <!-- 作品 -->

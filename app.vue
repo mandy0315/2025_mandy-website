@@ -6,7 +6,7 @@ const isOpenMenu = useState('isOpenMenu', () => false);
 <template>
   <Body :class="{ 'overflow-hidden': isShowSearchModal || isOpenMenu }">
     <AppPageLoading />
-    <div id="container" class="flex flex-col min-h-screen lg:mr-c-web-header-width">
+    <div class="flex flex-col min-h-screen">
       <AppHeader />
       <main class="flex-1">
         <NuxtPage />
