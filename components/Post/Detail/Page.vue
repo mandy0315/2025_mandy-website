@@ -40,10 +40,8 @@ usePageSEO({
               <BaseDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
-              <BaseTag class="mx-1 text-sm" v-for="category in post.categories" :key="category"
-                @click="goToCategoriesPage(category)">
-                {{ category }}
-              </BaseTag>
+              <BaseButton size="sm" v-for="category in post.categories" :key="category"
+                @click="goToCategoriesPage(category)">{{ category }}</BaseButton>
             </div>
           </div>
           <p>{{ post.description }}</p>

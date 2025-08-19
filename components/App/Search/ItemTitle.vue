@@ -4,5 +4,5 @@ defineProps<{
 }>();
 </script>
 <template>
-  <p class="font-bold text-sm border-b border-primary py-2 ">{{ title }}</p>
+  <p class="font-bold text-sm border-b c-border-secondary py-2 ">{{ title }}</p>
 </template>

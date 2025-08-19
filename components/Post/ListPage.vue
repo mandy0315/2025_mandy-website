@@ -32,8 +32,8 @@ watch([currentPage, currentSort], async () => {
         </div>
 
         <div class="pb-4 ml-auto text-right">
-          <p class=" inline-block">文章排序：</p>
-          <select v-model="currentSort" class="c-rounded-btn rounded py-1 px-2">
+          <p class="inline-block text-sm text-secondary-light dark:text-secondary-dark">文章排序：</p>
+          <select v-model="currentSort" class="border c-border-secondary rounded py-1 px-2">
             <option value="DESC">新到舊</option>
             <option value="ASC">舊到新</option>
           </select>
@@ -50,11 +50,11 @@ watch([currentPage, currentSort], async () => {
     <template #right-side>
       <p>分類</p>
       <div class="flex flex-wrap gap-2">
-        <BaseTag v-for="category in categories" :key="category" @click="goToCategoriesPage(category)">
-          {{ category }}
-        </BaseTag>
+        <BaseButton v-for="category in categories" size="sm" :key="category" @click="goToCategoriesPage(category)">{{
+          category }}
+        </BaseButton>
       </div>
-      <NuxtLink class="c-text-link my-4 text-sm block px-2" :to="`/${collection}/categories`">更多分類</NuxtLink>
+      <BaseLink size="sm" :to="`/${collection}/categories`" variant="underline">更多分類</BaseLink>
     </template>
   </NuxtLayout>
 </template>

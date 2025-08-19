@@ -19,6 +19,7 @@
 
   /* 主色系 (棕色) */
   --color-primary: #cdb8a3;
+  --color-disabled: #e5e7eb;
 
   /* 輔助色系 (灰色) */
   --color-secondary-light: #686868;
@@ -27,6 +28,7 @@
   /* 文字色系 (黑灰/灰白) */
   --color-text-light: #111111;
   --color-text-dark: #f6f5f0;
+
 
   /* 深文字色 */
   --color-primary: #cdb8a3;
@@ -94,13 +96,8 @@
 }
 
 @layer components {
-
-  .c-rounded-btn {
-    @apply p-1 bg-white rounded border border-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-50/20 disabled:opacity-40 disabled:cursor-not-allowed;
-  }
-
-  .c-text-link {
-    @apply underline underline-offset-4 hover:text-primary;
+  .c-border-secondary {
+    @apply border-secondary-light/50 dark:border-secondary-dark/50;
   }
 }
 

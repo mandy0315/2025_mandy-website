@@ -14,10 +14,10 @@ const currentCategory = computed(() => route.params.category || '');
     </BaseTitle>
 
     <div class="flex flex-wrap justify-center gap-2 pb-4">
-      <BaseTag v-for="category in categories" :key="category" @click="goToCategoriesPage(category)"
+      <BaseButton v-for="category in categories" :key="category" size="sm" @click="goToCategoriesPage(category)"
         :isAction="currentCategory === category">
         {{ category }}
-      </BaseTag>
+      </BaseButton>
     </div>
 
     <NuxtPage />

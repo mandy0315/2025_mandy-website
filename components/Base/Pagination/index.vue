@@ -42,25 +42,23 @@ const visibleCount = computed(() => {
 </script>
 <template>
   <div class="flex items-center justify-center py-6">
-    <BaseButton @click="goToPage(1)" class="w-8 h-8 mx-0.5 inline-flex items-center" :disabled="currentPage === 1">
+    <BasePaginationArrow @click="goToPage(1)" :disabled="currentPage === 1">
       <Icon name="solar:double-alt-arrow-left-linear" size="1.3rem" />
-    </BaseButton>
-    <BaseButton @click="changePage(-1)" class="w-8 h-8 mx-0.5 inline-flex items-center" :disabled="currentPage === 1">
+    </BasePaginationArrow>
+    <BasePaginationArrow @click="changePage(-1)" :disabled="currentPage === 1">
       <Icon name="solar:alt-arrow-left-outline" size="1.2rem" />
-    </BaseButton>
+    </BasePaginationArrow>
 
-    <BaseButton class="w-8 h-8 mx-0.5" v-for="num in visibleCount"
-      :class="currentPage === num ? 'bg-primary text-white' : ''" :key="num" @click="goToPage(num)">
+    <button class="w-8 h-8 mx-0.5" v-for="num in visibleCount" :class="{ 'text-primary': currentPage === num }"
+      :key="num" @click="goToPage(num)">
       {{ num }}
-    </BaseButton>
+    </button>
 
-    <BaseButton @click="changePage(1)" class="w-8 h-8 mx-0.5 inline-flex items-center"
-      :disabled="currentPage === totalPage">
+    <BasePaginationArrow @click="changePage(1)" :disabled="currentPage === totalPage">
       <Icon name="solar:alt-arrow-right-outline" size="1.2rem" />
-    </BaseButton>
-    <BaseButton @click="goToPage(totalPage)" class="w-8 h-8 mx-0.5 inline-flex items-center"
-      :disabled="currentPage === totalPage">
+    </BasePaginationArrow>
+    <BasePaginationArrow @click="goToPage(totalPage)" :disabled="currentPage === totalPage">
       <Icon name="solar:double-alt-arrow-right-linear" size="1.3rem" />
-    </BaseButton>
+    </BasePaginationArrow>
   </div>
 </template>

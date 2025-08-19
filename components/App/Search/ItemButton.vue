@@ -28,7 +28,8 @@ const keywordsHighlight = (keywords: string, text: string) => {
 };
 </script>
 <template>
-  <button @click="$emit('handleToPage')" class="flex group items-start text-left c-rounded-btn border-none w-full">
+  <button @click="$emit('handleToPage')"
+    class="flex group rounded my-1 items-start text-left border-none w-full px-1 py-2 hover:bg-primary/20">
     <Icon :name="icon" size="1rem" class="text-gray-500 mt-1 group-hover:dark:text-white" />
     <div class="pl-2 w-8/10">
       <p v-html="keywordsHighlight(keywords, title)"></p>

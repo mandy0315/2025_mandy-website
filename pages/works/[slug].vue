@@ -63,10 +63,9 @@ usePageSEO({
           <p v-if="currentWork.description">{{ currentWork.description }}</p>
         </div>
         <div v-if="currentWork.link" class="mt-4">
-          <NuxtLink :to="currentWork.link" no-rel class=" inline-block c-text-link no-underline">
-            外部連結
-            <Icon name="solar:link-linear" size="1.2rem" class="align-middle" />
-          </NuxtLink>
+          <BaseLink size="sm" :to="currentWork.link" variant="underline" external> 外部連結
+            <Icon name="solar:link-linear" class="align-middle" />
+          </BaseLink>
         </div>
       </div>
     </section>
