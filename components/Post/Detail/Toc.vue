@@ -55,7 +55,7 @@ onMounted(() => {
 <template>
   <ClientOnly>
     <p class="font-medium pb-2 text-lg">目錄</p>
-    <ul class="c-text-gray">
+    <ul class="">
       <li v-for="section in tocInfo">
         <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
           :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"

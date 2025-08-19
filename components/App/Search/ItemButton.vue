@@ -32,7 +32,7 @@ const keywordsHighlight = (keywords: string, text: string) => {
     <Icon :name="icon" size="1rem" class="text-gray-500 mt-1 group-hover:dark:text-white" />
     <div class="pl-2 w-8/10">
       <p v-html="keywordsHighlight(keywords, title)"></p>
-      <p v-if="description" v-html="keywordsHighlight(keywords, description)" class="text-sm c-text-gray"></p>
+      <p v-if="description" v-html="keywordsHighlight(keywords, description)" class="text-sm "></p>
     </div>
   </button>
 </template>

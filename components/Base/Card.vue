@@ -16,8 +16,7 @@ const handleErrorImage = () => {
 
 </script>
 <template>
-  <NuxtLink :to="path"
-    class="bg-gray-100 dark:bg-gray-100/10 border c-border-gray shadow-lg rounded-lg overflow-hidden group">
+  <NuxtLink :to="path" class="bg-gray-100 dark:bg-gray-100/10 shadow-lg rounded-lg overflow-hidden group">
 
     <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden">
       <img :src="currSrc" :alt="title"

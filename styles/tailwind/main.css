@@ -1,3 +1,7 @@
+/* 引入 Zen Old Mincho (Google Fonts)
+網址：https://fonts.google.com/specimen/Zen+Old+Mincho
+*/
+@import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -10,10 +14,27 @@
 @source "./app.vue";
 
 @theme {
-  --color-c-light-brown: #cdb8a3;
-  --color-c-image-gray: #99a1af;
+  --font-zen-old-mincho: 'Zen Old Mincho',
+    serif;
+
+  /* 主色系 (棕色) */
+  --color-primary: #d9b999;
+
+  /* 輔助色系 (灰色) */
+  --color-secondary-light: #686868;
+  --color-secondary-dark: #c5c5c5;
+
+  /* 文字色系 (黑灰/灰白) */
+  --color-text-light: #111111;
+  --color-text-dark: #f6f5f0;
+
+  /* 深文字色 */
+  --color-primary: #cdb8a3;
+
+  /* 間距 */
   --spacing-c-web-header-width: 3.2rem;
 
+  /* 動畫 */
   --animate-rotating: rotating 2s ease-in-out;
   --animate-drift: drift 10s ease-in-out infinite;
 
@@ -43,23 +64,25 @@
 
 @layer base {
   :root {
-    --text-color: #111827;
-    --bg-color: #ffecdd;
+    --text-color: var(--color-text-light);
+    --bg-color: #fbf4ef;
   }
 
   .dark {
-    --text-color: #fff;
+    --text-color: var(--color-text-dark);
     --bg-color: #1c1a3a;
   }
 
   html,
   body {
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    /* 暗黑模式樣式與動畫 */
     color: var(--text-color);
     background: var(--bg-color);
-    /* fallback */
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    /* 滾動 */
     scroll-behavior: smooth;
-    font-family: 'Courier New', Courier, monospace;
+
     /* RWD 控制文字大小與尺寸 
       限制數值在指定範圍:clamp(最小值, 理想值, 最大值)
       寬度: min-width: 320px;
@@ -72,20 +95,12 @@
 
 @layer components {
 
-  .c-text-gray {
-    @apply text-gray-500 dark:text-gray-300;
-  }
-
-  .c-border-gray {
-    @apply border-gray-200 dark:border-gray-600;
-  }
-
   .c-rounded-btn {
     @apply p-1 bg-white rounded border border-gray-200 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-50/20 disabled:opacity-40 disabled:cursor-not-allowed;
   }
 
   .c-text-link {
-    @apply underline underline-offset-4 hover:text-c-light-brown;
+    @apply underline underline-offset-4 hover:text-primary;
   }
 }
 

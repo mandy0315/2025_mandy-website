@@ -24,15 +24,15 @@ watch([currentPage, currentSort], async () => {
             <span v-if="collection === 'blog'">部落格</span>
             <span v-else>筆記</span>
           </BaseTitle>
-          <p v-if="posts.list.length > 0" class="text-lg text-center c-text-gray">
+          <p v-if="posts.list.length > 0" class="text-lg text-center ">
             目前有
-            <span class="text-c-light-brown font-medium">{{ posts.totalPosts || 0 }}</span>
+            <span class="text-primary font-medium">{{ posts.totalPosts || 0 }}</span>
             篇
           </p>
         </div>
 
         <div class="pb-4 ml-auto text-right">
-          <p class="c-text-gray inline-block">文章排序：</p>
+          <p class=" inline-block">文章排序：</p>
           <select v-model="currentSort" class="c-rounded-btn rounded py-1 px-2">
             <option value="DESC">新到舊</option>
             <option value="ASC">舊到新</option>

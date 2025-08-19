@@ -50,7 +50,7 @@ const visibleCount = computed(() => {
     </BaseButton>
 
     <BaseButton class="w-8 h-8 mx-0.5" v-for="num in visibleCount"
-      :class="currentPage === num ? 'bg-c-light-brown text-white' : ''" :key="num" @click="goToPage(num)">
+      :class="currentPage === num ? 'bg-primary text-white' : ''" :key="num" @click="goToPage(num)">
       {{ num }}
     </BaseButton>
 

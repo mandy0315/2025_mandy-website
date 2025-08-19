@@ -25,12 +25,12 @@ usePageSEO({
   <NuxtLayout name="content-with-sidebar">
     <template #content>
       <div v-if="post">
-        <div class="border-b pb-6 pt-4 c-border-gray">
+        <div class="border-b pb-6 pt-4 border-primary">
           <!-- 麵包屑 -->
-          <nav class="c-text-gray">
+          <nav class="">
             <NuxtLink to="/notes" class="hover:text-blue-400">筆記列表</NuxtLink>
             <span class="px-2">></span>
-            <span class="text-c-light-brown cursor-default">{{ post.title }}</span>
+            <span class="text-primary cursor-default">{{ post.title }}</span>
           </nav>
 
 

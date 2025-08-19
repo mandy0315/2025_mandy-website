@@ -78,7 +78,7 @@ watch(isSearch, async (value) => {
           <AppSearchItemButton v-for="(post, idx) in posts" :key="idx" :keywords="keywords" :title="post.title"
             :description="post.description" @handleToPage="setCloseModalAndToPage(post.path)" />
           <div v-if="categories_posts.length > 0" class="pt-1">
-            <p class="text-xs c-text-gray">分類</p>
+            <p class="text-xs ">分類</p>
             <AppSearchItemButton v-for="(posts, idx) in categories_posts" :key="idx" :keywords="keywords" :title="posts"
               @handleToPage="setCloseModalAndToPage(`/categories-posts/${posts}`)" />
           </div>
@@ -88,7 +88,7 @@ watch(isSearch, async (value) => {
           <AppSearchItemButton v-for="(note, idx) in notes" :key="idx" :keywords="keywords" :title="note.title"
             :description="note.description" @handleToPage="setCloseModalAndToPage(note.path)" />
           <div v-if="categories_notes.length > 0" class="pt-1">
-            <p class="text-xs c-text-gray">分類</p>
+            <p class="text-xs ">分類</p>
             <AppSearchItemButton v-for="(notes, idx) in categories_notes" :key="idx" :keywords="keywords" :title="notes"
               @handleToPage="setCloseModalAndToPage(`/categories-notes/${notes}`)" />
           </div>

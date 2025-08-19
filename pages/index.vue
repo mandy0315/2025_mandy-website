@@ -12,7 +12,19 @@ usePageSEO({
     <div class="lg:w-5/10">
       <section class="lg:flex lg:flex-col lg:justify-center lg:h-screen lg:px-16">
         <h1>kv</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing
+          elit...</p>
+        <div>
+          <BaseButton size="lg">線條按鈕</BaseButton>
+          <BaseButton>線條按鈕</BaseButton>
+          <BaseButton size="sm">線條按鈕</BaseButton>
+
+        </div>
+        <div>
+          <BaseButton size="lg" variant="solid">實體按鈕</BaseButton>
+          <BaseButton variant="solid">實體按鈕</BaseButton>
+          <BaseButton size="sm" variant="solid">實體按鈕</BaseButton>
+        </div>
       </section>
 
       <div class="lg:hidden">
@@ -21,7 +33,7 @@ usePageSEO({
 
       <!-- profile 段落 -->
       <section class="lg:flex lg:flex-col lg:h-screen lg:px-16">
-        <h2>profile</h2>
+        <h2 class="font-zen-old-mincho">profile</h2>
         <p>這裡是 profile 內容...</p>
       </section>
     </div>
