@@ -25,6 +25,12 @@ usePageSEO({
           <BaseButton variant="solid">實體按鈕</BaseButton>
           <BaseButton size="sm" variant="solid">實體按鈕</BaseButton>
         </div>
+        <div>
+          <BaseLink size="lg" to="/works">線條連結</BaseLink>
+          <BaseLink to="/works" variant="solid" target="_blank">實體連結(另開)</BaseLink>
+          <BaseLink size="sm" to="https://nuxt.com/docs/4.x/api/components/nuxt-link#nuxtlink" variant="underline"
+            target="_blank">文字連結(外部)</BaseLink>
+        </div>
       </section>
 
       <div class="lg:hidden">
