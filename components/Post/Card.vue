@@ -16,7 +16,7 @@ const handleErrorImage = () => {
 
 </script>
 <template>
-  <NuxtLink :to="path" class="bg-gray-100 dark:bg-gray-100/10 shadow-lg rounded-lg overflow-hidden group">
+  <NuxtLink :to="path" class="rounded-lg overflow-hidden group">
 
     <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden">
       <img :src="currSrc" :alt="title"
@@ -24,10 +24,10 @@ const handleErrorImage = () => {
         @error="handleErrorImage" />
     </div>
     <div class="p-2">
-      <BaseDate :date />
+      <PostDate :date />
 
-      <p class="text-xl"> {{ title }}</p>
-      <p>{{ description }}</p>
+      <p class="text-lg"> {{ title }}</p>
+      <p class="text-sm">{{ description }}</p>
     </div>
   </NuxtLink>
 </template>

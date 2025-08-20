@@ -39,9 +39,14 @@ watch([currentPage, currentSort], async () => {
           </select>
         </div>
 
-        <div class="grid grid-cols-3 gap-4">
-          <BaseCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
+        <div v-if="collection === 'blog'" class="grid grid-cols-3 gap-4">
+          <PostCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
         </div>
+        <div v-if="collection === 'notes'" class="border-t border-b c-border-secondary">
+          <PostItem v-for="post in posts.list" v-bind="post" :key="post.title"
+            class="border-b c-border-secondary last:border-0" />
+        </div>
+
 
         <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />
 

@@ -4,8 +4,11 @@ defineProps<{
 }>();
 const route = useRoute();
 
-const { categories, goToCategoriesPage } = await useCategory();
+const { categories, goToCategoriesPage, refreshCategories } = await useCategory();
+await refreshCategories();
 const currentCategory = computed(() => route.params.category || '');
+
+
 </script>
 <template>
   <div>

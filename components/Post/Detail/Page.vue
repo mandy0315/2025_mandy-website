@@ -37,7 +37,7 @@ usePageSEO({
           <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
           <div class="pb-2 grid grid-cols-2 gap-x-2">
             <div class="col-span-1">
-              <BaseDate class="align-middle inline-block" :date="post.date" />
+              <PostDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
               <BaseButton size="sm" v-for="category in post.categories" :key="category"

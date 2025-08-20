@@ -13,7 +13,7 @@ await refreshCategoryPosts(currentPage.value, currentCategory.value)
 <template>
   <div>
     <div class="grid grid-cols-3 gap-4">
-      <BaseCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
+      <PostCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
     </div>
 
     <BasePagination v-if="posts.totalPage" v-model:current-page="currentPage" :totalPage="posts.totalPage" />
