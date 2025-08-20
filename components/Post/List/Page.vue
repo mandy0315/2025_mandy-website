@@ -17,7 +17,7 @@ watch([currentPage, currentSort], async () => {
     <template #content>
       <div v-if="pending">載入中....</div>
       <div v-else>
-        <div class="py-4">
+        <div class="pb-4">
           <BaseTitle>
             <span v-if="collection === 'blog'">部落格</span>
             <span v-else>筆記</span>

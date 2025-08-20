@@ -11,7 +11,7 @@ const toggleSidebar = () => {
 
 </script>
 <template>
-  <div class="flex ">
+  <div class="flex">
     <ClientOnly>
       <div class="w-full pr-4">
         <slot name="content" />

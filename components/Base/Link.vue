@@ -6,12 +6,14 @@ const props = withDefaults(
     external?: boolean;
     variant?: 'outline' | 'solid' | 'underline';
     size?: 'xs' | 'sm' | 'md' | 'lg';
+    isAction?: boolean;
   }>(),
   {
     external: false,
     target: '_self',
     variant: 'outline',
     size: 'md',
+    isAction: false,
   }
 );
 
@@ -30,10 +32,13 @@ const linkClasses = computed(() => {
     solid: 'bg-primary/70 text-white hover:bg-primary-dark active:bg-primary active:text-white rounded-4xl',
     underline: 'underline underline-offset-3 hover:text-primary/70 active:text-primary',
   }
+
+  // 如果 isAction 為 true，強制使用 solid 樣式
+  const finalVariant = props.isAction ? 'solid' : props.variant;
   return [
     base,
     sizeClasses[props.size],
-    variantClasses[props.variant]
+    variantClasses[finalVariant],
   ].join(' ');
 });
 

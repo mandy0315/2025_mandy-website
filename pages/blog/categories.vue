@@ -1,9 +1,13 @@
 <script setup lang="ts">
+const route = useRoute();
+const currentCategory = computed(() => route.params.category || '');
+
 definePageMeta({
   middleware: ['categories']
 })
+
 usePageSEO({
-  title: '部落格-分類',
+  title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
 })
 </script>
 <template>

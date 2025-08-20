@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(async (to, _) => {
   const path = String(to.path) || "";
   const collectionMatch =
     path.match(/\/(blog|notes)/)?.[0]?.replace("/", "") || "";
@@ -13,7 +13,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   setCategories();
 
   const category = String(to.params?.category || "");
-  console.log(categories.value, category);
   // 沒有 category 並有分類列表，重定向到第一個分類
   if (category === "" && categories.value.length > 0) {
     return navigateTo(`/${collection}/categories/${categories.value[0]}`, {
