@@ -3,6 +3,7 @@ import KVImage from '@/assets/images/home/kv.png'
 const colorMode = useColorMode()
 const isRotating = ref(false)
 
+const isDarkMode = computed(() => colorMode.value === 'dark')
 // 監聽顏色模式變化
 watch(colorMode, () => {
   // 觸發動畫
@@ -15,12 +16,13 @@ watch(colorMode, () => {
 })
 </script>
 <template>
-  <ClientOnly>
-    <div class="w-90 h-auto flex justify-center items-center relative">
-      <img :src="KVImage" class="object-contain object-center filter dark:contrast-80 relative z-10" />
+  <div class="w-90 h-auto flex justify-center items-center relative">
+    <img :src="KVImage" class="object-contain object-center filter dark:contrast-80 relative z-10" />
+    <ClientOnly>
       <div class="sky absolute -top-8 w-60 h-75 rounded-t-full overflow-hidden ">
+
         <div class="sky-night opacity-0 w-full h-full delay-150 duration-700 transition-opacity ease-in-out"
-          :class="{ 'opacity-100': colorMode.value === 'dark' }">
+          :class="{ 'opacity-100': isDarkMode }">
         </div>
         <!-- sun -->
         <div class="w-40 h-40 absolute top-12 left-12 transition-transform origin-center"
@@ -28,9 +30,10 @@ watch(colorMode, () => {
           <div class="w-10 h-10 bg-amber-100 rounded-full"></div>
         </div>
 
-        <!-- cloulds -->
+
+        <!-- clouds -->
         <div class="absolute top-0 transition-opacity duration-500 delay-500"
-          :class="colorMode.value === 'dark' ? 'opacity-0' : 'opacity-100'">
+          :class="isDarkMode ? 'opacity-0' : 'opacity-100'">
           <VisualKVCloud size="sm" class="top-15 left-22" />
           <VisualKVCloud class="top-20 left-0" />
           <VisualKVCloud size="lg" class="top-30 left-10" />
@@ -38,7 +41,7 @@ watch(colorMode, () => {
         </div>
         <!-- stars -->
         <div class="absolute top-0 transition-opacity duration-500 delay-500"
-          :class="colorMode.value === 'dark' ? 'opacity-100' : 'opacity-0'">
+          :class="isDarkMode ? 'opacity-100' : 'opacity-0'">
           <VisualKVStar size="sm" class="top-10 left-30" />
           <VisualKVStar size="lg" class="top-16 left-45" />
           <VisualKVStar size="sm" class="top-28 left-10" />
@@ -49,10 +52,8 @@ watch(colorMode, () => {
         </div>
 
       </div>
-    </div>
-  </ClientOnly>
-
-
+    </ClientOnly>
+  </div>
 </template>
 <style scoped>
 .sky {
