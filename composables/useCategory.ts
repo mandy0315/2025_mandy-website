@@ -12,7 +12,7 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
     async () => {
       return await queryCollection(collection)
         .order("date", "DESC")
-        .select("categories")
+        .select("category")
         .all();
     }
   );
@@ -23,7 +23,7 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
     }
 
     let selectedCategories = categoriesData.value
-      .map((item) => item.categories)
+      .map((item) => item.category)
       .flat();
 
     if (limit) {

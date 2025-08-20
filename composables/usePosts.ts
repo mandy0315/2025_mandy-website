@@ -1,7 +1,8 @@
 interface Post {
   title: string;
   path: string;
-  categories: string[];
+  category: string;
+  tags: string[];
   image: string;
   description: string;
   date: string;
@@ -30,7 +31,15 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   } = await useAsyncData(`${collection}-posts-data`, async () => {
     return await queryCollection(collection)
       .order("date", currentSort.value)
-      .select("title", "path", "categories", "image", "description", "date")
+      .select(
+        "title",
+        "path",
+        "category",
+        "tags",
+        "image",
+        "description",
+        "date"
+      )
       .all();
   });
 
@@ -39,7 +48,7 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     if (list.length === 0) return;
 
     const postsInCategory = posts.value.list.filter((post) =>
-      post.categories.includes(category)
+      post.category.includes(category)
     );
 
     if (postsInCategory && postsInCategory.length > 0) {
