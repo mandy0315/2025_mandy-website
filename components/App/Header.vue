@@ -2,7 +2,7 @@
 </script>
 <template>
   <header>
-    <NuxtLink to="/" class="fixed z-100 p-5 backdrop-blur-sm">
+    <NuxtLink to="/" class="fixed z-80 p-5 backdrop-blur-sm">
       <IconLogo class="w-18 dark:fill-white lg:w-20" />
     </NuxtLink>
     <div
