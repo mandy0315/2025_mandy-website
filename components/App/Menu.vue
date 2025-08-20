@@ -19,10 +19,10 @@ const isOpenMenu = useState('isOpenMenu', () => false);
     </button>
     <Teleport to="body">
       <div
-        class="fixed flex items-center flex-col justify-start z-50 top-0 left-0 h-full w-full transition-transform duration-700 bg-white pt-20 lg:flex-row lg:pt-0 "
+        class="fixed flex items-center flex-col justify-start z-100 top-0 left-0 h-full w-full transition-transform duration-700 pt-20 lg:flex-row lg:pt-0"
         :class="isOpenMenu ? 'translate-x-0' : 'translate-x-full'">
-        <div class="w-7/10 h-50 bg-[var(--bg-color)] mb-6 lg:h-full lg:mb-0">image</div>
-        <div class=" lg:mx-auto">
+        <div class="w-7/10 bg-[var(--bg-color)]/40 backdrop-blur-sm h-screen"></div>
+        <div class="w-3/10 bg-[var(--bg-color)] h-screen flex items-center justify-center flex-col">
           <NuxtLink v-for="(item, index) in pageMap.values()" :key="index" :to="item.path" @click="isOpenMenu = false"
             class="py-4 block">
             {{ item.title }}
