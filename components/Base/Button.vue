@@ -15,7 +15,7 @@ const props = withDefaults(
 );
 
 const buttonClasses = computed(() => {
-  const base = 'inline-flex items-center justify-center rounded-4xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+  const base = 'inline-block rounded-4xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
 
   const sizeClasses = {
     sm: 'px-3 py-1 text-sm',

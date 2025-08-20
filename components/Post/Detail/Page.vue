@@ -22,7 +22,7 @@ usePageSEO({
 </script>
 
 <template>
-  <NuxtLayout name="content-with-sidebar">
+  <NuxtLayout name="right-sidebar">
     <template #content>
       <div v-if="post">
         <div class="border-b pb-6 pt-4 border-primary">
@@ -40,8 +40,7 @@ usePageSEO({
               <PostDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="col-span-1 text-right">
-              <BaseButton size="sm" v-for="category in post.categories" :key="category"
-                @click="goToCategoriesPage(category)">{{ category }}</BaseButton>
+              <BaseButton size="sm" @click="goToCategoriesPage(post.category)">{{ post.category }}</BaseButton>
             </div>
           </div>
           <p>{{ post.description }}</p>

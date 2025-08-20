@@ -2,8 +2,6 @@
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
-const { refreshCategories, goToCategoriesPage, categories } = await useCategory(props.collection);
-await refreshCategories(10);
 
 const currentPage = ref(1);
 const { setPosts, refreshPosts, posts, pending, currentSort } = await usePosts(props.collection);
@@ -15,7 +13,7 @@ watch([currentPage, currentSort], async () => {
 
 </script>
 <template>
-  <NuxtLayout name="content-with-sidebar">
+  <NuxtLayout name="right-sidebar">
     <template #content>
       <div v-if="pending">載入中....</div>
       <div v-else>
@@ -31,7 +29,7 @@ watch([currentPage, currentSort], async () => {
           </p>
         </div>
 
-        <div class="pb-4 ml-auto text-right">
+        <div class="pb-4">
           <p class="inline-block text-sm text-secondary-light dark:text-secondary-dark">文章排序：</p>
           <select v-model="currentSort" class="border c-border-secondary rounded py-1 px-2">
             <option value="DESC">新到舊</option>
@@ -53,13 +51,7 @@ watch([currentPage, currentSort], async () => {
       </div>
     </template>
     <template #right-side>
-      <p>分類</p>
-      <div class="flex flex-wrap gap-2">
-        <BaseButton v-for="category in categories" size="sm" :key="category" @click="goToCategoriesPage(category)">{{
-          category }}
-        </BaseButton>
-      </div>
-      <BaseLink size="sm" :to="`/${collection}/categories`" variant="underline">更多分類</BaseLink>
+      <PostListAside :collection />
     </template>
   </NuxtLayout>
 </template>
