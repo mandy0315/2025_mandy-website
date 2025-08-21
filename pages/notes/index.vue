@@ -4,5 +4,5 @@ usePageSEO({
 })
 </script>
 <template>
-  <PostListPage collection="notes" class="c-container" />
+  <PostListPage collection="notes" />
 </template>
