@@ -1,11 +1,4 @@
 <script setup lang="ts">
-// 右側目錄
-type Section = {
-  id: string;
-  title: string;
-  element: HTMLElement | null;
-  level: number;
-};
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
@@ -14,55 +7,61 @@ const route = useRoute();
 const { currSection,
   setNavListener } = useNavListener();
 
-const { data: tocInNote } = await useAsyncData(`${props.collection}-detail-toc`, () => {
+const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-detail-toc`, () => {
   return queryCollectionSearchSections(props.collection);
 });
-const tocInfo = ref<Section[] | null>(null);
-const setTocInfo = async () => {
-  const currSections = tocInNote.value?.filter(section =>
-    section.id.startsWith(route.path)
-  ) || [];
-  const thanLevel2Sections = currSections.filter(section => section.level >= 2);
 
-  if (thanLevel2Sections.length > 0) {
-    tocInfo.value = thanLevel2Sections.map((section) => {
-      const target = section.id.replace('#', '').replace(route.path, '');
-      return {
-        id: `#${target}`,
-        title: section.title,
-        element: document.getElementById(target),
-        level: section.level
-      };
-    });
+const currTocs = computed(() => collectionAllTocs.value?.filter(toc =>
+  toc.id.startsWith(route.path)
+) || [])
+const initNavListener = (retryCount = 0) => {
+  if (currTocs.value.length === 0) return;
+
+  const maxRetries = 5;
+  const delay = Math.min(100 * Math.pow(2, retryCount), 1000);
+
+  const navs = currTocs.value.map(toc => {
+    const id = toc.title.trim().replace(/\s+/g, '-').toLowerCase();
+    const element = document.getElementById(id);
+
+    return {
+      title: toc.title,
+      element
+    };
+  });
+
+  const foundElements = navs.filter(nav => nav.element).length;
+
+  if (foundElements > 0) {
+    setNavListener({ navs });
+  } else if (retryCount < maxRetries) {
+    setTimeout(() => initNavListener(retryCount + 1), delay);
+  } else {
+    console.warn('達到最大重試次數，無法找到導航元素');
   }
 };
-const initToc = async () => {
-  await setTocInfo();
-  if (!tocInfo.value) return;
-  setNavListener({
-    navs: tocInfo.value.map(section => {
-      return {
-        title: section.title,
-        element: section.element
-      }
-    }),
-  });
-}
+
 onMounted(() => {
-  initToc();
-})
+  initNavListener();
+});
 </script>
 <template>
-  <ClientOnly>
-    <p class="font-medium pb-2 text-lg">目錄</p>
-    <ul class="">
-      <li v-for="section in tocInfo">
-        <NuxtLink v-if="section.element" class=" hover:text-blue-400 cursor-pointer"
-          :class="[{ 'text-blue-400': currSection === section.title }, { 'pl-4': section.level === 3 }]"
-          :to="`${route.path}${section.id}`">
-          {{ section.title }}
-        </NuxtLink>
-      </li>
-    </ul>
-  </ClientOnly>
+  <div>
+    <ClientOnly>
+      <p class="font-zen-old-mincho font-black text-sm pb-4">
+        <span>Toc</span>
+        <span class="pl-2">目錄</span>
+      </p>
+
+      <ul class="border-l c-border-secondary pl-2">
+        <li v-for="toc in currTocs">
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
+            :class="{ 'text-primary': currSection === toc.title }"
+            :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
+            {{ toc.title }}
+          </NuxtLink>
+        </li>
+      </ul>
+    </ClientOnly>
+  </div>
 </template>
