@@ -1,7 +1,7 @@
 <script setup lang="ts">
 </script>
 <template>
-  <header>
+  <header class="h-header">
     <NuxtLink to="/" class="fixed z-80 p-5">
       <IconLogo class="w-18 dark:fill-white lg:w-20" />
     </NuxtLink>

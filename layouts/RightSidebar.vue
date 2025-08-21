@@ -17,8 +17,8 @@ const toggleSidebar = () => {
         <slot name="content" />
       </div>
 
-      <div class="w-0 relative transition-width duration-500 ease-linear" :class="isShowSidebar ? 'w-60' : 'w-0'">
-        <div class="sticky top-10">
+      <div class="relative transition-width duration-500 ease-linear" :class="isShowSidebar ? 'w-60' : 'w-0'">
+        <div class="sticky top-12 w-full c-sidebar-height">
           <BaseButton size="sm" variant="solid"
             class="absolute rounded-l-3xl rounded-r-none top-16 right-full z-50 text-nowrap" @click="toggleSidebar">
 
@@ -29,11 +29,10 @@ const toggleSidebar = () => {
               {{ isShowSidebar ? '收回' : '側邊欄' }}
             </span>
           </BaseButton>
-
           <div class="rounded-t-full bg-primary/10 h-20 relative">
           </div>
 
-          <aside class="bg-primary/10 overflow-hidden" style="height: calc(100vh - 5rem);">
+          <aside class="bg-primary/10 overflow-hidden h-full">
             <div class="h-full overflow-y-auto transition-opacity px-4"
               :class="isShowSidebar ? 'opacity-100 delay-400' : 'opacity-0'">
               <slot name="right-side" />

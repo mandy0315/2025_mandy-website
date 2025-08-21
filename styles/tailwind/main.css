@@ -38,6 +38,9 @@
   --animate-rotating: rotating 2s ease-in-out;
   --animate-drift: drift 10s ease-in-out infinite;
 
+  --spacing-footer: 3rem;
+  --spacing-header: 5rem;
+
   @keyframes rotating {
     0% {
       transform: rotate(0deg);
@@ -97,7 +100,7 @@
 
 @layer components {
   .c-container {
-    @apply pt-20 w-8/10 mx-auto 2xl:max-w-[1280px];
+    @apply w-8/10 mx-auto 2xl:max-w-[1280px];
   }
 
   .c-border-secondary {
@@ -106,6 +109,10 @@
 
   .c-text-secondary {
     @apply text-secondary-light dark:text-secondary-dark;
+  }
+
+  .c-sidebar-height {
+    height: calc(100vh - var(--spacing-header) - var(--spacing-footer));
   }
 }
 

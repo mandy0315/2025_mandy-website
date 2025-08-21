@@ -2,5 +2,5 @@
 
 </script>
 <template>
-  <footer class="bg-blue-200 w-full">footer</footer>
+  <footer class="bg-blue-200 w-full h-footer">footer</footer>
 </template>
