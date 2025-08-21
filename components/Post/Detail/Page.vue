@@ -68,7 +68,7 @@ usePageSEO({
       </div>
     </template>
     <template #right-side>
-      <PostDetailToc :collection />
+      <PostDetailAside :collection />
     </template>
   </NuxtLayout>
 </template>
