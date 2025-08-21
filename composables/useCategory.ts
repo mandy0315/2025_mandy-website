@@ -1,10 +1,8 @@
 export const useCategory = async (collection: "blog" | "notes" = "blog") => {
-  const router = useRouter();
   const categories = useState<string[]>(`categories-${collection}`, () => []);
 
-  const goToCategoriesPage = (category: string) => {
-    const path = encodeURI(`/${collection}/categories/${category}`);
-    router.push(path);
+  const goToCategoriesPage = async (category: string) => {
+    await navigateTo(`/${collection}/categories/${category}`);
   };
 
   const { data: categoriesData, refresh } = await useAsyncData(
