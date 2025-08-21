@@ -97,7 +97,7 @@
 
 @layer components {
   .c-container {
-    @apply mt-20 lg:mt-12 w-8/10 mx-auto 2xl:max-w-[1280px];
+    @apply pt-20 w-8/10 mx-auto 2xl:max-w-[1280px];
   }
 
   .c-border-secondary {
