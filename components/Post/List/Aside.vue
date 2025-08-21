@@ -14,7 +14,7 @@ await refreshCategories(5);
           <span>Categories</span>
           <span class="pl-2">分類</span>
         </p>
-        <BaseLink size="xs" variant="solid" :to="`/${collection}/categories`">到列表
+        <BaseLink size="xs" variant="solid" :to="`/${collection}/categories`">總覽
         </BaseLink>
       </div>
       <ul>
