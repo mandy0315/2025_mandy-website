@@ -9,7 +9,7 @@ await refreshCategories();
 </script>
 <template>
   <div class="flex">
-    <div class="w-60 mt-7 px-4">
+    <div class="w-60 px-4">
       <BaseLink to="/blog/categories" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"
         :isAction="collection === 'blog'">
         部落格分類</BaseLink>
