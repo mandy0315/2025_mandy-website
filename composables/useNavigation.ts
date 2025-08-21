@@ -1,5 +1,5 @@
 export const useNavigation = async (
-  collection: "posts" | "notes",
+  collection: "blog" | "notes",
   currentPath: string
 ) => {
   type NavigationItem = {

@@ -61,24 +61,24 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <div>
+  <div class="c-container">
     <section class="flex items-center justify-between">
       <h1>Works</h1>
       <div class="grid grid-cols-2 gap-x-4">
         <div class="col-span-1">
           <p>Category</p>
           <button @click="currentCategory = 'all'" class="block"
-            :class="{ 'text-c-light-blue': currentCategory === 'all' }">all</button>
+            :class="{ 'text-primary': currentCategory === 'all' }">all</button>
           <button v-for="category in WorkCategories" :key="category" class="block" @click="currentCategory = category"
-            :class="{ 'text-c-light-blue': currentCategory === category }">{{
+            :class="{ 'text-primary': currentCategory === category }">{{
               category }}</button>
         </div>
         <div class="col-span-1">
           <p>Type</p>
           <button @click="currentType = 'all'" class="block"
-            :class="{ 'text-c-light-blue': currentType === 'all' }">all</button>
+            :class="{ 'text-primary': currentType === 'all' }">all</button>
           <button v-for="type in WorkTypes" :key="type" class="block" @click="currentType = type"
-            :class="{ 'text-c-light-blue': currentType === type }">{{
+            :class="{ 'text-primary': currentType === type }">{{
               type }}</button>
         </div>
       </div>

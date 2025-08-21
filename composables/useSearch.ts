@@ -5,7 +5,7 @@ import {
   type WorkItem,
 } from "@/utils/workDataMap";
 
-type Collection = "posts" | "notes";
+type Collection = "blog" | "notes";
 interface Post {
   title: string;
   description: string;
@@ -127,9 +127,9 @@ const useSearch = async () => {
     isSearch.value = false;
     const [kPosts, kNotes, kCategoriesPosts, kCategoriesNotes] =
       await Promise.all([
-        searchInList("posts", keywords.value, ["title", "description"]),
+        searchInList("blog", keywords.value, ["title", "description"]),
         searchInList("notes", keywords.value, ["title", "description"]),
-        searchInCategories("posts", keywords.value),
+        searchInCategories("blog", keywords.value),
         searchInCategories("notes", keywords.value),
       ]);
     const kPages = searchInPages(keywords.value);

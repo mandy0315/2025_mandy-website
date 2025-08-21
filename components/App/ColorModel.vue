@@ -5,13 +5,10 @@ const toggleTheme = () => {
 }
 </script>
 <template>
-
-  <div>
-    <ClientOnly>
-      <button @click="toggleTheme" class="w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-100/20 rounded">
-        <Icon v-if="colorMode.value === 'light'" size="1.5rem" name="solar:sun-outline" class="align-middle" />
-        <Icon v-else size="1.3rem" name="solar:moon-outline" class="align-middle" />
-      </button>
-    </ClientOnly>
-  </div>
+  <ClientOnly>
+    <button @click="toggleTheme">
+      <Icon v-if="colorMode.value === 'light'" name="solar:sun-line-duotone" class=" align-middle" size="1.3rem" />
+      <Icon v-else name="solar:moon-outline" class=" align-middle" size="1rem" />
+    </button>
+  </ClientOnly>
 </template>

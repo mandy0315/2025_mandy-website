@@ -4,7 +4,7 @@ defineProps<{
 }>()
 </script>
 <template>
-  <p class="c-text-gray text-sm">
+  <p class=" text-sm">
     <Icon class="align-middle mr-1" name="solar:calendar-linear" />
     <span v-if="date" v-date-format="date" class="align-middle"></span>
   </p>

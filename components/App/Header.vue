@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import { pageMap } from "@/utils/appMap";
 </script>
 <template>
-  <header
-    class="bg-[var(--bg-color)]/80 backdrop-blur-sm h-c-header-height flex border-b c-border-gray w-full sticky top-0 justify-between items-center z-50">
-    <NuxtLink to="/">
-      Logo
+  <header>
+    <NuxtLink to="/" class="fixed z-80 p-5">
+      <IconLogo class="w-18 dark:fill-white lg:w-20" />
     </NuxtLink>
-    <!-- menu -->
-    <ul class="flex items-center gap-4">
-      <li v-for="(item, index) in pageMap.values()" :key="index">
-        <NuxtLink v-if="item.title !== '首頁'" :to="item.path"
-          class="text-[var(--text-color)] hover:text-[var(--primary-color)] transition-all duration-300 ease-in-out">
-          {{ item.title }}
-        </NuxtLink>
-      </li>
-    </ul>
-    <!-- tools -->
-    <div class="flex items-center">
-      <AppSearch />
+    <div
+      class="flex items-end fixed z-100 right-4 top-4 flex-row-reverse gap-x-2 lg:flex-col lg:items-center lg:gap-y-2">
+      <AppMenu />
       <AppColorModel />
+      <AppSearch />
     </div>
   </header>
+
 </template>
+<style scoped>
+.vertical-rl {
+  writing-mode: vertical-rl;
+}
+</style>
