@@ -14,7 +14,7 @@ const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-deta
 const currTocs = computed(() => collectionAllTocs.value?.filter(toc =>
   toc.id.startsWith(route.path)
 ) || [])
-const initNavListener = (retryCount = 0) => {
+const initListenerPage = async (retryCount = 0) => {
   if (currTocs.value.length === 0) return;
 
   const maxRetries = 5;
@@ -30,19 +30,21 @@ const initNavListener = (retryCount = 0) => {
     };
   });
 
+
   const foundElements = navs.filter(nav => nav.element).length;
 
   if (foundElements > 0) {
     setNavListener({ navs });
+    await navigateTo(route.fullPath); // 有抓到元素，重新導航以觸發導航事件
   } else if (retryCount < maxRetries) {
-    setTimeout(() => initNavListener(retryCount + 1), delay);
+    setTimeout(() => initListenerPage(retryCount + 1), delay);
   } else {
     console.warn('達到最大重試次數，無法找到導航元素');
   }
 };
 
 onMounted(() => {
-  initNavListener();
+  initListenerPage();
 });
 </script>
 <template>
