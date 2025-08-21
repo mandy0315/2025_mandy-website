@@ -14,7 +14,7 @@ const toggleSidebar = () => {
   <div class="flex relative c-container">
     <ClientOnly>
       <div class="flex-1 pr-4 min-h-screen">
-        <slot name="content" />
+        <slot />
       </div>
 
       <div class="relative transition-width duration-500 ease-linear" :class="isShowSidebar ? 'w-60' : 'w-0'">

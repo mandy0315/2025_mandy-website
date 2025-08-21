@@ -4,7 +4,7 @@
       <slot name="sidebar" />
     </div>
     <div class="w-7/10">
-      <slot name="content" />
+      <slot />
     </div>
   </div>
 </template>

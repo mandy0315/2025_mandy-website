@@ -12,7 +12,7 @@ usePageSEO({
 </script>
 <template>
   <NuxtLayout name="post-archive">
-    <template #content>
+    <template #default>
       <NuxtPage />
     </template>
     <template #sidebar>

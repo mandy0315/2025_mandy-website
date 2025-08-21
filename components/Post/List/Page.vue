@@ -14,7 +14,7 @@ watch([currentPage, currentSort], async () => {
 </script>
 <template>
   <NuxtLayout name="post">
-    <template #content>
+    <template #default>
       <div v-if="pending">載入中....</div>
       <div v-else>
         <div class="pb-4">

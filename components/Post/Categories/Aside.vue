@@ -6,7 +6,7 @@ const props = defineProps<{
 const { categories, goToCategoriesPage } = await useCategory(props.collection);
 
 const LIMIT_COUNT = 10;
-const currentCount = ref(10);
+const currentCount = ref(0);
 currentCount.value = LIMIT_COUNT;
 
 const currentCategories = computed(() =>

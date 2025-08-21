@@ -23,7 +23,7 @@ usePageSEO({
 
 <template>
   <NuxtLayout name="post">
-    <template #content>
+    <template #default>
       <div v-if="post">
         <div class="border-b pb-6 pt-4 border-primary">
           <!-- 麵包屑 -->
