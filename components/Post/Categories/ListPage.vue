@@ -15,10 +15,10 @@ await refreshCategoryPosts(currentPage.value, currentCategory.value)
     <div class="pb-4">
       <div class="text-sm text-center font-black font-zen-old-mincho pb-2">
         <span class="px-1">-</span>
-        <NuxtLink v-if="collection === 'blog'" class="text-sm hover:text-primary pr-1" to="/blog">部落格</NuxtLink>
-        <NuxtLink v-else class="text-sm hover:text-primary" to="/notes pr-1">筆記
+        <NuxtLink v-if="collection === 'blog'" to="/blog"
+          class="text-sm hover:text-primary pr-1 underline underline-offset-2">部落格</NuxtLink>
+        <NuxtLink v-else to="/notes" class="text-sm hover:text-primary pr-1 underline underline-offset-2">筆記
         </NuxtLink>
-        <span v-else>筆記</span>
         <span>分類</span>
         <span class="px-1">-</span>
       </div>
