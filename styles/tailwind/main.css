@@ -103,6 +103,10 @@
   .c-border-secondary {
     @apply border-secondary-light/50 dark:border-secondary-dark/50;
   }
+
+  .c-text-secondary {
+    @apply text-secondary-light dark:text-secondary-dark;
+  }
 }
 
 @import "./typography.css";
