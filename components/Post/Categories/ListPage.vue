@@ -4,11 +4,15 @@ const props = defineProps<{
 }>();
 
 const route = useRoute();
-const { refreshCategoryPosts, posts } = await usePosts(props.collection);
+const { refreshArchivePosts, posts } = await usePosts(props.collection);
 const currentPage = ref(1);
-const currentCategory = computed(() => route.params.category as string);
+const currentCategory = computed(() => (route.params?.category || '') as string);
+const categoryName = computed(() => {
+  if (currentCategory.value === '') return '';
+  return currentCategory.value.charAt(0).toUpperCase() + currentCategory.value.slice(1);
+})
 
-await refreshCategoryPosts(currentPage.value, currentCategory.value)
+await refreshArchivePosts({ page: currentPage.value, type: 'category', value: currentCategory.value })
 </script>
 <template>
   <div>
@@ -19,11 +23,11 @@ await refreshCategoryPosts(currentPage.value, currentCategory.value)
           class="text-sm hover:text-primary pr-1 underline underline-offset-2">部落格</NuxtLink>
         <NuxtLink v-else to="/notes" class="text-sm hover:text-primary pr-1 underline underline-offset-2">筆記
         </NuxtLink>
-        <span>分類</span>
+        <span>分類總覽</span>
         <span class="px-1">-</span>
       </div>
       <BaseTitle class="text-primary">
-        「{{ currentCategory }}」
+        「{{ categoryName }}」
       </BaseTitle>
       <p v-if="posts.list.length > 0" class="text-lg text-center ">
         目前有
