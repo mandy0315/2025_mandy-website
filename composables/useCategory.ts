@@ -27,6 +27,9 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
     ); // 取得物件的 category 欄位的值
 
     selectedCategories = Array.from(new Set(selectedCategories)); // 篩選掉重複的
+    selectedCategories = selectedCategories.map((category) =>
+      category.toLowerCase()
+    ); // 陣列裡的字串全部轉小寫
 
     if (limit) {
       selectedCategories = selectedCategories.slice(0, limit);
