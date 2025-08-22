@@ -41,16 +41,8 @@ const handleToggle = () => {
     </div>
 
     <div class="overflow-y-auto h-[calc(100%-2rem)]">
-      <ul>
-        <li v-for="category in currentCategories" :key="category">
-          <button size="sm" class="py-1 px-2 block w-full text-sm text-left my-1 hover:bg-primary/30 "
-            :class="{ 'text-primary hover:bg-transparent': currentCategory === category }"
-            @click="goToCategoriesPage(category)">
-            <Icon name="solar:folder-bold" size="1rem" class=" align-middle" />
-            {{ category }}
-          </button>
-        </li>
-      </ul>
+      <PostCategoryButton v-for="category in currentCategories" :key="category" :category
+        :isAction="currentCategory === category" @click="goToCategoriesPage(category)" />
 
       <BaseButton v-if="isToggleButton" size="sm" class="w-full rounded-sm mb-2" @click="handleToggle">
         {{ hasMore ? '顯示更多' : '收起' }}

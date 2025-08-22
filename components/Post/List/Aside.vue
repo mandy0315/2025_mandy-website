@@ -4,6 +4,9 @@ const props = defineProps<{
 }>();
 const { refreshCategories, goToCategoriesPage, categories } = await useCategory(props.collection);
 await refreshCategories(5);
+
+const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
+await refreshTags(5);
 </script>
 <template>
   <div>
@@ -17,15 +20,9 @@ await refreshCategories(5);
         <BaseLink size="xs" variant="solid" :to="`/${collection}/categories`">總覽
         </BaseLink>
       </div>
-      <ul>
-        <li class="border-b c-border-secondary" v-for="category in categories" :key="category">
-          <button size="sm" @click="goToCategoriesPage(category)"
-            class="py-1 px-2 block w-full text-sm text-left my-1 hover:bg-primary/30">
-            <Icon name="solar:folder-bold" size="1rem" class=" align-middle" />
-            {{ category }}
-          </button>
-        </li>
-      </ul>
+      <div class="border-b c-border-secondary" v-for="category in categories" :key="category">
+        <PostCategoryButton :category @click="goToCategoriesPage(category)" />
+      </div>
     </div>
     <!-- 標籤 -->
     <div>
@@ -34,8 +31,14 @@ await refreshCategories(5);
           <span>Tags</span>
           <span class="pl-2">標籤</span>
         </p>
-        <!-- <BaseLink size="xs" variant="solid" >到列表
-        </BaseLink> -->
+        <BaseLink size="xs" variant="solid" :to="`/${collection}/tags`">總覽
+        </BaseLink>
+      </div>
+
+      <div class="py-2 flex flex-wrap gap-1 ">
+        <BaseButton v-for="tag in tags" :key="tag" size="xs" @click="goToTagsPage(tag)">
+          {{ tag }}
+        </BaseButton>
       </div>
     </div>
   </div>
