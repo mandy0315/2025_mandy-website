@@ -23,6 +23,7 @@ export const useTag = async (collection: "blog" | "notes" = "blog") => {
     }
 
     let selectedTags: string[] = tagsData.value.map((item) => item.tags).flat(); // 取得物件的 category 欄位的值並扁平化陣列
+    selectedTags = selectedTags.map((tag) => tag.toLowerCase()); // 陣列裡的字串全部轉小寫
     selectedTags = Array.from(new Set(selectedTags)); // 篩選掉重複的
 
     if (limit) {
