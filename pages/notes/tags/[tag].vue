@@ -1,6 +1,3 @@
-<script setup>
-
-</script>
 <template>
-  <div>內部</div>
+  <PostTagsListPage collection="notes" />
 </template>

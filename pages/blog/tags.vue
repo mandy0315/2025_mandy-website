@@ -7,7 +7,7 @@ definePageMeta({
 })
 
 usePageSEO({
-  title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
+  title: currentTag.value ? `${currentTag.value} | 部落格標籤` : '部落格標籤',
 })
 </script>
 <template>
@@ -16,7 +16,7 @@ usePageSEO({
       <NuxtPage />
     </template>
     <template #sidebar>
-      <PostTagsAside collection="notes" />
+      <PostTagsAside collection="blog" />
     </template>
   </NuxtLayout>
 </template>
