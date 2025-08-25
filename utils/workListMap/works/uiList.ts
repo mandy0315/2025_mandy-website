@@ -1,0 +1,59 @@
+import type { WorkItem } from "./types";
+export const uiList: WorkItem[] = [
+  {
+    id: "secpassSignUpPage",
+    category: "ui",
+    type: "commercial",
+    title: "工研院報名系統頁面",
+    description:
+      "「 科技感 」做為網頁風格，此系統重視流程、填寫、說明文字，設計以簡約方形架構為主，項目間透過黑灰白色區別每段，在整體項目有辨識度與變化；標題加入ICON視覺化，以圖示輔助文字，增添易讀性。",
+    link: null,
+    image: "/images/works/ui/secpassSignUpPage.jpg",
+    client: "工研院",
+    skills: ["Illustrator", "Photoshop", "Sketch"],
+    date: null,
+    status: "completed",
+  },
+  {
+    id: "wakeup-lanternEventPage",
+    category: "ui",
+    type: "commercial",
+    title: "點燈來祈福活動頁面",
+    description:
+      "元宵節的到來，一同放天燈祈福最為應景，設計以填寫「 天燈祝福 」的想法與大家互動，風格沿用振作角色，加入天燈、背景陪伴過節，最後一同欣賞天燈飛天的奇觀，達到節慶祝福與互動。",
+    link: null,
+    image: "/images/works/ui/wakeup-lanternEventPage.jpg",
+    client: "振作網頁設計公司",
+    skills: ["Illustrator", "Photoshop"],
+    date: null,
+    status: "completed",
+  },
+  {
+    id: "wakeup-valentineEventPage",
+    category: "ui",
+    type: "commercial",
+    title: "愛你愛妳愛情靈籤活動頁面",
+    description:
+      "情人節的到來，希望能與另一半度過浪漫節日，設計以求「 姻緣籤 」的想法與大家互動過節，風格以中式為主，並繪製五種與文字關聯插圖，達到趣味互動、加深公司印象。",
+    link: null,
+    image: "/images/works/ui/wakeup-valentineEventPage.jpg",
+    client: "振作網頁設計公司",
+    skills: ["Illustrator", "Photoshop"],
+    date: null,
+    status: "completed",
+  },
+  {
+    id: "citiChatbot",
+    category: "ui",
+    type: "commercial",
+    title: "花旗 ChatBot",
+    description:
+      "沿用花旗App規範，改版優化設計對話流程、信用卡帳單、繳費日期….等介面，搭配相關對話數據，一步步完成信用卡問題，讓資訊更靈活、易讀。",
+    link: "https://www.yungtay.com.tw/",
+    image: "/images/works/ui/citiChatbot.jpg",
+    client: "花旗銀行",
+    skills: ["Illustrator", "Photoshop", "Sketch"],
+    date: null,
+    status: "completed",
+  },
+];

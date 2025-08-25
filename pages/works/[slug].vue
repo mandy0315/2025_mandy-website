@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { workDataMap, type WorkItem } from '@/utils/workDataMap'
+import { workListGroup } from "@/utils/workListMap/index"
 
-const allData = [...workDataMap.values()].flat();
+const allData = [...workListGroup.values()].flat();
 
 definePageMeta({
   middleware: (to) => {
     const currentSlug = to.params.slug || '';
     const data = allData
-      .filter((item: WorkItem) => item.id === currentSlug);
+      .filter(item => item.id === currentSlug);
     if (data.length === 0) {
       showError({
         statusCode: 404,
@@ -20,7 +20,7 @@ definePageMeta({
 const route = useRoute();
 const currentWork = computed(() => {
   const currentSlug = route.params.slug || '';
-  return allData.find((item: WorkItem) => item.id === currentSlug);
+  return allData.find(item => item.id === currentSlug);
 });
 
 usePageSEO({
