@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import PaginationArrow from '@/components/Base/Pagination/Arrow.vue';
+
 const props = withDefaults(
   defineProps<{
     totalPage: number,
@@ -42,23 +44,23 @@ const visibleCount = computed(() => {
 </script>
 <template>
   <div class="flex items-center justify-center py-6">
-    <BasePaginationArrow @click="goToPage(1)" :disabled="currentPage === 1">
+    <PaginationArrow @click="goToPage(1)" :disabled="currentPage === 1">
       <Icon name="solar:double-alt-arrow-left-linear" size="1.3rem" />
-    </BasePaginationArrow>
-    <BasePaginationArrow @click="changePage(-1)" :disabled="currentPage === 1">
+    </PaginationArrow>
+    <PaginationArrow @click="changePage(-1)" :disabled="currentPage === 1">
       <Icon name="solar:alt-arrow-left-outline" size="1.2rem" />
-    </BasePaginationArrow>
+    </PaginationArrow>
 
     <button class="w-8 h-8 mx-0.5" v-for="num in visibleCount" :class="{ 'text-primary': currentPage === num }"
       :key="num" @click="goToPage(num)">
       {{ num }}
     </button>
 
-    <BasePaginationArrow @click="changePage(1)" :disabled="currentPage === totalPage">
+    <PaginationArrow @click="changePage(1)" :disabled="currentPage === totalPage">
       <Icon name="solar:alt-arrow-right-outline" size="1.2rem" />
-    </BasePaginationArrow>
-    <BasePaginationArrow @click="goToPage(totalPage)" :disabled="currentPage === totalPage">
+    </PaginationArrow>
+    <PaginationArrow @click="goToPage(totalPage)" :disabled="currentPage === totalPage">
       <Icon name="solar:double-alt-arrow-right-linear" size="1.3rem" />
-    </BasePaginationArrow>
+    </PaginationArrow>
   </div>
 </template>
