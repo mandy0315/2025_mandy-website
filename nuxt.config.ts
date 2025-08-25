@@ -39,6 +39,12 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    css: {
+      devSourcemap: true, // 只在開發環境啟用 CSS sourcemap
+    },
+    build: {
+      sourcemap: false,
+    },
   },
 
   css: ["@/styles/tailwind/main.css"],
@@ -61,36 +67,31 @@ export default defineNuxtConfig({
     preset: process.env.VL_BUILD ? "vercel" : undefined,
     prerender: {
       crawlLinks: true, // 連結預先渲染
-      routes: ["/", "/blog", "/works"], // 預先渲染的路由
+      routes: ["/", "/works", "/blog", "/notes"], // 預先渲染的路由
     },
   },
 
   routeRules: {
     // 靜態頁面
     "/": { prerender: true },
-    "/blog": { prerender: true },
     "/works": { prerender: true },
+    "/blog": { prerender: true },
+    "/notes": { prerender: true },
 
     // 動態路由 - SSR模式
     "/blog/**": {
       prerender: false,
       cache: {
-        maxAge: 60 * 10, // 緩存10分鐘
+        maxAge: 60 * 30, // 緩存30分鐘
         staleMaxAge: 60 * 60 * 24, // 過期後可用 24 小時，並同時在後台更新
       },
     },
     "/notes/**": {
       prerender: false,
       cache: {
-        maxAge: 60 * 10, // 緩存10分鐘
+        maxAge: 60 * 30, // 緩存30分鐘
         staleMaxAge: 60 * 60 * 24, // 過期後可用 24 小時，並同時在後台更新
       },
-    },
-    "/categories-posts/**": {
-      prerender: false,
-    },
-    "/categories-notes/**": {
-      prerender: false,
     },
   },
 

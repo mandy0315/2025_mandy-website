@@ -11,5 +11,12 @@ usePageSEO({
 })
 </script>
 <template>
-  <PostCategoriesLayout collection="notes" class="c-container" />
+  <NuxtLayout name="post-archive">
+    <template #default>
+      <NuxtPage />
+    </template>
+    <template #sidebar>
+      <PostCategoriesAside collection="notes" />
+    </template>
+  </NuxtLayout>
 </template>

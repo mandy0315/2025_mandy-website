@@ -22,8 +22,8 @@ usePageSEO({
 </script>
 
 <template>
-  <NuxtLayout name="right-sidebar">
-    <template #content>
+  <NuxtLayout name="post">
+    <template #default>
       <div v-if="post">
         <div class="border-b pb-6 pt-4 border-primary">
           <!-- 麵包屑 -->
@@ -67,8 +67,8 @@ usePageSEO({
         </div>
       </div>
     </template>
-    <template #right-side>
-      <PostDetailToc :collection />
+    <template #sidebar>
+      <PostDetailAside :collection />
     </template>
   </NuxtLayout>
 </template>

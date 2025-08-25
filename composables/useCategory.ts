@@ -1,10 +1,8 @@
 export const useCategory = async (collection: "blog" | "notes" = "blog") => {
-  const router = useRouter();
   const categories = useState<string[]>(`categories-${collection}`, () => []);
 
-  const goToCategoriesPage = (category: string) => {
-    const path = encodeURI(`/${collection}/categories/${category}`);
-    router.push(path);
+  const goToCategoriesPage = async (category: string) => {
+    await navigateTo(`/${collection}/categories/${category}`);
   };
 
   const { data: categoriesData, refresh } = await useAsyncData(
@@ -20,18 +18,24 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
   const setCategories = (limit?: number) => {
     if (!categoriesData.value) {
       categoriesData.value = [];
+      categories.value = [];
+      return;
     }
 
-    let selectedCategories = categoriesData.value
-      .map((item) => item.category)
-      .flat();
+    let selectedCategories: string[] = categoriesData.value.map(
+      (item) => item.category
+    ); // 取得物件的 category 欄位的值
+
+    selectedCategories = Array.from(new Set(selectedCategories)); // 篩選掉重複的
+    selectedCategories = selectedCategories.map((category) =>
+      category.toLowerCase()
+    ); // 陣列裡的字串全部轉小寫
 
     if (limit) {
       selectedCategories = selectedCategories.slice(0, limit);
     }
 
-    const uniqueCategories = Array.from(new Set(selectedCategories));
-    categories.value = uniqueCategories;
+    categories.value = selectedCategories;
   };
 
   const refreshCategories = async (limit?: number) => {

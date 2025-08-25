@@ -1,9 +1,6 @@
-import { pageMap } from "@/utils/appMap";
-import {
-  workDataMap,
-  workCategories,
-  type WorkItem,
-} from "@/utils/workDataMap";
+import { pageInfo } from "@/utils/pageInfoMap";
+import { workListGroup } from "@/utils/workListMap/index";
+import type { WorkItem } from "@/utils/workListMap/works/types";
 
 type Collection = "blog" | "notes";
 interface Post {
@@ -16,42 +13,42 @@ interface Page {
   path: string;
 }
 
+interface Work {
+  title: string;
+  path: string;
+  category: WorkItem["category"];
+}
+
 const useSearch = async () => {
   const isSearch = useState<boolean>("isSearch", () => false);
   const isShowSearchModal = useState<boolean>("isShowSearchModal", () => false);
 
-  const posts = useState<Post[]>("searchPosts", () => []);
+  const blog = useState<Post[]>("searchBlog", () => []);
   const notes = useState<Post[]>("searchNotes", () => []);
-  const categories_posts = useState<string[]>(
-    "searchCategoriesPosts",
-    () => []
-  );
-  const categories_notes = useState<string[]>(
-    "searchCategoriesNotes",
-    () => []
-  );
+  const blogCategories = useState<string[]>("searchBlogCategories", () => []);
+  const notesCategories = useState<string[]>("searchNotesCategories", () => []);
+  const blogTags = useState<string[]>("searchBlogTags", () => []);
+  const notesTags = useState<string[]>("searchNotesTags", () => []);
   const pages = useState<Page[]>("searchPages", () => []);
-  const works = useState<WorkItem[]>("searchWorks", () => []);
+  const works = useState<Work[]>("searchWorks", () => []);
   const keywords = useState<string>("keywords", () => "");
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
+  const keywordsToLower = computed(() => keywords.value.toLowerCase() || "");
+
   // 搜尋(文章/筆記)列表
-  const searchInList = async (
-    collection: Collection,
-    keyword: string,
-    fields: string[]
-  ) => {
+  const searchInPosts = async (collection: Collection, fields: string[]) => {
     try {
       const list = await queryCollection(collection)
         .orWhere((q) => {
           for (const field of fields) {
-            q.where(field, "LIKE", `%${keyword}%`);
+            q.where(field, "LIKE", `%${keywordsToLower.value}%`);
           }
           return q;
         })
         .select("title", "description", "path")
         .all();
-      if (keyword === "") {
+      if (keywordsToLower.value === "") {
         return list.slice(0, LIMIT_COUNT) || [];
       }
       return list;
@@ -61,44 +58,60 @@ const useSearch = async () => {
     }
   };
   // 搜尋分類
-  const searchInCategories = async (
-    collection: Collection,
-    keyword: string
-  ) => {
-    const res = await queryCollection(collection)
-      .order("date", "DESC")
-      .select("categories")
-      .all();
+  const searchInCategories = async (collection: Collection) => {
+    try {
+      if (keywordsToLower.value === "") {
+        const allCategories = await queryCollection(collection)
+          .select("category")
+          .all();
+        return allCategories.map((item) => item.category).slice(0, LIMIT_COUNT);
+      }
 
-    // 從每篇文章/筆記提取 categories 欄位
-    const selectedCategories = res.map((item) => item.categories).flat();
-    const uniqueCategories = [...new Set(selectedCategories)]; // 去除重複的分類
-
-    // 如果關鍵字為空，則返回前面 LIMIT_COUNT 個分類
-    if (keyword === "") {
-      return uniqueCategories.slice(0, LIMIT_COUNT) || [];
+      const categories = await queryCollection(collection)
+        .where("category", "LIKE", `%${keywordsToLower.value}%`)
+        .select("category")
+        .all();
+      return categories.map((item) => item.category);
+    } catch (error) {
+      console.error("搜尋分類錯誤", error);
+      return [];
     }
-
-    // 過濾分類
-    if (uniqueCategories.length === 0) return [];
-    return uniqueCategories.filter((category) =>
-      category.toLowerCase().includes(keyword.toLowerCase())
-    );
   };
+  // 搜尋標籤
+  const searchInTags = async (collection: Collection) => {
+    try {
+      const allPosts = await queryCollection(collection).select("tags").all();
+
+      const allTags = allPosts.map((item) => item.tags || []).flat();
+      const uniqueTags = Array.from(new Set(allTags));
+
+      if (keywordsToLower.value === "") {
+        return uniqueTags.slice(0, LIMIT_COUNT);
+      }
+      const matchedTags = uniqueTags.filter((tag) =>
+        tag.toLowerCase().includes(keywordsToLower.value)
+      );
+      return matchedTags;
+    } catch (error) {
+      console.error("搜尋分類錯誤", error);
+      return [];
+    }
+  };
+
   // 搜尋頁面
-  const searchInPages = (keyword: string) => {
-    const lowerKeyword = keyword.toLowerCase();
-    const pagesValues = pageMap.values();
+  const searchInPages = () => {
+    const pagesValues = pageInfo.values();
 
     // 如果關鍵字為空，則返回所有頁面
-    if (keyword === "") return Array.from(pagesValues);
+    if (keywordsToLower.value === "") return Array.from(pagesValues);
 
     const searchPages = [];
     for (let val of pagesValues) {
       const path = val.path.toLowerCase();
       const title = val.title.toLowerCase();
       const isMatch =
-        path.includes(lowerKeyword) || title.includes(lowerKeyword);
+        path.includes(keywordsToLower.value) ||
+        title.includes(keywordsToLower.value);
 
       if (isMatch) {
         searchPages.push(val);
@@ -106,57 +119,78 @@ const useSearch = async () => {
     }
     return searchPages;
   };
-  const searchInWorks = (keyword: string) => {
-    const lowerKeyword = keyword.toLowerCase();
-    const worksValues = Array.from(workDataMap.values()).flat();
-
-    if (keyword === "") {
-      const firstWorksInCategories = workCategories
-        .map((category) => workDataMap.get(category)?.[0])
-        .filter((item): item is WorkItem => item !== undefined);
-      return firstWorksInCategories;
+  // 搜尋作品
+  const searchInWorks = () => {
+    if (keywordsToLower.value === "") {
+      const firstWorks = Array.from(workListGroup.entries())
+        .map(([category, items]) => {
+          const firstItem = items[0];
+          if (firstItem) {
+            return {
+              title: firstItem.title,
+              path: firstItem.id,
+              category: firstItem.category || category,
+            };
+          }
+          return null;
+        })
+        .filter((item) => item !== null);
+      return firstWorks;
     }
 
-    if (worksValues.length === 0) return [];
-    return worksValues.filter((work: WorkItem) =>
-      work.title.toLowerCase().includes(lowerKeyword)
+    const allWork = Array.from(workListGroup.values()).flat();
+    const searchWork = allWork.filter((item) =>
+      item.title.toLowerCase().includes(keywordsToLower.value)
     );
+    const mapSearchWork = searchWork.map((item) => ({
+      title: item.title,
+      path: item.id,
+      category: item.category,
+    }));
+    return mapSearchWork;
   };
   // 設定搜尋列表
-  const setSearchList = async () => {
+  const updateSearchList = async () => {
     isSearch.value = false;
-    const [kPosts, kNotes, kCategoriesPosts, kCategoriesNotes] =
-      await Promise.all([
-        searchInList("blog", keywords.value, ["title", "description"]),
-        searchInList("notes", keywords.value, ["title", "description"]),
-        searchInCategories("blog", keywords.value),
-        searchInCategories("notes", keywords.value),
-      ]);
-    const kPages = searchInPages(keywords.value);
-    const kWorks = searchInWorks(keywords.value);
+    const [
+      kBlog,
+      kNotes,
+      kBlogCategories,
+      kNotesCategories,
+      kBlogTags,
+      kNotesTags,
+    ] = await Promise.all([
+      searchInPosts("blog", ["title", "description"]),
+      searchInPosts("notes", ["title", "description"]),
+      searchInCategories("blog"),
+      searchInCategories("notes"),
+      searchInTags("blog"),
+      searchInTags("notes"),
+    ]);
+    const kPages = searchInPages();
+    const kWorks = searchInWorks();
 
-    posts.value = kPosts;
+    blog.value = kBlog;
     notes.value = kNotes;
-    categories_posts.value = kCategoriesPosts;
-    categories_notes.value = kCategoriesNotes;
+    blogCategories.value = kBlogCategories;
+    notesCategories.value = kNotesCategories;
+    blogTags.value = kBlogTags;
+    notesTags.value = kNotesTags;
     pages.value = kPages;
     works.value = kWorks;
     isSearch.value = true;
   };
 
-  const updatedKeywords = (val: string) => {
-    keywords.value = val;
-    setSearchList();
-  };
-
   return {
     keywords,
-    posts,
+    blog,
     notes,
-    categories_posts,
-    categories_notes,
+    blogCategories,
+    notesCategories,
+    blogTags,
+    notesTags,
     pages,
-    updatedKeywords,
+    updateSearchList,
     isShowSearchModal,
     works,
     isSearch,

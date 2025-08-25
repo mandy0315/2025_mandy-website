@@ -43,20 +43,6 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
       .all();
   });
 
-  const setCategoryPosts = (category: string) => {
-    const list = posts.value.list;
-    if (list.length === 0) return;
-
-    const postsInCategory = posts.value.list.filter((post) =>
-      post.category.includes(category)
-    );
-
-    if (postsInCategory && postsInCategory.length > 0) {
-      posts.value.list = postsInCategory;
-      posts.value.totalPosts = postsInCategory.length;
-    }
-  };
-
   const setPaginatePosts = (limitCount = 1, currentPage = 1) => {
     const list = posts.value.list;
     if (list.length === 0) return;
@@ -91,13 +77,43 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     setPosts(page);
   };
 
-  const refreshCategoryPosts = async (page = 1, category: string) => {
+  // 設定分類與標籤文章列表
+  const setArchivePosts = (type: "category" | "tags", value: string) => {
+    const list = posts.value.list;
+    if (list.length === 0) return;
+
+    // type 區分要用 .tags .categories
+    const newPosts = posts.value.list.filter((post) => {
+      // 轉小寫
+      const categoryToLower = post.category.toLowerCase();
+      const tagsToLower = post.tags.map((tag) => tag.toLowerCase());
+      const valueToLower = value.toLowerCase();
+      type === "category"
+        ? categoryToLower === valueToLower
+        : tagsToLower.includes(valueToLower);
+    });
+
+    if (newPosts && newPosts.length > 0) {
+      posts.value.list = newPosts;
+      posts.value.totalPosts = newPosts.length;
+    }
+  };
+
+  const refreshArchivePosts = async ({
+    page,
+    type,
+    value,
+  }: {
+    page?: number;
+    type: "category" | "tags";
+    value: string;
+  }) => {
     currentSort.value = "DESC";
     await refresh();
     if (postsData.value) {
       posts.value.list = postsData.value;
       posts.value.totalPosts = postsData.value.length;
-      setCategoryPosts(category);
+      setArchivePosts(type, value);
       setPaginatePosts(limitCount, page);
     }
   };
@@ -108,6 +124,6 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     currentSort,
     setPosts,
     refreshPosts,
-    refreshCategoryPosts,
+    refreshArchivePosts,
   };
 };

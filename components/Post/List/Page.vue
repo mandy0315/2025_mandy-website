@@ -13,8 +13,8 @@ watch([currentPage, currentSort], async () => {
 
 </script>
 <template>
-  <NuxtLayout name="right-sidebar">
-    <template #content>
+  <NuxtLayout name="post">
+    <template #default>
       <div v-if="pending">載入中....</div>
       <div v-else>
         <div class="pb-4">
@@ -50,7 +50,7 @@ watch([currentPage, currentSort], async () => {
 
       </div>
     </template>
-    <template #right-side>
+    <template #sidebar>
       <PostListAside :collection />
     </template>
   </NuxtLayout>

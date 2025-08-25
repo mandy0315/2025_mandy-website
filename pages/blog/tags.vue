@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const route = useRoute();
-const currentCategory = computed(() => route.params.category || '');
+const currentTag = computed(() => route.params.tag || '');
 
 definePageMeta({
-  middleware: ['categories']
+  middleware: ['tags']
 })
 
 usePageSEO({
-  title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
+  title: currentTag.value ? `${currentTag.value} | 部落格標籤` : '部落格標籤',
 })
 </script>
 <template>
@@ -16,7 +16,7 @@ usePageSEO({
       <NuxtPage />
     </template>
     <template #sidebar>
-      <PostCategoriesAside collection="blog" />
+      <PostTagsAside collection="blog" />
     </template>
   </NuxtLayout>
 </template>

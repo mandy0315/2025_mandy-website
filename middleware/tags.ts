@@ -9,21 +9,21 @@ export default defineNuxtRouteMiddleware(async (to, _) => {
     });
   }
   const collection = collectionMatch as "blog" | "notes";
-  const { setCategories, categories } = await useCategory(collection);
-  setCategories();
+  const { setTags, tags } = await useTag(collection);
+  setTags();
 
-  const categoryParam = String(to.params?.category || "");
-  // 沒有 category 並有分類列表，重定向到第一個分類
-  if (categoryParam === "" && categories.value.length > 0) {
-    return navigateTo(`/${collection}/categories/${categories.value[0]}`, {
+  const tagParam = String(to.params?.tag || "");
+  // 網址沒有標籤顯示但有標籤列表，重定向到第一個標籤
+  if (tagParam === "" && tags.value.length > 0) {
+    return navigateTo(`/${collection}/tags/${tags.value[0]}`, {
       replace: true, // 使用 replace 以避免在歷史記錄中留下重定向
     });
   }
-  // 分類裡沒有該分類
-  if (categoryParam && !categories.value.includes(categoryParam)) {
+  // 網址有標籤，但標籤列表中沒有該標籤
+  if (tagParam && !tags.value.includes(tagParam)) {
     throw createError({
       statusCode: 404,
-      statusMessage: "Category Not Found",
+      statusMessage: "Tag Not Found",
     });
   }
 });

@@ -27,7 +27,7 @@ const handleErrorImage = () => {
       <PostDate :date />
 
       <p class="text-lg"> {{ title }}</p>
-      <p class="text-sm c-text-secondary">{{ description }}</p>
+      <p class="text-sm c-text-secondary line-clamp-2">{{ description }}</p>
     </div>
   </NuxtLink>
 </template>
