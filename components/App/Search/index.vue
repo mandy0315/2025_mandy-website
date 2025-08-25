@@ -50,8 +50,9 @@ watch(isSearch, async (value) => {
     <Teleport to="body">
       <div v-if="isShowSearchModal">
         <div class="w-5/10 fixed top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
-          <button @click="keywords = ''" class="absolute top-3 right-3 c-text-secondary z-20 text-2xl ">
-            <Icon name="solar:close-circle-bold" />
+          <button @click="keywords = ''"
+            class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
+            ＋
           </button>
           <label class="relative w-full h-12 flex bg-[var(--bg-color)] rounded-t border c-border-secondary ">
             <input type="text" v-model="keywords"
