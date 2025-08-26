@@ -10,7 +10,7 @@
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-  @apply content-['#'] opacity-0 transition-opacity duration-300 text-blue-500 pr-2 inline-block;
+  @apply content-['#'] opacity-0 transition-opacity duration-300 text-primary pr-2 inline-block;
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover::before {
