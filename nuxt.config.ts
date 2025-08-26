@@ -49,11 +49,7 @@ export default defineNuxtConfig({
 
   css: ["@/styles/tailwind/main.css"],
 
-  icon: {
-    serverBundle: {
-      collections: ["solar", "logos", "mdi"],
-    },
-  },
+  icon: {},
 
   colorMode: {
     preference: "system",
