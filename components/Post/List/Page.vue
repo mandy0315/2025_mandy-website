@@ -11,13 +11,15 @@ watch([currentPage, currentSort], async () => {
   await refreshPosts(currentPage.value);
 });
 
+const postIndex = computed(() => currentPage.value === 1 ? 1 : 0)
+
 </script>
 <template>
   <NuxtLayout name="post">
     <template #default>
       <div v-if="pending">載入中....</div>
       <div v-else>
-        <div class="pb-4">
+        <div class="pb-6">
           <BaseTitle>
             <span v-if="collection === 'blog'">部落格</span>
             <span v-else>筆記</span>
@@ -37,8 +39,12 @@ watch([currentPage, currentSort], async () => {
           </select>
         </div>
 
-        <div v-if="collection === 'blog'" class="grid grid-cols-3 gap-4">
-          <PostCard v-for="post in posts.list" v-bind="post" :key="post.title" class="col-span-1" />
+        <div v-if="collection === 'blog'" class="grid grid-cols-3 gap-8">
+          <template v-for="(post, index) in posts.list" :key="post.title">
+            <PostCard v-if="currentPage === 1 && index === 0" v-bind="{ ...post, isHorizontal: true }"
+              class="col-span-full" />
+            <PostCard v-if="index >= postIndex" v-bind="post" class="col-span-1" />
+          </template>
         </div>
         <div v-if="collection === 'notes'" class="border-t border-b c-border-secondary">
           <PostItem v-for="post in posts.list" v-bind="post" :key="post.title"
