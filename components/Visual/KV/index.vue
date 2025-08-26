@@ -1,5 +1,5 @@
 <script setup>
-import KVImage from '@/assets/images/home/kv.png'
+import KVImage from '@/assets/images/kv.png'
 const colorMode = useColorMode()
 const isRotating = ref(false)
 
