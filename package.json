@@ -23,6 +23,11 @@
     "vue": "latest",
     "vue-router": "latest"
   },
+  "pnpm": {
+    "overrides": {
+      "ipx": "^3.0.0"
+    }
+  },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.9",
     "@iconify-json/mdi": "^1.2.3",
