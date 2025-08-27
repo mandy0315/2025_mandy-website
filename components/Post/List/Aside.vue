@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import ProfilePhotoSrc from '@/assets/images/profile-photo.jpg'
-
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
@@ -15,7 +13,7 @@ await refreshTags(5);
     <!-- 基本資料 -->
     <div class="pb-6 flex items-center flex-col">
       <div class="w-20 h-25 rounded-t-full overflow-hidden border-2 border-white/50 ">
-        <img :src="ProfilePhotoSrc" alt="大頭貼" class="object-cover object-top w-full h-full">
+        <NuxtImg src="/images/profile-photo.jpg" alt="大頭貼" class="object-cover object-top w-full h-full" />
       </div>
       <p class="text-sm py-4 text-left">
         嗨～我是蔓蒂 Mandy<br />
