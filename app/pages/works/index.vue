@@ -84,6 +84,11 @@ onUnmounted(() => {
   disconnectedObserver()
 });
 
+const resetFilters = () => {
+  currentCategory.value = 'all';
+  currentType.value = 'all'
+}
+
 </script>
 <template>
   <div class="c-container">
@@ -104,17 +109,25 @@ onUnmounted(() => {
       <BaseSelect v-model="currentType" labelTitle="類型:" :options="Object.values(typeOptions)" />
     </section>
     <section>
-      <div class="col-start-2 col-end-6 grid grid-cols-3">
+
+      <div v-if="selectWorks.length === 0" class="w-full min-h-80 flex items-center justify-center flex-col">
+        <p class="text-center col-span-3 text-xl">
+          <Icon name="mdi:emoticon-cry-outline" class="text-3xl align-middle" />
+          <span class="align-middle">沒有符合條件的作品</span>
+        </p>
+        <BaseButton class="mt-4" variant="solid" @click="resetFilters">重置篩選</BaseButton>
+      </div>
+      <div v-else class="col-start-2 col-end-6 grid grid-cols-3">
         <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
-          class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
+          class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden group" :class="[getGridClass(index)]"
           :to="`/works/${data.id}`">
+          <BaseHoverMask :contentText="data.title" />
+
           <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
-            class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0"
+            class="w-full h-full absolute overflow-hidden object-cover opacity-0 transition-all group-hover:blur-sm"
             :alt="data.title" />
         </NuxtLink>
       </div>
     </section>
   </div>
-
-
 </template>
