@@ -1,5 +1,5 @@
 export const useImageObserver = () => {
-  const imgRefs = ref<HTMLImageElement[]>([]);
+  const imgRefs = ref<any[]>([]);
   const observer = ref<IntersectionObserver | null>(null);
   const visibleImages = ref<Set<number>>(new Set());
   const loadedImages = ref<Set<number>>(new Set());
@@ -64,7 +64,7 @@ export const useImageObserver = () => {
   };
 
   const initObserver = () => {
-    if (observer.value) return;
+    if (observer.value || imgRefs.value.length === 0) return;
 
     observer.value = new IntersectionObserver(onIntersection);
 
