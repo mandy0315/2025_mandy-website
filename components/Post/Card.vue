@@ -20,8 +20,8 @@ const handleErrorImage = () => {
 
 </script>
 <template>
-  <NuxtLink :to="path">
-    <div class="grid " :class="isHorizontal ? 'grid-cols-2' : 'grid-cols-1'">
+  <NuxtLink :to="path" class="group">
+    <div class="grid" :class="isHorizontal ? 'grid-cols-2' : 'grid-cols-1'">
       <!-- 圖片比例 16:9 -->
       <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden col-span-1">
         <span class="absolute top-2 z-10 text-xs bg-primary px-1 text-white">{{ category }}</span>
