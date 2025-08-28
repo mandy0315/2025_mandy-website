@@ -31,13 +31,8 @@ const postIndex = computed(() => currentPage.value === 1 ? 1 : 0)
           </p>
         </div>
 
-        <div class="pb-4">
-          <p class="inline-block text-sm text-secondary-light dark:text-secondary-dark">文章排序：</p>
-          <select v-model="currentSort" class="border c-border-secondary rounded py-1 px-2">
-            <option value="DESC">新到舊</option>
-            <option value="ASC">舊到新</option>
-          </select>
-        </div>
+        <BaseSelect class="pb-4" v-model="currentSort" labelTitle="文章排序:"
+          :options="[{ label: '新到舊', value: 'DESC' }, { label: '舊到新', value: 'ASC' }]" />
 
         <div v-if="collection === 'blog'" class="grid grid-cols-3 gap-8">
           <template v-for="(post, index) in posts.list" :key="post.title">
