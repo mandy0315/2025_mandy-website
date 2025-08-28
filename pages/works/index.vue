@@ -5,18 +5,48 @@ usePageSEO({
 import { workListGroup } from "@/utils/workListMap/index"
 
 
-type WorkCategoriesType = (typeof WorkCategories)[number];
-type WorkTypesType = (typeof WorkTypes)[number];
+type CategoryOptionsKeys = keyof typeof categoryOptions;
+type TypeOptionsKeys = keyof typeof typeOptions;
+const categoryOptions = {
+  all: {
+    label: '全部',
+    value: 'all'
+  },
+  ui: {
+    label: '介面',
+    value: 'ui'
+  },
+  vision: {
+    label: '視覺',
+    value: 'vision'
+  },
+  web: {
+    label: '網頁',
+    value: 'web'
+  }
+} as const;
+const typeOptions = {
+  all: {
+    label: '全部',
+    value: 'all'
+  },
+  commercial: {
+    label: '商業',
+    value: 'commercial'
+  },
+  personal: {
+    label: '個人',
+    value: 'personal'
+  }
+} as const;
+const currentCategory = ref<CategoryOptionsKeys>('all');
+const currentType = ref<TypeOptionsKeys>('all');
 
-const currentCategory = ref<WorkCategoriesType | 'all'>('all');
-const currentType = ref<WorkTypesType | 'all'>('all');
-const WorkTypes = ['commercial', 'personal'] as const;
-const WorkCategories = ["ui", "vision", "web"] as const;
+const allWorks = computed(() => [...workListGroup.values()].flat());
 
-const workData = computed(() => {
-  const allData = [...workListGroup.values()].flat();
+const selectWorks = computed(() => {
   // 先處理 tag 
-  const selectedDataInCategories = currentCategory.value === 'all' ? allData : workListGroup.get(currentCategory.value) || [];
+  const selectedDataInCategories = currentCategory.value === 'all' ? allWorks.value : workListGroup.get(currentCategory.value) || [];
 
   if (selectedDataInCategories.length === 0) return [];
 
@@ -38,18 +68,13 @@ const { imgRefs,
   disconnectedObserver, resetImageRefsState } = useImageObserver();
 
 
-watch(workData, async () => {
+watch(selectWorks, async () => {
   resetImageRefsState();
   await nextTick();
   initObserver();
 }, {
   deep: true
 })
-
-const handleImageError = (event: Event) => {
-  const target = event.target as HTMLImageElement;
-  target.src = '/images/default-image.jpg'; // 替換為預設圖片
-}
 
 onMounted(async () => {
   await nextTick();
@@ -62,35 +87,30 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="c-container">
-    <section class="flex items-center justify-between">
-      <h1>Works</h1>
-      <div class="grid grid-cols-2 gap-x-4">
-        <div class="col-span-1">
-          <p>Category</p>
-          <button @click="currentCategory = 'all'" class="block"
-            :class="{ 'text-primary': currentCategory === 'all' }">all</button>
-          <button v-for="category in WorkCategories" :key="category" class="block" @click="currentCategory = category"
-            :class="{ 'text-primary': currentCategory === category }">{{
-              category }}</button>
-        </div>
-        <div class="col-span-1">
-          <p>Type</p>
-          <button @click="currentType = 'all'" class="block"
-            :class="{ 'text-primary': currentType === 'all' }">all</button>
-          <button v-for="type in WorkTypes" :key="type" class="block" @click="currentType = type"
-            :class="{ 'text-primary': currentType === type }">{{
-              type }}</button>
-        </div>
+    <section class="pb-4">
+      <div class="pb-6">
+        <BaseTitle>作品</BaseTitle>
+        <p v-if="allWorks.length > 0" class="text-center">
+          <template v-if="selectWorks.length === allWorks.length">
+            共 <span class="text-primary font-medium">{{ allWorks.length }}</span> 項
+          </template>
+          <template v-else>
+            顯示 <span class="text-primary font-medium">{{ selectWorks.length }}</span> 項
+            <span class="c-text-secondary">（共 {{ allWorks.length }} 項）</span>
+          </template>
+        </p>
       </div>
+      <BaseSelect class="pr-2" v-model="currentCategory" labelTitle="分類:" :options="Object.values(categoryOptions)" />
+      <BaseSelect v-model="currentType" labelTitle="類型:" :options="Object.values(typeOptions)" />
     </section>
     <section>
       <div class="col-start-2 col-end-6 grid grid-cols-3">
-        <NuxtLink v-for="(data, index) in workData" :key="data.id"
+        <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
           class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden" :class="[getGridClass(index)]"
           :to="`/works/${data.id}`">
           <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
-            class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0" :alt="data.title"
-            @error="handleImageError($event)" />
+            class="w-full h-full absolute overflow-hidden object-cover transition-opacity opacity-0"
+            :alt="data.title" />
         </NuxtLink>
       </div>
     </section>
