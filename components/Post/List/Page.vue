@@ -25,7 +25,7 @@ const postIndex = computed(() => currentPage.value === 1 ? 1 : 0)
             <span v-else>筆記</span>
           </BaseTitle>
           <p v-if="posts.list.length > 0" class="text-lg text-center ">
-            目前有
+            共
             <span class="text-primary font-medium">{{ posts.totalPosts || 0 }}</span>
             篇
           </p>

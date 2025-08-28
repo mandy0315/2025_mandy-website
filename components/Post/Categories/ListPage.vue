@@ -30,7 +30,7 @@ await refreshArchivePosts({ page: currentPage.value, type: 'category', value: cu
         「{{ categoryName }}」
       </BaseTitle>
       <p v-if="posts.list.length > 0" class="text-lg text-center ">
-        目前有
+        共
         <span class="text-primary font-medium">{{ posts.totalPosts || 0 }}</span>
         篇
       </p>
