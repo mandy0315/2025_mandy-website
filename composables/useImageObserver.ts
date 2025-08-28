@@ -11,55 +11,71 @@ export const useImageObserver = () => {
     loadedImages.value.clear();
   };
 
+  const loadSingleImage = (img: HTMLImageElement, index: number) => {
+    const dataSrc = img.getAttribute("data-src");
+
+    if (!dataSrc) return;
+
+    img.src = dataSrc;
+    img.style.opacity = "1";
+    loadedImages.value.add(index);
+  };
+
   const loadImagesSequentially = () => {
-    const unloadedImages = Array.from(visibleImages.value)
+    const unloadedIndexes = Array.from(visibleImages.value)
       .filter((index) => !loadedImages.value.has(index))
       .sort((a, b) => a - b);
 
-    unloadedImages.forEach((index, position) => {
+    unloadedIndexes.forEach((index, position) => {
       const img = imgRefs.value[index];
-      const src = img?.getAttribute("data-src");
+      if (!img) return;
+
+      const delay = position * 200; // 只對可見圖片計算延遲
+
       if (img) {
         setTimeout(() => {
-          const defaultSrc = "/images/default-image.jpg";
-          img.src = src || defaultSrc;
-          img.style.opacity = "1";
-          loadedImages.value.add(index);
-        }, position * 200); // 只對可見圖片計算延遲
+          loadSingleImage(img, index);
+        }, delay);
       }
     });
   };
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    let hasNewVisible = false;
+  const onIntersection = (entries: IntersectionObserverEntry[]) => {
+    let hasNewVisibleImages = false;
 
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target as HTMLImageElement;
         const index = Number(img.getAttribute("data-index"));
 
+        // 可見圖片沒有就加入集合
         if (!visibleImages.value.has(index)) {
           visibleImages.value.add(index);
-          hasNewVisible = true;
+          hasNewVisibleImages = true;
         }
 
         observer.value?.unobserve(img);
       }
     });
 
-    if (hasNewVisible) {
+    if (hasNewVisibleImages) {
       loadImagesSequentially();
     }
   };
 
   const initObserver = () => {
-    observer.value = new IntersectionObserver(handleIntersection);
+    if (observer.value) return;
+
+    observer.value = new IntersectionObserver(onIntersection);
+
+    // 監聽所有圖片元素
     imgRefs.value.forEach((img) => {
       if (img) observer.value?.observe(img);
     });
   };
   const disconnectedObserver = () => {
     observer.value?.disconnect();
+    observer.value = null;
   };
 
   return {
