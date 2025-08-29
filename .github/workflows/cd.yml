@@ -14,9 +14,10 @@ jobs:
         with:
           node-version: 22
 
-      # 讓系統認識並可以使用 pnpm 指令
-      - name: Enable corepack
-        run: corepack enable
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
         run: pnpm install
