@@ -11,13 +11,10 @@ export default defineNuxtConfig({
   },
 
   app: {
-    baseURL: (() => {
-      const isGitHubActions = process.env.NUXT_APP_GITHUB_ACTIONS;
-      console.log("NUXT_APP_GITHUB_ACTIONS:", isGitHubActions);
-      console.log('isGitHubActions === "true":', isGitHubActions === "true");
-
-      return isGitHubActions === "true" ? "/2025_mandy-website/" : "/";
-    })(),
+    baseURL:
+      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
+        ? "/2025_mandy-website/"
+        : "/",
     buildAssetsDir: "/static/",
     head: {
       htmlAttrs: {

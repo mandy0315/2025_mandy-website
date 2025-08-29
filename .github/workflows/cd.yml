@@ -21,13 +21,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Debug env vars
-        run: |
-          echo "NUXT_APP_GITHUB_ACTIONS: $NUXT_APP_GITHUB_ACTIONS"
-          echo "All vars: ${{ toJson(vars) }}"
-        env:
-          NUXT_APP_GITHUB_ACTIONS: ${{ vars.NUXT_APP_GITHUB_ACTIONS }}
-
       - name: Build
         run: pnpm generate
         env:
