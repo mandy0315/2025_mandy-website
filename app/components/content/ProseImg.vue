@@ -1,5 +1,5 @@
 <template>
-  <NuxtImg :src :alt :width :height />
+  <img :src :alt :width :height />
 </template>
 
 <script setup lang="ts">
