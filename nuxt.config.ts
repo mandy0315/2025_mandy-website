@@ -1,10 +1,19 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  // SSG 設定
+  ssr: true,
+  nitro: {
+    preset: "static",
+  },
+
   app: {
+    baseURL:
+      process.env.NODE_ENV === "production" ? "/2025_mandy-website/" : "/",
+    buildAssetsDir: "/static/",
     head: {
       htmlAttrs: {
-        lang: "en",
+        lang: "zh-TW", // 中文
       },
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
       meta: [
@@ -31,7 +40,6 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxt/content",
-    "@nuxt/image",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
@@ -59,40 +67,8 @@ export default defineNuxtConfig({
 
   compatibilityDate: "2025-02-17",
 
-  nitro: {
-    preset: process.env.VL_BUILD ? "vercel" : undefined,
-    prerender: {
-      crawlLinks: true, // 連結預先渲染
-      routes: ["/", "/works", "/blog", "/notes"], // 預先渲染的路由
-    },
-  },
-
-  routeRules: {
-    // 靜態頁面
-    "/": { prerender: true },
-    "/works": { prerender: true },
-    "/blog": { prerender: true },
-    "/notes": { prerender: true },
-
-    // 動態路由 - SSR模式
-    "/blog/**": {
-      prerender: false,
-      cache: {
-        maxAge: 60 * 30, // 緩存30分鐘
-        staleMaxAge: 60 * 60 * 24, // 過期後可用 24 小時，並同時在後台更新
-      },
-    },
-    "/notes/**": {
-      prerender: false,
-      cache: {
-        maxAge: 60 * 30, // 緩存30分鐘
-        staleMaxAge: 60 * 60 * 24, // 過期後可用 24 小時，並同時在後台更新
-      },
-    },
-  },
-
   content: {
-    experimental: { nativeSqlite: true },
+    experimental: { sqliteConnector: "native" },
   },
 
   imports: {

@@ -3,16 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxi build",
     "dev": "nuxi dev",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
-    "postinstall": "nuxi prepare"
+    "github-pages:deploy": "gh-pages --dotfiles -d .output/public"
   },
   "dependencies": {
-    "@nuxt/content": "^3.4.0",
+    "@nuxt/content": "^3.6.3",
     "@nuxt/icon": "1.10.3",
-    "@nuxt/image": "1.9.0",
     "@nuxtjs/color-mode": "3.5.2",
     "@tailwindcss/vite": "^4.0.6",
     "@vueuse/core": "^13.1.0",
@@ -23,16 +21,12 @@
     "vue": "latest",
     "vue-router": "latest"
   },
-  "pnpm": {
-    "overrides": {
-      "ipx": "^3.0.0"
-    }
-  },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.9",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/solar": "^1.2.4",
     "@tailwindcss/typography": "^0.5.16",
+    "gh-pages": "^6.3.0",
     "sass": "^1.84.0"
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
