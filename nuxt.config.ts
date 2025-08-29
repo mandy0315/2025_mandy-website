@@ -4,12 +4,17 @@ export default defineNuxtConfig({
   // SSG 設定
   ssr: true,
   nitro: {
-    preset: "static",
+    preset:
+      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
+        ? "github-pages"
+        : "static",
   },
 
   app: {
     baseURL:
-      process.env.NODE_ENV === "production" ? "/2025_mandy-website/" : "/",
+      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
+        ? "/2025_mandy-website/"
+        : "/",
     buildAssetsDir: "/static/",
     head: {
       htmlAttrs: {

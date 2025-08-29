@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "github-pages:deploy": "gh-pages --dotfiles -d .output/public"
+    "preview": "nuxi preview"
   },
   "dependencies": {
     "@nuxt/content": "^3.6.3",
