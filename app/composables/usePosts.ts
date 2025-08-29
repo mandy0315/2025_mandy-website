@@ -88,11 +88,11 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
       const categoryToLower = post.category.toLowerCase();
       const tagsToLower = post.tags.map((tag) => tag.toLowerCase());
       const valueToLower = value.toLowerCase();
-      type === "category"
+
+      return type === "category"
         ? categoryToLower === valueToLower
         : tagsToLower.includes(valueToLower);
     });
-
     if (newPosts && newPosts.length > 0) {
       posts.value.list = newPosts;
       posts.value.totalPosts = newPosts.length;
