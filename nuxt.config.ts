@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   nitro: {
     preset:
       process.env.NUXT_APP_GITHUB_ACTIONS === "true"
-        ? "github-pages"
+        ? "github_pages"
         : "static",
   },
 
