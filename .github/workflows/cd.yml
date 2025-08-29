@@ -22,6 +22,8 @@ jobs:
 
       - name: Build
         run: pnpm generate
+        env:
+          NUXT_APP_GITHUB_ACTIONS: ${{ vars.NUXT_APP_GITHUB_ACTIONS }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
