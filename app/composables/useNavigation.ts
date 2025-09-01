@@ -19,7 +19,6 @@ export const useNavigation = async (
     const index = data.value.findIndex(
       (item: NavigationItem) => item.path === currentPath
     );
-    console.log("test", index);
     if (index === -1 || index === 0) return null;
     return data.value[index - 1];
   });

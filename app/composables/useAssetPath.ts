@@ -9,13 +9,11 @@ export const useAssetPath = () => {
     }
 
     // 如果在 GitHub Actions 環境，加上 baseURL 前綴
-    console.log("test", config.public.GITHUB_ACTIONS);
     const baseURL =
       config.public.GITHUB_ACTIONS === "true" ? "/2025_mandy-website" : "";
 
     // 確保路徑以 / 開頭
     const cleanSrc = src.startsWith("/") ? src : `/${src}`;
-    console.log("test2", `${baseURL}${cleanSrc}`);
     return `${baseURL}${cleanSrc}`;
   };
 
