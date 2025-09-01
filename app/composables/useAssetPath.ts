@@ -8,6 +8,7 @@ export const useAssetPath = () => {
     }
 
     // 如果在 GitHub Actions 環境，加上 baseURL 前綴
+    console.log("test", process.env.NUXT_APP_GITHUB_ACTIONS === "true");
     const baseURL =
       process.env.NUXT_APP_GITHUB_ACTIONS === "true"
         ? "/2025_mandy-website"
@@ -15,7 +16,7 @@ export const useAssetPath = () => {
 
     // 確保路徑以 / 開頭
     const cleanSrc = src.startsWith("/") ? src : `/${src}`;
-
+    console.log("test2", `${baseURL}${cleanSrc}`);
     return `${baseURL}${cleanSrc}`;
   };
 
