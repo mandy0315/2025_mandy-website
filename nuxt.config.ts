@@ -58,6 +58,15 @@ export default defineNuxtConfig({
     build: {
       sourcemap: false,
     },
+    define: {
+      "process.env": process.env,
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS,
+    },
   },
 
   css: ["@/styles/tailwind/main.css"],

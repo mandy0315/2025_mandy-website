@@ -1,4 +1,5 @@
 export const useAssetPath = () => {
+  const config = useRuntimeConfig();
   const getImagePath = (src: string): string => {
     if (!src) return "";
 
@@ -8,11 +9,9 @@ export const useAssetPath = () => {
     }
 
     // 如果在 GitHub Actions 環境，加上 baseURL 前綴
-    console.log("test", process.env.NUXT_APP_GITHUB_ACTIONS === "true");
+    console.log("test", config.public.GITHUB_ACTIONS);
     const baseURL =
-      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
-        ? "/2025_mandy-website"
-        : "";
+      config.public.GITHUB_ACTIONS === "true" ? "/2025_mandy-website" : "";
 
     // 確保路徑以 / 開頭
     const cleanSrc = src.startsWith("/") ? src : `/${src}`;
