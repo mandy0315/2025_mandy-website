@@ -44,8 +44,18 @@ const currentType = ref<TypeOptionsKeys>('all');
 
 const allWorks = computed(() => [...workListGroup.values()].flat());
 
+const { getImagePath } = useAssetPath();
 const selectWorks = computed(() => {
-  // 先處理 tag 
+  if (allWorks.value.length === 0) return [];
+
+  // work imagepath 處理 
+  allWorks.value.map(work => {
+    if (work.image) {
+      work.image = getImagePath(work.image);
+    }
+  })
+
+  // 先處理 tag
   const selectedDataInCategories = currentCategory.value === 'all' ? allWorks.value : workListGroup.get(currentCategory.value) || [];
 
   if (selectedDataInCategories.length === 0) return [];
@@ -88,6 +98,7 @@ const resetFilters = () => {
   currentCategory.value = 'all';
   currentType.value = 'all'
 }
+
 
 </script>
 <template>

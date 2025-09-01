@@ -11,12 +11,9 @@ const props = withDefaults(defineProps<{
   isHorizontal: false,
 })
 
-// 圖片處理
-const currSrc = ref(props.image);
-const handleErrorImage = () => {
-  const defaultImgSrc = '/images/default-image.jpg';
-  currSrc.value = defaultImgSrc;
-}
+
+const { getImagePath } = useAssetPath();
+const processedSrc = computed(() => getImagePath(props.image));
 
 </script>
 <template>
@@ -26,9 +23,8 @@ const handleErrorImage = () => {
       <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden col-span-1">
         <BaseHoverMask contentText="進入文章" />
         <span class="absolute top-2 z-10 text-xs bg-primary px-1 text-white">{{ category }}</span>
-        <img :src="currSrc" :alt="title"
-          class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm"
-          @error="handleErrorImage" />
+        <img :src="processedSrc" :alt="title"
+          class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm" />
       </div>
       <div class="col-span-1" :class="isHorizontal ? 'flex flex-col justify-center p-6' : 'p-2'">
         <PostDate :date />

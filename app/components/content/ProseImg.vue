@@ -1,9 +1,8 @@
 <template>
-  <img :src :alt :width :height />
+  <img :src="processedSrc" :alt :width :height />
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps({
   src: {
     type: String,
@@ -22,4 +21,7 @@ const props = defineProps({
     default: undefined
   }
 })
+
+const { getImagePath } = useAssetPath();
+const processedSrc = computed(() => getImagePath(props.src));
 </script>
