@@ -8,6 +8,20 @@ export default defineNuxtConfig({
       process.env.NUXT_APP_GITHUB_ACTIONS === "true"
         ? "github-pages"
         : "static",
+
+    prerender: {
+      routes: [
+        "/",
+        "/works",
+        "/notes",
+        "/blog",
+        "/notes/categories",
+        "/blog/categories",
+        "/notes/tags",
+        "/blog/tags",
+      ],
+      crawlLinks: true, // 抓頁面 a 連結內部頁面預渲染
+    },
   },
 
   app: {
@@ -57,9 +71,6 @@ export default defineNuxtConfig({
     },
     build: {
       sourcemap: false,
-    },
-    define: {
-      "process.env": process.env,
     },
   },
 
