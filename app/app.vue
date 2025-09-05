@@ -11,7 +11,6 @@ const isOpenMenu = useState('isOpenMenu', () => false);
       <main class="flex-1">
         <NuxtPage />
       </main>
-      <p class="text-sm fixed bottom-0 right-0">@2025mandyspace.</p>
       <AppFooter />
     </div>
   </Body>
