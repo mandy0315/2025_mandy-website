@@ -12,7 +12,7 @@ withDefaults(defineProps<{
       class="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:delay-450 group-hover:opacity-100">
       <div
         class="border-2 w-8 h-16 border-white/20 rounded-t-full p-4 flex justify-center items-center font-bold font-zen-old-mincho relative">
-        <p class="absolute text-nowrap">{{ contentText }}</p>
+        <p class="absolute text-nowrap text-white">{{ contentText }}</p>
       </div>
     </div>
     <!-- 遮罩 -->
