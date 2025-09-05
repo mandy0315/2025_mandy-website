@@ -1,6 +1,10 @@
+<script setup lang="ts">
+const { sidebarHeightCalc, headerHeight } = useLayoutSizes();
+</script>
 <template>
   <div class="flex c-container">
-    <div class="w-60 c-sidebar-height sticky top-0">
+    <div class="transition-all ease-linear w-60 sticky"
+      :style="{ top: `${headerHeight}px`, height: sidebarHeightCalc }">
       <slot name="sidebar" />
     </div>
     <div class="w-7/10">
