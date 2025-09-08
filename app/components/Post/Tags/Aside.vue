@@ -6,27 +6,16 @@ const props = defineProps<{
 const { tags, goToTagsPage } = await useTag(props.collection);
 const route = useRoute();
 
-
 const LIMIT_COUNT = 10;
 const currentCount = ref(0);
 currentCount.value = LIMIT_COUNT;
 
 const currentTag = computed(() => (route.params?.tag || '') as string);
-const currentTags = computed(() =>
-  tags.value.slice(0, currentCount.value)
-);
 
-const isToggleButton = computed(() => tags.value.length > 10);
-
-const hasMore = computed(() => currentCount.value < tags.value.length);
-
-const handleToggle = () => {
-  if (hasMore.value) {
-    currentCount.value += LIMIT_COUNT;
-  } else {
-    currentCount.value = LIMIT_COUNT;
-  }
-};
+const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentTag);
+onMounted(async () => {
+  await initScrollToTarget();
+})
 </script>
 
 <template>
@@ -40,18 +29,13 @@ const handleToggle = () => {
         筆記分類</BaseLink>
       <div class="border-b c-border-secondary border-dashed"></div>
     </div>
-    <div class="overflow-y-auto h-[calc(100%-2rem)]">
-      <div class="py-2 flex flex-wrap gap-1 ">
-        <BaseButton v-for="tag in currentTags" :key="tag" size="xs" @click="goToTagsPage(tag)"
-          :isAction="currentTag === tag">
+    <ul ref="containerRef" class="overflow-y-auto h-[calc(100%-2rem)]">
+      <li ref="targetRefs" v-for="tag in tags" :key="tag" class="inline-block mr-1 mb-1">
+        <BaseButton size="xs" @click="goToTagsPage(tag)" :isAction="currentTag === tag">
           {{ tag }}
         </BaseButton>
-      </div>
-
-      <BaseButton v-if="isToggleButton" size="sm" class="w-full rounded-sm mb-2" @click="handleToggle">
-        {{ hasMore ? '顯示更多' : '收起' }}
-      </BaseButton>
-      <div class="border-b c-border-secondary border-dashed mb-2"></div>
-    </div>
+      </li>
+      <li class="border-b c-border-secondary border-dashed mb-2"></li>
+    </ul>
   </div>
 </template>
