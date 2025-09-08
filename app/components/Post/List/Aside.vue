@@ -16,8 +16,10 @@ await refreshTags(5);
         <img src="/images/profile-photo.jpg" alt="大頭貼" class="object-cover object-top w-full h-full" />
       </div>
       <p class="text-sm py-4 text-left">
-        嗨～我是蔓蒂 Mandy<br />
-        目前一位前端工程師，我喜歡接受新的挑戰，並且持續追求新刺激與熱情，希望<span class="bg-primary text-white">透過網站紀錄生活點滴與技術</span>，豐富自己和周遭的人，謝謝!
+        嗨～我是蔓蒂 Mandy，感謝您來到我的小空間，
+        目前是一位前端工程師，也是珍奶們的媽媽，
+        對於專業不斷更新，以自己適合步調提升，
+        <span class="bg-primary text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
       </p>
 
       <div class="flex justify-center gap-x-1">
