@@ -1,6 +1,6 @@
 export const useAssetPath = () => {
   const config = useRuntimeConfig();
-  const getImagePath = (src: string): string => {
+  const getImagePath = (src: string | null): string => {
     if (!src) return "";
 
     // 如果已經是完整 URL，直接返回
