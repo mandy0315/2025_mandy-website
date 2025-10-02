@@ -10,7 +10,7 @@ interface Post {
 
 type SortOrder = "ASC" | "DESC";
 export const usePosts = async (collection: "blog" | "notes" = "blog") => {
-  const limitCount = 9;
+  const LIMIT_COUNT = 9;
   const currentSort = useState<SortOrder>(`${collection}-sort`, () => "DESC");
   const posts = useState<{
     list: Post[];
@@ -43,17 +43,17 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
       .all();
   });
 
-  const setPaginatePosts = (limitCount = 1, currentPage = 1) => {
+  const setPaginatePosts = (limit = 1, currentPage = 1) => {
     const list = posts.value.list;
     if (list.length === 0) return;
 
     // 一頁限有幾筆文章
-    const totalPage = Math.ceil(list.length / limitCount);
+    const totalPage = Math.ceil(list.length / limit);
 
     // 頁面的文章
     const postsInPage = list.slice(
-      (currentPage - 1) * limitCount,
-      currentPage * limitCount
+      (currentPage - 1) * limit,
+      currentPage * limit
     );
 
     posts.value = {
@@ -64,11 +64,12 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
     };
   };
 
-  const setPosts = (page = 1) => {
+  const setPosts = (page = 1, limit?: number) => {
     if (postsData.value) {
       posts.value.list = postsData.value;
       posts.value.totalPosts = postsData.value.length;
-      setPaginatePosts(limitCount, page);
+      const currentlimit = limit || LIMIT_COUNT;
+      setPaginatePosts(currentlimit, page);
     }
   };
 
@@ -114,7 +115,7 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
       posts.value.list = postsData.value;
       posts.value.totalPosts = postsData.value.length;
       setArchivePosts(type, value);
-      setPaginatePosts(limitCount, page);
+      setPaginatePosts(LIMIT_COUNT, page);
     }
   };
 
