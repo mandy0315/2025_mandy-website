@@ -28,8 +28,8 @@ const processedSrc = computed(() => getImagePath(props.image));
       </div>
       <div :class="isHorizontal ? 'flex flex-col justify-center px-6 col-span-2' : 'p-2 col-span-1'">
         <PostDate :date />
-        <p class="text-lg"> {{ title }}</p>
-        <p class="text-sm c-text-secondary" :class="isHorizontal ? 'line-clamp-4' : 'line-clamp-2'">{{
+        <p class="text-xl"> {{ title }}</p>
+        <p class="c-text-secondary" :class="isHorizontal ? 'line-clamp-4' : 'line-clamp-2'">{{
           description }}</p>
       </div>
     </div>
