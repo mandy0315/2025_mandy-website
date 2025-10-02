@@ -44,14 +44,14 @@ const currentType = ref<TypeOptionsKeys>('all');
 
 const allWorks = computed(() => [...workListGroup.values()].flat());
 
-const { getImagePath } = useAssetPath();
+const { getAssetPath } = useAssetPath();
 const selectWorks = computed(() => {
   if (allWorks.value.length === 0) return [];
 
   // work imagepath 處理 
   allWorks.value.map(work => {
     if (work.image) {
-      work.image = getImagePath(work.image);
+      work.image = getAssetPath(work.image);
     }
   })
 

@@ -12,8 +12,8 @@ const props = withDefaults(defineProps<{
 })
 
 
-const { getImagePath } = useAssetPath();
-const processedSrc = computed(() => getImagePath(props.image));
+const { getAssetPath } = useAssetPath();
+const processedSrc = computed(() => getAssetPath(props.image));
 
 </script>
 <template>

@@ -1,6 +1,7 @@
 export const useAssetPath = () => {
   const config = useRuntimeConfig();
-  const getImagePath = (src: string | null): string => {
+  // 需要動態相對路徑才使用
+  const getAssetPath = (src: string | null): string => {
     if (!src) return "";
 
     // 如果已經是完整 URL，直接返回
@@ -18,6 +19,6 @@ export const useAssetPath = () => {
   };
 
   return {
-    getImagePath,
+    getAssetPath,
   };
 };

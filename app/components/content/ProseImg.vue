@@ -22,6 +22,6 @@ const props = defineProps({
   }
 })
 
-const { getImagePath } = useAssetPath();
-const processedSrc = computed(() => getImagePath(props.src));
+const { getAssetPath } = useAssetPath();
+const processedSrc = computed(() => getAssetPath(props.src));
 </script>
