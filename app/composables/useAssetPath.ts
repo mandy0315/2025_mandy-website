@@ -19,6 +19,7 @@ export const useAssetPath = () => {
 
     // 確保路徑以 / 開頭
     const cleanSrc = src.startsWith("/") ? src : `/${src}`;
+    console.log(`${baseURL}${cleanSrc}`);
     return `${baseURL}${cleanSrc}`;
   };
 
