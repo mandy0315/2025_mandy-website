@@ -7,8 +7,6 @@ const isAutoPlay = ref(true);
 const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
-const { getImagePath } = useAssetPath();
-
 const items = computed(() => {
   const listGroup = []
   for (let list of workListGroup.values()) {
@@ -129,7 +127,7 @@ const getItemStyle = (index: number) => {
             class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
             :class="getItemClasses(index)" :style="getItemStyle(index)">
             <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
-            <img :src="getImagePath(item.image || '')" :alt="item.title" class="w-full h-full absolute object-cover" />
+            <img :src="item.image || ''" :alt="item.title" class="w-full h-full absolute object-cover" />
           </div>
 
           <Transition name="slide-up">
