@@ -6,8 +6,25 @@ definePageMeta({
 usePageSEO({
   title: '首頁',
 })
+
+// 個人介紹
 const isToolsExpanded = ref(false);
 const isSkillsExpanded = ref(false);
+const tools = [
+  'Adobe Illustrator', 'Adobe Photoshop', 'Adobe After Effects', 'Skitch', 'WordPress', 'Procreate'
+];
+const toolsDisplay = computed(() => {
+  return isToolsExpanded.value ? tools.join(' / ') : tools.slice(0, 3).join(' / ') + ' / ...';
+});
+const skills = [
+  'HTML', 'CSS', 'Sass', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Vue.js ( Nuxt / Vue Test Utils / Vitest ) ', 'Cypress'
+];
+const skillsDisplay = computed(() => {
+  return isSkillsExpanded.value ? skills.join(' / ') : skills.slice(0, 5).join(' / ') + ' / ...';
+});
+
+
+// 文章
 const { setPosts: setBlog, posts: blog } = await usePosts('blog');
 const { setPosts: setNotes, posts: notes } = await usePosts('notes');
 onMounted(() => {
@@ -24,15 +41,13 @@ onMounted(() => {
         <section class="flex flex-col h-screen justify-center">
           <h1 class="font-zen-old-mincho font-bold text-5xl pb-6">HI～我是蔓蒂 Mandy</h1>
           <p class="text-xl">歡迎來到我的小空間，小空間<span
-              class="bg-primary text-white">記錄著我的生活與技術點滴</span>，<br />希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
+              class="bg-primary text-white mx-2">記錄著我的生活點滴</span>，希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
         </section>
 
         <!-- Profiles -->
         <section class="text-xl flex flex-col h-screen justify-center">
           <div>
-            <h2 class="font-zen-old-mincho font-bold px-1 text-base inline-block bg-primary text-white mb-4">個人資料
-              Profiles
-            </h2>
+            <HomeTitle>個人資料 Profiles</HomeTitle>
             <p class="text-4xl font-bold">蔓蒂 Mandy</p>
             <p class="py-4">
               大學畢業後，擔任設計師開始從事網頁設計相關工作，陸續工作中接觸到前端技術並產生興趣，透過線上學習與培訓班轉職前端工程師，轉職後經過了幾年洗禮，持續以自己步調精進中！
@@ -46,21 +61,13 @@ onMounted(() => {
             </div>
             <div class="py-2">
               <p class="font-bold">- 工具</p>
-              <p :class="isToolsExpanded ? 'line-clamp-none' : 'line-clamp-1'">Adobe Illustrator / Adobe Photoshop /
-                Adobe
-                After Effects /
-                Skitch / WordPress /
-                Procreate</p>
+              <p>{{ toolsDisplay }}</p>
               <BaseButton @click="isToolsExpanded = !isToolsExpanded" variant="outline" size="xs">{{
                 isToolsExpanded ? '收合' : '顯示更多' }}</BaseButton>
             </div>
             <div class="py-2">
               <p class="font-bold">- 技能</p>
-              <p :class="isSkillsExpanded ? 'line-clamp-none' : 'line-clamp-1'">HTML / CSS / Sass / JavaScript /
-                TypeScript / Tailwind CSS / Node.js / Vue.js
-                家族(Nuxt/Vue Test
-                Utils/Vitest)
-                / Cypress</p>
+              <p>{{ skillsDisplay }}</p>
               <BaseButton @click="isSkillsExpanded = !isSkillsExpanded" variant="outline" size="xs">{{
                 isSkillsExpanded ? '收合' : '顯示更多' }}</BaseButton>
             </div>
@@ -78,7 +85,7 @@ onMounted(() => {
     <!-- Posts -->
     <section class="flex gap-x-2 py-30">
       <div class="w-1/2 h-80">
-        <h2 class="font-zen-old-mincho font-bold px-1 inline-block text-base bg-primary text-white mb-4">部落格 Blog</h2>
+        <HomeTitle>部落格 Blog</HomeTitle>
         <div class="flex flex-col h-full" :class="blog.list.length === 3 ? 'justify-between' : 'justify-start'">
           <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: true }"
             class="block pb-4" />
@@ -94,9 +101,7 @@ onMounted(() => {
 
     <!-- Works -->
     <section class="relative">
-      <h2
-        class="font-zen-old-mincho font-bold px-1 text-base bg-primary text-white mb-4 inline-block absolute top-10 left-1/2 -translate-x-1/2">
-        作品 Works</h2>
+      <HomeTitle class="absolute top-10 left-1/2 -translate-x-1/2">作品 Works</HomeTitle>
       <HomeCarousel />
     </section>
   </div>
