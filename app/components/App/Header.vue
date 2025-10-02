@@ -10,7 +10,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <header ref="headerRef" class="h-20">
+  <header ref="headerRef" class="h-14">
     <NuxtLink to="/" class="fixed z-80 p-5">
       <IconLogo class="w-18 dark:fill-white lg:w-20" />
     </NuxtLink>
