@@ -5,7 +5,11 @@ export const useAssetPath = () => {
     if (!src) return "";
 
     // 如果已經是完整 URL，直接返回
-    if (src.startsWith("http") || src.startsWith("//")) {
+    if (
+      src.startsWith("http") ||
+      src.startsWith("//") ||
+      src.startsWith("/2025_mandy-website")
+    ) {
       return src;
     }
 
