@@ -7,6 +7,8 @@ const isAutoPlay = ref(true);
 const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
+const { getImagePath } = useAssetPath();
+
 const items = computed(() => {
   const listGroup = []
   for (let list of workListGroup.values()) {
@@ -115,7 +117,7 @@ const getItemStyle = (index: number) => {
     <div class="flex items-center justify-center relative z-20" @mouseenter="isAutoPlay = false"
       @mouseleave="isAutoPlay = true">
       <div v-for="(item, index) in items" :key="index" class="absolute cursor-pointer rounded">
-        <a class="block w-full h-full">
+        <NuxtLink :to="`works/${item.id}`" class="block w-full h-full">
           <Transition name="slide-up">
             <h3 v-if="index === currentIndex"
               class="text-5xl font-semibold mb-1 text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
@@ -127,7 +129,7 @@ const getItemStyle = (index: number) => {
             class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
             :class="getItemClasses(index)" :style="getItemStyle(index)">
             <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
-            <img :src="item.image || ''" :alt="item.title" class="w-full h-full absolute object-cover" />
+            <img :src="getImagePath(item.image || '')" :alt="item.title" class="w-full h-full absolute object-cover" />
           </div>
 
           <Transition name="slide-up">
@@ -136,7 +138,7 @@ const getItemStyle = (index: number) => {
               {{ item.description }}
             </p>
           </Transition>
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>
