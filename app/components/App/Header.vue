@@ -10,19 +10,16 @@ onMounted(() => {
 });
 </script>
 <template>
-  <header ref="headerRef" class="h-14">
-    <NuxtLink to="/" class="fixed z-80 p-5">
-      <IconLogo class="w-18 dark:fill-white lg:w-20" />
+  <header ref="headerRef" class="fixed z-100 p-4 flex items-center justify-between w-full backdrop-blur-xs">
+    <NuxtLink to="/" class="block w-20">
+      <IconLogo class="dark:fill-white" />
     </NuxtLink>
-    <div
-      class="flex items-end fixed z-100 right-4 top-4 flex-row-reverse gap-x-2 lg:flex-col lg:items-center lg:gap-y-2">
-      <AppMenu />
+    <AppMenu class="hidden lg:block" />
+    <div class="flex items-center gap-x-2">
       <AppColorModel />
       <AppSearch />
+      <AppMenu class="block lg:hidden" />
     </div>
-
-    <div class="fixed right-5 text-sm write-vertical-right top-1/2 -translate-y-1/2">@2025mandyspace.</div>
-
   </header>
 
 </template>
