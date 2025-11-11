@@ -3,7 +3,7 @@ import ItemTitle from '@/components/App/Search/ItemTitle.vue';
 import ItemButton from '@/components/App/Search/ItemButton.vue';
 import { watchDebounced } from '@vueuse/core';
 
-
+const { isDesktop } = useResponsive();
 const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList } = await useSearch();
 watchDebounced(
   keywords,
@@ -33,7 +33,7 @@ const setSearchListHeight = () => {
 };
 
 watch(isSearch, async (value) => {
-  if (value) {
+  if (isDesktop.value && value) {
     await nextTick();
     setSearchListHeight();
   }
@@ -49,8 +49,8 @@ watch(isSearch, async (value) => {
     </button>
     <Teleport to="body">
       <div v-if="isShowSearchModal">
-        <div class="w-5/10 fixed top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
-          <button @click="keywords = ''"
+        <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
+          <button @click="isShowSearchModal = false"
             class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
             ＋
           </button>
@@ -62,8 +62,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-5/10 fixed top-32 transform -translate-x-1/2 left-1/2 bg-[var(--bg-color)] c-border-secondary  rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b"
-          :class="[{ 'max-h-120': isSearch }]">
+          class="w-9/10 top-20 lg:w-5/10 fixed lg:top-32 transform -translate-x-1/2 left-1/2 bg-[var(--bg-color)] c-border-secondary rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
 
           <!-- 頁面 -->
           <template v-if="pages.length > 0">
