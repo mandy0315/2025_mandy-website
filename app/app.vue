@@ -8,7 +8,7 @@ const isOpenMenu = useState('isOpenMenu', () => false);
     <AppPageLoading />
     <div class="flex flex-col min-h-screen">
       <AppHeader />
-      <main class="flex-1">
+      <main class="flex-1 mt-24">
         <NuxtPage />
       </main>
       <AppFooter />
