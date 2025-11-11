@@ -31,24 +31,31 @@ onMounted(() => {
   setBlog(1, 3);
   setNotes(1, 4)
 })
+
+
+const { isDesktop } = useResponsive();
 </script>
 
 <template>
   <div class="c-container">
-    <div class="relative lg:flex ">
-      <div class="lg:w-5/10">
+    <div class="relative lg:flex">
+      <div class="pt-30 lg:pt-0 lg:w-5/10">
         <!-- KV -->
-        <section class="flex flex-col h-screen justify-center">
-          <h1 class="font-zen-old-mincho font-bold text-5xl pb-6">HI～我是蔓蒂 Mandy</h1>
+        <section class="flex flex-col pb-12 lg:pb-0 lg:h-screen justify-center">
+          <h1 class="font-zen-old-mincho font-bold text-4xl pb-6 lg:text-5xl">HI～我是蔓蒂 Mandy</h1>
           <p class="text-xl">歡迎來到我的小空間，小空間<span
               class="bg-primary text-white mx-2">記錄著我的生活點滴</span>，希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
         </section>
+        <!-- VisualKV -->
+        <div class="w-full flex justify-center pb-20 lg:hidden">
+          <VisualKV />
+        </div>
 
         <!-- Profiles -->
-        <section class="text-xl flex flex-col h-screen justify-center">
+        <section class="text-lg flex flex-col pb-20 lg:text-xl lg:h-screen justify-center">
           <div>
             <HomeTitle>個人資料 Profiles</HomeTitle>
-            <p class="text-4xl font-bold">蔓蒂 Mandy</p>
+            <p class="font-zen-old-mincho text-4xl lg:text-5xl font-bold">敏佳</p>
             <p class="py-4">
               大學畢業後，擔任設計師開始從事網頁設計相關工作，陸續工作中接觸到前端技術並產生興趣，透過線上學習與培訓班轉職前端工程師，轉職後經過了幾年洗禮，持續以自己步調精進中！
             </p>
@@ -75,26 +82,28 @@ onMounted(() => {
         </section>
       </div>
 
-      <!-- VisualKV -->
+      <!-- VisualKV web -->
       <div
-        class="hidden lg:flex lg:w-5/10 lg:sticky lg:pointer-events-none top-0 h-screen ml-auto justify-center items-center ">
+        class="hidden lg:flex lg:w-5/10 lg:sticky lg:pointer-events-none top-0 h-screen ml-auto justify-center items-center">
         <VisualKV />
       </div>
     </div>
 
     <!-- Posts -->
-    <section class="flex gap-x-2 py-30">
-      <div class="w-1/2 h-80">
+    <section class="grid grid-cols-1 gap-y-20 pb-20 lg:gap-x-2 lg:grid-cols-2 lg:py-30">
+      <div class="col-span-1 lg:h-80">
         <HomeTitle>部落格 Blog</HomeTitle>
-        <div class="flex flex-col h-full" :class="blog.list.length === 3 ? 'justify-between' : 'justify-start'">
-          <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: true }"
-            class="block pb-4" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:flex lg:flex-col h-full"
+          :class="blog.list.length === 3 ? 'justify-between' : 'justify-start'">
+          <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: isDesktop }"
+            class="pb-4" />
         </div>
       </div>
-      <div class="w-1/2 h-80">
+      <div class="col-span-1 lg:h-80">
         <h2 class="font-zen-old-mincho font-bold px-1 inline-block text-base bg-primary text-white mb-4">筆記 Notes</h2>
         <div class="flex flex-col h-full" :class="notes.list.length === 4 ? 'justify-between' : 'justify-start'">
           <PostItem v-for="post in notes.list" :key="post.path" v-bind="post" class="border-t c-border-secondary" />
+          <div class="border-t c-border-secondary" />
         </div>
       </div>
     </section>
