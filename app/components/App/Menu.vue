@@ -80,7 +80,7 @@ const getChildName = (words: string) => {
           <div v-for="item in pageInfo.values()" :key="item.title"
             class="w-8/10 text-left mx-auto py-3 font-bold font-zen-old-mincho">
             <div class="flex">
-              <NuxtLink :to="item.path" @click="closeMenu" class=" cursor-pointer hover:text-primary"
+              <NuxtLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer hover:text-primary"
                 :class="{ 'text-primary': routeName.includes(item.name) }">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
               </NuxtLink>
@@ -93,7 +93,7 @@ const getChildName = (words: string) => {
 
             <div v-if="isExpanded(item.title) && item.childrens" class="pl-2">
               <NuxtLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
-                class="block py-2 text-sm hover:text-primary transition-colors cursor-pointer"
+                class="block py-2 hover:text-primary transition-colors cursor-pointer"
                 :class="{ 'text-primary': routeName.includes(child.name) }">
                 {{ child.title }} {{ getChildName(child.name) }}
               </NuxtLink>
