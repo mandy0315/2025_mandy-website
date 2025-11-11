@@ -4,7 +4,7 @@ usePageSEO({
 })
 import { workListGroup } from "@/utils/workListMap/index"
 
-
+const { isMobile } = useResponsive();
 type CategoryOptionsKeys = keyof typeof categoryOptions;
 type TypeOptionsKeys = keyof typeof typeOptions;
 const categoryOptions = {
@@ -66,6 +66,8 @@ const selectWorks = computed(() => {
 })
 
 const getGridClass = (index: number) => {
+  if (isMobile.value) return 'col-span-1'
+
   const groupIndex = index % 6 // 每組6個，取得在這組中的位置（0~5）
   if (groupIndex === 1 || groupIndex === 3) {
     return 'col-span-2 row-span-2'
@@ -128,7 +130,7 @@ const resetFilters = () => {
         </p>
         <BaseButton class="mt-4" variant="solid" @click="resetFilters">重置篩選</BaseButton>
       </div>
-      <div v-else class="col-start-2 col-end-6 grid grid-cols-3">
+      <div v-else class="col-start-2 col-end-6 grid " :class="isMobile ? 'grid-cols-1' : 'grid-cols-3'">
         <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
           class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden group" :class="[getGridClass(index)]"
           :to="`/works/${data.id}`">
