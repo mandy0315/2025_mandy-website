@@ -36,8 +36,8 @@ const { isDesktop } = useResponsive();
     <div class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex pb-2">
         <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+          <span class="pr-2">分類</span>
           <span>Categories</span>
-          <span class="pl-2">分類</span>
         </p>
         <BaseLink class="ml-auto" :size="isDesktop ? 'xs' : 'sm'" variant="solid" :to="`/${collection}/categories`">總覽
         </BaseLink>
@@ -50,8 +50,8 @@ const { isDesktop } = useResponsive();
     <div class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex justify-between pb-2">
         <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+          <span class="pr-2">標籤</span>
           <span>Tags</span>
-          <span class="pl-2">標籤</span>
         </p>
         <BaseLink :size="isDesktop ? 'xs' : 'sm'" variant="solid" :to="`/${collection}/tags`">總覽
         </BaseLink>
