@@ -10,15 +10,15 @@ setPosts(currentPage.value);
 watch([currentPage, currentSort], async () => {
   await refreshPosts(currentPage.value);
 });
-
-const postIndex = computed(() => currentPage.value === 1 ? 1 : 0)
+const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
+const { isDesktop } = useResponsive();
 
 </script>
 <template>
   <NuxtLayout name="post">
     <template #default>
       <div v-if="pending">載入中....</div>
-      <div v-else>
+      <div v-else class="pb-10">
         <div class="pb-6">
           <BaseTitle>
             <span v-if="collection === 'blog'">部落格</span>
@@ -34,10 +34,10 @@ const postIndex = computed(() => currentPage.value === 1 ? 1 : 0)
         <BaseSelect class="pb-4" v-model="currentSort" labelTitle="文章排序:"
           :options="[{ label: '新到舊', value: 'DESC' }, { label: '舊到新', value: 'ASC' }]" />
 
-        <div v-if="collection === 'blog'" class="grid grid-cols-3 gap-8">
+        <div v-if="collection === 'blog'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <template v-for="(post, index) in posts.list" :key="post.title">
-            <PostCard v-if="currentPage === 1 && index === 0" v-bind="{ ...post, isHorizontal: true }"
-              class="col-span-full" />
+            <PostCard v-if="currentPage === 1 && index === 0" v-bind="{ ...post, isHorizontal: isDesktop }"
+              class="col-span-1 lg:col-span-full" />
             <PostCard v-if="index >= postIndex" v-bind="post" class="col-span-1" />
           </template>
         </div>
