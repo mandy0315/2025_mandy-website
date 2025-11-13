@@ -38,7 +38,7 @@ onMounted(async () => {
         <BaseLink to="/notes/categories" size="xs" class="rounded-t-sm rounded-b-none border-b-0"
           :isAction="collection === 'notes'">
           筆記分類</BaseLink>
-        <div v-if="isDesktop" class="border-b c-border-secondary border-dashed"></div>
+        <div class="border-b c-border-secondary border-dashed"></div>
       </div>
       <ul ref="containerRef"
         class="grid grid-cols-2 gap-1 md:grid-cols-3 lg:block lg:overflow-y-auto lg:h-[calc(100%-2rem)]">
