@@ -19,6 +19,9 @@ usePageSEO({
 })
 
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -66,6 +69,10 @@ usePageSEO({
           </div>
         </div>
       </div>
+      <button @click="scrollToTop()"
+        class="fixed z-100 bottom-6 right-6 w-14 rounded-full bg-primary text-white hover:bg-primary-dark active:bg-primary active:text-white shadow-lg">
+        <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
+      </button>
     </template>
     <template #sidebar>
       <PostDetailToc :collection />
