@@ -27,44 +27,48 @@ usePageSEO({
   title: currentWork.value?.title || '',
   description: currentWork.value?.description || '',
 })
+
+const { isMobile } = useResponsive();
 </script>
 <template>
-  <article v-if="currentWork" class="c-container py-10">
-    <section>
+  <article v-if="currentWork" class="py-10">
+    <section class="c-container">
       <nav class="">
         <NuxtLink to="/works" class="hover:text-blue-400">作品列表</NuxtLink>
         <span class="px-2">></span>
         <span class="text-primary cursor-default">{{ currentWork.title }}</span>
       </nav>
-      <h2 class="text-3xl py-4">{{ currentWork.title }}</h2>
+      <h1 class="text-4xl font-black truncate py-4">{{ currentWork.title }}</h1>
     </section>
-    <section>
-      <img v-if="currentWork.image" :src="currentWork.image" :alt="currentWork.title" />
+    <section class="bg-primary/30">
+      <div class="md:p-6 lg:p-10" :class="{ 'c-container': !isMobile }">
+        <img v-if="currentWork.image" :src="currentWork.image" :alt="currentWork.title" />
+      </div>
     </section>
-    <section class="grid grid-cols-2 gap-x-4 mt-6">
-      <div>
-        <div>
-          <p class="text-sm ">日期</p>
-          <p v-if="currentWork.date" v-date-format="currentWork.date"></p>
-          <p v-else>未紀錄</p>
+    <section class="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-x-4 mt-6 c-container">
+      <div class="lg:w-1/2 c-text-secondary text-center lg:text-left">
+        <div v-if="currentWork.date">
+          <WorkTitle title="日期" subtitle="Date" />
+          <p v-date-format="currentWork.date"></p>
         </div>
         <div class="mt-4">
-          <p class="text-sm ">分類</p>
+          <WorkTitle title="分類" subtitle="Category" />
           <p v-if="currentWork.category">{{ currentWork.category.toUpperCase() }}</p>
         </div>
         <div class="mt-4">
-          <p class="text-sm ">技能</p>
+          <WorkTitle title="技能" subtitle="Skills" />
           <p v-if="currentWork.skills.length > 0">{{ currentWork.skills.join('、') }}</p>
         </div>
       </div>
-      <div>
+      <div class="p-4 lg:p-0 lg:w-1/2 c-text-secondary">
         <div>
-          <p class="text-sm ">作品說明</p>
+          <WorkTitle class="text-center lg:text-left" title="概要" subtitle="Summary" />
           <p v-if="currentWork.description">{{ currentWork.description }}</p>
         </div>
-        <div v-if="currentWork.link" class="mt-4">
-          <BaseLink size="sm" :to="currentWork.link" variant="underline" external> 外部連結
-            <Icon name="solar:link-linear" class="align-middle" />
+        <div v-if="currentWork.link" class="mt-4 text-center lg:text-left">
+          <Icon name="i-material-symbols:link-rounded" size="1.5rem" class="align-middle" />
+          <BaseLink size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link" variant="underline" external>
+            {{ currentWork.link }}
           </BaseLink>
         </div>
       </div>
