@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
 import { workListGroup } from "@/utils/workListMap/index"
+import { useWindowSize } from '@vueuse/core'
+
+
 
 const currentIndex = ref(0);
 const isAutoPlay = ref(true);
@@ -9,6 +12,8 @@ const isMounted = ref(false);
 
 
 const { getAssetPath } = useAssetPath();
+const { isDesktop } = useResponsive();
+const { width: windowWidth } = useWindowSize();
 const items = computed(() => {
   const listGroup = []
   for (let list of workListGroup.values()) {
@@ -53,8 +58,16 @@ const prevSlide = () => {
 };
 
 // 可自由調整的圖片尺寸配置 16:9
-const ACTIVE_WIDTH = 480;
-const ACTIVE_HEIGHT = 270;
+const ACTIVE_WIDTH = computed(() => {
+  if (isDesktop.value) {
+    return 480; // 桌面版固定寬度
+  } else {
+    // 手機版：螢幕寬度的 85%（考慮左右留白） Math.min(window.
+    return windowWidth.value > 0 ? Math.min(windowWidth.value * 0.85, 480) : 320;
+  }
+});
+
+const ACTIVE_HEIGHT = computed(() => Math.round(ACTIVE_WIDTH.value * 9 / 16));
 const SIDE_WIDTH = 90;
 const SIDE_HEIGHT = 160;
 const GAP = 32; // 圖片 32px 間距
@@ -64,13 +77,18 @@ const getItemClasses = (index: number) => {
   const diff = Math.abs(index - currentIndex.value);
   const isVisible = diff <= 2 || diff >= items.value.length - 2;
 
-  if (isActive) {
-    return 'opacity-100'; // 主圖
-  } else if (isVisible) {
-    return 'opacity-60'; // 旁邊的圖
+  if (isDesktop.value) {
+    if (isActive) {
+      return 'opacity-100'; // 主圖
+    } else if (isVisible) {
+      return 'opacity-60'; // 旁邊的圖
+    } else {
+      return 'opacity-0 pointer-events-none';
+    }
   } else {
-    return 'opacity-0 pointer-events-none';
+    return isActive ? 'opacity-100' : 'opacity-0 pointer-events-none';
   }
+
 };
 
 const getItemStyle = (index: number) => {
@@ -88,25 +106,26 @@ const getItemStyle = (index: number) => {
   }
 
   let translateX = 0;
+  if (isDesktop.value) {
+    if (diff === 0) {
+      translateX = 0;
+    } else if (diff > 0) {
+      const firstImageOffset = (ACTIVE_WIDTH.value + SIDE_WIDTH) / 2 + GAP;
+      const otherImagesOffset = (diff - 1) * (SIDE_WIDTH + GAP);
+      translateX = firstImageOffset + otherImagesOffset;
+    } else {
+      const firstImageOffset = -(ACTIVE_WIDTH.value + SIDE_WIDTH) / 2 - GAP;
+      const otherImagesOffset = (diff + 1) * (SIDE_WIDTH + GAP);
+      translateX = firstImageOffset + otherImagesOffset;
+    }
 
-  if (diff === 0) {
-    // 當前圖片（主圖）在中心
-    translateX = 0;
-  } else if (diff > 0) {
-    // 在右邊：先移到主圖右邊，再加上前面圖片的寬度
-    const firstImageOffset = (ACTIVE_WIDTH + SIDE_WIDTH) / 2 + GAP;  // 第一張圖的位置
-    const otherImagesOffset = (diff - 1) * (SIDE_WIDTH + GAP);   // 後面圖片累積的距離
-    translateX = firstImageOffset + otherImagesOffset;
   } else {
-    // 在左邊：先移到主圖左邊，再減去前面圖片的寬度
-    const firstImageOffset = -(ACTIVE_WIDTH + SIDE_WIDTH) / 2 - GAP; // 第一張圖的位置
-    const otherImagesOffset = (diff + 1) * (SIDE_WIDTH + GAP);   // 後面圖片累積的距離
-    translateX = firstImageOffset + otherImagesOffset;
+    translateX = 0;
   }
 
   return {
-    width: isActive ? `${ACTIVE_WIDTH}px` : `${SIDE_WIDTH}px`,
-    height: isActive ? `${ACTIVE_HEIGHT}px` : `${SIDE_HEIGHT}px`,
+    width: isActive ? `${ACTIVE_WIDTH.value}px` : `${SIDE_WIDTH}px`,
+    height: isActive ? `${ACTIVE_HEIGHT.value}px` : `${SIDE_HEIGHT}px`,
     transform: `translateX(${translateX}px)`,
   };
 };
@@ -120,21 +139,23 @@ const getItemStyle = (index: number) => {
         <NuxtLink :to="`works/${item.id}`" class="block w-full h-full">
           <Transition name="slide-up">
             <h3 v-if="index === currentIndex"
-              class="text-5xl font-semibold mb-1 text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
+              class="text-4xl lg:text-5xl font-semibold mb-1 text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
               {{ item.title }}
             </h3>
           </Transition>
 
-          <div v-if="item.image"
-            class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
-            :class="getItemClasses(index)" :style="getItemStyle(index)">
-            <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
-            <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
-          </div>
+          <ClientOnly>
+            <div v-if="item.image"
+              class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
+              :class="getItemClasses(index)" :style="getItemStyle(index)">
+              <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
+              <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+            </div>
+          </ClientOnly>
 
           <Transition name="slide-up">
             <p v-if="index === currentIndex"
-              class="absolute -bottom-20 left-0 right-0 px-4 text-xl text-gray-600 line-clamp-2">
+              class="absolute -bottom-20 left-0 right-0 px-4 text-lg lg:text-xl c-text-secondary line-clamp-2">
               {{ item.description }}
             </p>
           </Transition>

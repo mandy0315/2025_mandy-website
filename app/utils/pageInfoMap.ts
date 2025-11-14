@@ -21,12 +21,12 @@ export const pageInfo = new Map<string, PageInfoMap>([
       path: "/blog",
       title: "部落格",
       childrens: {
-        tags: { name: "blog-tags", path: "/blog/tags", title: "標籤總覽" },
         categories: {
           name: "blog-categories",
           path: "/blog/categories",
           title: "分類總覽",
         },
+        tags: { name: "blog-tags", path: "/blog/tags", title: "標籤總覽" },
       },
     },
   ],
@@ -36,14 +36,13 @@ export const pageInfo = new Map<string, PageInfoMap>([
       name: "notes",
       path: "/notes",
       title: "筆記",
-
       childrens: {
-        tags: { name: "notes-tags", path: "/notes/tags", title: "標籤總覽" },
         categories: {
           name: "notes-categories",
           path: "/notes/categories",
           title: "分類總覽",
         },
+        tags: { name: "notes-tags", path: "/notes/tags", title: "標籤總覽" },
       },
     },
   ],

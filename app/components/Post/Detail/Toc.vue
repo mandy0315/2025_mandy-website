@@ -11,16 +11,45 @@ const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-deta
   return queryCollectionSearchSections(props.collection);
 });
 
-const currTocs = computed(() => collectionAllTocs.value?.filter(toc =>
+const tocList = computed(() => collectionAllTocs.value?.filter(toc =>
   toc.id.startsWith(route.path)
 ) || [])
+
+const tocsWithNumbers = computed(() => {
+  const counters: Record<number, number> = {};
+
+  return tocList.value.map(toc => {
+    const level = toc.level;
+
+    // 重置更深層的計數器
+    Object.keys(counters).forEach(key => {
+      if (Number(key) > level) {
+        delete counters[Number(key)];
+      }
+    });
+
+    // 增加當前層級的計數
+    counters[level] = (counters[level] || 0) + 1;
+
+    // 生成編號（例如：1, 1-1, 1-1-1）
+    const numbers: number[] = [];
+    for (let i = 2; i <= level; i++) {
+      numbers.push(counters[i] || 0);
+    }
+
+    return {
+      ...toc,
+      number: numbers.join('-')
+    };
+  });
+});
 const initListenerPage = async (retryCount = 0) => {
-  if (currTocs.value.length === 0) return;
+  if (tocList.value.length === 0) return;
 
   const maxRetries = 5;
   const delay = Math.min(100 * Math.pow(2, retryCount), 1000);
 
-  const navs = currTocs.value.map(toc => {
+  const navs = tocList.value.map(toc => {
     const id = toc.title.trim().replace(/\s+/g, '-').toLowerCase();
     const element = document.getElementById(id);
 
@@ -50,17 +79,18 @@ onMounted(() => {
 <template>
   <div>
     <ClientOnly>
-      <p class="font-zen-old-mincho font-black text-sm pb-4">
+      <p class="font-zen-old-mincho font-black pb-2 text-lg border-b c-border-secondary">
+        <span class="pr-2">目錄</span>
         <span>Toc</span>
-        <span class="pl-2">目錄</span>
       </p>
 
-      <ul class="border-l c-border-secondary pl-2">
-        <li v-for="toc in currTocs">
-          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
-            :class="{ 'text-primary': currSection === toc.title }"
+      <ul class="px-3 py-5">
+        <li v-for="toc in tocsWithNumbers" :key="toc.id">
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary "
+            :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
             :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
-            {{ toc.title }}
+            <span class="pr-2">{{ toc.number }}.</span>
+            <span>{{ toc.title }}</span>
           </NuxtLink>
         </li>
       </ul>

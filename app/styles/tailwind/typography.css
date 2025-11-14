@@ -6,7 +6,7 @@
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply scroll-mt-16 -ml-6;
+  @apply scroll-mt-24 -ml-6;
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {

@@ -18,7 +18,10 @@ usePageSEO({
   description: post.value?.description || '',
 })
 
-
+const { isDesktop } = useResponsive();
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -35,12 +38,13 @@ usePageSEO({
 
 
           <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
-          <div class="pb-2 grid grid-cols-2 gap-x-2">
-            <div class="col-span-1">
+          <div class="pb-2 lg:flex lg:flex-wrap lg:justify-between lg:gap-x-2">
+            <div class="pb-3 lg:pb-0 ">
               <PostDate class="align-middle inline-block" :date="post.date" />
             </div>
-            <div class="col-span-1 text-right">
-              <BaseButton size="sm" @click="goToCategoriesPage(post.category)">{{ post.category }}</BaseButton>
+            <div class="pb-3 lg:pb-0 lg:text-right">
+              <BaseButton :size="isDesktop ? 'xs' : 'sm'" @click="goToCategoriesPage(post.category)">{{ post.category }}
+              </BaseButton>
             </div>
           </div>
           <p>{{ post.description }}</p>
@@ -66,9 +70,13 @@ usePageSEO({
           </div>
         </div>
       </div>
+      <button @click="scrollToTop()"
+        class="fixed z-100 bottom-6 right-6 w-14 rounded-full bg-primary text-white hover:bg-primary-dark active:bg-primary active:text-white shadow-lg">
+        <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
+      </button>
     </template>
     <template #sidebar>
-      <PostDetailAside :collection />
+      <PostDetailToc v-if="isDesktop" :collection />
     </template>
   </NuxtLayout>
 </template>
