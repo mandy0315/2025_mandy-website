@@ -18,7 +18,7 @@ usePageSEO({
   description: post.value?.description || '',
 })
 
-
+const { isDesktop } = useResponsive();
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
@@ -38,12 +38,13 @@ const scrollToTop = () => {
 
 
           <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
-          <div class="pb-2 grid grid-cols-2 gap-x-2">
-            <div class="col-span-1">
+          <div class="pb-2 lg:flex lg:flex-wrap lg:justify-between lg:gap-x-2">
+            <div class="pb-3 lg:pb-0 ">
               <PostDate class="align-middle inline-block" :date="post.date" />
             </div>
-            <div class="col-span-1 text-right">
-              <BaseButton size="sm" @click="goToCategoriesPage(post.category)">{{ post.category }}</BaseButton>
+            <div class="pb-3 lg:pb-0 lg:text-right">
+              <BaseButton :size="isDesktop ? 'xs' : 'sm'" @click="goToCategoriesPage(post.category)">{{ post.category }}
+              </BaseButton>
             </div>
           </div>
           <p>{{ post.description }}</p>
@@ -75,7 +76,7 @@ const scrollToTop = () => {
       </button>
     </template>
     <template #sidebar>
-      <PostDetailToc :collection />
+      <PostDetailToc v-if="isDesktop" :collection />
     </template>
   </NuxtLayout>
 </template>
