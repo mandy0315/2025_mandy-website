@@ -20,11 +20,18 @@ const props = withDefaults(
 const linkClasses = computed(() => {
   const base = 'inline-block transition-colors disabled:opacity-40 disabled:cursor-not-allowed';
 
-  const sizeClasses = {
-    xs: 'px-2 py-1 text-xs',
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
+  const textSizeClasses = {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg'
+  };
+
+  const paddingClasses = {
+    xs: 'px-2 py-1',
+    sm: 'px-3 py-1.5',
+    md: 'px-4 py-2',
+    lg: 'px-6 py-3'
   };
 
   const variantClasses = {
@@ -37,7 +44,8 @@ const linkClasses = computed(() => {
   const finalVariant = props.isAction ? 'solid' : props.variant;
   return [
     base,
-    sizeClasses[props.size],
+    props.variant === 'underline' ? '' : paddingClasses[props.size],
+    textSizeClasses[props.size],
     variantClasses[finalVariant],
   ].join(' ');
 });
