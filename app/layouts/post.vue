@@ -30,8 +30,7 @@ const sidebarStyle = computed(() => ({
       <slot />
     </div>
 
-    <div
-      class="transition-all ease-linear flex flex-col top-0 h-auto lg:sticky lg:[top:var(--sidebar-top)] lg:[height:var(--sidebar-height)]"
+    <div class="transition-all ease-linear flex flex-col  lg:sticky sidebar-container"
       :class="isShowSidebar ? 'w-full lg:w-60' : 'w-0'" :style="sidebarStyle">
 
       <BaseButton size="sm" variant="solid"
@@ -55,3 +54,17 @@ const sidebarStyle = computed(() => ({
     </div>
   </div>
 </template>
+<style scoped>
+.sidebar-container {
+  top: 0;
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-container {
+    top: var(--sidebar-top);
+    height: var(--sidebar-height);
+    overflow-y: auto;
+  }
+}
+</style>
