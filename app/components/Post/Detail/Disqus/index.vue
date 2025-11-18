@@ -98,9 +98,7 @@ watch(colorMode, async () => {
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <div id="disqus_thread"></div>
-    </ClientOnly>
-  </div>
+  <ClientOnly fallback-tag="div" fallback="留言板">
+    <div id="disqus_thread"></div>
+  </ClientOnly>
 </template>

@@ -144,13 +144,19 @@ const getItemStyle = (index: number) => {
             </h3>
           </Transition>
 
-          <ClientOnly>
-            <div v-if="item.image"
+          <ClientOnly v-if="item.image">
+            <div
               class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
               :class="getItemClasses(index)" :style="getItemStyle(index)">
               <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
               <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
             </div>
+            <template #fallback>
+              <div
+                class="z-10 object-cover shadow-xl relative overflow-hidden w-[320px] h-[180px] lg:w-[480px] lg:h-[270px]">
+                <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+              </div>
+            </template>
           </ClientOnly>
 
           <Transition name="slide-up">
