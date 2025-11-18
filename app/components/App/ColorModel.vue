@@ -5,10 +5,14 @@ const toggleTheme = () => {
 }
 </script>
 <template>
-  <ClientOnly>
-    <BaseButton @click="toggleTheme">
-      <Icon v-if="colorMode.value === 'light'" name="solar:sun-line-duotone" class=" align-middle" size="1.3rem" />
-      <Icon v-else name="solar:moon-outline" class=" align-middle" size="1rem" />
-    </BaseButton>
-  </ClientOnly>
+  <BaseButton @click="toggleTheme" class="relative">
+    <!-- 太陽圖示 -->
+    <Icon name="solar:sun-line-duotone" class="align-middle transition-all duration-300 dark:rotate-90 dark:scale-0"
+      size="1.3rem" />
+
+    <!-- 月亮圖示 -->
+    <Icon name="solar:moon-outline"
+      class="absolute inset-0 m-auto transition-all duration-300 -rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+      size="1rem" />
+  </BaseButton>
 </template>
