@@ -8,11 +8,6 @@
 /* colorMode 黑暗模式可以使用 dark:[style] */
 @custom-variant dark (&:where(.dark, .dark *));
 
-@source "./components";
-@source "./layouts";
-@source "./pages";
-@source "./app.vue";
-
 @theme {
   --font-zen-old-mincho: 'Zen Old Mincho',
     serif;
@@ -60,7 +55,6 @@
     }
   }
 }
-
 
 @layer base {
   :root {
