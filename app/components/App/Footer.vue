@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import { useElementVisibility } from "@vueuse/core";
 import { pageInfo } from '@/utils/pageInfoMap';
 
-const { setFooterObserver } = useLayoutSizes();
+const { isFooterInView, footerHeight } = useLayoutSizes();
 
 const footerRef = ref<HTMLElement | null>(null);
 
+const setFooterObserver = (footerElement: HTMLElement) => {
+  // 監聽可見性
+  const isFooterVisible = useElementVisibility(footerElement);
+  footerHeight.value = footerElement.offsetHeight;
+
+  // 更新全域狀態
+  watch(
+    isFooterVisible,
+    (visible) => {
+      isFooterInView.value = visible;
+    },
+    { immediate: true }
+  );
+};
 onMounted(() => {
   if (footerRef.value) {
     setFooterObserver(footerRef.value);

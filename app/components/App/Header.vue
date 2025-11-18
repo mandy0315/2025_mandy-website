@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const { setHeaderObserver } = useLayoutSizes();
+const { headerHeight } = useLayoutSizes();
 
 const headerRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
   if (headerRef.value) {
-    setHeaderObserver(headerRef.value);
+    headerHeight.value = headerRef.value.offsetHeight;
   }
 });
 </script>
