@@ -39,7 +39,7 @@ const { isDesktop } = useResponsive();
           <span class="pr-2">分類</span>
           <span>Categories</span>
         </p>
-        <BaseLink class="ml-auto" :size="isDesktop ? 'xs' : 'sm'" variant="solid" :to="`/${collection}/categories`">總覽
+        <BaseLink variant="solid" class="ml-auto text-sm px-3 py-1 lg:text-xs" :to="`/${collection}/categories`">總覽
         </BaseLink>
       </div>
       <div class="border-b c-border-secondary" v-for="category in categories" :key="category">
@@ -53,7 +53,7 @@ const { isDesktop } = useResponsive();
           <span class="pr-2">標籤</span>
           <span>Tags</span>
         </p>
-        <BaseLink :size="isDesktop ? 'xs' : 'sm'" variant="solid" :to="`/${collection}/tags`">總覽
+        <BaseLink variant="solid" class="ml-auto text-sm px-3 py-1 lg:text-xs" :to="`/${collection}/tags`">總覽
         </BaseLink>
       </div>
 

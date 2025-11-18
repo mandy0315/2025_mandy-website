@@ -33,8 +33,8 @@ const { isMobile } = useResponsive();
 <template>
   <article v-if="currentWork" class="py-10">
     <section class="c-container">
-      <nav class="">
-        <NuxtLink to="/works" class="hover:text-blue-400">作品列表</NuxtLink>
+      <nav>
+        <BaseLink to="/works">作品列表</BaseLink>
         <span class="px-2">></span>
         <span class="text-primary cursor-default">{{ currentWork.title }}</span>
       </nav>
@@ -67,7 +67,7 @@ const { isMobile } = useResponsive();
         </div>
         <div v-if="currentWork.link" class="mt-4 text-center lg:text-left">
           <Icon name="i-material-symbols:link-rounded" size="1.5rem" class="align-middle" />
-          <BaseLink size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link" variant="underline" external>
+          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link" external>
             {{ currentWork.link }}
           </BaseLink>
         </div>

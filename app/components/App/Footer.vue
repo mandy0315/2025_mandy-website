@@ -29,7 +29,8 @@ onMounted(() => {
       </div>
       <div class="lg:mt-auto">
         <div class="lg:pb-2">
-          <BaseLink v-for="item in pageInfo.values()" variant="underline" :to="item.path" class="text-xs no-underline">
+          <BaseLink v-for="item in pageInfo.values()" variant="underline" :to="item.path"
+            class="text-xs no-underline px-2 py-3 lg:pl-4 lg:pr-0">
             {{
               item.title }}
           </BaseLink>

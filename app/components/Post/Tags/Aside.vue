@@ -31,10 +31,10 @@ onMounted(async () => {
     </button>
     <div v-if="isShowSidebar" class="bg-primary/10 py-2 px-3 lg:bg-transparent lg:pl-0 lg:py-0 lg:pr-4 lg:h-full">
       <div v-if="isDesktop" class="h-8">
-        <BaseLink to="/blog/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"
+        <BaseLink variant="outline" to="/blog/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"
           :isAction="collection === 'blog'">
           部落格標籤</BaseLink>
-        <BaseLink to="/notes/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0"
+        <BaseLink variant="outline" to="/notes/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0"
           :isAction="collection === 'notes'">
           筆記標籤</BaseLink>
         <div class="border-b c-border-secondary border-dashed"></div>
