@@ -31,8 +31,8 @@ const sidebarStyle = computed(() => ({
     </div>
 
     <div
-      class="transition-all ease-linear flex flex-col lg:sticky lg:[top:var(--sidebar-top)] lg:[height:var(--sidebar-height)]"
-      :class="isShowSidebar ? 'w-full lg:w-60' : 'w-0'" :style="sidebarStyle" style="top: 0; height: auto;">
+      class="transition-all ease-linear flex flex-col top-0 h-auto lg:sticky lg:[top:var(--sidebar-top)] lg:[height:var(--sidebar-height)]"
+      :class="isShowSidebar ? 'w-full lg:w-60' : 'w-0'" :style="sidebarStyle">
 
       <BaseButton size="sm" variant="solid"
         class="absolute rounded-l-3xl rounded-r-none top-16 right-full z-50 text-nowrap hidden lg:inline-block"
