@@ -18,7 +18,6 @@ usePageSEO({
   description: post.value?.description || '',
 })
 
-const { isDesktop } = useResponsive();
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
@@ -80,7 +79,7 @@ const scrollToTop = () => {
       </BaseButton>
     </template>
     <template #sidebar>
-      <PostDetailToc v-if="isDesktop" :collection />
+      <PostDetailToc class="hidden lg:block" :collection />
     </template>
   </NuxtLayout>
 </template>
