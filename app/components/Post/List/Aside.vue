@@ -58,7 +58,8 @@ const { isDesktop } = useResponsive();
       </div>
 
       <div class="py-2 flex flex-wrap gap-1 ">
-        <BaseButton v-for="tag in tags" :key="tag" :size="isDesktop ? 'xs' : 'sm'" @click="goToTagsPage(tag)">
+        <BaseButton v-for="tag in tags" :key="tag" variant="outline" class="text-sm px-2 py-1 lg:text-xs"
+          @click="goToTagsPage(tag)">
           {{ tag }}
         </BaseButton>
       </div>

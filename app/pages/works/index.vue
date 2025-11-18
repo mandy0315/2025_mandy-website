@@ -128,7 +128,7 @@ const resetFilters = () => {
           <Icon name="mdi:emoticon-cry-outline" class="text-3xl align-middle" />
           <span class="align-middle">沒有符合條件的作品</span>
         </p>
-        <BaseButton class="mt-4" variant="solid" @click="resetFilters">重置篩選</BaseButton>
+        <BaseButton class="mt-4" variant="solid" size="md" @click="resetFilters">重置篩選</BaseButton>
       </div>
       <div v-else class="col-start-2 col-end-6 grid " :class="isMobile ? 'grid-cols-1' : 'grid-cols-3'">
         <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"

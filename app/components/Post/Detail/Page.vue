@@ -45,7 +45,9 @@ const scrollToTop = () => {
               <PostDate class="align-middle inline-block" :date="post.date" />
             </div>
             <div class="pb-3 lg:pb-0 lg:text-right">
-              <BaseButton :size="isDesktop ? 'xs' : 'sm'" @click="goToCategoriesPage(post.category)">{{ post.category }}
+              <BaseButton variant="outline" class="text-sm px-2 py-1 lg:text-xs"
+                @click="goToCategoriesPage(post.category)">{{
+                  post.category }}
               </BaseButton>
             </div>
           </div>
@@ -72,10 +74,10 @@ const scrollToTop = () => {
           </div>
         </div>
       </div>
-      <button @click="scrollToTop()"
-        class="fixed z-100 bottom-6 right-6 w-14 rounded-full bg-primary text-white hover:bg-primary-dark active:bg-primary active:text-white shadow-lg">
+      <BaseButton variant="solid" @click="scrollToTop()"
+        class="fixed z-100 bottom-6 right-6 w-14 rounded-full shadow-lg">
         <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
-      </button>
+      </BaseButton>
     </template>
     <template #sidebar>
       <PostDetailToc v-if="isDesktop" :collection />
