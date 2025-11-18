@@ -11,9 +11,9 @@ onMounted(() => {
 </script>
 <template>
   <header ref="headerRef" class="fixed z-100 p-4 flex items-center justify-between w-full backdrop-blur-xs">
-    <NuxtLink to="/" class="block w-20">
+    <BaseLink to="/" class="block w-20">
       <IconLogo class="dark:fill-white" />
-    </NuxtLink>
+    </BaseLink>
     <AppMenu class="hidden lg:block" />
     <div class="flex items-center gap-x-2">
       <AppColorModel />

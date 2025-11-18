@@ -30,8 +30,10 @@ const scrollToTop = () => {
       <div v-if="post">
         <div class="border-b pb-6 pt-4 border-primary">
           <!-- 麵包屑 -->
-          <nav class="">
-            <NuxtLink to="/notes" class="hover:text-blue-400">筆記列表</NuxtLink>
+          <nav>
+            <BaseLink :to="collection === 'blog' ? '/blog' : '/notes'">{{ collection === 'blog' ?
+              '部落格' : '筆記' }}列表
+            </BaseLink>
             <span class="px-2">></span>
             <span class="text-primary cursor-default">{{ post.title }}</span>
           </nav>

@@ -53,10 +53,10 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
         class="text-left font-bold font-zen-old-mincho relative max-w-full"
         :ref="(el) => setMenuRef(item.title, el as HTMLElement)">
         <div class="flex items-center">
-          <NuxtLink :to="item.path" @click="closeMenu" class="cursor-pointer hover:text-primary align-middle"
-            :class="{ 'text-primary': routeName.includes(item.name) }">
+          <BaseLink :to="item.path" @click="closeMenu" class="cursor-pointer align-middle"
+            :isAction="routeName.includes(item.name)">
             {{ item.title }} {{ firstWordToUpper(item.name) }}
-          </NuxtLink>
+          </BaseLink>
           <button v-if="item.childrens" @click="toggleSubMenu(item.title)"
             class="relative w-6 h-6 flex items-center justify-center transition-transform origin-center cursor-pointer ml-auto hover:text-primary"
             :class="[{ 'rotate-45': isExpanded(item.title) }, { 'text-primary': routeName.includes(item.name) && routeName.includes('-') }]">
@@ -65,12 +65,12 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
         </div>
         <div v-if="isExpanded(item.title) && item.childrens"
           class="absolute border c-border-secondary left-0 right-0 backdrop-blur-xs dark:bg-white/10 bg-white/60 p-2 top-10 rounded z-10">
-          <NuxtLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
-            class="block py-2 text-sm hover:text-primary transition-colors cursor-pointer whitespace-nowrap"
-            :class="{ 'text-primary': routeName.includes(child.name) }">
+          <BaseLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
+            class="py-2 text-sm transition-colors cursor-pointer whitespace-nowrap"
+            :isAction="routeName.includes(child.name)">
             <p>{{ child.title }}</p>
             <p class="text-xs">{{ getChildName(child.name) }}</p>
-          </NuxtLink>
+          </BaseLink>
         </div>
       </div>
     </div>
@@ -96,23 +96,22 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
           <div v-for="item in pageInfo.values()" :key="item.title"
             class="w-8/10 text-left mx-auto py-3 font-bold font-zen-old-mincho">
             <div class="flex">
-              <NuxtLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer hover:text-primary"
-                :class="{ 'text-primary': routeName.includes(item.name) }">
+              <BaseLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer"
+                :isAction="routeName.includes(item.name)"">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
-              </NuxtLink>
+              </BaseLink>
               <button v-if="item.childrens" @click="toggleSubMenu(item.title)"
                 class="text-lg px-3 transition-transform origin-center align-middle cursor-pointer ml-auto hover:text-primary"
                 :class="[{ 'rotate-45': isExpanded(item.title) }, { 'text-primary': routeName.includes(item.name) && routeName.includes('-') }]">
                 +
-              </button>
+                </button>
             </div>
 
-            <div v-if="isExpanded(item.title) && item.childrens" class="pl-2">
-              <NuxtLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
-                class="block py-2 hover:text-primary transition-colors cursor-pointer"
-                :class="{ 'text-primary': routeName.includes(child.name) }">
+            <div v-if="isExpanded(item.title) && item.childrens" class="pl-2 flex flex-col">
+              <BaseLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
+                class="py-2 cursor-pointer" :isAction="routeName.includes(child.name)">
                 {{ child.title }} {{ getChildName(child.name) }}
-              </NuxtLink>
+              </BaseLink>
             </div>
           </div>
         </nav>

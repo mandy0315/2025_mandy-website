@@ -20,10 +20,10 @@ await refreshArchivePosts({ page: currentPage.value, type: 'category', value: cu
     <div class="pb-4">
       <div class="lg:text-sm text-center font-black font-zen-old-mincho pb-2">
         <span class="px-1">-</span>
-        <NuxtLink v-if="collection === 'blog'" to="/blog" class=" hover:text-primary pr-1 underline underline-offset-2">
-          部落格</NuxtLink>
-        <NuxtLink v-else to="/notes" class=" hover:text-primary pr-1 underline underline-offset-2">筆記
-        </NuxtLink>
+        <BaseLink variant="underline" :to="collection === 'blog' ? '/blog' : '/notes'" class="pr-2">{{ collection ===
+          'blog' ? '部落格'
+          : '筆記' }}
+        </BaseLink>
         <span>分類總覽</span>
         <span class="px-1">-</span>
       </div>
