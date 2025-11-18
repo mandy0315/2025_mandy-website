@@ -20,7 +20,8 @@ onMounted(async () => {
 
 <template>
   <div class="h-full border-y c-border-secondary lg:border-none">
-    <button @click="isExpanded = !isExpanded" class="py-2 px-4 flex items-center w-full lg:hidden">
+    <BaseButton @click="isExpanded = !isExpanded" class="py-2 px-4 flex items-center w-full lg:hidden"
+      :isAction="isExpanded">
       <p>
         <Icon name="i-solar:hamburger-menu-bold" size="1.2rem" class="align-middle" />
         {{ collection === 'blog' ? '部落格分類' : '筆記分類' }}
@@ -29,7 +30,7 @@ onMounted(async () => {
         :class="{ 'rotate-45': isExpanded }">
         +
       </p>
-    </button>
+    </BaseButton>
     <div v-if="isShowSidebar" class="bg-primary/10 py-2 px-3 lg:bg-transparent lg:pl-0 lg:py-0 lg:pr-4 lg:h-full">
       <div v-if="isDesktop" class="h-8">
         <BaseLink variant="outline" to="/blog/categories" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"

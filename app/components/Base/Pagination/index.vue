@@ -51,10 +51,10 @@ const visibleCount = computed(() => {
       <Icon name="solar:alt-arrow-left-outline" size="1.2rem" />
     </PaginationArrow>
 
-    <button class="w-8 h-8 mx-0.5" v-for="num in visibleCount" :class="{ 'text-primary': currentPage === num }"
-      :key="num" @click="goToPage(num)">
+    <BaseButton class="w-8 h-8 mx-0.5" v-for="num in visibleCount" :isAction="currentPage === num" :key="num"
+      @click="goToPage(num)">
       {{ num }}
-    </button>
+    </BaseButton>
 
     <PaginationArrow @click="changePage(1)" :disabled="currentPage === totalPage">
       <Icon name="solar:alt-arrow-right-outline" size="1.2rem" />

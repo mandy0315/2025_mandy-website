@@ -57,11 +57,12 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
             :isAction="routeName.includes(item.name)">
             {{ item.title }} {{ firstWordToUpper(item.name) }}
           </BaseLink>
-          <button v-if="item.childrens" @click="toggleSubMenu(item.title)"
+          <BaseButton v-if="item.childrens" @click="toggleSubMenu(item.title)"
             class="relative w-6 h-6 flex items-center justify-center transition-transform origin-center cursor-pointer ml-auto hover:text-primary"
-            :class="[{ 'rotate-45': isExpanded(item.title) }, { 'text-primary': routeName.includes(item.name) && routeName.includes('-') }]">
+            :class="{ 'rotate-45': isExpanded(item.title) }"
+            :isAction="routeName.includes(item.name) && routeName.includes('-')">
             +
-          </button>
+          </BaseButton>
         </div>
         <div v-if="isExpanded(item.title) && item.childrens"
           class="absolute border c-border-secondary left-0 right-0 backdrop-blur-xs dark:bg-white/10 bg-white/60 p-2 top-10 rounded z-10">
@@ -74,18 +75,18 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
         </div>
       </div>
     </div>
-    <button class="block lg:hidden" @click="isOpenMenu = !isOpenMenu">
+    <BaseButton class="block lg:hidden group" @click="isOpenMenu = !isOpenMenu">
       <p class="text-xs">Menu</p>
-      <div class="flex flex-col h-5 justify-between transform scale-75">
-        <div class="w-8 h-[2px] bg-black dark:bg-white transition-all origin-left"
+      <div class="flex flex-col h-5 justify-between transform scale-75 ">
+        <div class="w-8 h-[2px] bg-black dark:bg-white transition-all origin-left group-hover:bg-primary"
           :class="{ 'rotate-35 translate-x-[2px]': isOpenMenu }"></div>
-        <div class="w-8 h-[1.5px] bg-black dark:bg-white transition-all origin-center"
+        <div class="w-8 h-[1.5px] bg-black dark:bg-white transition-all origin-center group-hover:bg-primary"
           :class="{ 'hidden': isOpenMenu }">
         </div>
-        <div class="w-8 h-[2px] bg-black dark:bg-white transition-all origin-left"
+        <div class="w-8 h-[2px] bg-black dark:bg-white transition-all origin-left group-hover:bg-primary"
           :class="{ '-rotate-35 translate-x-[2px]': isOpenMenu }"></div>
       </div>
-    </button>
+    </BaseButton>
     <Teleport to="body">
       <div
         class="fixed flex items-center justify-start z-100 top-0 left-0 h-full w-full transition-transform duration-700 flex-row pt-0"
@@ -100,11 +101,12 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
                 :isAction="routeName.includes(item.name)"">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
               </BaseLink>
-              <button v-if="item.childrens" @click="toggleSubMenu(item.title)"
+              <BaseButton v-if="item.childrens" @click="toggleSubMenu(item.title)"
                 class="text-lg px-3 transition-transform origin-center align-middle cursor-pointer ml-auto hover:text-primary"
-                :class="[{ 'rotate-45': isExpanded(item.title) }, { 'text-primary': routeName.includes(item.name) && routeName.includes('-') }]">
+                :class="{ 'rotate-45': isExpanded(item.title) }"
+                :isAction="routeName.includes(item.name) && routeName.includes('-')">
                 +
-                </button>
+                </BaseButton>
             </div>
 
             <div v-if="isExpanded(item.title) && item.childrens" class="pl-2 flex flex-col">

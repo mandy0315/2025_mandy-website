@@ -6,9 +6,9 @@ const toggleTheme = () => {
 </script>
 <template>
   <ClientOnly>
-    <button @click="toggleTheme">
+    <BaseButton @click="toggleTheme">
       <Icon v-if="colorMode.value === 'light'" name="solar:sun-line-duotone" class=" align-middle" size="1.3rem" />
       <Icon v-else name="solar:moon-outline" class=" align-middle" size="1rem" />
-    </button>
+    </BaseButton>
   </ClientOnly>
 </template>

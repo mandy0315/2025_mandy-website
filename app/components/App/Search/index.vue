@@ -44,16 +44,16 @@ watch(isSearch, async (value) => {
 
 <template>
   <div>
-    <button @click="isShowSearchModal = !isShowSearchModal">
+    <BaseButton @click="isShowSearchModal = !isShowSearchModal">
       <Icon name="solar:magnifer-linear" size="1rem" class=" align-middle" />
-    </button>
+    </BaseButton>
     <Teleport to="body">
       <div v-if="isShowSearchModal">
         <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
-          <button @click="isShowSearchModal = false"
+          <BaseButton @click="isShowSearchModal = false"
             class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
             ＋
-          </button>
+          </BaseButton>
           <label class="relative w-full h-12 flex bg-[var(--bg-color)] rounded-t border c-border-secondary ">
             <input type="text" v-model="keywords"
               class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
