@@ -98,7 +98,7 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
             class="w-8/10 text-left mx-auto py-3 font-bold font-zen-old-mincho">
             <div class="flex">
               <BaseLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer"
-                :isAction="routeName.includes(item.name)"">
+                :isAction="routeName.includes(item.name)">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
               </BaseLink>
               <BaseButton v-if="item.childrens" @click="toggleSubMenu(item.title)"
@@ -106,7 +106,7 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
                 :class="{ 'rotate-45': isExpanded(item.title) }"
                 :isAction="routeName.includes(item.name) && routeName.includes('-')">
                 +
-                </BaseButton>
+              </BaseButton>
             </div>
 
             <div v-if="isExpanded(item.title) && item.childrens" class="pl-2 flex flex-col">
