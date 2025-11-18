@@ -36,7 +36,7 @@ const { isDesktop } = useResponsive();
 
         <div v-if="collection === 'blog'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <template v-for="(post, index) in posts.list" :key="post.title">
-            <PostCard v-if="currentPage === 1 && index === 0" v-bind="{ ...post, isHorizontal: isDesktop }"
+            <PostCard v-if="currentPage === 1 && index === 0" v-bind="{ ...post, isHorizontal: true }"
               class="col-span-1 lg:col-span-full" />
             <PostCard v-if="index >= postIndex" v-bind="post" class="col-span-1" />
           </template>

@@ -11,27 +11,30 @@ const props = withDefaults(defineProps<{
   isHorizontal: false,
 })
 
-
 const { getAssetPath } = useAssetPath();
 const processedSrc = computed(() => getAssetPath(props.image));
-
 </script>
+
 <template>
   <NuxtLink :to="path" class="group">
-    <div class="grid" :class="isHorizontal ? 'grid-cols-7' : 'grid-cols-1'">
+    <div class="grid grid-cols-1" :class="isHorizontal ? 'lg:grid-cols-7' : ''">
+
       <!-- 圖片比例 16:9 -->
-      <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden "
-        :class="isHorizontal ? 'col-span-3' : 'col-span-1'">
+      <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden col-span-1"
+        :class="isHorizontal ? 'lg:col-span-3' : ''">
         <BaseHoverMask contentText="進入文章" />
         <span class="absolute top-2 z-10 text-xs bg-primary px-1 text-white">{{ category }}</span>
         <img :src="processedSrc" :alt="title"
           class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm" />
       </div>
-      <div :class="isHorizontal ? 'flex flex-col px-6 py-4 col-span-4' : 'p-2 col-span-1'">
+
+      <!-- 內容區 -->
+      <div class="p-2 col-span-1" :class="isHorizontal ? 'lg:flex lg:flex-col lg:px-6 lg:py-4 lg:col-span-4' : ''">
         <PostDate :date />
         <p class="text-xl"> {{ title }}</p>
-        <p class="c-text-secondary" :class="isHorizontal ? 'line-clamp-3' : 'line-clamp-2'">{{
-          description }}</p>
+        <p class="c-text-secondary line-clamp-2" :class="isHorizontal ? 'lg:line-clamp-3' : ''">
+          {{ description }}
+        </p>
       </div>
     </div>
   </NuxtLink>

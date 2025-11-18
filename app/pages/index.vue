@@ -95,8 +95,7 @@ const { isDesktop } = useResponsive();
         <HomeTitle>部落格 Blog</HomeTitle>
         <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:flex lg:flex-col h-full"
           :class="blog.list.length === 3 ? 'justify-between' : 'justify-start'">
-          <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: isDesktop }"
-            class="pb-4" />
+          <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: true }" class="pb-4" />
         </div>
       </div>
       <div class="col-span-1 lg:h-80">
