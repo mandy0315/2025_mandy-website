@@ -2,39 +2,49 @@
 const props = withDefaults(
   defineProps<{
     disabled?: boolean;
-    variant?: 'outline' | 'solid';
+    variant?: 'outline' | 'solid' | 'base';
     size?: 'xs' | 'sm' | 'md' | 'lg';
     isAction?: boolean;
   }>(),
   {
     disabled: false,
-    variant: 'outline',
-    size: 'md',
+    variant: 'base',
     isAction: false,
   }
 );
 
 const buttonClasses = computed(() => {
-  const base = 'rounded-4xl transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+  const base = 'disabled:opacity-30 disabled:cursor-not-allowed';
 
-  const sizeClasses = {
-    xs: 'px-2 py-1 text-xs',
-    sm: 'px-3 py-1 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
-  };
+  const sizeClasses = props.size ? {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg'
+  }[props.size] : '';
+  const paddingClasses = props.size && (props.variant === 'outline' || props.variant === 'solid') ? {
+    xs: 'px-2 py-1',
+    sm: 'px-3 py-1.5',
+    md: 'px-4 py-2',
+    lg: 'px-6 py-3'
+  }[props.size] : '';
 
   const variantClasses = {
-    outline: 'border border-primary text-primary bg-white/20 hover:bg-primary/70 hover:text-white active:bg-primary active:text-white',
-    solid: 'bg-primary/70 text-white hover:bg-primary-dark active:bg-primary active:text-white',
+    outline: 'border border-primary text-primary bg-white/20 hover:bg-primary/70 hover:text-white active:bg-primary active:text-white rounded-4xl',
+    solid: 'bg-primary text-white hover:bg-primary-dark rounded-4xl',
+    base: 'hover:text-primary/70 active:text-primary'
   }
 
-  // 如果 isAction 為 true，強制使用 solid 樣式
-  const finalVariant = props.isAction ? 'solid' : props.variant;
+  const actionVariantClasses = {
+    outline: variantClasses.solid,
+    solid: variantClasses.solid,
+    base: 'text-primary',
+  }
   return [
     base,
-    sizeClasses[props.size],
-    variantClasses[finalVariant],
+    sizeClasses,
+    paddingClasses,
+    props.isAction ? actionVariantClasses[props.variant] : variantClasses[props.variant],
   ].join(' ');
 });
 
