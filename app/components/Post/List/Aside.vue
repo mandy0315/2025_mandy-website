@@ -7,7 +7,6 @@ await refreshCategories(5);
 
 const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
 await refreshTags(5);
-const { isDesktop } = useResponsive();
 </script>
 <template>
   <div>

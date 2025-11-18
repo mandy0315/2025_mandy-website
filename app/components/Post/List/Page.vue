@@ -11,7 +11,6 @@ watch([currentPage, currentSort], async () => {
   await refreshPosts(currentPage.value);
 });
 const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
-const { isDesktop } = useResponsive();
 
 </script>
 <template>

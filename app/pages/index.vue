@@ -30,10 +30,7 @@ const { setPosts: setNotes, posts: notes } = await usePosts('notes');
 onMounted(() => {
   setBlog(1, 3);
   setNotes(1, 4)
-})
-
-
-const { isDesktop } = useResponsive();
+});
 </script>
 
 <template>
