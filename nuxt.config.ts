@@ -1,5 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
 
+// 統一管理 baseURL
+const isGithubPages = process.env.NUXT_APP_GITHUB_ACTIONS === "true";
+const baseURL = isGithubPages ? "/2025_mandy-website/" : "/";
+
 export default defineNuxtConfig({
   // SSG 設定
   ssr: true,
@@ -25,16 +29,15 @@ export default defineNuxtConfig({
   },
 
   app: {
-    baseURL:
-      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
-        ? "/2025_mandy-website/"
-        : "/",
+    baseURL,
     buildAssetsDir: "/static/",
     head: {
       htmlAttrs: {
         lang: "zh-TW", // 中文
       },
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: `${baseURL}favicon.ico` },
+      ],
       meta: [
         {
           name: "author",
