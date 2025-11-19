@@ -5,6 +5,11 @@ import { watchDebounced } from '@vueuse/core';
 
 const { isDesktop } = useResponsive();
 const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList } = await useSearch();
+const config = useRuntimeConfig();
+
+const isShowNotesSearch = computed(() => {
+  return config.public.SHOW_NOTES_PAGE && (notes.value.length > 0 || notesCategories.value.length > 0 || notesTags.value.length > 0);
+});
 watchDebounced(
   keywords,
   () => {
@@ -114,7 +119,7 @@ watch(isSearch, async (value) => {
           </template>
 
           <!-- 筆記 -->
-          <template v-if="notes.length > 0 || notesCategories.length > 0 || notesTags.length > 0">
+          <template v-if="isShowNotesSearch">
             <div class="px-2">
               <ItemTitle titleEn="notes" title="筆記" />
               <ItemButton v-for="(note, idx) in notes" :key="idx" :keywords="keywords" :title="note.title"
