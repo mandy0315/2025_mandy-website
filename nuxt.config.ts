@@ -81,6 +81,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS,
+      SHOW_NOTES_PAGE: false,
     },
   },
 
