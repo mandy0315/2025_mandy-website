@@ -5,6 +5,14 @@ import { pageInfo } from '@/utils/pageInfoMap';
 const { isFooterInView, footerHeight } = useLayoutSizes();
 
 const footerRef = ref<HTMLElement | null>(null);
+const config = useRuntimeConfig();
+
+const pageVals = computed(() => {
+  if (config.public.SHOW_NOTES_PAGE) {
+    return pageInfo.values();
+  }
+  return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
+});
 
 const setFooterObserver = (footerElement: HTMLElement) => {
   // 監聽可見性
@@ -44,7 +52,7 @@ onMounted(() => {
       </div>
       <div class="lg:mt-auto">
         <div class="lg:pb-2">
-          <BaseLink v-for="item in pageInfo.values()" variant="underline" :to="item.path"
+          <BaseLink v-for="item in pageVals" variant="underline" :to="item.path"
             class="text-xs no-underline px-2 py-3 lg:pl-4 lg:pr-0">
             {{
               item.title }}

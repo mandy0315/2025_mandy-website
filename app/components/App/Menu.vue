@@ -6,8 +6,16 @@ import { onClickOutside } from '@vueuse/core'
 const route = useRoute()
 const isOpenMenu = useState('isOpenMenu', () => false);
 const expandedMenus = ref<string[]>([]);
-
 const menuRefs = ref<Record<string, HTMLElement | null>>({});
+const config = useRuntimeConfig();
+
+const pageVals = computed(() => {
+  if (config.public.SHOW_NOTES_PAGE) {
+    return pageInfo.values();
+  }
+  return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
+});
+
 const toggleSubMenu = (title: string) => {
   const index = expandedMenus.value.indexOf(title);
   if (index > -1) {
@@ -49,7 +57,7 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
 <template>
   <div>
     <div class="lg:flex hidden gap-x-4 items-center">
-      <div v-for="item in pageInfo.values()" :key="item.title"
+      <div v-for="item in pageVals" :key="item.title"
         class="text-left font-bold font-zen-old-mincho relative max-w-full"
         :ref="(el) => setMenuRef(item.title, el as HTMLElement)">
         <div class="flex items-center">
@@ -94,7 +102,7 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
         <div @click.stop="isOpenMenu = false" class="w-0 md:w-3/10 bg-[var(--bg-color)]/40 backdrop-blur-sm h-screen">
         </div>
         <nav class="w-full md:w-7/10 bg-[var(--bg-color)] h-screen flex justify-center items-center flex-col">
-          <div v-for="item in pageInfo.values()" :key="item.title"
+          <div v-for="item in pageVals" :key="item.title"
             class="w-8/10 text-left mx-auto py-3 font-bold font-zen-old-mincho">
             <div class="flex">
               <BaseLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer"

@@ -7,7 +7,9 @@ const { tags, goToTagsPage } = await useTag(props.collection);
 const route = useRoute();
 const { isDesktop } = useResponsive();
 const isExpanded = ref(false);
+const config = useRuntimeConfig();
 
+const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
 const currentTag = computed(() => (route.params?.tag || '') as string);
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 
@@ -35,8 +37,8 @@ onMounted(async () => {
         <BaseLink variant="outline" to="/blog/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"
           :isAction="collection === 'blog'">
           部落格標籤</BaseLink>
-        <BaseLink variant="outline" to="/notes/tags" size="xs" class="rounded-t-sm rounded-b-none border-b-0"
-          :isAction="collection === 'notes'">
+        <BaseLink v-if="isShowNotesPage" variant="outline" to="/notes/tags" size="xs"
+          class="rounded-t-sm rounded-b-none border-b-0" :isAction="collection === 'notes'">
           筆記標籤</BaseLink>
         <div class="border-b c-border-secondary border-dashed"></div>
       </div>

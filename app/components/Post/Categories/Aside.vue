@@ -7,7 +7,9 @@ const { categories, goToCategoriesPage } = await useCategory(props.collection);
 const route = useRoute();
 const { isDesktop } = useResponsive();
 const isExpanded = ref(false);
+const config = useRuntimeConfig();
 
+const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
 const currentCategory = computed(() => (route.params?.category || '') as string);
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 
@@ -36,8 +38,8 @@ onMounted(async () => {
         <BaseLink variant="outline" to="/blog/categories" size="xs" class="rounded-t-sm rounded-b-none border-b-0 mr-1"
           :isAction="collection === 'blog'">
           部落格分類</BaseLink>
-        <BaseLink variant="outline" to="/notes/categories" size="xs" class="rounded-t-sm rounded-b-none border-b-0"
-          :isAction="collection === 'notes'">
+        <BaseLink v-if="isShowNotesPage" variant="outline" to="/notes/categories" size="xs"
+          class="rounded-t-sm rounded-b-none border-b-0" :isAction="collection === 'notes'">
           筆記分類</BaseLink>
         <div class="border-b c-border-secondary border-dashed"></div>
       </div>
