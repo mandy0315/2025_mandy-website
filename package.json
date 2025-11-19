@@ -8,14 +8,14 @@
     "preview": "nuxi preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.6.3",
+    "@nuxt/content": "^3.8.2",
     "@nuxt/icon": "1.10.3",
     "@nuxtjs/color-mode": "3.5.2",
     "@tailwindcss/vite": "^4.1.17",
     "@vueuse/core": "^13.1.0",
     "@vueuse/nuxt": "^13.1.0",
     "dayjs": "^1.11.13",
-    "nuxt": "^4.0.3",
+    "nuxt": "^4.2.1",
     "tailwindcss": "^4.1.17",
     "vue": "latest",
     "vue-router": "latest"
@@ -25,8 +25,8 @@
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/solar": "^1.2.4",
     "@tailwindcss/typography": "^0.5.16",
-    "gh-pages": "^6.3.0",
     "sass": "^1.84.0"
+    "gh-pages": "^6.3.0"
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }
