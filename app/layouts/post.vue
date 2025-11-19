@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const isShowSidebar = useCookie('isShowSidebar', {
-  default: () => false,
+  default: () => true,
   path: '/',
   watch: true,
 });
