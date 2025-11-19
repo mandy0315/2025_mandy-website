@@ -67,6 +67,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
   ],
 
+  css: ["@/styles/tailwind/main.css"],
   vite: {
     plugins: [tailwindcss()],
     css: {
@@ -82,8 +83,6 @@ export default defineNuxtConfig({
       GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS,
     },
   },
-
-  css: ["@/styles/tailwind/main.css"],
 
   icon: {},
 
