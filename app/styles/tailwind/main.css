@@ -91,7 +91,7 @@
 
 @layer components {
   .c-container {
-    @apply w-9/10 mx-auto lg:max-w-[1280px];
+    @apply w-9/10 mx-auto lg:max-w-7xl;
   }
 
   .c-border-secondary {

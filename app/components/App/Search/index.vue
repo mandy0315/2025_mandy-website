@@ -54,7 +54,7 @@ watch(isSearch, async (value) => {
             class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
             ＋
           </BaseButton>
-          <label class="relative w-full h-12 flex bg-[var(--bg-color)] rounded-t border c-border-secondary ">
+          <label class="relative w-full h-12 flex bg-(--bg-color) rounded-t border c-border-secondary ">
             <input type="text" v-model="keywords"
               class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
             <Icon name="solar:magnifer-linear" class="absolute top-3.5 left-3 text-gray-500 z-10 text-lg" />
@@ -62,7 +62,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-9/10 top-20 lg:w-5/10 fixed lg:top-32 transform -translate-x-1/2 left-1/2 bg-[var(--bg-color)] c-border-secondary rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
+          class="w-9/10 top-20 lg:w-5/10 fixed lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
 
           <!-- 頁面 -->
           <template v-if="pages.length > 0">
