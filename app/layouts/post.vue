@@ -30,11 +30,11 @@ const sidebarStyle = computed(() => ({
       <slot />
     </div>
 
-    <div class="transition-all ease-linear flex flex-col  lg:sticky sidebar-container"
+    <div class="transition-all ease-linear flex flex-col lg:sticky sidebar-container"
       :class="isShowSidebar ? 'w-full lg:w-60' : 'w-0'" :style="sidebarStyle">
 
       <BaseButton size="sm" variant="solid"
-        class="absolute rounded-l-3xl rounded-r-none top-16 right-full z-50 text-nowrap hidden lg:inline-block"
+        class="absolute rounded-l-3xl rounded-r-none top-16 right-full z-50 text-nowrap hidden lg:block"
         @click="toggleSidebar">
         <Icon v-if="isShowSidebar" name="solar:double-alt-arrow-right-line-duotone" class="align-middle" size="1rem" />
         <Icon v-else name="solar:double-alt-arrow-left-line-duotone" size="1rem" class="align-middle" />
@@ -64,7 +64,6 @@ const sidebarStyle = computed(() => ({
   .sidebar-container {
     top: var(--sidebar-top);
     height: var(--sidebar-height);
-    overflow-y: auto;
   }
 }
 </style>
