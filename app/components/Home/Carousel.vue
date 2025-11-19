@@ -187,7 +187,7 @@ const getItemStyle = (index: number) => {
         <p class="px-2">{{ items.length }}</p>
       </div>
     </div>
-    <div class="bg-primary/10 rounded-t-full z-10 w-full h-full absolute"></div>
+    <div class="bg-primary/20 rounded-t-full z-10 w-full h-full absolute"></div>
   </div>
 </template>
 <style scoped>

@@ -26,16 +26,14 @@ const skillsDisplay = computed(() => {
 
 // 文章
 const { setPosts: setBlog, posts: blog } = await usePosts('blog');
-const { setPosts: setNotes, posts: notes } = await usePosts('notes');
 onMounted(() => {
-  setBlog(1, 3);
-  setNotes(1, 4)
+  setBlog(1, 6);
 });
 </script>
 
 <template>
-  <div class="c-container">
-    <div class="relative lg:flex">
+  <div>
+    <div class="relative c-container lg:flex">
       <div class="pt-30 lg:pt-0 lg:w-5/10">
         <!-- KV -->
         <section class="flex flex-col pb-12 lg:pb-0 lg:h-screen justify-center">
@@ -87,25 +85,22 @@ onMounted(() => {
     </div>
 
     <!-- Posts -->
-    <section class="grid grid-cols-1 gap-y-20 pb-20 lg:gap-x-2 lg:grid-cols-2 lg:py-30">
-      <div class="col-span-1 lg:h-80">
-        <HomeTitle>部落格 Blog</HomeTitle>
-        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:flex lg:flex-col h-full"
-          :class="blog.list.length === 3 ? 'justify-between' : 'justify-start'">
-          <PostCard v-for="post in blog.list" :key="post.path" v-bind="{ ...post, isHorizontal: true }" class="pb-4" />
+    <section class="bg-primary/20 rounded-4xl mb-20">
+      <div class="c-container py-10">
+        <HomeTitle>最新文章 New Posts</HomeTitle>
+        <div class="grid grid-cols-1 h-full sm:grid-cols-2 lg:gap-8 lg:grid-cols-3">
+          <PostCard v-for="post in blog.list" :key="post.path" v-bind="post" class="pb-4" />
         </div>
-      </div>
-      <div class="col-span-1 lg:h-80">
-        <h2 class="font-zen-old-mincho font-bold px-1 inline-block text-base bg-primary text-white mb-4">筆記 Notes</h2>
-        <div class="flex flex-col h-full" :class="notes.list.length === 4 ? 'justify-between' : 'justify-start'">
-          <PostItem v-for="post in notes.list" :key="post.path" v-bind="post" class="border-t c-border-secondary" />
-          <div class="border-t c-border-secondary" />
+        <div class="flex justify-center">
+          <BaseLink to="/blog" variant="outline" class="w-60 text-center" size="lg">
+            查看更多文章
+          </BaseLink>
         </div>
       </div>
     </section>
 
     <!-- Works -->
-    <section class="relative">
+    <section class="relative c-container">
       <HomeTitle class="absolute top-10 left-1/2 -translate-x-1/2">作品 Works</HomeTitle>
       <HomeCarousel />
     </section>
