@@ -4,14 +4,14 @@ export const usePageLoading = () => {
 
   // 進度條設定
   const TOTAL_PROGRESS = 100; // 總進度 100%
-  const ADD_PROGRESS = 10; // 每次增加 10%
+  const ADD_PROGRESS = 1; // 每次增加 1%
 
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
   let renderStart = performance.now();
 
   /** 計算頁面載入時長 */
   const calcDuration = () => {
-    const MIN_LOADING_TIME = 300; // 最短 300 ms 載入時間
+    const MIN_LOADING_TIME = 400; // 最短 400 ms 載入時間
     const renderEnd = performance.now();
     const renderDuration = renderEnd - renderStart;
 
@@ -24,10 +24,10 @@ export const usePageLoading = () => {
 
   /** 完成進度並關閉 */
   const finishProgress = () => {
-    // 延遲 100ms 讓使用者看到 100%
+    // 延遲 300ms 讓使用者看到 100%
     timeoutId = setTimeout(() => {
       closeLoading();
-    }, 100);
+    }, 300);
   };
 
   /** 遞增進度條 */
@@ -50,7 +50,6 @@ export const usePageLoading = () => {
       timeoutId = null;
     }
     isLoading.value = false;
-    progress.value = 0;
   };
 
   const startLoading = () => {
