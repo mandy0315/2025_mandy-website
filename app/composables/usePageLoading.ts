@@ -1,65 +1,72 @@
 export const usePageLoading = () => {
-  const minLoadingTime = 2000;
-  const minRenderDuration = 300;
   const progress = useState<number>("progress", () => 0);
   const isLoading = useState<boolean>("isLoading", () => false);
-  const toggleStartLoading = useState<boolean>(
-    "toggleStartLoading",
-    () => false
-  );
-  let timeoutId: ReturnType<typeof setTimeout>;
+
+  // 進度條設定
+  const TOTAL_PROGRESS = 100; // 總進度 100%
+  const ADD_PROGRESS = 1; // 每次增加 1%
+
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
   let renderStart = performance.now();
 
-  const resetRenderStart = () => {
-    renderStart = performance.now();
-  };
-
-  const clearLoading = () => {
-    timeoutId && clearTimeout(timeoutId);
-    isLoading.value = false;
-    progress.value = 0;
-  };
-
-  const startLoading = () => {
-    clearLoading();
-
+  /** 計算頁面載入時長 */
+  const calcDuration = () => {
+    const MIN_LOADING_TIME = 400; // 最短 400 ms 載入時間
     const renderEnd = performance.now();
     const renderDuration = renderEnd - renderStart;
-    console.log("renderDuration", renderDuration);
-    const totalProgress = 100;
-    const addProgress = 10;
 
-    if (renderDuration < minRenderDuration) {
-      console.log("Loading time is too short, skipping loading.");
-      clearLoading();
-      return;
-    }
+    return Math.max(renderDuration, MIN_LOADING_TIME);
+  };
 
-    progress.value = 0;
-    isLoading.value = true;
-    const duration =
-      renderDuration < minLoadingTime ? minLoadingTime : renderDuration;
+  /** 計算每次更新間隔 */
+  const calcTimeInterval = (duration: number) =>
+    Math.round(duration / (TOTAL_PROGRESS / ADD_PROGRESS));
 
-    const time = Math.round(duration / (totalProgress / addProgress));
+  /** 完成進度並關閉 */
+  const finishProgress = () => {
+    // 延遲 300ms 讓使用者看到 100%
+    timeoutId = setTimeout(() => {
+      closeLoading();
+    }, 300);
+  };
 
-    const incrementProgress = () => {
-      if (progress.value < totalProgress) {
-        progress.value += addProgress;
-        timeoutId = setTimeout(incrementProgress, time);
+  /** 遞增進度條 */
+  const incrementProgress = (timeInterval: number) => {
+    const updateProgress = () => {
+      if (progress.value < TOTAL_PROGRESS) {
+        progress.value += ADD_PROGRESS;
+        timeoutId = setTimeout(updateProgress, timeInterval);
       } else {
-        clearLoading();
+        finishProgress();
       }
     };
 
-    incrementProgress();
+    updateProgress();
+  };
+
+  const closeLoading = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+    isLoading.value = false;
+  };
+
+  const startLoading = () => {
+    // 重設狀態
+    renderStart = performance.now();
+    progress.value = 0;
+    isLoading.value = true;
+
+    const duration = calcDuration();
+    const timeInterval = calcTimeInterval(duration);
+    incrementProgress(timeInterval);
   };
 
   return {
-    resetRenderStart,
     progress,
     isLoading,
     startLoading,
-    clearLoading,
-    toggleStartLoading,
+    closeLoading,
   };
 };
