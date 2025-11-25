@@ -60,6 +60,7 @@
   :root {
     --text-color: var(--color-text-light);
     --bg-color: #fbf4ef;
+    --loading-bg: var(--color-primary);
   }
 
   .dark {
@@ -72,7 +73,8 @@
     font-family: 'Helvetica', 'Arial', sans-serif;
     /* 暗黑模式樣式與動畫 */
     color: var(--text-color);
-    background: var(--bg-color);
+    /* 預設先用 loading 背景色 */
+    background: var(--loading-bg);
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     /* 滾動 */
     scroll-behavior: smooth;
@@ -86,7 +88,9 @@
     font-size: clamp(12px, calc(12px + (100vw - 320px) * 0.0375), 16px);
   }
 
-
+  body:has(.main-bg) {
+    background: var(--bg-color);
+  }
 }
 
 @layer components {
