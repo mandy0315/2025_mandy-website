@@ -43,7 +43,7 @@ const sidebarStyle = computed(() => ({
         </span>
       </BaseButton>
 
-      <div class="hidden lg:block rounded-t-full bg-primary/10 h-20 relative flex-shrink-0"></div>
+      <div class="hidden lg:block rounded-t-full bg-primary/10 h-20 relative shrink-0"></div>
 
       <aside class="lg:bg-primary/10 overflow-hidden flex-1">
         <div class="h-full overflow-y-auto transition-opacity lg:px-4"
