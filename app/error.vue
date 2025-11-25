@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="main-bg min-h-screen flex flex-col">
     <AppHeader />
     <main class="c-container mt-24 flex-1">
       <div class="max-w-2xl mx-auto py-10">
