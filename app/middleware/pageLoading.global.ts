@@ -4,9 +4,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const isDifferentPage = to.path !== from.path;
   if (isFirstLoad || isDifferentPage) {
     const { startLoading } = usePageLoading();
-
-    nextTick(() => {
-      startLoading();
-    });
+    startLoading();
   }
 });

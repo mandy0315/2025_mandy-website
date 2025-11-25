@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, onBeforeUnmount } from "vue";
-
+import { ref, onMounted, watch } from "vue";
 const { progress, isLoading } = usePageLoading();
 
 // SVG path
