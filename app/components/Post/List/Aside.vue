@@ -13,8 +13,25 @@ await refreshTags(5);
     <!-- 基本資料 -->
     <div
       class="grid grid-cols-7 items-center bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
-      <div class="w-20 h-25 rounded-t-full overflow-hidden border-2 border-white/50 mx-auto col-span-2 lg:col-span-1">
-        <img src="/images/profile-photo.jpg" alt="大頭貼" class="object-cover object-top w-full h-full" />
+      <div class="relative w-26 h-32 mx-auto col-span-2 lg:col-span-1">
+        <!-- 3D 圖示 -->
+        <div class="bg-primary absolute w-6 h-6 rounded-full right-1 bottom-1 flex justify-center items-center z-10">
+          <Icon name="i-material-symbols:3d-rotation" size="1.3rem" class="align-middle text-white" />
+        </div>
+        <!-- card scene -->
+        <div
+          class="w-full h-full perspective-normal rounded-t-full overflow-hidden border-2 border-white/50 mx-auto col-span-2 group">
+          <!-- card -->
+          <div
+            class="w-full h-full transform-3d transition-transform duration-300 ease-in-out relative group-hover:rotate-y-180">
+            <!-- front image -->
+            <img src="/images/profile-photo.jpg" alt="大頭貼"
+              class="absolute inset-0 backface-hidden object-cover object-top w-full h-full" />
+            <!-- back image -->
+            <img src="/images/profile-photo-back.jpg" alt="大頭貼"
+              class="absolute inset-0 backface-hidden object-cover object-top w-full h-full rotate-y-180" />
+          </div>
+        </div>
       </div>
       <div class="col-span-5 lg:col-span-1">
         <p class="lg:text-sm py-4 text-left">
