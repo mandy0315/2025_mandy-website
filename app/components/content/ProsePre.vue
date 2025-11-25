@@ -13,8 +13,8 @@
       <span class="pl-2">{{ filename }}</span>
     </div>
 
-    <pre class="!my-0 border-gray-300 block max-h-96 overflow-auto"
-      :class="[$props.class, language === 'plaintext' ? 'border text-black dark:text-white' : 'border-b border-l border-r !rounded-t-none']">
+    <pre class="my-0! border-gray-300 block max-h-96 overflow-auto"
+      :class="[$props.class, language === 'plaintext' ? 'border text-black dark:text-white' : 'border-b border-l border-r rounded-t-none!']">
       <slot />
     </pre>
   </div>
