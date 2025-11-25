@@ -18,7 +18,7 @@ await refreshTags(5);
       </div>
       <div class="col-span-5 lg:col-span-1">
         <p class="lg:text-sm py-4 text-left">
-          嗨～我是蔓蒂 Mandy，感謝您來到我的小空間，
+          嗨～我是敏佳 Mandy，感謝您來到我的小空間，
           目前是一位前端工程師，也是珍奶們的媽媽，
           對於專業不斷更新，以自己適合步調提升，
           <span class="bg-primary text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
