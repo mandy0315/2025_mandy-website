@@ -2,7 +2,7 @@
 
 /* title */
 .prose :where(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply !no-underline;
+  @apply no-underline !;
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
