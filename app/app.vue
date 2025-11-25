@@ -7,7 +7,7 @@ const isOpenMenu = useState('isOpenMenu', () => false);
 <template>
   <Body :class="{ 'overflow-hidden': isShowSearchModal || isOpenMenu }">
     <AppPageLoading />
-    <div v-if="!isLoading" class="main-bg flex flex-col lg:min-h-screen">
+    <div v-show="!isLoading" class="flex flex-col lg:min-h-screen" :class="{ 'main-bg': !isLoading }">
       <AppHeader />
       <main class="lg:flex-1 mt-24">
         <NuxtPage />
