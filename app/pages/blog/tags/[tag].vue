@@ -1,3 +1,3 @@
 <template>
-  <PostTagsListPage collection="blog" />
+  <PostTagsList collection="blog" />
 </template>
