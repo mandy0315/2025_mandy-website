@@ -9,7 +9,7 @@ const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
 await refreshTags(5);
 </script>
 <template>
-  <div>
+  <aside>
     <!-- 基本資料 -->
     <div
       class="grid grid-cols-7 items-center bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
@@ -80,5 +80,5 @@ await refreshTags(5);
         </BaseButton>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
