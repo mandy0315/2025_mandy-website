@@ -6,16 +6,17 @@
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply scroll-mt-24 -ml-6;
+  @apply scroll-mt-24 lg:-ml-6;
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
-  @apply content-['#'] opacity-0 transition-opacity duration-300 text-primary pr-2 inline-block;
+  @apply content-['#'] opacity-100 transition-opacity duration-300 text-primary pr-2 inline-block lg:opacity-0;
 }
 
 .prose :where(h2, h3, h4, h5, h6):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover::before {
-  @apply opacity-100;
+  @apply lg:opacity-100;
 }
+
 
 /* table */
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
