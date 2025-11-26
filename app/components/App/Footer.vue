@@ -9,7 +9,7 @@ const config = useRuntimeConfig();
 
 const pageVals = computed(() => {
   if (config.public.SHOW_NOTES_PAGE) {
-    return pageInfo.values();
+    return Array.from(pageInfo.values());
   }
   return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
 });
