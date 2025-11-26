@@ -4,5 +4,12 @@ usePageSEO({
 })
 </script>
 <template>
-  <PostListPage collection="notes" />
+  <NuxtLayout name="post">
+    <template #default>
+      <PostList collection="notes" />
+    </template>
+    <template #sidebar>
+      <PostListAside collection="notes" />
+    </template>
+  </NuxtLayout>
 </template>

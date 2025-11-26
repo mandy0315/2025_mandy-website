@@ -77,23 +77,23 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div>
+  <div class="hidden lg:block">
     <p class="font-zen-old-mincho font-black pb-2 text-lg border-b c-border-secondary">
       <span class="pr-2">目錄</span>
       <span>Toc</span>
     </p>
 
-    <ul class="px-3 py-5">
+    <nav class="px-3 py-5">
       <ClientOnly fallback-tag="li" fallback="目錄內容">
-        <li v-for="toc in tocsWithNumbers" :key="toc.id">
-          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary "
+        <div v-for="toc in tocsWithNumbers" :key="toc.id">
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
             :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
             <span class="pr-2">{{ toc.number }}.</span>
             <span>{{ toc.title }}</span>
           </NuxtLink>
-        </li>
+        </div>
       </ClientOnly>
-    </ul>
+    </nav>
   </div>
 </template>

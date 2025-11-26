@@ -1,3 +1,3 @@
 <template>
-  <PostCategoriesListPage collection="notes" />
+  <PostCategoriesList collection="notes" />
 </template>

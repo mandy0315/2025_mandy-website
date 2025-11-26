@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="h-full border-y c-border-secondary lg:border-none">
+  <aside class="h-full border-y c-border-secondary lg:border-none">
     <BaseButton @click="isExpanded = !isExpanded" class="py-2 px-4 flex items-center w-full lg:hidden"
       :isAction="isExpanded">
       <p>
@@ -52,5 +52,5 @@ onMounted(async () => {
         <li v-if="isDesktop" class="border-b c-border-secondary border-dashed mb-2"></li>
       </ul>
     </div>
-  </div>
+  </aside>
 </template>

@@ -9,9 +9,9 @@ const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
 await refreshTags(5);
 </script>
 <template>
-  <div>
+  <aside>
     <!-- 基本資料 -->
-    <div
+    <section
       class="grid grid-cols-7 items-center bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="relative w-26 h-32 mx-auto col-span-2 lg:col-span-1">
         <!-- 3D 圖示 -->
@@ -47,9 +47,9 @@ await refreshTags(5);
           <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" external />
         </div>
       </div>
-    </div>
+    </section>
     <!-- 分類 -->
-    <div class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
+    <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex pb-2">
         <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
           <span class="pr-2">分類</span>
@@ -61,9 +61,9 @@ await refreshTags(5);
       <div class="border-b c-border-secondary" v-for="category in categories" :key="category">
         <PostCategoryButton :category @click="goToCategoriesPage(category)" />
       </div>
-    </div>
+    </section>
     <!-- 標籤 -->
-    <div class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
+    <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex justify-between pb-2">
         <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
           <span class="pr-2">標籤</span>
@@ -79,6 +79,6 @@ await refreshTags(5);
           {{ tag }}
         </BaseButton>
       </div>
-    </div>
-  </div>
+    </section>
+  </aside>
 </template>
