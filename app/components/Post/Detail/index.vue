@@ -1,0 +1,79 @@
+<script setup lang="ts">
+const props = defineProps<{
+  collection: 'blog' | 'notes';
+}>();
+
+const route = useRoute();
+
+const { goToCategoriesPage } = await useCategory(props.collection);
+const { prevData, nextData } = await useNavigation(props.collection, route.path);
+
+// 文章
+const { data: post } = await useAsyncData(`${props.collection}-detail`, () => {
+  return queryCollection(props.collection).path(`/${props.collection}/${route.params.slug}`).first();
+})
+
+usePageSEO({
+  title: post.value?.title || '',
+  description: post.value?.description || '',
+})
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+</script>
+
+<template>
+  <div>
+    <div v-if="post">
+      <div class="border-b pb-6 pt-4 border-primary">
+        <!-- 麵包屑 -->
+        <nav>
+          <BaseLink :to="collection === 'blog' ? '/blog' : '/notes'">{{ collection === 'blog' ?
+            '部落格' : '筆記' }}列表
+          </BaseLink>
+          <span class="px-2">></span>
+          <span class="text-primary cursor-default">{{ post.title }}</span>
+        </nav>
+
+
+        <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
+        <div class="pb-2 lg:flex lg:flex-wrap lg:justify-between lg:gap-x-2">
+          <div class="pb-3 lg:pb-0 ">
+            <PostDate class="align-middle inline-block" :date="post.date" />
+          </div>
+          <div class="pb-3 lg:pb-0 lg:text-right">
+            <BaseButton variant="outline" class="text-sm px-2 py-1 lg:text-xs"
+              @click="goToCategoriesPage(post.category)">{{
+                post.category }}
+            </BaseButton>
+          </div>
+        </div>
+        <p>{{ post.description }}</p>
+      </div>
+
+      <!-- 文章內容 -->
+      <article class="prose prose-primary max-w-full dark:prose-invert">
+        <ContentRenderer :value="post" />
+      </article>
+
+      <!-- Disqus 留言 -->
+      <PostDetailDisqus class="py-6" :id="post.id" :title="post.title" />
+
+      <!-- 上下篇文章 -->
+      <div class="grid grid-cols-2 gap-x-4 ">
+        <div class="col-span-1">
+          <PostDetailSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
+            :description="prevData.description" />
+        </div>
+        <div class="col-span-1">
+          <PostDetailSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
+            :description="nextData.description" />
+        </div>
+      </div>
+    </div>
+    <BaseButton variant="solid" @click="scrollToTop()" class="fixed z-100 bottom-6 right-6 w-14 rounded-full shadow-lg">
+      <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
+    </BaseButton>
+  </div>
+</template>
