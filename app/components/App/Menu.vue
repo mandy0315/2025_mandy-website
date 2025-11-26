@@ -56,7 +56,8 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
 
 <template>
   <div>
-    <div class="lg:flex hidden gap-x-4 items-center">
+    <!-- Menu only Web -->
+    <nav class="lg:flex hidden gap-x-4 items-center">
       <div v-for="item in pageVals" :key="item.title"
         class="text-left font-bold font-zen-old-mincho relative max-w-full"
         :ref="(el) => setMenuRef(item.title, el as HTMLElement)">
@@ -82,7 +83,9 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
           </BaseLink>
         </div>
       </div>
-    </div>
+    </nav>
+
+    <!-- Menu only Mobile -->
     <BaseButton class="block lg:hidden group" @click="isOpenMenu = !isOpenMenu">
       <p class="text-xs">Menu</p>
       <div class="flex flex-col h-5 justify-between transform scale-75 ">
