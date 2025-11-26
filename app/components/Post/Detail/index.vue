@@ -25,18 +25,18 @@ const scrollToTop = () => {
 
 <template>
   <div>
-    <div v-if="post">
-      <div class="border-b pb-6 pt-4 border-primary">
-        <!-- 麵包屑 -->
-        <nav>
-          <BaseLink :to="collection === 'blog' ? '/blog' : '/notes'">{{ collection === 'blog' ?
-            '部落格' : '筆記' }}列表
-          </BaseLink>
-          <span class="px-2">></span>
-          <span class="text-primary cursor-default">{{ post.title }}</span>
-        </nav>
+    <article v-if="post">
+      <!-- 麵包屑 -->
+      <nav class="pt-4">
+        <BaseLink :to="collection === 'blog' ? '/blog' : '/notes'">{{ collection === 'blog' ?
+          '部落格' : '筆記' }}列表
+        </BaseLink>
+        <span class="px-2">></span>
+        <span class="text-primary cursor-default">{{ post.title }}</span>
+      </nav>
 
-
+      <!-- 標題 ＆ 說明 -->
+      <section class="border-b pb-6 border-primary">
         <h1 class="text-4xl font-bold py-4">{{ post.title }}</h1>
         <div class="pb-2 lg:flex lg:flex-wrap lg:justify-between lg:gap-x-2">
           <div class="pb-3 lg:pb-0 ">
@@ -50,18 +50,20 @@ const scrollToTop = () => {
           </div>
         </div>
         <p>{{ post.description }}</p>
-      </div>
+      </section>
 
       <!-- 文章內容 -->
-      <article class="prose prose-primary max-w-full dark:prose-invert">
+      <section class="prose prose-primary max-w-full dark:prose-invert">
         <ContentRenderer :value="post" />
-      </article>
+      </section>
 
       <!-- Disqus 留言 -->
-      <PostDetailDisqus class="py-6" :id="post.id" :title="post.title" />
+      <section class="py-6">
+        <PostDetailDisqus :id="post.id" :title="post.title" />
+      </section>
 
       <!-- 上下篇文章 -->
-      <div class="grid grid-cols-2 gap-x-4 ">
+      <nav class="grid grid-cols-2 gap-x-4 ">
         <div class="col-span-1">
           <PostDetailSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
             :description="prevData.description" />
@@ -70,8 +72,8 @@ const scrollToTop = () => {
           <PostDetailSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
             :description="nextData.description" />
         </div>
-      </div>
-    </div>
+      </nav>
+    </article>
     <BaseButton variant="solid" @click="scrollToTop()" class="fixed z-100 bottom-6 right-6 w-14 rounded-full shadow-lg">
       <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
     </BaseButton>
