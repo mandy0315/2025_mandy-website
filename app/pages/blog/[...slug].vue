@@ -1,3 +1,8 @@
+<script setup lang="ts">
+definePageMeta({
+  middleware: ['post-detail']
+})
+</script>
 <template>
   <NuxtLayout name="post">
     <template #default>

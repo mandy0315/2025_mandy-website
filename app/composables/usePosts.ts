@@ -25,7 +25,7 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   });
 
   const {
-    data: postsData,
+    data: allPosts,
     refresh,
     pending,
   } = await useAsyncData(`${collection}-posts-data`, async () => {
@@ -65,9 +65,9 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   };
 
   const setPosts = (page = 1, limit?: number) => {
-    if (postsData.value) {
-      posts.value.list = postsData.value;
-      posts.value.totalPosts = postsData.value.length;
+    if (allPosts.value) {
+      posts.value.list = allPosts.value;
+      posts.value.totalPosts = allPosts.value.length;
       const currentlimit = limit || LIMIT_COUNT;
       setPaginatePosts(currentlimit, page);
     }
@@ -111,15 +111,16 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
   }) => {
     currentSort.value = "DESC";
     await refresh();
-    if (postsData.value) {
-      posts.value.list = postsData.value;
-      posts.value.totalPosts = postsData.value.length;
+    if (allPosts.value) {
+      posts.value.list = allPosts.value;
+      posts.value.totalPosts = allPosts.value.length;
       setArchivePosts(type, value);
       setPaginatePosts(LIMIT_COUNT, page);
     }
   };
 
   return {
+    allPosts,
     posts,
     pending, // 使用 useAsyncData 內建的 pending 狀態
     currentSort,
