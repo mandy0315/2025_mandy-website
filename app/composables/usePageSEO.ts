@@ -1,23 +1,40 @@
 interface UsePageSEO {
   title?: string;
   description?: string;
+  path?: string;
 }
-export const usePageSEO = ({ title = "", description = "" }: UsePageSEO) => {
-  const getTitle = (titleInput = "") => {
-    return titleInput ? `${titleInput} - MandySpace` : "MandySpace";
-  };
-  const getDescription = (descriptionInput = "") => {
-    return descriptionInput
-      ? descriptionInput
-      : "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～";
-  };
-  const fullTitle = toRef(() => getTitle(toValue(title)));
-  const fullDescription = toRef(() => getDescription(toValue(description)));
+export const usePageSEO = ({
+  title = "",
+  description = "",
+  path = "",
+}: UsePageSEO) => {
+  const config = useRuntimeConfig();
+  const isGithubPages = config.public.GITHUB_ACTIONS === "true";
+  const baseURL = isGithubPages ? "2025_mandy-website/" : "";
+
+  const defaultTitle = "MandySpace";
+  const titleTxt = computed(() =>
+    title === "" ? defaultTitle : `${title} - ${defaultTitle}`
+  );
+
+  const defaultDescription =
+    "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～";
+  const descriptionTxt = computed(() =>
+    description === "" ? defaultDescription : description
+  );
+
+  const fullPath = computed(() => {
+    return path === "" ? baseURL : `${baseURL}${path}`;
+  });
 
   useSeoMeta({
-    title: fullTitle,
-    ogTitle: fullTitle,
-    description: fullDescription,
-    ogDescription: fullDescription,
+    author: "蔡敏佳 Mandy",
+    title: titleTxt.value,
+    description: descriptionTxt.value,
+    ogTitle: title || defaultTitle,
+    ogDescription: descriptionTxt.value,
+    ogUrl: fullPath.value,
+    twitterTitle: title || defaultTitle,
+    twitterDescription: descriptionTxt.value,
   });
 };

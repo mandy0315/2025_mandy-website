@@ -8,6 +8,7 @@ definePageMeta({
 
 usePageSEO({
   title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
+  path: route.path,
 })
 </script>
 <template>

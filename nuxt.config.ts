@@ -31,40 +31,29 @@ export default defineNuxtConfig({
   app: {
     baseURL,
     buildAssetsDir: "/static/",
-    head: {
-      htmlAttrs: {
-        lang: "zh-TW", // 中文
-      },
-      link: [
-        { rel: "icon", type: "image/x-icon", href: `${baseURL}favicon.ico` },
-      ],
-      meta: [
-        {
-          name: "author",
-          content: "蔡敏佳 (Mandy Tsai)",
-        },
-        {
-          name: "copyright",
-          content: "2025 mandy space. All rights reserved.",
-        },
-        // {
-        //   property: "og:image",
-        //   content: "/images/og-image.png",
-        // },
-        // {
-        //   property: "og:url",
-        //   content: "https://mandy.space",
-        // },
-      ],
-    },
   },
   devtools: { enabled: true },
+
+  site: {
+    url: isGithubPages
+      ? "https://mandy0315.github.io"
+      : "http://localhost:3000",
+    name: "Mandy Space Website",
+  },
+  ogImage: {
+    defaults: {
+      renderer: "chromium",
+      width: 1200,
+      height: 630,
+    },
+  },
 
   modules: [
     "@nuxt/content",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
+    "nuxt-og-image",
   ],
 
   css: ["@/styles/tailwind/main.css"],
@@ -80,7 +69,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS,
+      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS || "false",
       SHOW_NOTES_PAGE: false,
     },
   },

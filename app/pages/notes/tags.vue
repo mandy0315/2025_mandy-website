@@ -8,6 +8,7 @@ definePageMeta({
 
 usePageSEO({
   title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
+  path: route.path,
 })
 </script>
 <template>
