@@ -4,7 +4,7 @@ const { isLoading } = usePageLoading();
 const isOpenMenu = useState('isOpenMenu', () => false);
 
 const config = useRuntimeConfig();
-const isGithubPages = config.GITHUB_ACTIONS === "true";
+const isGithubPages = config.public.GITHUB_ACTIONS === "true";
 const baseURL = isGithubPages ? "/2025_mandy-website/" : "/";
 
 useHead({

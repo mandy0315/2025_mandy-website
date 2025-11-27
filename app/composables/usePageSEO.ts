@@ -9,7 +9,7 @@ export const usePageSEO = ({
   path = "",
 }: UsePageSEO) => {
   const config = useRuntimeConfig();
-  const isGithubPages = config.GITHUB_ACTIONS === "true";
+  const isGithubPages = config.public.GITHUB_ACTIONS === "true";
   const baseURL = isGithubPages ? "2025_mandy-website/" : "";
 
   const defaultTitle = "MandySpace";
