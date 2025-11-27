@@ -31,32 +31,6 @@ export default defineNuxtConfig({
   app: {
     baseURL,
     buildAssetsDir: "/static/",
-    head: {
-      htmlAttrs: {
-        lang: "zh-TW", // 中文
-      },
-      link: [
-        { rel: "icon", type: "image/x-icon", href: `${baseURL}favicon.ico` },
-      ],
-      meta: [
-        {
-          name: "author",
-          content: "蔡敏佳 (Mandy Tsai)",
-        },
-        {
-          name: "copyright",
-          content: "2025 mandy space. All rights reserved.",
-        },
-        // {
-        //   property: "og:image",
-        //   content: "/images/og-image.png",
-        // },
-        // {
-        //   property: "og:url",
-        //   content: "https://mandy.space",
-        // },
-      ],
-    },
   },
   devtools: { enabled: true },
 
