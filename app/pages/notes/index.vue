@@ -1,6 +1,8 @@
 <script setup lang="ts">
+const route = useRoute();
 usePageSEO({
   title: '筆記',
+  path: route.path,
 })
 </script>
 <template>

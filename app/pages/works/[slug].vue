@@ -26,6 +26,7 @@ const currentWork = computed(() => {
 usePageSEO({
   title: currentWork.value?.title || '',
   description: currentWork.value?.description || '',
+  path: route.path,
 })
 
 const { isMobile } = useResponsive();

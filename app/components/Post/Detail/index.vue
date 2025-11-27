@@ -16,6 +16,7 @@ const { data: post } = await useAsyncData(`${props.collection}-detail`, () => {
 usePageSEO({
   title: post.value?.title || '',
   description: post.value?.description || '',
+  path: route.path,
 })
 
 const scrollToTop = () => {

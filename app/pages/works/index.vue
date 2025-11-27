@@ -1,10 +1,14 @@
 <script setup lang="ts">
-usePageSEO({
-  title: '作品',
-})
 import { workListGroup } from "@/utils/workListMap/index"
 
 const { isMobile } = useResponsive();
+const route = useRoute();
+
+usePageSEO({
+  title: '作品',
+  path: route.path,
+})
+
 type CategoryOptionsKeys = keyof typeof categoryOptions;
 type TypeOptionsKeys = keyof typeof typeOptions;
 const categoryOptions = {
