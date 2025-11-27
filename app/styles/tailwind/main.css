@@ -88,7 +88,7 @@
     font-size: clamp(12px, calc(12px + (100vw - 320px) * 0.0375), 16px);
   }
 
-  body.main-bg,body:has(.main-bg) {
+  html:has(.main-bg),body:has(.main-bg), body.main-bg {
     background: var(--bg-color);
   }
 }
