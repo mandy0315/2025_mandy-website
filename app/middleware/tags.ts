@@ -1,14 +1,9 @@
-export default defineNuxtRouteMiddleware(async (to, _) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   const path = String(to.path) || "";
-  const collectionMatch =
-    path.match(/\/(blog|notes)/)?.[0]?.replace("/", "") || "";
-  if (collectionMatch === "") {
-    showError({
-      statusCode: 404,
-      statusMessage: "Page Not Found",
-    });
-  }
-  const collection = collectionMatch as "blog" | "notes";
+  const collectionMatch = path.match(/^\/(blog|notes)\//);
+  if (!collectionMatch) return;
+  const collection = collectionMatch[1] as "blog" | "notes";
+
   const { setTags, tags } = await useTag(collection);
   setTags();
 
@@ -24,6 +19,7 @@ export default defineNuxtRouteMiddleware(async (to, _) => {
     throw createError({
       statusCode: 404,
       statusMessage: "Tag Not Found",
+      fatal: true,
     });
   }
 });

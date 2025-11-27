@@ -7,7 +7,7 @@ const isOpenMenu = useState('isOpenMenu', () => false);
 <template>
   <Body :class="[{ 'overflow-hidden': isShowSearchModal || isOpenMenu }, { 'main-bg': !isLoading }]">
     <AppPageLoading />
-    <div class="flex flex-col lg:min-h-screen" :class="isLoading
+    <div class="flex flex-col min-h-screen" :class="isLoading
       ? 'opacity-0 pointer-events-none'
       : 'opacity-100 pointer-events-auto'">
       <AppHeader />

@@ -35,7 +35,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <footer ref="footerRef" class="bg-[--bg-color] relative z-50 py-10 lg:py-6">
+  <footer ref="footerRef" class="bg-[--bg-color] relative z-50 py-10 mt-auto lg:py-6">
     <div class="c-container flex flex-col lg:flex-row lg:justify-between items-center py-2">
       <div class="pb-4">
         <IconLogoHorizontal class="dark:fill-white w-36" />
