@@ -34,11 +34,26 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
 
+  site: {
+    url: isGithubPages
+      ? "https://mandy0315.github.io"
+      : "http://localhost:3000",
+    name: "Mandy Space Website",
+  },
+  ogImage: {
+    defaults: {
+      renderer: "chromium",
+      width: 1200,
+      height: 630,
+    },
+  },
+
   modules: [
     "@nuxt/content",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
+    "nuxt-og-image",
   ],
 
   css: ["@/styles/tailwind/main.css"],
@@ -54,7 +69,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS,
+      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS || "false",
       SHOW_NOTES_PAGE: false,
     },
   },

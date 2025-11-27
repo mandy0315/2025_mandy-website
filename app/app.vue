@@ -7,6 +7,11 @@ const config = useRuntimeConfig();
 const isGithubPages = config.public.GITHUB_ACTIONS === "true";
 const baseURL = isGithubPages ? "/2025_mandy-website/" : "/";
 
+defineOgImageScreenshot({
+  screenshot: {
+    delay: 2000,
+  }
+})
 useHead({
   htmlAttrs: {
     lang: "zh-TW"

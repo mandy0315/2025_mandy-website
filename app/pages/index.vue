@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  name: 'home'
-})
-
 usePageSEO({
   title: '首頁',
 })
