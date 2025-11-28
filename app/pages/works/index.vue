@@ -9,6 +9,11 @@ usePageSEO({
   path: route.path,
 })
 
+const isOgImageRequest = computed(() => {
+  if (import.meta.client) return false;
+  return import.meta.server && route.path.includes('__og-image__');
+});
+
 type CategoryOptionsKeys = keyof typeof categoryOptions;
 type TypeOptionsKeys = keyof typeof typeOptions;
 const categoryOptions = {
@@ -52,6 +57,13 @@ const { getAssetPath } = useAssetPath();
 const selectWorks = computed(() => {
   if (allWorks.value.length === 0) return [];
 
+  if (isOgImageRequest.value) {
+    return allWorks.value.slice(0, 6).map(work => ({
+      ...work,
+      image: work.image ? getAssetPath(work.image) : '',
+    }));
+  }
+
   // work imagepath 處理 
   allWorks.value.map(work => {
     if (work.image) {
@@ -85,6 +97,7 @@ const { imgRefs,
 
 
 watch(selectWorks, async () => {
+  if (isOgImageRequest.value) return;
   resetImageRefsState();
   await nextTick();
   initObserver();
@@ -93,6 +106,7 @@ watch(selectWorks, async () => {
 })
 
 onMounted(async () => {
+  if (isOgImageRequest.value) return;
   await nextTick();
   initObserver();
 })
@@ -104,8 +118,6 @@ const resetFilters = () => {
   currentCategory.value = 'all';
   currentType.value = 'all'
 }
-
-
 </script>
 <template>
   <div class="c-container">
@@ -126,7 +138,6 @@ const resetFilters = () => {
       <BaseSelect v-model="currentType" labelTitle="類型:" :options="Object.values(typeOptions)" />
     </section>
     <section>
-
       <div v-if="selectWorks.length === 0" class="w-full min-h-80 flex items-center justify-center flex-col">
         <p class="text-center col-span-3 text-xl">
           <Icon name="mdi:emoticon-cry-outline" class="text-3xl align-middle" />
