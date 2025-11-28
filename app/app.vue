@@ -7,11 +7,6 @@ const config = useRuntimeConfig();
 const isGithubPages = config.public.GITHUB_ACTIONS === "true";
 const baseURL = isGithubPages ? "/2025_mandy-website/" : "/";
 
-defineOgImageScreenshot({
-  screenshot: {
-    delay: 2000,
-  }
-})
 useHead({
   htmlAttrs: {
     lang: "zh-TW"
@@ -29,14 +24,8 @@ useHead({
 <template>
   <Body :class="[{ 'overflow-hidden': isShowSearchModal || isOpenMenu }, { 'main-bg': !isLoading }]">
     <AppPageLoading />
-    <div class="flex flex-col min-h-screen" :class="isLoading
-      ? 'opacity-0 pointer-events-none'
-      : 'opacity-100 pointer-events-auto'">
-      <AppHeader />
-      <main class="lg:flex-1 mt-24">
-        <NuxtPage />
-      </main>
-      <AppFooter />
-    </div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </Body>
 </template>
