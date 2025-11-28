@@ -1,4 +1,12 @@
 export const useImageObserver = () => {
+  if (import.meta.server) {
+    return {
+      imgRefs: ref<any[]>([]),
+      initObserver: () => {},
+      disconnectedObserver: () => {},
+      resetImageRefsState: () => {},
+    };
+  }
   const imgRefs = ref<any[]>([]);
   const observer = ref<IntersectionObserver | null>(null);
   const visibleImages = ref<Set<number>>(new Set());
