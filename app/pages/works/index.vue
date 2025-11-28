@@ -150,8 +150,10 @@ const resetFilters = () => {
           class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden group" :class="[getGridClass(index)]"
           :to="`/works/${data.id}`">
           <BaseHoverMask :contentText="data.title" />
-
-          <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
+          <img v-if="isOgImageRequest" :src="data.image || ''" :alt="data.title"
+            class="w-full h-full absolute overflow-hidden object-cover" loading="eager" />
+          <img v-else :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image"
+            :data-index="index"
             class="w-full h-full absolute overflow-hidden object-cover opacity-0 transition-all group-hover:blur-sm"
             :alt="data.title" />
         </NuxtLink>
