@@ -35,9 +35,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   site: {
-    url: isGithubPages
-      ? "https://mandy0315.github.io"
-      : "http://localhost:3000",
     name: "Mandy Space Website",
   },
   ogImage: {
