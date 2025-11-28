@@ -34,17 +34,6 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
 
-  site: {
-    name: "Mandy Space Website",
-  },
-  ogImage: {
-    defaults: {
-      renderer: "chromium",
-      width: 1200,
-      height: 630,
-    },
-  },
-
   modules: [
     "@nuxt/content",
     "@nuxt/icon",
