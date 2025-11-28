@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { workListGroup } from "@/utils/workListMap/index"
 
+const allWorks = [...workListGroup.values()].flat();
+
 const { isMobile } = useResponsive();
 const route = useRoute();
 
@@ -46,14 +48,14 @@ const typeOptions = {
 const currentCategory = ref<CategoryOptionsKeys>('all');
 const currentType = ref<TypeOptionsKeys>('all');
 
-const allWorks = computed(() => [...workListGroup.values()].flat());
+
 
 const { getAssetPath } = useAssetPath();
 const selectWorks = computed(() => {
-  if (allWorks.value.length === 0) return [];
+  if (allWorks.length === 0) return [];
 
   // 先處理所有作品的圖片路徑
-  const worksWithImages = allWorks.value.map(work => ({
+  const worksWithImages = allWorks.map(work => ({
     ...work,
     image: work.image ? getAssetPath(work.image) : '',
   }));
