@@ -3,7 +3,8 @@ const route = useRoute();
 const currentTag = computed(() => route.params.tag || '');
 
 definePageMeta({
-  middleware: ['tags']
+  middleware: ['tags'],
+  layout: false,
 })
 
 usePageSEO({
@@ -13,9 +14,7 @@ usePageSEO({
 </script>
 <template>
   <NuxtLayout name="post-archive">
-    <template #default>
-      <NuxtPage />
-    </template>
+    <NuxtPage />
     <template #sidebar>
       <PostTagsAside collection="notes" />
     </template>

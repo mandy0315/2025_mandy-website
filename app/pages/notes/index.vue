@@ -4,12 +4,15 @@ usePageSEO({
   title: '筆記',
   path: route.path,
 })
+
+definePageMeta({
+  middleware: ['tags'],
+  layout: false,
+})
 </script>
 <template>
   <NuxtLayout name="post">
-    <template #default>
-      <PostList collection="notes" />
-    </template>
+    <PostList collection="notes" />
     <template #sidebar>
       <PostListAside collection="notes" />
     </template>

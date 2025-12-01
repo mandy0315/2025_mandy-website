@@ -3,7 +3,8 @@ const route = useRoute();
 const currentCategory = computed(() => route.params.category || '');
 
 definePageMeta({
-  middleware: ['categories']
+  middleware: ['categories'],
+  layout: false,
 })
 
 usePageSEO({
@@ -13,9 +14,7 @@ usePageSEO({
 </script>
 <template>
   <NuxtLayout name="post-archive">
-    <template #default>
-      <NuxtPage />
-    </template>
+    <NuxtPage />
     <template #sidebar>
       <PostCategoriesAside collection="notes" />
     </template>
