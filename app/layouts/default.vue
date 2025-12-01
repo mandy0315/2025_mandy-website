@@ -11,5 +11,4 @@ const { isLoading } = usePageLoading();
     </main>
     <AppFooter />
   </div>
-
 </template>

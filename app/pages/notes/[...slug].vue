@@ -1,13 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['post-detail']
+  middleware: ['post-detail'],
+  layout: false,
 })
 </script>
 <template>
   <NuxtLayout name="post">
-    <template #default>
-      <PostDetail collection="notes" />
-    </template>
+    <PostDetail collection="notes" />
     <template #sidebar>
       <PostDetailToc collection="notes" />
     </template>
