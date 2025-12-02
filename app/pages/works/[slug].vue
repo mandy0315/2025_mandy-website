@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { workListGroup } from "@/utils/workListMap/index"
+const { getAssetPath } = useAssetPath();
 
 const allData = [...workListGroup.values()].flat();
 
@@ -43,7 +44,7 @@ const { isMobile } = useResponsive();
     </section>
     <section class="bg-primary/30">
       <div class="md:p-6 lg:p-10" :class="{ 'c-container': !isMobile }">
-        <img v-if="currentWork.image" :src="currentWork.image" :alt="currentWork.title" />
+        <img v-if="currentWork.image" :src="getAssetPath(currentWork.image)" :alt="currentWork.title" />
       </div>
     </section>
     <section class="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-x-4 mt-6 c-container">
