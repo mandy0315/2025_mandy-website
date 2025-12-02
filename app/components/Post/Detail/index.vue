@@ -3,14 +3,12 @@ const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
 
-const route = useRoute();
-
+const route = useRoute()
 const { goToCategoriesPage } = await useCategory(props.collection);
 const { prevData, nextData } = await useNavigation(props.collection, route.path);
 
-// 文章
-const { data: post } = await useAsyncData(`${props.collection}-detail`, () => {
-  return queryCollection(props.collection).path(`/${props.collection}/${route.params.slug}`).first();
+const { data: post } = await useAsyncData(route.path, () => {
+  return queryCollection(props.collection).path(route.path).first()
 })
 
 usePageSEO({
