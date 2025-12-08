@@ -3,6 +3,7 @@ definePageMeta({
   middleware: ['post-detail'],
   layout: false,
 })
+
 </script>
 <template>
   <NuxtLayout name="post">
