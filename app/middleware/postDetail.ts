@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  const path = String(to.path) || "";
+  const path = String(to.path).replace(/\/$/, "") || "";
   const collectionMatch = path.match(/^\/(blog|notes)\//);
   if (!collectionMatch) return;
   const collection = collectionMatch[1] as "blog" | "notes";
