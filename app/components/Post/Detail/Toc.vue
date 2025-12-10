@@ -10,6 +10,7 @@ const { currSection,
 const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-detail-toc`, () => {
   return queryCollectionSearchSections(props.collection);
 });
+console.log('toc', props.collection, collectionAllTocs.value)
 
 const tocList = computed(() => collectionAllTocs.value?.filter(toc =>
   toc.id.startsWith(route.path)
