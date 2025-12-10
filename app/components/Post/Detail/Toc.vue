@@ -92,7 +92,7 @@ onMounted(() => {
     </p>
 
     <nav class="px-3 py-5">
-      <ClientOnly fallback-tag="li" fallback="目錄內容">
+      <ClientOnly fallback-tag="div" fallback="目錄內容">
         <div v-for="toc in tocsWithNumbers" :key="toc.id">
           <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
