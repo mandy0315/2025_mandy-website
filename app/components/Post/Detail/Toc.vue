@@ -10,11 +10,13 @@ const { currSection,
 const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-detail-toc`, () => {
   return queryCollectionSearchSections(props.collection);
 });
-console.log('toc', props.collection, collectionAllTocs.value)
 
-const tocList = computed(() => collectionAllTocs.value?.filter(toc =>
-  toc.id.startsWith(route.path)
-) || [])
+const tocList = computed(() => {
+  const path = route.path.replace(/\/$/, ''); // 移除結尾的斜線
+  return collectionAllTocs.value?.filter(toc =>
+    toc.id.startsWith(path)
+  ) || []
+});
 
 const tocsWithNumbers = computed(() => {
   const counters: Record<number, number> = {};
@@ -90,7 +92,7 @@ onMounted(() => {
     </p>
 
     <nav class="px-3 py-5">
-      <ClientOnly fallback-tag="li" fallback="目錄內容">
+      <ClientOnly fallback-tag="div" fallback="目錄內容">
         <div v-for="toc in tocsWithNumbers" :key="toc.id">
           <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
