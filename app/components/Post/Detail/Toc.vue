@@ -10,11 +10,13 @@ const { currSection,
 const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-detail-toc`, () => {
   return queryCollectionSearchSections(props.collection);
 });
-console.log('toc', props.collection, collectionAllTocs.value)
 
-const tocList = computed(() => collectionAllTocs.value?.filter(toc =>
-  toc.id.startsWith(route.path)
-) || [])
+const tocList = computed(() => {
+  const path = route.path.replace(/\/$/, ''); // 移除結尾的斜線
+  return collectionAllTocs.value?.filter(toc =>
+    toc.id.startsWith(path)
+  ) || []
+});
 
 const tocsWithNumbers = computed(() => {
   const counters: Record<number, number> = {};
