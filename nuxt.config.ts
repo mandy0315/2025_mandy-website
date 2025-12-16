@@ -24,7 +24,6 @@ export default defineNuxtConfig({
         "/notes/tags",
         "/blog/tags",
       ],
-      crawlLinks: true, // 抓頁面 a 連結內部頁面預渲染
     },
   },
   /** 註冊其他路由
@@ -45,7 +44,7 @@ export default defineNuxtConfig({
 
         // 清理檔名，去除數字編號和副檔名
         const cleanFileName = (fileName: string) => {
-          return fileName.replace(/^\d+\.\s*/, "").replace(/\.md$/, "");
+          return fileName.replace(/^\d+\.\s*/, "").replace(/\.(md|json)$/, "");
         };
         const extractCategoriesAndTags = async (
           type: "blog" | "notes",
@@ -176,8 +175,34 @@ export default defineNuxtConfig({
           return allRoutes;
         };
 
+        const buildWorksRoutes = async () => {
+          try {
+            const jsonFiles = await fs.readdir("content/works");
+
+            // 過濾出 .json 檔案
+            const workFiles = jsonFiles.filter((file) =>
+              file.endsWith(".json")
+            );
+
+            // 生成作品路由
+            const routes = workFiles.map((file) => {
+              const workId = cleanFileName(file);
+              return `/works/${workId}`;
+            });
+
+            contentRoutes.push(...routes);
+            console.log(`🎨 找到 ${routes.length} 個作品`);
+
+            return routes;
+          } catch (error) {
+            console.log("🎨 works 資料夾不存在或為空");
+            return [];
+          }
+        };
+
         await buildContentRoutes("blog");
         await buildContentRoutes("notes");
+        await buildWorksRoutes();
 
         const categoryAndTagRoutes = getCategoryAndTagRoutes();
 
