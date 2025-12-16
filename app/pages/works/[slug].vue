@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import { workListGroup } from "@/utils/workListMap/index"
 const { getAssetPath } = useAssetPath();
-
-const allData = [...workListGroup.values()].flat();
-
-definePageMeta({
-  middleware: (to) => {
-    const currentSlug = to.params.slug || '';
-    const data = allData
-      .filter(item => item.id === currentSlug);
-    if (data.length === 0) {
-      showError({
-        statusCode: 404,
-        statusMessage: "Work Not Found",
-      });
-    }
-  },
-});
-
 const route = useRoute();
+
+const { allWorks, pending } = await useWorks();
+
 const currentWork = computed(() => {
-  const currentSlug = route.params.slug || '';
-  return allData.find(item => item.id === currentSlug);
+  const currentSlug = route.params.slug as string;
+  const work = allWorks.value?.find(item => item.id === currentSlug);
+
+  // 如果資料載入完成但找不到作品，拋出 404
+  if (allWorks.value && !work && !pending.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Work Not Found",
+    });
+  }
+
+  return work;
 });
 
 usePageSEO({
@@ -33,6 +28,7 @@ usePageSEO({
 const { isMobile } = useResponsive();
 </script>
 <template>
+  <div v-if="pending">載入中...</div>
   <article v-if="currentWork" class="py-10">
     <section class="c-container">
       <nav>
