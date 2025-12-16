@@ -2,31 +2,27 @@
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
 import { useWindowSize } from '@vueuse/core'
 
-
-
 const currentIndex = ref(0);
 const isAutoPlay = ref(true);
 const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
-
 const { getAssetPath } = useAssetPath();
 const { isDesktop } = useResponsive();
 const { width: windowWidth } = useWindowSize();
-
 const { worksByCategory } = await useWorks();
 
-const items = computed(() => {
+const items = useState('carousel-items', () => {
   const listGroup = []
   for (let list of Object.values(worksByCategory.value)) {
     if (!Array.isArray(list)) continue;
-    // 亂數隨機取3個作品
-    list = list.sort(() => Math.random() - 0.5);
-    listGroup.push(list.slice(0, 3));
+    // 隨機排序並取前3個
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
+    listGroup.push(shuffled.slice(0, 3));
   }
-
   return listGroup.flat();
 });
+
 
 const startAutoPlay = () => {
   stopAutoPlay();
@@ -142,7 +138,7 @@ const getItemStyle = (index: number) => {
     <div class="flex items-center justify-center relative z-20" @mouseenter="isAutoPlay = false"
       @mouseleave="isAutoPlay = true">
       <div v-for="(item, index) in items" :key="index" class="absolute cursor-pointer rounded">
-        <NuxtLink :to="`works/${item.id}`" class="block w-full h-full">
+        <NuxtLink :to="`/works/${item.id}`" class="block w-full h-full">
           <Transition name="slide-up">
             <h3 v-if="index === currentIndex"
               class="text-4xl lg:text-5xl font-semibold mb-1 text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
