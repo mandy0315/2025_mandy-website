@@ -1,0 +1,18 @@
+{
+  "category": "web",
+  "type": "commercial",
+  "title": "捷美海空運集團企業官網",
+  "description": "延續首頁視覺，內頁使用空運、海運情境照，裝飾背景與文字，並加入可愛運輸圖案，凸顯每頁傳達的資訊；色彩以企業紅為主色黃為輔色，文字上重點以黃色標示，讓文字階層明顯。此專案負責網站內頁設計到開發。",
+  "link": "https://www.gmclogistics.com/",
+  "image": "/images/works/web/gmclogistics.jpg",
+  "client": "捷美海空運集團",
+  "skills": [
+    "Photoshop",
+    "Illustrator",
+    "Wordpress-Elementor編輯",
+    "CSS3",
+    "jQuery"
+  ],
+  "date": null,
+  "status": "completed"
+}

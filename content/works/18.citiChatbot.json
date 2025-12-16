@@ -1,0 +1,16 @@
+{
+  "category": "ui",
+  "type": "commercial",
+  "title": "花旗 ChatBot",
+  "description": "沿用花旗App規範，改版優化設計對話流程、信用卡帳單、繳費日期….等介面，搭配相關對話數據，一步步完成信用卡問題，讓資訊更靈活、易讀。",
+  "link": "https://www.yungtay.com.tw/",
+  "image": "/images/works/ui/citiChatbot.jpg",
+  "client": "花旗銀行",
+  "skills": [
+    "Illustrator",
+    "Photoshop",
+    "Sketch"
+  ],
+  "date": null,
+  "status": "completed"
+}

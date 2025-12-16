@@ -1,5 +1,4 @@
 import { pageInfo } from "@/utils/pageInfoMap";
-import { workListGroup } from "@/utils/workListMap/index";
 import type { WorkItem } from "@/utils/workListMap/works/types";
 
 type Collection = "blog" | "notes";
@@ -34,6 +33,9 @@ const useSearch = async () => {
   const keywords = useState<string>("keywords", () => "");
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
+  // 取得作品資料
+  const { allWorks, worksByCategory } = await useWorks();
+
   const keywordsToLower = computed(() => keywords.value.toLowerCase() || "");
 
   // 搜尋(文章/筆記)列表
@@ -57,6 +59,7 @@ const useSearch = async () => {
       return [];
     }
   };
+
   // 搜尋分類
   const searchInCategories = async (collection: Collection) => {
     try {
@@ -77,6 +80,7 @@ const useSearch = async () => {
       return [];
     }
   };
+
   // 搜尋標籤
   const searchInTags = async (collection: Collection) => {
     try {
@@ -119,36 +123,45 @@ const useSearch = async () => {
     }
     return searchPages;
   };
+
   // 搜尋作品
   const searchInWorks = () => {
+    if (!allWorks.value || allWorks.value.length === 0) return [];
+
     if (keywordsToLower.value === "") {
-      const firstWorks = Array.from(workListGroup.entries())
-        .map(([category, items]) => {
-          const firstItem = items[0];
-          if (firstItem) {
-            return {
-              title: firstItem.title,
-              path: firstItem.id,
-              category: firstItem.category || category,
-            };
-          }
-          return null;
-        })
-        .filter((item) => item !== null);
-      return firstWorks;
+      const randomWorks: Work[] = [];
+      for (const category in worksByCategory.value) {
+        const worksInCategory =
+          worksByCategory.value[category as keyof typeof worksByCategory.value];
+        // 隨機一個
+        const randomWork =
+          worksInCategory[Math.floor(Math.random() * worksInCategory.length)];
+        if (randomWork) {
+          randomWorks.push({
+            title: randomWork.title,
+            path: randomWork.id,
+            category: randomWork.category,
+          });
+        }
+      }
+
+      return randomWorks;
     }
 
-    const allWork = Array.from(workListGroup.values()).flat();
-    const searchWork = allWork.filter((item) =>
+    // 搜尋符合關鍵字的作品
+    const searchWork = allWorks.value.filter((item) =>
       item.title.toLowerCase().includes(keywordsToLower.value)
     );
+
     const mapSearchWork = searchWork.map((item) => ({
       title: item.title,
-      path: item.id,
+      path: item.id, // 使用處理過的 id
       category: item.category,
     }));
+
     return mapSearchWork;
   };
+
   // 設定搜尋列表
   const updateSearchList = async () => {
     isSearch.value = false;
@@ -168,7 +181,7 @@ const useSearch = async () => {
       searchInTags("notes"),
     ]);
     const kPages = searchInPages();
-    const kWorks = searchInWorks();
+    const kWorks = searchInWorks(); // 🔥 現在使用新的搜尋邏輯
 
     blog.value = kBlog;
     notes.value = kNotes;

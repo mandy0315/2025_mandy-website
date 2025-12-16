@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { workListGroup } from "@/utils/workListMap/index"
-
-const allWorks = [...workListGroup.values()].flat();
-
-const { isMobile } = useResponsive();
 const route = useRoute();
+const { isMobile } = useResponsive();
 
 usePageSEO({
   title: '作品',
   path: route.path,
 })
+const { allWorks, pending, worksByCategory } = await useWorks();
 
 type CategoryOptionsKeys = keyof typeof categoryOptions;
 type TypeOptionsKeys = keyof typeof typeOptions;
+
 const categoryOptions = {
   all: {
     label: '全部',
@@ -31,6 +29,7 @@ const categoryOptions = {
     value: 'web'
   }
 } as const;
+
 const typeOptions = {
   all: {
     label: '全部',
@@ -45,42 +44,36 @@ const typeOptions = {
     value: 'personal'
   }
 } as const;
+
 const currentCategory = ref<CategoryOptionsKeys>('all');
 const currentType = ref<TypeOptionsKeys>('all');
 
-
-
 const { getAssetPath } = useAssetPath();
-const selectWorks = computed(() => {
-  if (allWorks.length === 0) return [];
 
-  // 先處理所有作品的圖片路徑
-  const worksWithImages = allWorks.map(work => ({
+const selectWorks = computed(() => {
+  if (!allWorks.value || allWorks.value.length === 0) return [];
+
+  // 步驟1：分類篩選
+  let filteredByCategory = allWorks.value;
+  if (currentCategory.value !== 'all') {
+    filteredByCategory = worksByCategory.value[currentCategory.value] || [];
+  }
+
+  // 步驟2：類型篩選
+  let filteredByType = filteredByCategory;
+  if (currentType.value !== 'all') {
+    filteredByType = filteredByCategory.filter(work => work.type === currentType.value);
+  }
+
+  // 步驟3：處理圖片路徑
+  return filteredByType.map(work => ({
     ...work,
     image: work.image ? getAssetPath(work.image) : '',
   }));
-
-  // 先處理分類篩選
-  const selectedDataInCategories = currentCategory.value === 'all'
-    ? worksWithImages
-    : worksWithImages.filter(work => {
-      const categoryWorks = workListGroup.get(currentCategory.value) || [];
-      return categoryWorks.some(item => item.id === work.id);
-    });
-
-  if (selectedDataInCategories.length === 0) return [];
-
-  // 再處理類型篩選
-  const selectedDataInTypes = currentType.value === 'all'
-    ? selectedDataInCategories
-    : selectedDataInCategories.filter(item => item.type === currentType.value);
-
-  return selectedDataInTypes;
-})
+});
 
 const getGridClass = (index: number) => {
-  if (isMobile.value) return 'col-span-1'
-
+  if (isMobile.value) return 'col-span-1';
   const groupIndex = index % 6 // 每組6個，取得在這組中的位置（0~5）
   if (groupIndex === 1 || groupIndex === 3) {
     return 'col-span-2 row-span-2'
@@ -90,45 +83,71 @@ const getGridClass = (index: number) => {
 
 const resetFilters = () => {
   currentCategory.value = 'all';
-  currentType.value = 'all'
+  currentType.value = 'all';
 }
+
+// 圖片觀察器邏輯
+const { imgRefs, initObserver, disconnectedObserver, resetImageRefsState } = useImageObserver();
+
+watch(selectWorks, async () => {
+  resetImageRefsState();
+  await nextTick();
+  initObserver();
+}, {
+  deep: true
+})
+
+onMounted(async () => {
+  await nextTick();
+  initObserver();
+})
+
+onUnmounted(() => {
+  disconnectedObserver()
+});
 </script>
+
 <template>
   <div class="c-container">
-    <section class="pb-4">
-      <div class="pb-6">
-        <BaseTitle>作品</BaseTitle>
-        <p v-if="allWorks.length > 0" class="text-center">
-          <template v-if="selectWorks.length === allWorks.length">
-            共 <span class="text-primary font-medium">{{ allWorks.length }}</span> 項
-          </template>
-          <template v-else>
-            顯示 <span class="text-primary font-medium">{{ selectWorks.length }}</span> 項
-            <span class="c-text-secondary">（共 {{ allWorks.length }} 項）</span>
-          </template>
-        </p>
-      </div>
-      <BaseSelect class="pr-2" v-model="currentCategory" labelTitle="分類:" :options="Object.values(categoryOptions)" />
-      <BaseSelect v-model="currentType" labelTitle="類型:" :options="Object.values(typeOptions)" />
-    </section>
-    <section>
-      <div v-if="selectWorks.length === 0" class="w-full min-h-80 flex items-center justify-center flex-col">
-        <p class="text-center col-span-3 text-xl">
-          <Icon name="mdi:emoticon-cry-outline" class="text-3xl align-middle" />
-          <span class="align-middle">沒有符合條件的作品</span>
-        </p>
-        <BaseButton class="mt-4" variant="solid" size="md" @click="resetFilters">重置篩選</BaseButton>
-      </div>
-      <div v-else class="col-start-2 col-end-6 grid " :class="isMobile ? 'grid-cols-1' : 'grid-cols-3'">
-        <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
-          class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden group" :class="[getGridClass(index)]"
-          :to="`/works/${data.id}`">
-          <BaseHoverMask :contentText="data.title" />
-          <img :src="data.image || ''" :alt="data.title"
-            class="w-full h-full absolute overflow-hidden object-cover transition-all group-hover:blur-sm"
-            loading="lazy" />
-        </NuxtLink>
-      </div>
-    </section>
+    <div v-if="pending" class="py-10 text-center">載入中...</div>
+    <template v-else>
+      <section class="pb-4">
+        <div class="pb-6">
+          <BaseTitle>作品</BaseTitle>
+          <p v-if="allWorks && allWorks.length > 0" class="text-center">
+            <template v-if="selectWorks.length === allWorks.length">
+              共 <span class="text-primary font-medium">{{ allWorks.length }}</span> 項
+            </template>
+            <template v-else>
+              顯示 <span class="text-primary font-medium">{{ selectWorks.length }}</span> 項
+              <span class="c-text-secondary">（共 {{ allWorks.length }} 項）</span>
+            </template>
+          </p>
+        </div>
+        <BaseSelect class="pr-2" v-model="currentCategory" labelTitle="分類:" :options="Object.values(categoryOptions)" />
+        <BaseSelect v-model="currentType" labelTitle="類型:" :options="Object.values(typeOptions)" />
+      </section>
+
+      <section>
+        <div v-if="selectWorks.length === 0" class="w-full min-h-80 flex items-center justify-center flex-col">
+          <p class="text-center text-xl">
+            <Icon name="mdi:emoticon-cry-outline" class="text-3xl align-middle" />
+            <span class="align-middle">沒有符合條件的作品</span>
+          </p>
+          <BaseButton class="mt-4" variant="solid" size="md" @click="resetFilters">重置篩選</BaseButton>
+        </div>
+
+        <div v-else class="col-start-2 col-end-6 grid grid-cols-1 md:grid-cols-3">
+          <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
+            class="w-full h-0 pb-[56.25%] relative bg-transparent overflow-hidden group" :class="[getGridClass(index)]"
+            :to="`/works/${data.id}`">
+            <BaseHoverMask :contentText="data.title" />
+            <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
+              class="w-full h-full absolute overflow-hidden object-cover transition-all opacity-0 group-hover:blur-sm"
+              :alt="data.title" />
+          </NuxtLink>
+        </div>
+      </section>
+    </template>
   </div>
 </template>

@@ -1,0 +1,19 @@
+{
+  "category": "web",
+  "type": "personal",
+  "title": "微品咖啡練習網站",
+  "description": "「咖啡廳」做為練習主題，主視覺以咖啡特寫其他物品放置在旁，表達暫時放下忙碌先喝杯咖啡；色彩以黑色沉靜搭配咖啡色；內頁以簡約風格凸顯產品與內容。此練習專案從設計到開發。",
+  "link": "https://mandy0315.github.io/2019_wipcafe/",
+  "image": "/images/works/web/wipCafe.jpg",
+  "client": null,
+  "skills": [
+    "Photoshop",
+    "Illustrator",
+    "HTML",
+    "CSS3",
+    "SASS",
+    "jQuery"
+  ],
+  "date": "2019",
+  "status": "completed"
+}
