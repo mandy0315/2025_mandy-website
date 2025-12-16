@@ -1,0 +1,18 @@
+{
+  "category": "web",
+  "type": "commercial",
+  "title": "集思傢俱設計企業官網",
+  "description": "「室內設計圖」做為發想，採用黑、白色調打造簡約設計美感；整體以作品、情境照呈現，加入裝飾線條與動態，讓網頁生動活潑；背景以白、藍、簡約線條，達到網頁舒適排版。此專案負責網站設計到開發。",
+  "link": "https://www.gees.com.tw/",
+  "image": "/images/works/web/gees.jpg",
+  "client": "集思傢俱設計",
+  "skills": [
+    "Photoshop",
+    "Illustrator",
+    "Wordpress-Elementor編輯",
+    "CSS3",
+    "jQuery"
+  ],
+  "date": null,
+  "status": "completed"
+}

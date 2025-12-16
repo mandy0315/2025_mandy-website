@@ -1,0 +1,17 @@
+{
+  "category": "web",
+  "type": "commercial",
+  "title": "永大電機企業官網",
+  "description": "整體以「 斜角 」代表手扶梯、「 直角 」代表電梯的方式呈現，表達公司產品與引導動線;內頁以簡約背景襯托大量資訊，並且加入側選單，讓每區獨立達到動線清晰，能夠快速找到資訊。此專案負責網站設計到開發。",
+  "link": null,
+  "image": "/images/works/web/yungtay.jpg",
+  "client": "永大電機",
+  "skills": [
+    "Photoshop",
+    "Sketch",
+    "CSS3",
+    "Wordpress-Elementor"
+  ],
+  "date": null,
+  "status": "completed"
+}

@@ -28,5 +28,22 @@ export default defineContentConfig({
         date: z.string(),
       }),
     }),
+    works: defineCollection({
+      source: "works/*.json",
+      type: "data",
+      schema: z.object({
+        id: z.string(),
+        category: z.enum(["vision", "ui", "web"]),
+        type: z.enum(["commercial", "personal"]),
+        title: z.string(),
+        description: z.string(),
+        skills: z.array(z.string()),
+        link: z.string().nullable(),
+        image: z.string(),
+        client: z.string().nullable(),
+        date: z.string().nullable(),
+        status: z.enum(["completed", "pending"]),
+      }),
+    }),
   },
 });

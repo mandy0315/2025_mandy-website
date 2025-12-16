@@ -1,0 +1,16 @@
+{
+  "category": "ui",
+  "type": "commercial",
+  "title": "工研院報名系統頁面",
+  "description": "「 科技感 」做為網頁風格，此系統重視流程、填寫、說明文字，設計以簡約方形架構為主，項目間透過黑灰白色區別每段，在整體項目有辨識度與變化；標題加入ICON視覺化，以圖示輔助文字，增添易讀性。",
+  "link": null,
+  "image": "/images/works/ui/secpassSignUpPage.jpg",
+  "client": "工研院",
+  "skills": [
+    "Illustrator",
+    "Photoshop",
+    "Sketch"
+  ],
+  "date": null,
+  "status": "completed"
+}

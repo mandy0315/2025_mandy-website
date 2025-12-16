@@ -1,0 +1,18 @@
+{
+  "category": "web",
+  "type": "commercial",
+  "title": "未來流通研究所企業官網",
+  "description": "配合瀏覽者大部分是日商，網頁視覺以「日式和風」吸引客群，色彩使用暖色，有別於以往資訊網站的冷色，希望傳遞有溫度的資訊；內容加入ICON圖示，能夠了解資訊、標題並且提升整體質感。此專案負責網站設計到開發。",
+  "link": "https://www.mirai.com.tw/",
+  "image": "/images/works/web/mirai.jpg",
+  "client": "未來流通研究所",
+  "skills": [
+    "Photoshop",
+    "Illustrator",
+    "Wordpress-Elementor",
+    "CSS3",
+    "jQuery"
+  ],
+  "date": null,
+  "status": "completed"
+}
