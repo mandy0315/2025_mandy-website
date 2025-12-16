@@ -1,17 +1,19 @@
 export const useWorks = async () => {
-  const { data, pending } = await useAsyncData("works-data", async () => {
-    return queryCollection("works").order("stem", "DESC").all();
-  });
-  const allWorks = computed(() => {
-    return data.value
-      ? data.value.map((item) => ({
-          ...item,
-          id: item.id
-            ? item.id.replace(/^.*\/\d+\.(.+)\.json$/, "$1")
-            : item.id,
-        }))
-      : [];
-  });
+  const { data: allWorks, pending } = await useAsyncData(
+    "works-data",
+    async () => {
+      const data = await queryCollection("works").order("stem", "DESC").all();
+      const newWorks = data
+        ? data.map((item) => ({
+            ...item,
+            id: item.id
+              ? item.id.replace(/^.*\/\d+\.(.+)\.json$/, "$1")
+              : item.id,
+          }))
+        : [];
+      return newWorks;
+    }
+  );
   const worksByCategory = computed(() => {
     if (!allWorks.value) return { vision: [], ui: [], web: [] };
 
