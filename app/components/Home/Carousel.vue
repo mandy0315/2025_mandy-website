@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
-import { workListGroup } from "@/utils/workListMap/index"
 import { useWindowSize } from '@vueuse/core'
 
 
@@ -14,11 +13,18 @@ const isMounted = ref(false);
 const { getAssetPath } = useAssetPath();
 const { isDesktop } = useResponsive();
 const { width: windowWidth } = useWindowSize();
+
+const { worksByCategory } = await useWorks();
+
 const items = computed(() => {
   const listGroup = []
-  for (let list of workListGroup.values()) {
-    if (Array.isArray(list)) listGroup.push(list.slice(0, 3)); // 每個分類取前3個作品
+  for (let list of Object.values(worksByCategory.value)) {
+    if (!Array.isArray(list)) continue;
+    // 亂數隨機取3個作品
+    list = list.sort(() => Math.random() - 0.5);
+    listGroup.push(list.slice(0, 3));
   }
+
   return listGroup.flat();
 });
 
