@@ -37,4 +37,9 @@ export const usePageSEO = ({
     twitterTitle: title || defaultTitle,
     twitterDescription: descriptionTxt.value,
   });
+
+  defineOgImageComponent("CustomTemplate", {
+    title: title || defaultTitle,
+    description: descriptionTxt.value,
+  });
 };
