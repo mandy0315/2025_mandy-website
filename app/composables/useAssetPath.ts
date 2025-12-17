@@ -13,9 +13,12 @@ export const useAssetPath = () => {
       return src;
     }
 
-    // 確保路徑以 / 開頭
-    const cleanSrc = src.startsWith("/") ? src : `/${src}`;
-    return `${config.public.BASE_URL}${cleanSrc}`;
+    // 如果在 GitHub Actions 環境，加上 baseURL 前綴
+    const baseURL = config.public.BASE_URL;
+
+    // 清除前面有斜線的
+    const cleanSrc = src.replace(/^\/+/, "");
+    return `${baseURL}${cleanSrc}`;
   };
 
   return {
