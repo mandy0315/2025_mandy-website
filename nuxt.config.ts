@@ -263,4 +263,11 @@ export default defineNuxtConfig({
   content: {
     experimental: { sqliteConnector: "native" },
   },
+
+  ogImage: {
+    fonts: ["Noto+Sans+TC:700"],
+    defaults: {
+      extension: "jpeg", // 預設 png 改為 jpeg
+    },
+  },
 });
