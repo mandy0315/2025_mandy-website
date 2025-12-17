@@ -2,7 +2,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // 統一管理 baseURL
 const isGithubPages = process.env.NUXT_APP_GITHUB_ACTIONS === "true";
-const baseURL = isGithubPages ? "/2025_mandy-website/" : "/";
+const hasCustomDomain = process.env.NUXT_APP_CUSTOM_DOMAIN === "true";
+const baseURL =
+  isGithubPages && !hasCustomDomain ? "/2025_mandy-website/" : "/";
 
 export default defineNuxtConfig({
   // SSG 設定
@@ -247,6 +249,8 @@ export default defineNuxtConfig({
     public: {
       GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS || "false",
       SHOW_NOTES_PAGE: false,
+      CUSTOM_DOMAIN: process.env.NUXT_APP_CUSTOM_DOMAIN || "false",
+      BASE_URL: baseURL,
     },
   },
 
