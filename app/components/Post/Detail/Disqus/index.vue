@@ -37,20 +37,6 @@ const loadDisqus = () => {
   loaded.value = true;
 }
 
-
-const resetDisqus = async () => {
-  await nextTick();
-
-  if (window.DISQUS && loaded.value) {
-    window.DISQUS.reset({
-      reload: true,
-      config: function (this: DisqusConfig) {
-        this.page = disqusConfig();
-      }
-    });
-  };
-};
-
 /** 重建 Disqus */
 const reloadDisqus = async (): Promise<void> => {
   await nextTick();
@@ -84,12 +70,9 @@ onMounted(() => {
   loadDisqus();
 });
 
-watch(() => route.path, async () => {
-  if (window.DISQUS && loaded.value) {
-    await resetDisqus();
-  } else {
-    loadDisqus();
-  };
+watch(() => route.path, async (from, to) => {
+  if (from === to) return;
+  await reloadDisqus();
 });
 
 watch(colorMode, async () => {
