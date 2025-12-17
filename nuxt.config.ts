@@ -9,6 +9,13 @@ const baseURL = hasCustomDomain
   ? "/2025_mandy-website/"
   : "/";
 
+console.log("🔧 建置設定:", {
+  isGithubPages,
+  hasCustomDomain,
+  baseURL,
+  NODE_ENV: process.env.NODE_ENV,
+});
+
 export default defineNuxtConfig({
   // SSG 設定
   ssr: true,
