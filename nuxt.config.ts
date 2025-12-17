@@ -3,17 +3,21 @@ import tailwindcss from "@tailwindcss/vite";
 // 統一管理 baseURL
 const isGithubPages = process.env.NUXT_APP_GITHUB_ACTIONS === "true";
 const hasCustomDomain = process.env.NUXT_APP_CUSTOM_DOMAIN === "true";
-const baseURL =
-  isGithubPages && !hasCustomDomain ? "/2025_mandy-website/" : "/";
+const baseURL = hasCustomDomain
+  ? "/"
+  : isGithubPages
+  ? "/2025_mandy-website/"
+  : "/";
 
 export default defineNuxtConfig({
   // SSG 設定
   ssr: true,
   nitro: {
-    preset:
-      process.env.NUXT_APP_GITHUB_ACTIONS === "true"
-        ? "github-pages"
-        : "static",
+    preset: hasCustomDomain
+      ? "static"
+      : isGithubPages
+      ? "github-pages"
+      : "static",
 
     prerender: {
       routes: [
