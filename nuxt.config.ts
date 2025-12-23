@@ -243,6 +243,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
     "nuxt-og-image",
+    "@nuxtjs/seo",
   ],
 
   css: ["@/styles/tailwind/main.css"],
@@ -277,6 +278,11 @@ export default defineNuxtConfig({
 
   content: {
     experimental: { sqliteConnector: "native" },
+  },
+
+  site: {
+    url: "https://mandy315.com/",
+    name: "MandySpace",
   },
 
   ogImage: {
