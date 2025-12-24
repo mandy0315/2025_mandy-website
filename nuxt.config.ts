@@ -238,12 +238,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    "@nuxt/content",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "nuxt-og-image",
     "@nuxtjs/seo",
+    "@nuxt/content",
   ],
 
   css: ["@/styles/tailwind/main.css"],
