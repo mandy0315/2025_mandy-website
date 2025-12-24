@@ -36,6 +36,7 @@ export default defineNuxtConfig({
         "/blog/categories",
         "/notes/tags",
         "/blog/tags",
+        "/sitemap.xml",
       ],
     },
   },
@@ -238,11 +239,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    "@nuxt/content",
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "nuxt-og-image",
+    "@nuxtjs/seo",
+    "@nuxt/content",
   ],
 
   css: ["@/styles/tailwind/main.css"],
@@ -277,6 +278,11 @@ export default defineNuxtConfig({
 
   content: {
     experimental: { sqliteConnector: "native" },
+  },
+
+  site: {
+    url: "https://mandy315.com",
+    name: "MandySpace",
   },
 
   ogImage: {

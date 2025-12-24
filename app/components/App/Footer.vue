@@ -44,9 +44,9 @@ onMounted(() => {
             <em><span class="hidden lg:block">嗨～我是蔓蒂</span>可以透過以下方式聯絡我：</em>
           </p>
           <div class="flex gap-x-1 justify-center lg:justify-start">
-            <BaseIconLink icon="mdi:email" to="mailto:mandy3152618@gmail.com" external />
-            <BaseIconLink icon="mdi:facebook" to="https://www.facebook.com/MandyTsai0315" target="_blank" external />
-            <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" external />
+            <BaseIconLink icon="mdi:email" to="mailto:mandy3152618@gmail.com" />
+            <BaseIconLink icon="mdi:facebook" to="https://www.facebook.com/MandyTsai0315" target="_blank" />
+            <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" />
           </div>
         </div>
       </div>
