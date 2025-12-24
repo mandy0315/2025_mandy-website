@@ -36,6 +36,7 @@ export default defineNuxtConfig({
         "/blog/categories",
         "/notes/tags",
         "/blog/tags",
+        "/sitemap.xml",
       ],
     },
   },
@@ -280,7 +281,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://mandy315.com/",
+    url: "https://mandy315.com",
     name: "MandySpace",
   },
 
