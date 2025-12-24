@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 <template>
   <header ref="headerRef" class="fixed z-100 p-4 flex items-center justify-between w-full backdrop-blur-xs">
-    <BaseLink to="/" class="block w-20">
+    <BaseLink to="/" class="block w-20" aria-label="前往首頁">
       <IconLogo class="dark:fill-white" />
     </BaseLink>
     <AppMenu class="hidden lg:block" />
