@@ -65,7 +65,7 @@ const { isMobile } = useResponsive();
         </div>
         <div v-if="currentWork.link" class="mt-4 text-center lg:text-left">
           <Icon name="i-material-symbols:link-rounded" size="1.5rem" class="align-middle" />
-          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link" external>
+          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link">
             {{ currentWork.link }}
           </BaseLink>
         </div>

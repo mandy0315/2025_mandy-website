@@ -42,9 +42,9 @@ await refreshTags(5);
         </p>
 
         <div class="flex gap-x-2 lg:justify-center lg:gap-x-1">
-          <BaseIconLink icon="mdi:email" to="mailto:mandy3152618@gmail.com" external />
-          <BaseIconLink icon="mdi:facebook" to="https://www.facebook.com/MandyTsai0315" target="_blank" external />
-          <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" external />
+          <BaseIconLink icon="mdi:email" to="mailto:mandy3152618@gmail.com" />
+          <BaseIconLink icon="mdi:facebook" to="https://www.facebook.com/MandyTsai0315" target="_blank" />
+          <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" />
         </div>
       </div>
     </section>

@@ -3,13 +3,11 @@ const props = withDefaults(
   defineProps<{
     to: string;
     target?: '_self' | '_blank';
-    external?: boolean;
     variant?: 'outline' | 'solid' | 'underline' | 'base';
     size?: 'xs' | 'sm' | 'md' | 'lg';
     isAction?: boolean;
   }>(),
   {
-    external: false,
     target: '_self',
     variant: 'base',
     isAction: false,
@@ -57,7 +55,9 @@ const linkClasses = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :class="linkClasses" :to :target :external>
+  <NuxtLink :class="linkClasses" :to :target :rel="target === '_blank'
+    ? 'noopener noreferrer'
+    : undefined">
     <slot />
   </NuxtLink>
 </template>
