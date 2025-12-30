@@ -7,6 +7,41 @@ await refreshCategories(5);
 
 const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
 await refreshTags(5);
+
+
+// 3D 翻轉卡片觸控事件（手機版）
+const { isMobile } = useResponsive();
+const isFlipped = ref(false);
+const startX = ref(0);
+const isDragging = ref(false);
+
+const handleTouchStart = (e: TouchEvent) => {
+  if (!isMobile.value) return;
+  startX.value = e.touches[0]?.clientX || 0;
+  isDragging.value = true;
+};
+
+const handleTouchEnd = (e: TouchEvent) => {
+  const threshold = 50;
+  if (!isMobile.value || !isDragging) return;
+
+  const endX = e.touches[0]?.clientX || 0;
+  const diff = endX - startX.value;
+
+  if (Math.abs(diff) > threshold) {
+    isFlipped.value = !isFlipped.value;
+  }
+
+  isDragging.value = false;
+};
+
+
+const card3DAnimationClass = computed(() =>
+  `${isMobile.value
+    ? (isFlipped.value ? 'rotate-y-180' : '')
+    : 'group-hover:rotate-y-180'
+  }`
+);
 </script>
 <template>
   <aside>
@@ -20,10 +55,11 @@ await refreshTags(5);
         </div>
         <!-- card scene -->
         <div
-          class="w-full h-full perspective-normal rounded-t-full overflow-hidden border-2 border-white/50 mx-auto col-span-2 group">
+          class="w-full h-full perspective-normal rounded-t-full overflow-hidden border-2 border-white/50 mx-auto col-span-2 group"
+          @touchstart="handleTouchStart" @touchend="handleTouchEnd">
           <!-- card -->
-          <div
-            class="w-full h-full transform-3d transition-transform duration-300 ease-in-out relative group-hover:rotate-y-180">
+          <div class="w-full h-full transform-3d transition-transform duration-300 ease-in-out relative"
+            :class="card3DAnimationClass">
             <!-- front image -->
             <img src="/images/profile-photo.jpg" alt="大頭貼"
               class="absolute inset-0 backface-hidden object-cover object-top w-full h-full" />
