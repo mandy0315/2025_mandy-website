@@ -15,7 +15,7 @@ onMounted(() => {
       <IconLogo class="dark:fill-white" />
     </BaseLink>
     <AppMenu class="hidden lg:block" />
-    <div class="flex items-center gap-x-2">
+    <div class="flex items-center gap-x-4 lg:gap-x-2">
       <AppColorModel />
       <AppSearch />
       <AppMenu class="block lg:hidden" />
