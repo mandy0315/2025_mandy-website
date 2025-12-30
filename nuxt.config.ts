@@ -18,7 +18,6 @@ console.log("🔧 建置設定:", {
 
 export default defineNuxtConfig({
   // SSG 設定
-  ssr: true,
   nitro: {
     preset: hasCustomDomain
       ? "static"
