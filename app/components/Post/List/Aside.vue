@@ -69,7 +69,7 @@ const card3DAnimationClass = computed(() =>
           </div>
         </div>
       </div>
-      <div class="col-span-5 lg:col-span-1">
+      <div class="col-span-5 pl-3 lg:pl-0 lg:col-span-1">
         <p class="lg:text-sm py-4 text-left">
           嗨～我是敏佳 Mandy，感謝您來到我的小空間，
           目前是一位前端工程師，也是珍奶們的媽媽，
