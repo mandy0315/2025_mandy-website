@@ -12,7 +12,7 @@ withDefaults(
 </script>
 <template>
   <NuxtLink :to :target :rel="target === '_blank' ? 'noopener noreferrer' : undefined" aria-label="前往連結"
-    class="rounded-full border c-border-secondary w-8 h-8 flex justify-center items-center hover:bg-primary/30 hover:border-primary">
-    <Icon :name="icon" class="text-xl " />
+    class="rounded-full border c-border-secondary w-10 h-10 lg:w-8 lg:h-8 flex justify-center items-center hover:bg-primary/30 hover:border-primary">
+    <Icon :name="icon" class="text-2xl lg:text-xl" />
   </NuxtLink>
 </template>
