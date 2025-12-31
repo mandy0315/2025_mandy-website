@@ -37,7 +37,7 @@ const setSearchListHeight = () => {
 };
 
 watch(isSearch, async (value) => {
-  if (isDesktop.value && value) {
+  if (value) {
     await nextTick();
     setSearchListHeight();
   }
@@ -66,7 +66,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-9/10 top-20 lg:w-5/10 fixed z-120 lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
+          class="w-9/10 top-20 lg:w-5/10 fixed z-120 lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg overflow-y-scroll border-b max-h-[calc(100vh-10rem)] lg:max-h-120">
 
           <!-- 頁面 -->
           <template v-if="pages.length > 0">
