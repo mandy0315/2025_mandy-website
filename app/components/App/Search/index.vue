@@ -4,7 +4,7 @@ import ItemButton from '@/components/App/Search/ItemButton.vue';
 import { watchDebounced } from '@vueuse/core';
 
 const { isDesktop } = useResponsive();
-const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList } = await useSearch();
+const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList, closeSearchModal } = await useSearch();
 const config = useRuntimeConfig();
 
 const isShowNotesSearch = computed(() => {
@@ -25,12 +25,11 @@ const setCloseModalAndToPage = async (path: string) => {
   await navigateTo(path);
 
   setTimeout(() => {
-    isShowSearchModal.value = false;
+    closeSearchModal();
   }, 300);
 };
 
 const searchListEl = ref<HTMLElement | null>(null);
-
 const setSearchListHeight = () => {
   if (!searchListEl.value) return;
   searchListEl.value.style.height = 'auto';
@@ -38,7 +37,7 @@ const setSearchListHeight = () => {
 };
 
 watch(isSearch, async (value) => {
-  if (isDesktop.value && value) {
+  if (value) {
     await nextTick();
     setSearchListHeight();
   }
@@ -49,16 +48,16 @@ watch(isSearch, async (value) => {
 
 <template>
   <div>
-    <BaseButton @click="isShowSearchModal = !isShowSearchModal">
+    <BaseButton @click="isShowSearchModal = true">
       <Icon name="i-solar:magnifer-outline" class="text-2xl lg:text-lg align-middle" />
     </BaseButton>
     <Teleport to="body">
       <div v-if="isShowSearchModal">
-        <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
-          <BaseButton @click="isShowSearchModal = false"
-            class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
-            ＋
-          </BaseButton>
+        <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
+          <button @click="closeSearchModal"
+            class="absolute w-10 h-10 top-1 right-1 c-text-secondary z-20 text-2xl bg-primary">
+            <Icon name="i-material-symbols:close-rounded" class=" align-middle text-white" />
+          </button>
           <label class="relative w-full h-12 flex bg-(--bg-color) rounded-t border c-border-secondary ">
             <input type="text" v-model="keywords"
               class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
@@ -67,7 +66,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-9/10 top-20 lg:w-5/10 fixed lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
+          class="w-9/10 top-20 lg:w-5/10 fixed z-120 lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg overflow-y-scroll border-b max-h-[calc(100vh-10rem)] lg:max-h-120">
 
           <!-- 頁面 -->
           <template v-if="pages.length > 0">
@@ -142,7 +141,7 @@ watch(isSearch, async (value) => {
           </template>
         </div>
 
-        <div @click.stop="isShowSearchModal = false" class="fixed inset-0 w-full h-full bg-black/40 z-100"></div>
+        <div @click.stop="closeSearchModal" class="fixed inset-0 w-full h-full bg-black/40 z-100"></div>
       </div>
     </Teleport>
   </div>

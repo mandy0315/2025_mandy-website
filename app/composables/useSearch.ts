@@ -194,6 +194,11 @@ const useSearch = async () => {
     isSearch.value = true;
   };
 
+  const closeSearchModal = () => {
+    isShowSearchModal.value = false;
+    keywords.value = "";
+  };
+
   return {
     keywords,
     blog,
@@ -205,6 +210,7 @@ const useSearch = async () => {
     pages,
     updateSearchList,
     isShowSearchModal,
+    closeSearchModal,
     works,
     isSearch,
   };
