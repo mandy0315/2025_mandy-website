@@ -54,7 +54,7 @@ watch(isSearch, async (value) => {
     </BaseButton>
     <Teleport to="body">
       <div v-if="isShowSearchModal">
-        <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-110">
+        <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
           <BaseButton @click="isShowSearchModal = false"
             class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
             ＋
@@ -67,7 +67,7 @@ watch(isSearch, async (value) => {
         </div>
 
         <div ref="searchListEl"
-          class="w-9/10 top-20 lg:w-5/10 fixed lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg z-110 overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
+          class="w-9/10 top-20 lg:w-5/10 fixed z-120 lg:top-32 transform -translate-x-1/2 left-1/2 bg-(--bg-color) c-border-secondary rounded-b border-l border-r shadow-lg overflow-y-scroll border-b h-[calc(100vh-7rem)] lg:max-h-120">
 
           <!-- 頁面 -->
           <template v-if="pages.length > 0">
