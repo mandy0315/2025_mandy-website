@@ -4,7 +4,7 @@ import ItemButton from '@/components/App/Search/ItemButton.vue';
 import { watchDebounced } from '@vueuse/core';
 
 const { isDesktop } = useResponsive();
-const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList } = await useSearch();
+const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList, closeSearchModal } = await useSearch();
 const config = useRuntimeConfig();
 
 const isShowNotesSearch = computed(() => {
@@ -25,12 +25,11 @@ const setCloseModalAndToPage = async (path: string) => {
   await navigateTo(path);
 
   setTimeout(() => {
-    isShowSearchModal.value = false;
+    closeSearchModal();
   }, 300);
 };
 
 const searchListEl = ref<HTMLElement | null>(null);
-
 const setSearchListHeight = () => {
   if (!searchListEl.value) return;
   searchListEl.value.style.height = 'auto';
@@ -49,13 +48,13 @@ watch(isSearch, async (value) => {
 
 <template>
   <div>
-    <BaseButton @click="isShowSearchModal = !isShowSearchModal">
+    <BaseButton @click="isShowSearchModal = true">
       <Icon name="i-solar:magnifer-outline" class="text-2xl lg:text-lg align-middle" />
     </BaseButton>
     <Teleport to="body">
       <div v-if="isShowSearchModal">
         <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
-          <button @click="isShowSearchModal = false"
+          <button @click="closeSearchModal"
             class="absolute w-10 h-10 top-1 right-1 c-text-secondary z-20 text-2xl bg-primary">
             <Icon name="i-material-symbols:close-rounded" class=" align-middle text-white" />
           </button>
@@ -142,7 +141,7 @@ watch(isSearch, async (value) => {
           </template>
         </div>
 
-        <div @click.stop="isShowSearchModal = false" class="fixed inset-0 w-full h-full bg-black/40 z-100"></div>
+        <div @click.stop="closeSearchModal" class="fixed inset-0 w-full h-full bg-black/40 z-100"></div>
       </div>
     </Teleport>
   </div>
