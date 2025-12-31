@@ -38,12 +38,12 @@ onMounted(() => {
   <footer ref="footerRef" class="bg-[--bg-color] relative z-50 py-10 mt-auto lg:py-6">
     <div class="c-container flex flex-col lg:flex-row lg:justify-between items-center py-2">
       <div class="pb-4">
-        <IconLogoHorizontal class="dark:fill-white w-36" />
+        <IconLogoHorizontal class="dark:fill-white w-36 mx-auto" />
         <div class="pt-2">
-          <p class="c-text-secondarys text-xs pl-1 pb-2 text-center lg:text-left">
+          <p class="c-text-secondarys text-base lg:text-xs pl-1 pb-2 text-center lg:text-left">
             <em><span class="hidden lg:block">嗨～我是蔓蒂</span>可以透過以下方式聯絡我：</em>
           </p>
-          <div class="flex gap-x-1 justify-center lg:justify-start">
+          <div class="flex gap-x-3  lg:gap-x-1 justify-center lg:justify-start">
             <BaseIconLink icon="mdi:email" to="mailto:mandy3152618@gmail.com" />
             <BaseIconLink icon="mdi:facebook" to="https://www.facebook.com/MandyTsai0315" target="_blank" />
             <BaseIconLink icon="mdi:github" to="https://github.com/mandy0315" target="_blank" />
@@ -53,7 +53,7 @@ onMounted(() => {
       <div class="lg:mt-auto">
         <nav class="lg:pb-2">
           <BaseLink v-for="item in pageVals" variant="underline" :to="item.path"
-            class="text-xs no-underline px-2 py-3 lg:pl-4 lg:pr-0">
+            class="text-base lg:text-xs no-underline px-2 py-3 lg:pl-4 lg:pr-0">
             {{
               item.title }}
           </BaseLink>

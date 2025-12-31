@@ -6,8 +6,8 @@ import { onClickOutside } from '@vueuse/core'
 const route = useRoute()
 const isOpenMenu = useState('isOpenMenu', () => false);
 const expandedMenus = ref<string[]>([]);
-const menuRefs = ref<Record<string, HTMLElement | null>>({});
 const config = useRuntimeConfig();
+const containerRef = ref<HTMLElement | null>(null);
 
 const pageVals = computed(() => {
   if (config.public.SHOW_NOTES_PAGE) {
@@ -39,28 +39,21 @@ const routeName = computed(() => (route.name || '') as string);
 const getChildName = (words: string) => {
   return firstWordToUpper(words.split('-')[1] || words);
 };
-
-const setMenuRef = (title: string, el: HTMLElement | null) => {
-  if (el) {
-    menuRefs.value[title] = el;
-    onClickOutside(el, () => {
-      // 點擊外部時關閉該選單
-      const index = expandedMenus.value.indexOf(title);
-      if (index > -1) {
-        expandedMenus.value.splice(index, 1);
-      }
-    });
+const { isDesktop } = useResponsive();
+onClickOutside(containerRef, () => {
+  if (isDesktop.value) {
+    closeMenu();
   }
-};
+})
+
 </script>
 
 <template>
   <div>
     <!-- Menu only Web -->
-    <nav class="lg:flex hidden gap-x-4 items-center">
+    <nav ref="containerRef" class="lg:flex hidden gap-x-4 items-center">
       <div v-for="item in pageVals" :key="item.title"
-        class="text-left font-bold font-zen-old-mincho relative max-w-full"
-        :ref="(el) => setMenuRef(item.title, el as HTMLElement)">
+        class="text-left font-bold font-zen-old-mincho relative max-w-full">
         <div class="flex items-center">
           <BaseLink :to="item.path" @click="closeMenu" class="cursor-pointer align-middle"
             :isAction="routeName.includes(item.name)">
@@ -74,7 +67,7 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
           </BaseButton>
         </div>
         <div v-if="isExpanded(item.title) && item.childrens"
-          class="absolute border c-border-secondary left-0 right-0 backdrop-blur-xs dark:bg-white/10 bg-white/60 p-2 top-10 rounded z-10">
+          class="absolute border c-border-secondary left-0 right-0 bg-(--bg-color) p-2 top-10 rounded z-10 shadow shadow-gray-200 dark:shadow-black">
           <BaseLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
             class="py-2 text-sm transition-colors cursor-pointer whitespace-nowrap"
             :isAction="routeName.includes(child.name)">
@@ -86,8 +79,8 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
     </nav>
 
     <!-- Menu only Mobile -->
-    <BaseButton class="block lg:hidden group" @click="isOpenMenu = !isOpenMenu">
-      <p class="text-xs">Menu</p>
+    <BaseButton class="block lg:hidden group relative z-110" @click="isOpenMenu = !isOpenMenu">
+      <p class="text-xs font-black">Menu</p>
       <div class="flex flex-col h-5 justify-between transform scale-75 ">
         <div class="w-8 h-0.5 bg-black dark:bg-white transition-all origin-left group-hover:bg-primary"
           :class="{ 'rotate-35 translate-x-2px': isOpenMenu }"></div>
@@ -100,31 +93,33 @@ const setMenuRef = (title: string, el: HTMLElement | null) => {
     </BaseButton>
     <Teleport to="body">
       <div
-        class="fixed flex items-center justify-start z-100 top-0 left-0 h-full w-full transition-transform duration-700 flex-row pt-0"
+        class="fixed flex items-center justify-start z-100 top-0 left-0 h-full w-full transition-transform duration-700 flex-row pt-0 "
         :class="isOpenMenu ? 'translate-x-0' : 'translate-x-full'">
         <div @click.stop="isOpenMenu = false" class="w-0 md:w-3/10 bg-(--bg-color)/40 backdrop-blur-sm h-screen">
         </div>
-        <nav class="w-full md:w-7/10 bg-(--bg-color) h-screen flex justify-center items-center flex-col">
+        <nav
+          class="w-full bg-(--bg-color) h-screen flex justify-center items-center flex-col md:shadow md:w-7/10 md:shadow-black">
           <div v-for="item in pageVals" :key="item.title"
-            class="w-8/10 text-left mx-auto py-3 font-bold font-zen-old-mincho">
-            <div class="flex">
+            class="w-full text-left mx-auto font-bold font-zen-old-mincho">
+            <div class="flex w-8/10 mx-auto py-3">
               <BaseLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer"
                 :isAction="routeName.includes(item.name)">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
               </BaseLink>
               <BaseButton v-if="item.childrens" @click="toggleSubMenu(item.title)"
-                class="text-lg px-3 transition-transform origin-center align-middle cursor-pointer ml-auto hover:text-primary"
+                class="text-lg pl-6 transition-transform origin-center align-middle cursor-pointer ml-auto hover:text-primary"
                 :class="{ 'rotate-45': isExpanded(item.title) }"
                 :isAction="routeName.includes(item.name) && routeName.includes('-')">
                 +
               </BaseButton>
             </div>
 
-            <div v-if="isExpanded(item.title) && item.childrens" class="pl-2 flex flex-col">
-              <BaseLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
-                class="py-2 cursor-pointer" :isAction="routeName.includes(child.name)">
-                {{ child.title }} {{ getChildName(child.name) }}
-              </BaseLink>
+            <div v-if="isExpanded(item.title) && item.childrens" class="flex flex-col">
+              <NuxtLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
+                class="py-3 cursor-pointer c-text-secondary"
+                :class="routeName.includes(child.name) ? 'bg-primary/50' : 'hover:bg-primary/20'">
+                <p class="w-8/10 mx-auto">{{ child.title }} {{ getChildName(child.name) }}</p>
+              </NuxtLink>
             </div>
           </div>
         </nav>
