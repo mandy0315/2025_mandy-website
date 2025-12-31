@@ -79,7 +79,7 @@ onClickOutside(containerRef, () => {
     </nav>
 
     <!-- Menu only Mobile -->
-    <BaseButton class="block lg:hidden group relative z-110" @click="isOpenMenu = !isOpenMenu">
+    <BaseButton class="block lg:hidden group" @click="isOpenMenu = !isOpenMenu">
       <p class="text-xs font-black">Menu</p>
       <div class="flex flex-col h-5 justify-between transform scale-75 ">
         <div class="w-8 h-0.5 bg-black dark:bg-white transition-all origin-left group-hover:bg-primary"
