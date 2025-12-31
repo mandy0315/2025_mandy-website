@@ -55,10 +55,10 @@ watch(isSearch, async (value) => {
     <Teleport to="body">
       <div v-if="isShowSearchModal">
         <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
-          <BaseButton @click="isShowSearchModal = false"
-            class="absolute top-3 right-3 c-text-secondary z-20 text-2xl rotate-45 origin-center">
-            ＋
-          </BaseButton>
+          <button @click="isShowSearchModal = false"
+            class="absolute w-10 h-10 top-1 right-1 c-text-secondary z-20 text-2xl bg-primary">
+            <Icon name="i-material-symbols:close-rounded" class=" align-middle text-white" />
+          </button>
           <label class="relative w-full h-12 flex bg-(--bg-color) rounded-t border c-border-secondary ">
             <input type="text" v-model="keywords"
               class="px-10 w-full focus:outline-none focus:ring-0 focus:border-0 h-full" placeholder="搜尋網站..." />
