@@ -56,7 +56,7 @@ onMounted(() => {
 
 <template>
   <Transition name="fade">
-    <div v-if="isLoading" class="fixed inset-0 z-110 bg-primary flex flex-col justify-center items-center gap-6">
+    <div v-if="isLoading" class="fixed inset-0 z-120 bg-primary flex flex-col justify-center items-center gap-6">
       <!-- SVG Logo -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.31 344" class="w-64 h-auto">
         <path v-for="(d, i) in paths" :ref="(el) => (pathRefs[i] = el as SVGPathElement)" :key="i" :d="d"
