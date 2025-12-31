@@ -7,7 +7,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <p class="font-bold py-4 text-sm lg:text-base">
+  <p class="font-bold pt-4 pb-2 text-lg lg:text-base">
     <span>{{ title }}</span>
     <span class="pr-1">{{ firstWordToUpper(titleEn) }}</span>
   </p>
