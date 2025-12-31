@@ -6,8 +6,8 @@ import { onClickOutside } from '@vueuse/core'
 const route = useRoute()
 const isOpenMenu = useState('isOpenMenu', () => false);
 const expandedMenus = ref<string[]>([]);
-const menuRefs = ref<Record<string, HTMLElement | null>>({});
 const config = useRuntimeConfig();
+const containerRef = ref<HTMLElement | null>(null);
 
 const pageVals = computed(() => {
   if (config.public.SHOW_NOTES_PAGE) {
@@ -39,28 +39,21 @@ const routeName = computed(() => (route.name || '') as string);
 const getChildName = (words: string) => {
   return firstWordToUpper(words.split('-')[1] || words);
 };
-
-const setMenuRef = (title: string, el: HTMLElement | null) => {
-  if (el) {
-    menuRefs.value[title] = el;
-    onClickOutside(el, () => {
-      // 點擊外部時關閉該選單
-      const index = expandedMenus.value.indexOf(title);
-      if (index > -1) {
-        expandedMenus.value.splice(index, 1);
-      }
-    });
+const { isDesktop } = useResponsive();
+onClickOutside(containerRef, () => {
+  if (isDesktop.value) {
+    closeMenu();
   }
-};
+})
+
 </script>
 
 <template>
   <div>
     <!-- Menu only Web -->
-    <nav class="lg:flex hidden gap-x-4 items-center">
+    <nav ref="containerRef" class="lg:flex hidden gap-x-4 items-center">
       <div v-for="item in pageVals" :key="item.title"
-        class="text-left font-bold font-zen-old-mincho relative max-w-full"
-        :ref="(el) => setMenuRef(item.title, el as HTMLElement)">
+        class="text-left font-bold font-zen-old-mincho relative max-w-full">
         <div class="flex items-center">
           <BaseLink :to="item.path" @click="closeMenu" class="cursor-pointer align-middle"
             :isAction="routeName.includes(item.name)">
