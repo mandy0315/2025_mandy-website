@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DisqusConfig, DisqusInstance } from './types'
+import type { DisqusInstance } from './types'
 
 declare global {
   interface Window {
@@ -17,9 +17,11 @@ const route = useRoute();
 const colorMode = useColorMode();
 const loaded = ref(false);
 
+const config = useRuntimeConfig();
+const siteUrl = config.public.BASE_URL
 const disqusConfig = () => ({
   identifier: props.id,
-  url: window.location.origin + route.path,
+  url: `${siteUrl}${route.path}`,
   title: props.title
 });
 
