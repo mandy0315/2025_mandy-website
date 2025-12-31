@@ -33,10 +33,11 @@ const loadDisqus = () => {
   const script: HTMLScriptElement = document.createElement('script');
   script.src = 'https://2025-mandy-website.disqus.com/embed.js';
   script.setAttribute('data-timestamp', String(+new Date()));
-  script.async = true;
-  document.head.appendChild(script);
 
-  loaded.value = true;
+  setTimeout(() => {
+    document.head.appendChild(script);
+    loaded.value = true;
+  }, 1000);
 }
 
 /** 重建 Disqus */
