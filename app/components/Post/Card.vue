@@ -24,8 +24,9 @@ const processedSrc = computed(() => getAssetPath(props.image));
         :class="isHorizontal ? 'lg:col-span-3' : ''">
         <BaseHoverMask contentText="進入文章" />
         <span class="absolute top-2 z-10 text-xs bg-primary px-1 text-white">{{ category }}</span>
-        <img :src="processedSrc" :alt="title"
-          class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm" />
+        <NuxtImg :src="processedSrc" :alt="title"
+          class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm"
+          fetchpriority="high" format="webp" quality="90" />
       </div>
 
       <!-- 內容區 -->
