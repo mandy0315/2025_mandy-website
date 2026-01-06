@@ -74,7 +74,7 @@ const card3DAnimationClass = computed(() =>
           嗨～我是敏佳 Mandy，感謝您來到我的小空間，
           目前是一位前端工程師，也是珍奶們的媽媽，
           對於專業不斷更新，以自己適合步調提升，
-          <span class="bg-primary text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
+          <span class="bg-primary-dark text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
         </p>
 
         <div class="flex gap-x-2 lg:justify-center lg:gap-x-1">

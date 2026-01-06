@@ -14,6 +14,7 @@
 
   /* 主色系 (棕色) */
   --color-primary: #cdb8a3;
+  --color-primary-dark: #7D613F;
   --color-disabled: #e5e7eb;
 
   /* 輔助色系 (灰色) */
@@ -24,9 +25,6 @@
   --color-text-light: #111111;
   --color-text-dark: #f6f5f0;
 
-
-  /* 深文字色 */
-  --color-primary: #cdb8a3;
 
 
   /* 動畫 */

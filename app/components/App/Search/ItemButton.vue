@@ -30,11 +30,11 @@ const keywordsHighlight = (keywords: string, text: string) => {
 </script>
 <template>
   <button @click="$emit('handleToPage')"
-    class="flex group rounded mb-1 items-center text-left border-none w-full py-2 px-1 lg:p-1 hover:bg-primary/20">
+    class="flex group rounded mb-1 items-center text-left border-none w-full py-2 px-1 lg:p-1 hover:bg-primary/30">
     <div class="w-4">
       <Icon :name="icon" class="text-gray-500 w-full mt-1 group-hover:dark:text-white" />
     </div>
-    <div v-if="category" class="ml-1 text-sm px-1 bg-primary text-white">{{ category }}</div>
+    <div v-if="category" class="ml-1 text-sm px-1 bg-primary-dark text-white">{{ category }}</div>
     <p class="pl-2 grow line-clamp-1">
       <span v-html="keywordsHighlight(keywords, title)" class="pr-1"></span>
       <span v-if="description" v-html="keywordsHighlight(keywords, description)" class="c-text-secondary"></span>
