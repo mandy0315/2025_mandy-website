@@ -243,6 +243,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxt/content",
+    "@nuxt/image",
   ],
 
   css: ["@/styles/tailwind/main.css"],
@@ -289,5 +290,17 @@ export default defineNuxtConfig({
     defaults: {
       extension: "jpeg", // 預設 png 改為 jpeg
     },
+  },
+
+  image: {
+    provider: "ipx",
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    },
+    quality: 75,
   },
 });
