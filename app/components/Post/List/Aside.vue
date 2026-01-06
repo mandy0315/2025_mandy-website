@@ -87,7 +87,7 @@ const card3DAnimationClass = computed(() =>
     <!-- 分類 -->
     <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex pb-2">
-        <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+        <p class="font-zen-old-mincho font-bold text-lg lg:text-sm">
           <span class="pr-2">分類</span>
           <span>Categories</span>
         </p>
@@ -101,7 +101,7 @@ const card3DAnimationClass = computed(() =>
     <!-- 標籤 -->
     <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex justify-between pb-2">
-        <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+        <p class="font-zen-old-mincho font-bold text-lg lg:text-sm">
           <span class="pr-2">標籤</span>
           <span>Tags</span>
         </p>
