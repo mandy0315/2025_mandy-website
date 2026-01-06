@@ -61,10 +61,10 @@ const card3DAnimationClass = computed(() =>
           <div class="w-full h-full transform-3d transition-transform duration-300 ease-in-out relative"
             :class="card3DAnimationClass">
             <!-- front image -->
-            <img src="/images/profile-photo.jpg" alt="大頭貼"
+            <img src="/images/profile-photo.webp" alt="大頭貼"
               class="absolute inset-0 backface-hidden object-cover object-top w-full h-full" />
             <!-- back image -->
-            <img src="/images/profile-photo-back.jpg" alt="大頭貼"
+            <img src="/images/profile-photo-back.webp" alt="大頭貼"
               class="absolute inset-0 backface-hidden object-cover object-top w-full h-full rotate-y-180" />
           </div>
         </div>

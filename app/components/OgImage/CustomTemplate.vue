@@ -15,7 +15,7 @@ withDefaults(defineProps<{
       <p class="text-3xl text-secondary-light font-light">{{ description }}</p>
     </div>
     <div class="mt-auto mx-auto pb-3">
-      <img src="/images/logo-horizontal.png" class="w-52 h-16" alt="logo">
+      <img src="/images/logo-horizontal.webp" class="w-52 h-16" alt="logo">
     </div>
   </div>
 </template>
