@@ -30,15 +30,15 @@ const buttonClasses = computed(() => {
   }[props.size] : '';
 
   const variantClasses = {
-    outline: 'border border-primary text-primary bg-white/20 hover:bg-primary/70 hover:text-white active:bg-primary active:text-white rounded-4xl',
-    solid: 'bg-primary text-white hover:bg-primary-dark rounded-4xl',
-    base: 'hover:text-primary/70 active:text-primary'
+    outline: 'border border-primary-dark dark:border-primary text-primary-dark dark:text-primary hover:bg-primary-dark/70 dark:hover:bg-primary/70 hover:text-white active:bg-primary-dark dark:active:bg-primary active:text-white rounded-4xl',
+    solid: 'bg-primary-dark text-white hover:bg-primary-dark rounded-4xl',
+    base: 'hover:text-primary-dark/70 dark:hover:text-primary/70 active:text-primary-dark dark:active:text-primary'
   }
 
   const actionVariantClasses = {
     outline: variantClasses.solid,
     solid: variantClasses.solid,
-    base: 'text-primary',
+    base: 'text-primary-dark dark:text-primary',
   }
   return [
     base,

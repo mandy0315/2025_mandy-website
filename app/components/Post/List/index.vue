@@ -24,7 +24,7 @@ const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
         </BaseTitle>
         <p v-if="posts.list.length > 0" class="text-lg text-center ">
           共
-          <span class="text-primary font-medium">{{ posts.totalPosts || 0 }}</span>
+          <span class="text-primary-dark dark:text-primary font-medium">{{ posts.totalPosts || 0 }}</span>
           篇
         </p>
       </div>
