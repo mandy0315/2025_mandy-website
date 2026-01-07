@@ -151,12 +151,14 @@ const getItemStyle = (index: number) => {
               class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
               :class="getItemClasses(index)" :style="getItemStyle(index)">
               <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
-              <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+              <NuxtImg :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover"
+                loading="lazy" format="webp" sizes="100vw lg:480px" />
             </div>
             <template #fallback>
               <div
                 class="z-10 object-cover shadow-xl relative overflow-hidden w-[320px] h-[180px] lg:w-[480px] lg:h-[270px]">
-                <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+                <NuxtImg :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover"
+                  loading="lazy" format="webp" sizes="100vw lg:480px" />
               </div>
             </template>
           </ClientOnly>

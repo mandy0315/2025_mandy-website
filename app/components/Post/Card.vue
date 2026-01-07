@@ -20,12 +20,14 @@ const processedSrc = computed(() => getAssetPath(props.image));
     <div class="grid grid-cols-1" :class="isHorizontal ? 'lg:grid-cols-7' : ''">
 
       <!-- 圖片比例 16:9 -->
-      <div class="w-full h-0 pb-[56.25%] relative rounded-lg overflow-hidden col-span-1"
+      <div class="aspect-video relative rounded-lg overflow-hidden col-span-1"
         :class="isHorizontal ? 'lg:col-span-3' : ''">
         <BaseHoverMask contentText="進入文章" />
         <span class="absolute top-2 z-10 text-xs bg-primary-dark px-1 text-white">{{ category }}</span>
-        <img :src="processedSrc" :alt="title"
-          class="h-full transition object-center object-cover w-full absolute duration-500 ease-in-out group-hover:blur-sm" />
+
+        <NuxtImg :src="processedSrc" :alt="title"
+          class="h-full w-full transition object-center object-cover absolute duration-500 inset-0 ease-in-out group-hover:blur-sm"
+          format="webp" :sizes="isHorizontal ? '350px md:500px' : '350px md:400px'" loading="lazy" />
       </div>
 
       <!-- 內容區 -->

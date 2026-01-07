@@ -245,7 +245,6 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxt/image",
   ],
-
   css: ["@/styles/tailwind/main.css"],
   vite: {
     plugins: [tailwindcss()],
@@ -293,7 +292,6 @@ export default defineNuxtConfig({
   },
 
   image: {
-    provider: "ipx",
     screens: {
       xs: 320,
       sm: 640,
@@ -302,5 +300,11 @@ export default defineNuxtConfig({
       xl: 1280,
     },
     quality: 75,
+    provider: "ipx",
+    ipx: {
+      modifiers: {
+        format: "webp",
+      },
+    },
   },
 });
