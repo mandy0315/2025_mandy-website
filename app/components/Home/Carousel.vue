@@ -141,7 +141,7 @@ const getItemStyle = (index: number) => {
         <NuxtLink :to="`/works/${item.id}`" class="block w-full h-full" :aria-label="`前往${item.title}詳情頁面`">
           <Transition name="slide-up">
             <h3 v-if="index === currentIndex"
-              class="text-4xl lg:text-5xl font-semibold mb-1 text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
+              class="text-4xl lg:text-5xl font-semibold mb-1 text-primary-dark dark:text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">
               {{ item.title }}
             </h3>
           </Transition>
@@ -151,12 +151,14 @@ const getItemStyle = (index: number) => {
               class="z-10 object-cover shadow-xl transition-all origin-center duration-300 ease-out relative overflow-hidden group"
               :class="getItemClasses(index)" :style="getItemStyle(index)">
               <BaseHoverMask v-if="index === currentIndex" class="absolute inset-0 z-20" />
-              <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+              <NuxtImg :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover"
+                loading="lazy" format="webp" sizes="100vw lg:480px" />
             </div>
             <template #fallback>
               <div
                 class="z-10 object-cover shadow-xl relative overflow-hidden w-[320px] h-[180px] lg:w-[480px] lg:h-[270px]">
-                <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover" />
+                <NuxtImg :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover"
+                  loading="lazy" format="webp" sizes="100vw lg:480px" />
               </div>
             </template>
           </ClientOnly>
@@ -174,10 +176,12 @@ const getItemStyle = (index: number) => {
   <div class="absolute inset-0 max-w-150 mx-auto">
     <!-- arrows -->
     <div class="absolute top-1/2 -translate-y-1/2 w-full z-30">
-      <button @click="prevSlide" class="absolute left-0 text-5xl text-white bg-primary/80" aria-label="上一張作品">
+      <button @click="prevSlide" class="absolute left-0 text-5xl text-white bg-primary hover:bg-primary-dark"
+        aria-label="上一張作品">
         <Icon name="mdi:chevron-left" class="align-middle" />
       </button>
-      <button @click="nextSlide" class="absolute right-0 text-5xl text-white bg-primary/80" aria-label="下一張作品">
+      <button @click="nextSlide" class="absolute right-0 text-5xl text-white bg-primary hover:bg-primary-dark"
+        aria-label="下一張作品">
         <Icon name="mdi:chevron-right" class="align-middle" />
       </button>
     </div>

@@ -116,10 +116,10 @@ onUnmounted(() => {
           <BaseTitle>作品</BaseTitle>
           <p v-if="allWorks && allWorks.length > 0" class="text-center">
             <template v-if="selectWorks.length === allWorks.length">
-              共 <span class="text-primary font-medium">{{ allWorks.length }}</span> 項
+              共 <span class="text-primary-dark dark:text-primary font-medium">{{ allWorks.length }}</span> 項
             </template>
             <template v-else>
-              顯示 <span class="text-primary font-medium">{{ selectWorks.length }}</span> 項
+              顯示 <span class="text-primary-dark dark:text-primary font-medium">{{ selectWorks.length }}</span> 項
               <span class="c-text-secondary">（共 {{ allWorks.length }} 項）</span>
             </template>
           </p>

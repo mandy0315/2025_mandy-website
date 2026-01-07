@@ -60,7 +60,7 @@ onClickOutside(containerRef, () => {
             {{ item.title }} {{ firstWordToUpper(item.name) }}
           </BaseLink>
           <BaseButton v-if="item.childrens" @click="toggleSubMenu(item.title)"
-            class="relative w-6 h-6 flex items-center justify-center transition-transform origin-center cursor-pointer ml-auto hover:text-primary"
+            class="relative w-6 h-6 flex items-center justify-center transition-transform origin-center cursor-pointer ml-auto hover:text-primary-dark"
             :class="{ 'rotate-45': isExpanded(item.title) }"
             :isAction="routeName.includes(item.name) && routeName.includes('-')">
             +
@@ -102,7 +102,7 @@ onClickOutside(containerRef, () => {
           <div v-for="item in pageVals" :key="item.title"
             class="w-full text-left mx-auto font-bold font-zen-old-mincho">
             <div class="flex w-8/10 mx-auto py-3">
-              <BaseLink :to="item.path" @click="closeMenu" class="text-lg cursor-pointer"
+              <BaseLink :to="item.path" @click="closeMenu" class=" cursor-pointer" size="lg"
                 :isAction="routeName.includes(item.name)">
                 {{ item.title }} {{ firstWordToUpper(item.name) }}
               </BaseLink>
