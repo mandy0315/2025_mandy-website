@@ -48,7 +48,7 @@ watch(isSearch, async (value) => {
 
 <template>
   <div>
-    <BaseButton @click="isShowSearchModal = true">
+    <BaseButton @click="isShowSearchModal = true" title="search">
       <Icon name="i-solar:magnifer-outline" class="text-2xl lg:text-lg align-middle" />
     </BaseButton>
     <Teleport to="body">

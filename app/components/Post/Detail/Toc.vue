@@ -86,7 +86,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="hidden lg:block">
-    <p class="font-zen-old-mincho font-black pb-2 text-lg border-b c-border-secondary">
+    <p class="font-zen-old-mincho font-bold pb-2 text-lg border-b c-border-secondary">
       <span class="pr-2">目錄</span>
       <span>Toc</span>
     </p>

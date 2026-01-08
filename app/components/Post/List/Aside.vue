@@ -74,7 +74,7 @@ const card3DAnimationClass = computed(() =>
           嗨～我是敏佳 Mandy，感謝您來到我的小空間，
           目前是一位前端工程師，也是珍奶們的媽媽，
           對於專業不斷更新，以自己適合步調提升，
-          <span class="bg-primary text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
+          <span class="bg-primary-dark text-white">希望透過小空間能紀錄生活點滴與技術</span>，豐富自己和觀看的大家！
         </p>
 
         <div class="flex gap-x-2 lg:justify-center lg:gap-x-1">
@@ -87,7 +87,7 @@ const card3DAnimationClass = computed(() =>
     <!-- 分類 -->
     <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex pb-2">
-        <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+        <p class="font-zen-old-mincho font-bold text-lg lg:text-sm">
           <span class="pr-2">分類</span>
           <span>Categories</span>
         </p>
@@ -101,7 +101,7 @@ const card3DAnimationClass = computed(() =>
     <!-- 標籤 -->
     <section class="bg-primary/10 p-3 rounded-md mb-3 lg:mb-0 lg:rounded-none lg:px-0 lg:bg-transparent lg:grid-cols-1">
       <div class="flex justify-between pb-2">
-        <p class="font-zen-old-mincho font-black text-lg lg:text-sm">
+        <p class="font-zen-old-mincho font-bold text-lg lg:text-sm">
           <span class="pr-2">標籤</span>
           <span>Tags</span>
         </p>
