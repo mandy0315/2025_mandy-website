@@ -243,8 +243,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxt/content",
-    "@nuxt/image",
   ],
+
   css: ["@/styles/tailwind/main.css"],
   vite: {
     plugins: [tailwindcss()],
@@ -288,23 +288,6 @@ export default defineNuxtConfig({
     fonts: ["Noto+Sans+TC:700"],
     defaults: {
       extension: "jpeg", // 預設 png 改為 jpeg
-    },
-  },
-
-  image: {
-    screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-    },
-    quality: 75,
-    provider: "ipx",
-    ipx: {
-      modifiers: {
-        format: "webp",
-      },
     },
   },
 });

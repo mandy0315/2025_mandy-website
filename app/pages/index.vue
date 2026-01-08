@@ -35,7 +35,7 @@ onMounted(() => {
         <section class="flex flex-col pb-12 lg:pb-0 lg:h-screen justify-center">
           <h1 class="font-zen-old-mincho font-bold text-4xl pb-6 lg:text-5xl">HI～我是敏佳 Mandy</h1>
           <p class="text-xl">歡迎來到我的小空間，小空間<span
-              class="bg-primary-dark text-white mx-2">記錄著我的生活點滴</span>，希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
+              class="bg-primary text-white mx-2">記錄著我的生活點滴</span>，希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
         </section>
         <!-- VisualKV -->
         <div class="w-full flex justify-center pb-20 lg:hidden">

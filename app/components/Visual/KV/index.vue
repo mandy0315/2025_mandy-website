@@ -15,10 +15,7 @@ watch(colorMode, () => {
 </script>
 <template>
   <div class="w-90 h-auto flex justify-center items-center relative">
-    <NuxtImg src="/images/kv.png" alt="KV 主視覺圖片"
-      class="object-contain aspect-2/3 object-center filter dark:contrast-80 relative z-10" :preload="{
-        fetchPriority: 'high'
-      }" format="webp" sizes="70vw lg:360px" />
+    <img src="/images/kv.png" class="object-contain object-center filter dark:contrast-80 relative z-10" />
 
     <div class="sky absolute -top-8 w-60 h-75 rounded-t-full overflow-hidden">
       <!-- night bg -->

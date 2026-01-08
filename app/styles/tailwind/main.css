@@ -1,20 +1,7 @@
 /* 引入 Zen Old Mincho (Google Fonts)
 網址：https://fonts.google.com/specimen/Zen+Old+Mincho
 */
-@font-face {
-  font-family: 'Zen Old Mincho';
-  src: url('/fonts/ZenOldMincho-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Zen Old Mincho';
-  src: url('/fonts/ZenOldMincho-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -27,7 +14,6 @@
 
   /* 主色系 (棕色) */
   --color-primary: #cdb8a3;
-  --color-primary-dark: #7D613F;
   --color-disabled: #e5e7eb;
 
   /* 輔助色系 (灰色) */
@@ -38,6 +24,9 @@
   --color-text-light: #111111;
   --color-text-dark: #f6f5f0;
 
+
+  /* 深文字色 */
+  --color-primary: #cdb8a3;
 
 
   /* 動畫 */

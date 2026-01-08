@@ -19,7 +19,7 @@ await refreshArchivePosts({ page: currentPage.value, type: 'tags', value: curren
   <div>
     <!-- title -->
     <div class="pb-4">
-      <div class="lg:text-sm text-center font-bold font-zen-old-mincho pb-2">
+      <div class="lg:text-sm text-center font-black font-zen-old-mincho pb-2">
         <span class="px-1">-</span>
         <BaseLink variant="underline" :to="collection === 'blog' ? '/blog' : '/notes'" class="pr-2">{{ collection ===
           'blog' ? '部落格'
