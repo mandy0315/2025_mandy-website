@@ -16,7 +16,7 @@ watch(colorMode, () => {
 <template>
   <div class="w-90 h-auto flex justify-center items-center relative">
     <img src="/images/kv-1x.png" srcset="/images/kv-1x.png 1x, /images/kv-2x.png 2x"
-      class="object-contain object-center filter dark:contrast-80 relative z-10" alt="KV 圖" />
+      class="object-contain object-center filter dark:contrast-80 relative z-10" width="360" height="540" alt="KV 圖" />
 
     <div class="sky absolute -top-8 w-60 h-75 rounded-t-full overflow-hidden">
       <!-- night bg -->
