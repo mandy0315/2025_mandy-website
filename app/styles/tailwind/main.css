@@ -1,20 +1,4 @@
-/* 引入 Zen Old Mincho (Google Fonts)
-網址：https://fonts.google.com/specimen/Zen+Old+Mincho
-*/
-@font-face {
-  font-family: 'Zen Old Mincho';
-  src: url('/fonts/ZenOldMincho-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Zen Old Mincho';
-  src: url('/fonts/ZenOldMincho-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 

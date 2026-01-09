@@ -184,7 +184,8 @@ const getItemStyle = (index: number) => {
       </button>
     </div>
     <!-- numbers -->
-    <div v-if="items.length > 0" class="absolute bottom-4 text-3xl right-0 font-zen-old-mincho c-text-secondary">
+    <div v-if="items.length > 0"
+      class="absolute bottom-4 text-3xl right-0 font-zen-old-mincho font-bold c-text-secondary">
       <div class="relative px-2">
         <p class="px-2 absolute -left-6 -top-12 text-primary">{{ currentIndex + 1 }}</p>
         <div class="border-l c-border-secondary h-16 rotate-45 absolute bottom-2"></div>
