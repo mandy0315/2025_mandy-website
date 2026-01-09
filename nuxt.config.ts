@@ -243,7 +243,28 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxt/content",
+    "@nuxtjs/google-fonts",
   ],
+
+  googleFonts: {
+    families: {
+      "Zen Old Mincho": [700],
+    },
+    download: true, // Google Fonts 下載 .woff2 檔案
+    inject: true, // 自動注入 @font-face CSS
+    display: "swap", // 先顯示備用字體，載入完成後切換
+    // 預載入設定
+    preload: true,
+    // 輸出設定 - 整合到您現有的 CSS
+    outputDir: "fonts",
+    stylePath: "css/google-fonts.css",
+    // 不使用外部 stylesheet
+    useStylesheet: false,
+    // 優化設定
+    base64: false,
+    prefetch: false,
+    preconnect: false,
+  },
 
   css: ["@/styles/tailwind/main.css"],
   vite: {
