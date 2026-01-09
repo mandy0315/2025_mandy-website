@@ -265,7 +265,14 @@ export default defineNuxtConfig({
     },
   },
 
-  icon: {},
+  icon: {
+    mode: "local",
+
+    // 指定已安裝的圖示集
+    serverBundle: {
+      collections: ["logos", "mdi", "solar"],
+    },
+  },
 
   colorMode: {
     preference: "system",
