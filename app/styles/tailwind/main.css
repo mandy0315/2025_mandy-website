@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
