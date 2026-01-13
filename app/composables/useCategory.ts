@@ -1,8 +1,17 @@
 export const useCategory = async (collection: "blog" | "notes" = "blog") => {
   const categories = useState<string[]>(`categories-${collection}`, () => []);
 
+  const cleanCategory = (category: string) => {
+    // 去空白、全小寫、處理特殊字符
+    return category
+      .trim() // 去除前後空白
+      .toLowerCase() // 轉小寫
+      .replace(/\s+/g, "-") // 空白轉為連字符
+      .replace(/[^\w\u4e00-\u9fff-]/g, ""); // 只保留字母、數字、中文、連字符
+  };
+
   const goToCategoriesPage = async (category: string) => {
-    await navigateTo(`/${collection}/categories/${category}`);
+    await navigateTo(`/${collection}/categories/${cleanCategory(category)}`);
   };
 
   const { data: categoriesData, refresh } = await useAsyncData(
@@ -28,9 +37,8 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
 
     selectedCategories = Array.from(new Set(selectedCategories)); // 篩選掉重複的
     selectedCategories = selectedCategories.map((category) =>
-      category.toLowerCase()
-    ); // 陣列裡的字串全部轉小寫
-
+      cleanCategory(category)
+    );
     if (limit) {
       selectedCategories = selectedCategories.slice(0, limit);
     }
@@ -54,5 +62,6 @@ export const useCategory = async (collection: "blog" | "notes" = "blog") => {
     refreshCategories,
     setCategories,
     categories,
+    cleanCategory,
   };
 };
