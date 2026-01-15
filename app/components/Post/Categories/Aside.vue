@@ -10,7 +10,10 @@ const isExpanded = ref(false);
 const config = useRuntimeConfig();
 
 const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
-const currentCategory = computed(() => (route.params?.category || '') as string);
+const currentCategory = computed(() => {
+  const category = (route.params?.category) as string || '';
+  return decodeURIComponent(category);
+});
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 
 const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentCategory);
