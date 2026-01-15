@@ -4,7 +4,7 @@ const props = defineProps<{
 }>();
 
 const route = useRoute()
-const { goToCategoriesPage, cleanCategory } = await useCategory(props.collection);
+const { goToCategoriesPage } = await useCategory(props.collection);
 const { prevData, nextData } = await useNavigation(props.collection, route.path);
 
 const { data: post } = await useAsyncData(route.path, () => {
@@ -44,7 +44,7 @@ const scrollToTop = () => {
           <div class="pb-3 lg:pb-0 lg:text-right">
             <BaseButton variant="outline" class="text-sm px-2 py-1 lg:text-xs"
               @click="goToCategoriesPage(post.category)">{{
-                cleanCategory(post.category) }}
+                post.category }}
             </BaseButton>
           </div>
         </div>
