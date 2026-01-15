@@ -6,7 +6,10 @@ const props = defineProps<{
 const route = useRoute();
 const { refreshArchivePosts, posts } = await usePosts(props.collection);
 const currentPage = ref(1);
-const currentCategory = computed(() => (route.params?.category || '') as string);
+const currentCategory = computed(() => {
+  const category = (route.params?.category) as string || '';
+  return decodeURIComponent(category);
+});
 const categoryName = computed(() => {
   if (currentCategory.value === '') return '';
   return currentCategory.value.charAt(0).toUpperCase() + currentCategory.value.slice(1);

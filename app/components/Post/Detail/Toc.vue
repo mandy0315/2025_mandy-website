@@ -48,12 +48,11 @@ const tocsWithNumbers = computed(() => {
 });
 const initListenerPage = async (retryCount = 0) => {
   if (tocList.value.length === 0) return;
-
   const maxRetries = 5;
   const delay = Math.min(100 * Math.pow(2, retryCount), 1000);
 
   const navs = tocList.value.map(toc => {
-    const id = toc.title.trim().replace(/\s+/g, '-').toLowerCase();
+    const id = toc.id.split('#')[1] || '';
     const element = document.getElementById(id);
 
     return {
@@ -93,11 +92,12 @@ onMounted(() => {
 
     <nav class="px-3 py-5">
       <ClientOnly fallback-tag="div" fallback="目錄內容">
+
         <div v-for="toc in tocsWithNumbers" :key="toc.id">
-          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary"
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary mt-2 block"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
             :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
-            <span class="pr-2">{{ toc.number }}.</span>
+            <span v-if="toc.level > 2" class="pr-2">{{ toc.number }}.</span>
             <span>{{ toc.title }}</span>
           </NuxtLink>
         </div>
