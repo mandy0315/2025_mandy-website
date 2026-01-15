@@ -10,7 +10,10 @@ const isExpanded = ref(false);
 const config = useRuntimeConfig();
 
 const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
-const currentTag = computed(() => (route.params?.tag || '') as string);
+const currentTag = computed(() => {
+  const tag = (route.params?.tag) as string || '';
+  return decodeURIComponent(tag);
+});
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 
 const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentTag);

@@ -6,7 +6,10 @@ const props = defineProps<{
 const route = useRoute();
 const { refreshArchivePosts, posts } = await usePosts(props.collection);
 const currentPage = ref(1);
-const currentTag = computed(() => (route.params?.tag || '') as string);
+const currentTag = computed(() => {
+  const tag = (route.params?.tag) as string || '';
+  return decodeURIComponent(tag);
+});
 const tagName = computed(() => {
   if (currentTag.value === '') return '';
   return currentTag.value.charAt(0).toUpperCase() + currentTag.value.slice(1);
