@@ -8,10 +8,11 @@ const footerRef = ref<HTMLElement | null>(null);
 const config = useRuntimeConfig();
 
 const pageVals = computed(() => {
-  if (config.public.SHOW_NOTES_PAGE) {
-    return Array.from(pageInfo.values());
+  if (!config.public.SHOW_NOTES_PAGE) {
+    return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
   }
-  return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
+  return Array.from(pageInfo.values());
+
 });
 
 const setFooterObserver = (footerElement: HTMLElement) => {

@@ -10,10 +10,10 @@ const config = useRuntimeConfig();
 const containerRef = ref<HTMLElement | null>(null);
 
 const pageVals = computed(() => {
-  if (config.public.SHOW_NOTES_PAGE) {
-    return Array.from(pageInfo.values());
+  if (!config.public.SHOW_NOTES_PAGE) {
+    return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
   }
-  return Array.from(pageInfo.values()).filter(item => item.name !== 'notes');
+  return Array.from(pageInfo.values());
 });
 
 const toggleSubMenu = (title: string) => {

@@ -3,12 +3,16 @@ import ItemTitle from '@/components/App/Search/ItemTitle.vue';
 import ItemButton from '@/components/App/Search/ItemButton.vue';
 import { watchDebounced } from '@vueuse/core';
 
-const { isDesktop } = useResponsive();
 const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList, closeSearchModal } = await useSearch();
 const config = useRuntimeConfig();
 
-const isShowNotesSearch = computed(() => {
-  return config.public.SHOW_NOTES_PAGE && (notes.value.length > 0 || notesCategories.value.length > 0 || notesTags.value.length > 0);
+const isShowNotesSearch = computed(() => config.public.SHOW_NOTES_PAGE);
+
+const pageVals = computed(() => {
+  if (!config.public.SHOW_NOTES_PAGE) {
+    return pages.value.filter(item => item.title !== '筆記');
+  }
+  return pages.value;
 });
 watchDebounced(
   keywords,
@@ -72,7 +76,7 @@ watch(isSearch, async (value) => {
           <template v-if="pages.length > 0">
             <div class="px-2">
               <ItemTitle titleEn="pages" title="頁面" />
-              <ItemButton v-for="(page, idx) in pages" :key="idx" icon="solar:folder-bold" :keywords="keywords"
+              <ItemButton v-for="(page, idx) in pageVals" :key="idx" icon="solar:folder-bold" :keywords="keywords"
                 :title="page.title" @handleToPage="setCloseModalAndToPage(page.path)" />
             </div>
             <hr class="c-border-secondary">
@@ -93,7 +97,7 @@ watch(isSearch, async (value) => {
           </template>
 
           <!-- 部落格 -->
-          <template v-if="blog.length > 0 || blogCategories.length > 0 || blogTags.length > 0">
+          <template v-if="blog.length > 0">
             <div class="px-2">
               <ItemTitle titleEn="blog" title="部落格" />
               <ItemButton v-for="(post, idx) in blog" :key="idx" :keywords="keywords" :title="post.title"
@@ -118,7 +122,7 @@ watch(isSearch, async (value) => {
           </template>
 
           <!-- 筆記 -->
-          <template v-if="isShowNotesSearch">
+          <template v-if="isShowNotesSearch && notes.length > 0">
             <div class="px-2">
               <ItemTitle titleEn="notes" title="筆記" />
               <ItemButton v-for="(note, idx) in notes" :key="idx" :keywords="keywords" :title="note.title"
