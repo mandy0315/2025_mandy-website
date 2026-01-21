@@ -33,7 +33,7 @@ const { isLoading } = usePageLoading();
     <AppHeader />
     <main class="lg:flex-1 mt-24">
       <div class="flex flex-col lg:flex-row relative c-container">
-        <div class="flex-1 lg:pr-4 lg:min-h-screen">
+        <div class="flex-1 lg:w-[calc(100%-15rem)] lg:pr-4 lg:min-h-screen">
           <slot />
         </div>
 
