@@ -1,35 +1,25 @@
-interface Post {
-  title: string;
-  path: string;
-  category: string;
-  tags: string[];
-  image: string;
-  description: string;
-  date: string;
-}
-
 type SortOrder = "ASC" | "DESC";
-export const usePosts = async (collection: "blog" | "notes" = "blog") => {
-  const LIMIT_COUNT = 9;
+export const usePosts = async (
+  collection: "blog" | "notes" = "blog",
+  limit = 9,
+) => {
+  const LIMIT_COUNT = limit;
   const currentSort = useState<SortOrder>(`${collection}-sort`, () => "DESC");
-  const posts = useState<{
-    list: Post[];
-    totalPosts: number;
-    currentPage?: number;
-    totalPage?: number;
-  }>(`${collection}-posts`, () => {
-    return {
-      list: [],
-      totalPosts: 0,
-    };
-  });
+  const currentPage = useState<number>(`${collection}-page`, () => 1);
 
+  // 取得總文章數量
+  const { data: totalCount } = useAsyncData(`${collection}-total-count`, () =>
+    queryCollection(collection).count(),
+  );
+
+  // 取得分頁後的文章資料
   const {
-    data: allPosts,
+    data: filteredData,
     refresh,
     pending,
-  } = await useAsyncData(`${collection}-posts-data`, async () => {
-    return await queryCollection(collection)
+  } = useAsyncData(`${collection}-posts-data`, () => {
+    const skip = (currentPage.value - 1) * LIMIT_COUNT;
+    return queryCollection(collection)
       .order("date", currentSort.value)
       .select(
         "title",
@@ -38,94 +28,38 @@ export const usePosts = async (collection: "blog" | "notes" = "blog") => {
         "tags",
         "image",
         "description",
-        "date"
+        "date",
       )
+      .limit(LIMIT_COUNT)
+      .skip(skip)
       .all();
   });
 
-  const setPaginatePosts = (limit = 1, currentPage = 1) => {
-    const list = posts.value.list;
-    if (list.length === 0) return;
+  const posts = computed(() => {
+    if (!filteredData.value || !totalCount.value) {
+      return {
+        list: [],
+        totalPosts: 0,
+        totalPage: 0,
+      };
+    }
 
-    // 一頁限有幾筆文章
-    const totalPage = Math.ceil(list.length / limit);
-
-    // 頁面的文章
-    const postsInPage = list.slice(
-      (currentPage - 1) * limit,
-      currentPage * limit
-    );
-
-    posts.value = {
-      list: postsInPage,
-      currentPage,
-      totalPage,
-      totalPosts: list.length,
+    return {
+      list: filteredData.value,
+      totalPosts: totalCount.value,
+      totalPage: Math.ceil(totalCount.value / LIMIT_COUNT),
     };
-  };
+  });
 
-  const setPosts = (page = 1, limit?: number) => {
-    if (allPosts.value) {
-      posts.value.list = allPosts.value;
-      posts.value.totalPosts = allPosts.value.length;
-      const currentlimit = limit || LIMIT_COUNT;
-      setPaginatePosts(currentlimit, page);
-    }
-  };
-
-  const refreshPosts = async (page = 1) => {
+  const refreshPosts = async () => {
     await refresh();
-    setPosts(page);
-  };
-
-  // 設定分類與標籤文章列表
-  const setArchivePosts = (type: "category" | "tags", value: string) => {
-    const list = posts.value.list;
-    if (list.length === 0) return;
-
-    // type 區分要用 .tags .categories
-    const newPosts = posts.value.list.filter((post) => {
-      // 轉小寫
-      const categoryToLower = post.category.toLowerCase();
-      const tagsToLower = post.tags.map((tag) => tag.toLowerCase());
-      const valueToLower = value.toLowerCase();
-
-      return type === "category"
-        ? categoryToLower === valueToLower
-        : tagsToLower.includes(valueToLower);
-    });
-    if (newPosts && newPosts.length > 0) {
-      posts.value.list = newPosts;
-      posts.value.totalPosts = newPosts.length;
-    }
-  };
-
-  const refreshArchivePosts = async ({
-    page,
-    type,
-    value,
-  }: {
-    page?: number;
-    type: "category" | "tags";
-    value: string;
-  }) => {
-    currentSort.value = "DESC";
-    await refresh();
-    if (allPosts.value) {
-      posts.value.list = allPosts.value;
-      posts.value.totalPosts = allPosts.value.length;
-      setArchivePosts(type, value);
-      setPaginatePosts(LIMIT_COUNT, page);
-    }
   };
 
   return {
-    allPosts,
     posts,
-    pending, // 使用 useAsyncData 內建的 pending 狀態
+    pending,
     currentSort,
-    setPosts,
+    currentPage,
     refreshPosts,
-    refreshArchivePosts,
   };
 };
