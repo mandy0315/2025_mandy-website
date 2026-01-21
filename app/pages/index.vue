@@ -21,10 +21,7 @@ const skillsDisplay = computed(() => {
 
 
 // 文章
-const { setPosts: setBlog, posts: blog } = await usePosts('blog');
-onMounted(() => {
-  setBlog(1, 6);
-});
+const { posts: blog } = await usePosts('blog', 6);
 </script>
 
 <template>
