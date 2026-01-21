@@ -2,13 +2,14 @@
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
+const { refreshPosts, posts, pending, currentSort, currentPage } = await usePosts(props.collection);
 
-const currentPage = ref(1);
-const { setPosts, refreshPosts, posts, pending, currentSort } = await usePosts(props.collection);
-setPosts(currentPage.value);
-
-watch([currentPage, currentSort], async () => {
-  await refreshPosts(currentPage.value);
+watch(currentPage, async () => {
+  await refreshPosts();
+});
+watch(currentSort, async () => {
+  currentPage.value = 1;
+  await refreshPosts();
 });
 const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
 
