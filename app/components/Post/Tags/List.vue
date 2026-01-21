@@ -4,19 +4,25 @@ const props = defineProps<{
 }>();
 
 const route = useRoute();
-const { refreshArchivePosts, posts } = await usePosts(props.collection);
-const currentPage = ref(1);
-const currentTag = computed(() => {
-  const tag = (route.params?.tag) as string || '';
-  return decodeURIComponent(tag);
-});
+
 const tagName = computed(() => {
-  if (currentTag.value === '') return '';
-  return currentTag.value.charAt(0).toUpperCase() + currentTag.value.slice(1);
+  const tag = (route.params?.tag) as string || '';
+  const decodedTag = decodeURIComponent(tag);
+  return decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1);
 })
 
-await refreshArchivePosts({ page: currentPage.value, type: 'tags', value: currentTag.value })
+const { posts, currentPage, currentSort, refreshPosts } = await useArchivePosts({
+  type: 'tags',
+  collection: props.collection,
+});
 
+watch(currentPage, async () => {
+  await refreshPosts();
+});
+watch([currentSort, tagName], async () => {
+  currentPage.value = 1;
+  await refreshPosts();
+});
 </script>
 <template>
   <div>
@@ -40,6 +46,9 @@ await refreshArchivePosts({ page: currentPage.value, type: 'tags', value: curren
         篇
       </p>
     </div>
+
+    <BaseSelect class="pb-4" v-model="currentSort" labelTitle="文章排序:"
+      :options="[{ label: '新到舊', value: 'DESC' }, { label: '舊到新', value: 'ASC' }]" />
 
     <!-- content -->
     <div class="pb-20 lg:pb-0">
