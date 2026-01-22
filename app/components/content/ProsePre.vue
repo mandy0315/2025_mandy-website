@@ -8,9 +8,8 @@
     </button>
 
     <div v-if="language !== 'plaintext'"
-      class="p-2 h-10 bg-white rounded-t border border-gray-300 dark:bg-neutral-900 flex items-center">
-      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]"
-        class="align-middle text-sm" />
+      class="p-2 h-10 bg-white rounded-t border border-gray-300 dark:bg-neutral-900 flex items-center ">
+      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]" class="align-middle" />
       <span class="pl-2">{{ filename }}</span>
     </div>
 
@@ -22,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+
 const props = withDefaults(defineProps<{
   code?: string;
   language?: LanguageIconKey | null;
@@ -49,6 +49,7 @@ const LanguageIconList = {
   vue: 'logos:vue',
   react: 'logos:react',
   nodejs: 'logos:nodejs',
+  md: 'mdi:language-markdown',
 } as const;
 
 const isCopied = ref(false);

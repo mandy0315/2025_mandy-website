@@ -52,7 +52,7 @@ const scrollToTop = () => {
       </section>
 
       <!-- 文章內容 -->
-      <section class="prose prose-primary max-w-full dark:prose-invert">
+      <section class="prose max-w-full dark:prose-invert">
         <ContentRenderer :value="post" />
       </section>
 
