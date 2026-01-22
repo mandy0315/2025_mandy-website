@@ -1,5 +1,4 @@
 /* @tailwindcss/typography 樣式套件修改 */
-
 /* title */
 .prose :where(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply no-underline!;
@@ -32,14 +31,16 @@
 }
 
 /* pre */
-:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)){
-  @apply mt-0 mb-0;
-}
-.prose :where(pre code .line):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply block;
+.prose :where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)){
+  @apply mt-0 mb-0 border-gray-300 bg-neutral-100 dark:bg-neutral-800 flex items-center min-h-12;
 }
 
 /* code */
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply before:content-none after:content-none;
+.prose :where(code):not(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-neutral-100 text-primary-dark px-2 py-1 rounded border border-gray-300 dark:bg-neutral-800 dark:text-primary;
+}
+
+/* a */
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-primary-dark dark:text-primary;
 }
