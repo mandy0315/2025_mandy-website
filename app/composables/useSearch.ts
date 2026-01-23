@@ -32,9 +32,6 @@ const useSearch = async () => {
   const keywords = useState<string>("keywords", () => "");
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
-  // 取得作品資料
-  const { works: workList, worksByCategory } = await useWorks();
-
   const keywordsToLower = computed(() => keywords.value.toLowerCase() || "");
 
   // 搜尋(文章/筆記)列表
@@ -138,46 +135,53 @@ const useSearch = async () => {
   };
 
   // 搜尋作品
-  const searchInWorks = () => {
-    if (!workList.value) return [];
+  const searchInWorks = async () => {
+    try {
+      const { works: allWorks, worksByCategory } = await useWorks();
+      if (!allWorks.value) return [];
 
-    if (keywordsToLower.value === "") {
-      const randomWorks: Work[] = [];
-      for (const category in worksByCategory.value) {
-        const worksInCategory =
-          worksByCategory.value[category as keyof typeof worksByCategory.value];
-        // 隨機一個
-        const randomWork =
-          worksInCategory[Math.floor(Math.random() * worksInCategory.length)];
-        if (randomWork) {
-          randomWorks.push({
-            title: randomWork.title,
-            path: randomWork.slug,
-            category: randomWork.category,
-          });
+      // 沒有關鍵字，每個分類隨機一個
+      if (keywordsToLower.value === "") {
+        const randomWorks: Work[] = [];
+        for (const category in worksByCategory.value) {
+          const worksInCategory =
+            worksByCategory.value[
+              category as keyof typeof worksByCategory.value
+            ];
+          const randomWork =
+            worksInCategory[Math.floor(Math.random() * worksInCategory.length)];
+          if (randomWork) {
+            randomWorks.push({
+              title: randomWork.title,
+              path: randomWork.slug,
+              category: randomWork.category,
+            });
+          }
         }
+
+        return randomWorks;
       }
 
-      return randomWorks;
+      // 搜尋符合關鍵字的作品
+      const matchedWork = allWorks.value.filter((item) =>
+        item.title.toLowerCase().includes(keywordsToLower.value),
+      );
+
+      return matchedWork.map((item) => ({
+        title: item.title,
+        path: item.slug,
+        category: item.category,
+      }));
+    } catch (error) {
+      console.error("搜尋作品錯誤", error);
+      return [];
     }
-
-    // 搜尋符合關鍵字的作品
-    const searchWork = workList.value.filter((item) =>
-      item.title.toLowerCase().includes(keywordsToLower.value),
-    );
-
-    const mapSearchWork = searchWork.map((item) => ({
-      title: item.title,
-      path: item.id, // 使用處理過的 id
-      category: item.category,
-    }));
-
-    return mapSearchWork;
   };
 
   // 設定搜尋列表
   const updateSearchList = async () => {
     isSearch.value = false;
+    const kPages = searchInPages();
     const [
       kBlog,
       kNotes,
@@ -185,6 +189,7 @@ const useSearch = async () => {
       kNotesCategories,
       kBlogTags,
       kNotesTags,
+      kWorks,
     ] = await Promise.all([
       searchInPosts("blog", ["title", "description"]),
       searchInPosts("notes", ["title", "description"]),
@@ -192,9 +197,8 @@ const useSearch = async () => {
       searchInCategories("notes"),
       searchInTags("blog"),
       searchInTags("notes"),
+      searchInWorks(),
     ]);
-    const kPages = searchInPages();
-    const kWorks = searchInWorks();
 
     blog.value = kBlog;
     notes.value = kNotes;
