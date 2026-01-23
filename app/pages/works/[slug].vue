@@ -1,4 +1,18 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: async (to) => {
+    const { works } = await useWorks();
+    const workParam = decodeURIComponent(String(to.params?.slug)) || '';
+    const workLinks = works.value?.map(work => work.link) || [];
+    if (!workLinks.includes(workParam)) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: `作品未找到：${workParam}`,
+        fatal: true,
+      });
+    }
+  },
+});
 const { getAssetPath } = useAssetPath();
 const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
