@@ -59,7 +59,9 @@ const scrollToTop = () => {
 
       <!-- Disqus 留言 -->
       <section class="py-6">
-        <PostDetailDisqus :id="post.id" :title="post.title" />
+        <ClientOnly fallback-tag="div" fallback="留言板">
+          <PostDetailDisqus :id="post.id" :title="post.title" />
+        </ClientOnly>
       </section>
 
       <!-- 上下篇文章 -->
