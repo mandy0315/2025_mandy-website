@@ -90,17 +90,13 @@ const useSearch = async () => {
   // 搜尋標籤
   const searchInTags = async (collection: Collection) => {
     try {
-      const data = await queryCollection(collection)
-        .order("date", "DESC")
-        .select("tags")
-        .all();
-      const tags = data.map((item) => item.tags || []).flat();
-      const uniqueTags = Array.from(new Set(tags));
+      const { tags: allTags } = await useTag(collection);
+      if (!allTags.value) return [];
 
       if (keywordsToLower.value === "") {
-        return uniqueTags.slice(0, LIMIT_COUNT);
+        return allTags.value.slice(0, LIMIT_COUNT);
       }
-      const matchedTags = uniqueTags.filter((tag) =>
+      const matchedTags = allTags.value.filter((tag) =>
         tag.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedTags;
