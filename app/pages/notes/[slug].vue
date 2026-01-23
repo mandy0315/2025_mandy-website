@@ -1,6 +1,5 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['post-detail'],
   layout: false,
 })
 </script>
