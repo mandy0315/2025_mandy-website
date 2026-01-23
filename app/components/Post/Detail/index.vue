@@ -7,9 +7,22 @@ const route = useRoute()
 const { goToCategoriesPage } = await useCategory(props.collection);
 const { prevData, nextData } = await useNavigation(props.collection, route.path);
 
-const { data: post } = await useAsyncData(route.path, () => {
+const { data: post, error } = await useAsyncData(route.path, () => {
   return queryCollection(props.collection).path(route.path).first()
 })
+if (error.value) {
+  console.error('資料查詢錯誤:', error.value);
+  await navigateTo(`/${props.collection}`);
+}
+
+// 如果文章不存在，拋出 404 錯誤
+if (!post.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: `文章未找到: ${route.path}`,
+    fatal: true,
+  })
+}
 
 usePageSEO({
   title: post.value?.title || '',
