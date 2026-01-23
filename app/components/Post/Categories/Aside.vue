@@ -3,7 +3,7 @@ const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
 
-const { categories, goToCategoriesPage } = await useCategory(props.collection);
+const { categories } = await useCategory(props.collection);
 const route = useRoute();
 const { isDesktop } = useResponsive();
 const isExpanded = ref(false);
@@ -15,6 +15,11 @@ const currentCategory = computed(() => {
   return decodeURIComponent(category);
 });
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
+
+
+const goToCategoriesPage = async (category: string) => {
+  await navigateTo(`/${props.collection}/categories/${category}`);
+};
 
 const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentCategory);
 onMounted(async () => {

@@ -2,8 +2,7 @@
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
-const { refreshCategories, goToCategoriesPage, categories } = await useCategory(props.collection);
-await refreshCategories(5);
+const { categories } = await useCategory(props.collection, 5);
 
 const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
 await refreshTags(5);
@@ -42,6 +41,10 @@ const card3DAnimationClass = computed(() =>
     : 'group-hover:rotate-y-180'
   }`
 );
+
+const goToCategoriesPage = async (category: string) => {
+  await navigateTo(`/${props.collection}/categories/${category}`);
+};
 </script>
 <template>
   <aside>
