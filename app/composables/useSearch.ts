@@ -41,7 +41,16 @@ const useSearch = async () => {
   // 搜尋(文章/筆記)列表
   const searchInPosts = async (collection: Collection, fields: string[]) => {
     try {
-      const list = await queryCollection(collection)
+      if (keywordsToLower.value === "") {
+        const data = await queryCollection(collection)
+          .order("date", "DESC")
+          .select("title", "description", "path")
+          .limit(LIMIT_COUNT)
+          .all();
+        return data;
+      }
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
         .orWhere((q) => {
           for (const field of fields) {
             q.where(field, "LIKE", `%${keywordsToLower.value}%`);
@@ -50,10 +59,7 @@ const useSearch = async () => {
         })
         .select("title", "description", "path")
         .all();
-      if (keywordsToLower.value === "") {
-        return list.slice(0, LIMIT_COUNT) || [];
-      }
-      return list;
+      return data;
     } catch (error) {
       console.error("搜尋文章錯誤", error);
       return [];
@@ -64,17 +70,23 @@ const useSearch = async () => {
   const searchInCategories = async (collection: Collection) => {
     try {
       if (keywordsToLower.value === "") {
-        const allCategories = await queryCollection(collection)
+        const data = await queryCollection(collection)
+          .order("date", "DESC")
           .select("category")
           .all();
-        return allCategories.map((item) => item.category).slice(0, LIMIT_COUNT);
+        const categories = data.map((item) => item.category);
+        const uniqueCategories = Array.from(new Set(categories));
+        return uniqueCategories.slice(0, LIMIT_COUNT);
       }
 
-      const categories = await queryCollection(collection)
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
         .where("category", "LIKE", `%${keywordsToLower.value}%`)
         .select("category")
         .all();
-      return categories.map((item) => item.category);
+      const categories = data.map((item) => item.category);
+      const uniqueCategories = Array.from(new Set(categories));
+      return uniqueCategories;
     } catch (error) {
       console.error("搜尋分類錯誤", error);
       return [];
@@ -84,20 +96,22 @@ const useSearch = async () => {
   // 搜尋標籤
   const searchInTags = async (collection: Collection) => {
     try {
-      const allPosts = await queryCollection(collection).select("tags").all();
-
-      const allTags = allPosts.map((item) => item.tags || []).flat();
-      const uniqueTags = Array.from(new Set(allTags));
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
+        .select("tags")
+        .all();
+      const tags = data.map((item) => item.tags || []).flat();
+      const uniqueTags = Array.from(new Set(tags));
 
       if (keywordsToLower.value === "") {
         return uniqueTags.slice(0, LIMIT_COUNT);
       }
       const matchedTags = uniqueTags.filter((tag) =>
-        tag.toLowerCase().includes(keywordsToLower.value)
+        tag.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedTags;
     } catch (error) {
-      console.error("搜尋分類錯誤", error);
+      console.error("搜尋標籤錯誤", error);
       return [];
     }
   };
@@ -150,7 +164,7 @@ const useSearch = async () => {
 
     // 搜尋符合關鍵字的作品
     const searchWork = allWorks.value.filter((item) =>
-      item.title.toLowerCase().includes(keywordsToLower.value)
+      item.title.toLowerCase().includes(keywordsToLower.value),
     );
 
     const mapSearchWork = searchWork.map((item) => ({
