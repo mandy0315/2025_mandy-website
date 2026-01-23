@@ -140,7 +140,7 @@ onUnmounted(() => {
         <div v-else class="col-start-2 col-end-6 grid grid-cols-1 md:grid-cols-3">
           <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
             class="w-full h-auto aspect-video relative bg-transparent overflow-hidden group"
-            :class="[getGridClass(index)]" :to="`/works/${data.link}`" :aria-label="`前往${data.title}詳情頁面`">
+            :class="[getGridClass(index)]" :to="`/works/${data.slug}`" :aria-label="`前往${data.title}詳情頁面`">
             <BaseHoverMask :contentText="data.title" />
             <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
               class="w-full h-full inset-0 absolute overflow-hidden object-cover transition-all opacity-0 group-hover:blur-sm"

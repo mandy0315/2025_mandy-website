@@ -3,8 +3,8 @@ definePageMeta({
   middleware: async (to) => {
     const { works } = await useWorks();
     const workParam = decodeURIComponent(String(to.params?.slug)) || '';
-    const workLinks = works.value?.map(work => work.link) || [];
-    if (!workLinks.includes(workParam)) {
+    const workSlugs = works.value?.map(work => work.slug) || [];
+    if (!workSlugs.includes(workParam)) {
       throw createError({
         statusCode: 404,
         statusMessage: `作品未找到：${workParam}`,
@@ -18,7 +18,7 @@ const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
 const { works, pending } = await useWorks();
 const work = computed(() => {
-  return works.value?.find(w => w.link === workParam) || null;
+  return works.value?.find(w => w.slug === workParam) || null;
 });
 
 

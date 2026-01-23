@@ -152,7 +152,7 @@ const useSearch = async () => {
         if (randomWork) {
           randomWorks.push({
             title: randomWork.title,
-            path: randomWork.id,
+            path: randomWork.slug,
             category: randomWork.category,
           });
         }
