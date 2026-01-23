@@ -3,7 +3,7 @@ const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
 
-const { tags, goToTagsPage } = await useTag(props.collection);
+const { tags } = await useTag(props.collection);
 const route = useRoute();
 const { isDesktop } = useResponsive();
 const isExpanded = ref(false);
@@ -16,6 +16,9 @@ const currentTag = computed(() => {
 });
 const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 
+const goToTagsPage = async (tag: string) => {
+  await navigateTo(`/${props.collection}/tags/${tag}`);
+};
 const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentTag);
 onMounted(async () => {
   await initScrollToTarget();

@@ -4,7 +4,6 @@ const props = defineProps<{
 }>();
 
 const route = useRoute()
-const { goToCategoriesPage } = await useCategory(props.collection);
 const { prevData, nextData } = await useNavigation(props.collection, route.path);
 
 // 路由守衛已確保文章存在，直接查詢
@@ -20,6 +19,9 @@ usePageSEO({
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+const goToCategoriesPage = async (category: string) => {
+  await navigateTo(`/${props.collection}/categories/${category}`);
 };
 </script>
 

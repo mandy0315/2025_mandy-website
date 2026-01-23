@@ -2,12 +2,8 @@
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
-const { refreshCategories, goToCategoriesPage, categories } = await useCategory(props.collection);
-await refreshCategories(5);
-
-const { refreshTags, goToTagsPage, tags } = await useTag(props.collection);
-await refreshTags(5);
-
+const { categories } = await useCategory(props.collection, 5);
+const { tags } = await useTag(props.collection, 5);
 
 // 3D 翻轉卡片觸控事件（手機版）
 const { isMobile } = useResponsive();
@@ -42,6 +38,13 @@ const card3DAnimationClass = computed(() =>
     : 'group-hover:rotate-y-180'
   }`
 );
+
+const goToCategoriesPage = async (category: string) => {
+  await navigateTo(`/${props.collection}/categories/${category}`);
+};
+const goToTagsPage = async (tag: string) => {
+  await navigateTo(`/${props.collection}/tags/${tag}`);
+};
 </script>
 <template>
   <aside>
