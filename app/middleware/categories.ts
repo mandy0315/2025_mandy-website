@@ -6,6 +6,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const collection = collectionMatch[1] as "blog" | "notes";
 
   const { categories } = await useCategory(collection);
+  if (!categories.value) return;
 
   const categoryParam = decodeURIComponent(String(to.params?.category || ""));
   // 分類參數是空字串，重定向到第一個分類

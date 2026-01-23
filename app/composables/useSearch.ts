@@ -68,24 +68,18 @@ const useSearch = async () => {
   // 搜尋分類
   const searchInCategories = async (collection: Collection) => {
     try {
+      const { categories: allCategories } = await useCategory(collection);
+      if (!allCategories.value) return [];
+
+      // 沒有關鍵字限制數量
       if (keywordsToLower.value === "") {
-        const data = await queryCollection(collection)
-          .order("date", "DESC")
-          .select("category")
-          .all();
-        const categories = data.map((item) => item.category);
-        const uniqueCategories = Array.from(new Set(categories));
-        return uniqueCategories.slice(0, LIMIT_COUNT);
+        return allCategories.value.slice(0, LIMIT_COUNT);
       }
 
-      const data = await queryCollection(collection)
-        .order("date", "DESC")
-        .where("category", "LIKE", `%${keywordsToLower.value}%`)
-        .select("category")
-        .all();
-      const categories = data.map((item) => item.category);
-      const uniqueCategories = Array.from(new Set(categories));
-      return uniqueCategories;
+      const matchedCategories = allCategories.value.filter((category) =>
+        category.toLowerCase().includes(keywordsToLower.value),
+      );
+      return matchedCategories;
     } catch (error) {
       console.error("搜尋分類錯誤", error);
       return [];
@@ -95,17 +89,13 @@ const useSearch = async () => {
   // 搜尋標籤
   const searchInTags = async (collection: Collection) => {
     try {
-      const data = await queryCollection(collection)
-        .order("date", "DESC")
-        .select("tags")
-        .all();
-      const tags = data.map((item) => item.tags || []).flat();
-      const uniqueTags = Array.from(new Set(tags));
+      const { tags: allTags } = await useTag(collection);
+      if (!allTags.value) return [];
 
       if (keywordsToLower.value === "") {
-        return uniqueTags.slice(0, LIMIT_COUNT);
+        return allTags.value.slice(0, LIMIT_COUNT);
       }
-      const matchedTags = uniqueTags.filter((tag) =>
+      const matchedTags = allTags.value.filter((tag) =>
         tag.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedTags;
