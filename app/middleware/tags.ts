@@ -6,6 +6,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const collection = collectionMatch[1] as "blog" | "notes";
 
   const { tags } = await useTag(collection);
+  if (!tags.value) return;
 
   const tagParam = decodeURIComponent(String(to.params?.tag || ""));
   // 標籤參數是空字串(預設)，重定向到第一個標籤
