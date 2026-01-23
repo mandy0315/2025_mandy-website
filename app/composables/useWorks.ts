@@ -7,20 +7,20 @@ export const useWorks = async () => {
       const processedWorks = data
         ? data.map((item) => {
             let id = "";
-            let link = "";
+            let slug = "";
 
             if (item.id) {
               const match = item.id.match(/^.*\/(\d+)\.(.+)\.json$/);
               if (match) {
                 id = match[1] || "";
-                link = match[2] || "";
+                slug = match[2] || "";
               }
             }
 
             return {
               ...item,
               id,
-              link,
+              slug,
             };
           })
         : [];
