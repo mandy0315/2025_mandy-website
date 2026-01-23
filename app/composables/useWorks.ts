@@ -1,31 +1,47 @@
 export const useWorks = async () => {
-  const { data: allWorks, pending } = await useAsyncData(
+  const { data: works, pending } = await useAsyncData(
     "works-data",
     async () => {
-      const data = await queryCollection("works").order("stem", "DESC").all();
-      const newWorks = data
-        ? data.map((item) => ({
-            ...item,
-            id: item.id
-              ? item.id.replace(/^.*\/\d+\.(.+)\.json$/, "$1")
-              : item.id,
-          }))
+      const data = await queryCollection("works").all();
+
+      const processedWorks = data
+        ? data.map((item) => {
+            let id = "";
+            let slug = "";
+
+            if (item.id) {
+              const match = item.id.match(/^.*\/(\d+)\.(.+)\.json$/);
+              if (match) {
+                id = match[1] || "";
+                slug = match[2] || "";
+              }
+            }
+
+            return {
+              ...item,
+              id,
+              slug,
+            };
+          })
         : [];
-      return newWorks;
-    }
+
+      // 根據數字排序：由大到小（最新的在前）
+      return processedWorks.sort((a, b) => Number(b.id) - Number(a.id));
+    },
   );
+
   const worksByCategory = computed(() => {
-    if (!allWorks.value) return { vision: [], ui: [], web: [] };
+    if (!works.value) return { vision: [], ui: [], web: [] };
 
     return {
-      vision: allWorks.value.filter((work) => work.category === "vision"),
-      ui: allWorks.value.filter((work) => work.category === "ui"),
-      web: allWorks.value.filter((work) => work.category === "web"),
+      vision: works.value.filter((work) => work.category === "vision"),
+      ui: works.value.filter((work) => work.category === "ui"),
+      web: works.value.filter((work) => work.category === "web"),
     };
   });
 
   return {
-    allWorks,
+    works,
     pending,
     worksByCategory,
   };

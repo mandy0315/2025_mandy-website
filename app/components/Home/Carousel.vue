@@ -138,7 +138,7 @@ const getItemStyle = (index: number) => {
     <div class="flex items-center justify-center relative z-20" @mouseenter="isAutoPlay = false"
       @mouseleave="isAutoPlay = true">
       <div v-for="(item, index) in items" :key="index" class="absolute cursor-pointer rounded">
-        <NuxtLink :to="`/works/${item.id}`" class="block w-full h-full" :aria-label="`前往${item.title}詳情頁面`">
+        <NuxtLink :to="`/works/${item.slug}`" class="block w-full h-full" :aria-label="`前往${item.title}詳情頁面`">
           <Transition name="slide-up">
             <h3 v-if="index === currentIndex"
               class="text-4xl lg:text-5xl font-semibold mb-1 text-primary-dark dark:text-primary text-nowrap absolute -top-16 left-1/2 -translate-x-1/2 px-4 text-center">

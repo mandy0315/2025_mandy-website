@@ -1,27 +1,30 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: async (to) => {
+    const { works } = await useWorks();
+    const workParam = decodeURIComponent(String(to.params?.slug)) || '';
+    const workSlugs = works.value?.map(work => work.slug) || [];
+    if (!workSlugs.includes(workParam)) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: `作品未找到：${workParam}`,
+        fatal: true,
+      });
+    }
+  },
+});
 const { getAssetPath } = useAssetPath();
 const route = useRoute();
-
-const { allWorks, pending } = await useWorks();
-
-const currentWork = computed(() => {
-  const currentSlug = route.params.slug as string;
-  const work = allWorks.value?.find(item => item.id === currentSlug);
-
-  // 如果資料載入完成但找不到作品，拋出 404
-  if (allWorks.value && !work && !pending.value) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Work Not Found",
-    });
-  }
-
-  return work;
+const workParam = decodeURIComponent(String(route.params?.slug)) || '';
+const { works, pending } = await useWorks();
+const work = computed(() => {
+  return works.value?.find(w => w.slug === workParam) || null;
 });
 
+
 usePageSEO({
-  title: currentWork.value?.title || '',
-  description: currentWork.value?.description || '',
+  title: work.value?.title || '',
+  description: work.value?.description || '',
   path: route.path,
 })
 
@@ -29,44 +32,44 @@ const { isMobile } = useResponsive();
 </script>
 <template>
   <div v-if="pending">載入中...</div>
-  <article v-if="currentWork" class="py-10">
+  <article v-if="work" class="py-10">
     <section class="c-container">
       <nav>
         <BaseLink to="/works">作品列表</BaseLink>
         <span class="px-2">></span>
-        <span class="text-primary cursor-default">{{ currentWork.title }}</span>
+        <span class="text-primary cursor-default">{{ work.title }}</span>
       </nav>
-      <h1 class="text-4xl font-black truncate py-4">{{ currentWork.title }}</h1>
+      <h1 class="text-4xl font-black truncate py-4">{{ work.title }}</h1>
     </section>
     <section class="bg-primary/30">
       <div class="md:p-6 lg:p-10" :class="{ 'c-container': !isMobile }">
-        <img v-if="currentWork.image" :src="getAssetPath(currentWork.image)" :alt="currentWork.title" />
+        <img v-if="work.image" :src="getAssetPath(work.image)" :alt="work.title" />
       </div>
     </section>
     <section class="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-x-4 mt-6 c-container">
       <div class="lg:w-1/2 c-text-secondary text-center lg:text-left">
-        <div v-if="currentWork.date">
+        <div v-if="work.date">
           <WorkTitle title="日期" subtitle="Date" />
-          <p v-date-format="currentWork.date"></p>
+          <p v-date-format="work.date"></p>
         </div>
         <div class="mt-4">
           <WorkTitle title="分類" subtitle="Category" />
-          <p v-if="currentWork.category">{{ currentWork.category.toUpperCase() }}</p>
+          <p v-if="work.category">{{ work.category.toUpperCase() }}</p>
         </div>
         <div class="mt-4">
           <WorkTitle title="技能" subtitle="Skills" />
-          <p v-if="currentWork.skills.length > 0">{{ currentWork.skills.join('、') }}</p>
+          <p v-if="work.skills.length > 0">{{ work.skills.join('、') }}</p>
         </div>
       </div>
       <div class="p-4 lg:p-0 lg:w-1/2 c-text-secondary">
         <div>
           <WorkTitle class="text-center lg:text-left" title="概要" subtitle="Summary" />
-          <p v-if="currentWork.description">{{ currentWork.description }}</p>
+          <p v-if="work.description">{{ work.description }}</p>
         </div>
-        <div v-if="currentWork.link" class="mt-4 text-center lg:text-left">
+        <div v-if="work.link" class="mt-4 text-center lg:text-left">
           <Icon name="i-material-symbols:link-rounded" size="1.5rem" class="align-middle" />
-          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="currentWork.link">
-            {{ currentWork.link }}
+          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="work.link">
+            {{ work.link }}
           </BaseLink>
         </div>
       </div>

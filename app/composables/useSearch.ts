@@ -1,5 +1,4 @@
 import { pageInfo } from "@/utils/pageInfoMap";
-import type { WorkItem } from "@/utils/workListMap/works/types";
 
 type Collection = "blog" | "notes";
 interface Post {
@@ -15,7 +14,7 @@ interface Page {
 interface Work {
   title: string;
   path: string;
-  category: WorkItem["category"];
+  category: "vision" | "ui" | "web";
 }
 
 const useSearch = async () => {
@@ -34,7 +33,7 @@ const useSearch = async () => {
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
   // 取得作品資料
-  const { allWorks, worksByCategory } = await useWorks();
+  const { works: workList, worksByCategory } = await useWorks();
 
   const keywordsToLower = computed(() => keywords.value.toLowerCase() || "");
 
@@ -140,7 +139,7 @@ const useSearch = async () => {
 
   // 搜尋作品
   const searchInWorks = () => {
-    if (!allWorks.value || allWorks.value.length === 0) return [];
+    if (!workList.value) return [];
 
     if (keywordsToLower.value === "") {
       const randomWorks: Work[] = [];
@@ -153,7 +152,7 @@ const useSearch = async () => {
         if (randomWork) {
           randomWorks.push({
             title: randomWork.title,
-            path: randomWork.id,
+            path: randomWork.slug,
             category: randomWork.category,
           });
         }
@@ -163,7 +162,7 @@ const useSearch = async () => {
     }
 
     // 搜尋符合關鍵字的作品
-    const searchWork = allWorks.value.filter((item) =>
+    const searchWork = workList.value.filter((item) =>
       item.title.toLowerCase().includes(keywordsToLower.value),
     );
 
@@ -195,7 +194,7 @@ const useSearch = async () => {
       searchInTags("notes"),
     ]);
     const kPages = searchInPages();
-    const kWorks = searchInWorks(); // 🔥 現在使用新的搜尋邏輯
+    const kWorks = searchInWorks();
 
     blog.value = kBlog;
     notes.value = kNotes;

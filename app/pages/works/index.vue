@@ -6,7 +6,7 @@ usePageSEO({
   title: '作品',
   path: route.path,
 })
-const { allWorks, pending, worksByCategory } = await useWorks();
+const { works, pending, worksByCategory } = await useWorks();
 
 type CategoryOptionsKeys = keyof typeof categoryOptions;
 type TypeOptionsKeys = keyof typeof typeOptions;
@@ -51,10 +51,10 @@ const currentType = ref<TypeOptionsKeys>('all');
 const { getAssetPath } = useAssetPath();
 
 const selectWorks = computed(() => {
-  if (!allWorks.value || allWorks.value.length === 0) return [];
+  if (!works.value) return [];
 
   // 步驟1：分類篩選
-  let filteredByCategory = allWorks.value;
+  let filteredByCategory = works.value;
   if (currentCategory.value !== 'all') {
     filteredByCategory = worksByCategory.value[currentCategory.value] || [];
   }
@@ -114,13 +114,13 @@ onUnmounted(() => {
       <section class="pb-4">
         <div class="pb-6">
           <BaseTitle>作品</BaseTitle>
-          <p v-if="allWorks && allWorks.length > 0" class="text-center">
-            <template v-if="selectWorks.length === allWorks.length">
-              共 <span class="text-primary-dark dark:text-primary font-medium">{{ allWorks.length }}</span> 項
+          <p v-if="works && works.length > 0" class="text-center">
+            <template v-if="selectWorks.length === works.length">
+              共 <span class="text-primary-dark dark:text-primary font-medium">{{ works.length }}</span> 項
             </template>
             <template v-else>
               顯示 <span class="text-primary-dark dark:text-primary font-medium">{{ selectWorks.length }}</span> 項
-              <span class="c-text-secondary">（共 {{ allWorks.length }} 項）</span>
+              <span class="c-text-secondary">（共 {{ works.length }} 項）</span>
             </template>
           </p>
         </div>
@@ -140,7 +140,7 @@ onUnmounted(() => {
         <div v-else class="col-start-2 col-end-6 grid grid-cols-1 md:grid-cols-3">
           <NuxtLink v-for="(data, index) in selectWorks" :key="data.id"
             class="w-full h-auto aspect-video relative bg-transparent overflow-hidden group"
-            :class="[getGridClass(index)]" :to="`/works/${data.id}`" :aria-label="`前往${data.title}詳情頁面`">
+            :class="[getGridClass(index)]" :to="`/works/${data.slug}`" :aria-label="`前往${data.title}詳情頁面`">
             <BaseHoverMask :contentText="data.title" />
             <img :ref="(el) => { imgRefs[index] = el as HTMLImageElement }" :data-src="data.image" :data-index="index"
               class="w-full h-full inset-0 absolute overflow-hidden object-cover transition-all opacity-0 group-hover:blur-sm"
