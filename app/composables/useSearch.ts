@@ -65,15 +65,23 @@ const useSearch = async () => {
   // 搜尋分類
   const searchInCategories = async (collection: Collection) => {
     try {
-      const { categories: allCategories } = await useCategory(collection);
-      if (!allCategories.value) return [];
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
+        .select("category")
+        .all();
+      if (!data) return [];
+
+      // 處理重複
+      const categories = data.map((item) => item.category);
+      const uniqueCategories = Array.from(new Set(categories));
+      if (!uniqueCategories) return [];
 
       // 沒有關鍵字限制數量
       if (keywordsToLower.value === "") {
-        return allCategories.value.slice(0, LIMIT_COUNT);
+        return uniqueCategories.slice(0, LIMIT_COUNT);
       }
 
-      const matchedCategories = allCategories.value.filter((category) =>
+      const matchedCategories = uniqueCategories.filter((category) =>
         category.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedCategories;
