@@ -86,7 +86,6 @@ const resetFilters = () => {
   currentType.value = 'all';
 }
 
-// 圖片觀察器邏輯
 const { imgRefs, initObserver, disconnectedObserver, resetImageRefsState } = useImageObserver();
 
 watch(selectWorks, async () => {

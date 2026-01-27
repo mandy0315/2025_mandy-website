@@ -1,13 +1,6 @@
+/** 作品列表滾動到底顯示其他圖片 */
 export const useImageObserver = () => {
-  if (import.meta.server) {
-    return {
-      imgRefs: ref<any[]>([]),
-      initObserver: () => {},
-      disconnectedObserver: () => {},
-      resetImageRefsState: () => {},
-    };
-  }
-  const imgRefs = ref<any[]>([]);
+  const imgRefs = ref<HTMLImageElement[]>([]);
   const observer = ref<IntersectionObserver | null>(null);
   const visibleImages = ref<Set<number>>(new Set());
   const loadedImages = ref<Set<number>>(new Set());
