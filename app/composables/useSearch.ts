@@ -65,15 +65,23 @@ const useSearch = async () => {
   // 搜尋分類
   const searchInCategories = async (collection: Collection) => {
     try {
-      const { categories: allCategories } = await useCategory(collection);
-      if (!allCategories.value) return [];
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
+        .select("category")
+        .all();
+      if (!data) return [];
+
+      // 處理重複
+      const categories = data.map((item) => item.category);
+      const uniqueCategories = Array.from(new Set(categories));
+      if (!uniqueCategories) return [];
 
       // 沒有關鍵字限制數量
       if (keywordsToLower.value === "") {
-        return allCategories.value.slice(0, LIMIT_COUNT);
+        return uniqueCategories.slice(0, LIMIT_COUNT);
       }
 
-      const matchedCategories = allCategories.value.filter((category) =>
+      const matchedCategories = uniqueCategories.filter((category) =>
         category.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedCategories;
@@ -86,13 +94,19 @@ const useSearch = async () => {
   // 搜尋標籤
   const searchInTags = async (collection: Collection) => {
     try {
-      const { tags: allTags } = await useTag(collection);
-      if (!allTags.value) return [];
+      const data = await queryCollection(collection)
+        .order("date", "DESC")
+        .select("tags")
+        .all();
+      if (!data) return [];
+      const tags = data.map((item) => item.tags || []).flat();
+      const uniqueTags = Array.from(new Set(tags));
+      if (!uniqueTags) return [];
 
       if (keywordsToLower.value === "") {
-        return allTags.value.slice(0, LIMIT_COUNT);
+        return uniqueTags.slice(0, LIMIT_COUNT);
       }
-      const matchedTags = allTags.value.filter((tag) =>
+      const matchedTags = uniqueTags.filter((tag) =>
         tag.toLowerCase().includes(keywordsToLower.value),
       );
       return matchedTags;
@@ -127,17 +141,47 @@ const useSearch = async () => {
   // 搜尋作品
   const searchInWorks = async () => {
     try {
-      const { works: allWorks, worksByCategory } = await useWorks();
-      if (!allWorks.value) return [];
+      // 直接查詢作品數據並處理
+      const data = await queryCollection("works").all();
+      if (!data) return [];
+
+      const processedWorks = data.map((item) => {
+        let id = "";
+        let slug = "";
+
+        if (item.id) {
+          const match = item.id.match(/^.*\/(\d+)\.(.+)\.json$/);
+          if (match) {
+            id = match[1] || "";
+            slug = match[2] || "";
+          }
+        }
+
+        return {
+          ...item,
+          id,
+          slug,
+        };
+      });
+
+      // 根據數字排序：由大到小（最新的在前）
+      const allWorks = processedWorks.sort(
+        (a, b) => Number(b.id) - Number(a.id),
+      );
+
+      // 按分類分組
+      const worksByCategory = {
+        vision: allWorks.filter((work) => work.category === "vision"),
+        ui: allWorks.filter((work) => work.category === "ui"),
+        web: allWorks.filter((work) => work.category === "web"),
+      };
 
       // 沒有關鍵字，每個分類隨機一個
       if (keywordsToLower.value === "") {
         const randomWorks: Work[] = [];
-        for (const category in worksByCategory.value) {
+        for (const category in worksByCategory) {
           const worksInCategory =
-            worksByCategory.value[
-              category as keyof typeof worksByCategory.value
-            ];
+            worksByCategory[category as keyof typeof worksByCategory];
           const randomWork =
             worksInCategory[Math.floor(Math.random() * worksInCategory.length)];
           if (randomWork) {
@@ -153,7 +197,7 @@ const useSearch = async () => {
       }
 
       // 搜尋符合關鍵字的作品
-      const matchedWork = allWorks.value.filter((item) =>
+      const matchedWork = allWorks.filter((item) =>
         item.title.toLowerCase().includes(keywordsToLower.value),
       );
 

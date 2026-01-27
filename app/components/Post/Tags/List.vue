@@ -11,18 +11,11 @@ const tagName = computed(() => {
   return decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1);
 })
 
-const { posts, currentPage, currentSort, refreshPosts } = await useArchivePosts({
+const { posts, currentPage, currentSort } = await useArchivePosts({
   type: 'tags',
   collection: props.collection,
 });
 
-watch(currentPage, async () => {
-  await refreshPosts();
-});
-watch([currentSort, tagName], async () => {
-  currentPage.value = 1;
-  await refreshPosts();
-});
 </script>
 <template>
   <div>

@@ -10,11 +10,8 @@ export const useArchivePosts = async ({
 }) => {
   const route = useRoute();
   const LIMIT_COUNT = limit;
-  const currentSort = useState<SortOrder>(
-    `${collection}-archive-sort`,
-    () => "DESC",
-  );
-  const currentPage = useState<number>(`${collection}-archive-page`, () => 1);
+  const currentSort = ref<SortOrder>("DESC");
+  const currentPage = ref<number>(1);
 
   const currentValue = computed(() => {
     const paramKey = type === "tags" ? "tag" : "category";
@@ -22,28 +19,36 @@ export const useArchivePosts = async ({
     return decodeURIComponent(value);
   });
 
+  watch([currentSort, currentValue], () => {
+    currentPage.value = 1;
+  });
+
   // 取得所有篩選後的資料
-  const {
-    data: filteredPosts,
-    refresh,
-    pending,
-  } = useAsyncData(`${collection}-archive-${type}`, async () => {
-    const allData = await queryCollection(collection)
-      .order("date", currentSort.value)
-      .select(
-        "title",
-        "path",
-        "category",
-        "tags",
-        "image",
-        "description",
-        "date",
-      )
-      .all();
+  const { data, refresh, pending } = useAsyncData(
+    `archive-data-${type}-${collection}`,
+    () => {
+      return queryCollection(collection)
+        .order("date", currentSort.value)
+        .select(
+          "title",
+          "path",
+          "category",
+          "tags",
+          "image",
+          "description",
+          "date",
+        )
+        .all();
+    },
+    {
+      watch: [currentSort, currentPage],
+    },
+  );
 
-    if (!allData) return [];
+  const getFilteredPosts = () => {
+    if (!data.value) return [];
 
-    return allData.filter((post) => {
+    return data.value.filter((post) => {
       const categoryToLower = post.category.toLowerCase();
       const tagsToLower = post.tags.map((tag) => tag.toLowerCase());
       const valueToLower = currentValue.value.toLowerCase();
@@ -52,20 +57,21 @@ export const useArchivePosts = async ({
         ? categoryToLower === valueToLower
         : tagsToLower.includes(valueToLower);
     });
-  });
-
+  };
   const posts = computed(() => {
-    if (!filteredPosts.value)
+    const filtered = getFilteredPosts();
+
+    if (!filtered.length)
       return {
         list: [],
         totalPosts: 0,
         totalPage: 0,
       };
 
-    const totalPosts = filteredPosts.value.length;
+    const totalPosts = filtered.length;
     const totalPage = Math.ceil(totalPosts / LIMIT_COUNT);
     const skip = (currentPage.value - 1) * LIMIT_COUNT;
-    const list = filteredPosts.value.slice(skip, skip + LIMIT_COUNT);
+    const list = filtered.slice(skip, skip + LIMIT_COUNT);
 
     return {
       list,
@@ -74,15 +80,11 @@ export const useArchivePosts = async ({
     };
   });
 
-  const refreshPosts = async () => {
-    await refresh();
-  };
-
   return {
     posts,
     pending,
     currentSort,
     currentPage,
-    refreshPosts,
+    refresh,
   };
 };

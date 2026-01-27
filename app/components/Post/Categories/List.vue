@@ -11,18 +11,11 @@ const categoryName = computed(() => {
   return decodedCategory.charAt(0).toUpperCase() + decodedCategory.slice(1);
 })
 
-const { posts, currentPage, refreshPosts, currentSort } = await useArchivePosts({
+const { posts, currentPage, currentSort } = await useArchivePosts({
   type: 'category',
   collection: props.collection,
 });
 
-watch(currentPage, async () => {
-  await refreshPosts();
-});
-watch([currentSort, categoryName], async () => {
-  currentPage.value = 1;
-  await refreshPosts();
-});
 </script>
 <template>
   <div>

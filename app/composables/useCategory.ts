@@ -3,8 +3,8 @@ export const useCategory = async (
   limit?: number,
 ) => {
   // 取所有分類，不含限制
-  const { data: allCategories, refresh } = await useAsyncData(
-    `category-${collection}-data`,
+  const { data: categorieData, refresh } = await useAsyncData(
+    `category-data-${collection}`,
     async () => {
       const data = await queryCollection(collection)
         .order("date", "DESC")
@@ -20,20 +20,16 @@ export const useCategory = async (
   );
 
   const categories = computed(() => {
-    if (!allCategories.value) return [];
+    if (!categorieData.value) return [];
     // 判斷是否處理限制數量
     if (limit) {
-      return allCategories.value.slice(0, limit);
+      return categorieData.value.slice(0, limit);
     }
-    return allCategories.value;
+    return categorieData.value;
   });
 
-  const refreshCategories = async () => {
-    await refresh();
-  };
-
   return {
-    refreshCategories,
+    refresh,
     categories,
   };
 };
