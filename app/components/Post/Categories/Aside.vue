@@ -9,6 +9,7 @@ import { isDesktop } from '@/utils/responsive';
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
 
+
 const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
 const currentCategory = computed(() => {
   const category = (route.params?.category) as string || '';
@@ -21,9 +22,11 @@ const goToCategoriesPage = async (category: string) => {
   await navigateTo(`/${props.collection}/categories/${category}`);
 };
 
-const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentCategory);
+const { scrollTo, containerRef, targetRefs } = useScrollToTarget();
 onMounted(async () => {
-  await initScrollToTarget();
+  void containerRef; // 用於模板中的 ref="containerRef"
+  void targetRefs; // 用於模板中的 ref="targetRefs"
+  await scrollTo(currentCategory.value);
 })
 
 </script>
@@ -53,6 +56,7 @@ onMounted(async () => {
       </div>
       <ul ref="containerRef"
         class="grid grid-cols-2 gap-1 md:grid-cols-3 lg:block lg:overflow-y-auto lg:h-[calc(100%-2rem)]">
+
         <li ref="targetRefs" v-for="category in categories" :key="category">
           <PostCategoryButton :category :isAction="currentCategory === category"
             @click="goToCategoriesPage(category)" />
