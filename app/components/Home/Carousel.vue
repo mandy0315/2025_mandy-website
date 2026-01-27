@@ -7,7 +7,7 @@ const isAutoPlay = ref(true);
 const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 const { isDesktop } = useResponsive();
 const { width: windowWidth } = useWindowSize();
 const { worksByCategory } = await useWorks();

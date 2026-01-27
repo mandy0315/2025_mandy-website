@@ -13,7 +13,7 @@ definePageMeta({
     }
   },
 });
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
 const { works, pending } = await useWorks();

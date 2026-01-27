@@ -22,6 +22,6 @@ const props = defineProps({
   }
 })
 
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 const processedSrc = computed(() => getAssetPath(props.src));
 </script>

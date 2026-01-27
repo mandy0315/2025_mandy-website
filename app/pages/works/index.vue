@@ -48,7 +48,7 @@ const typeOptions = {
 const currentCategory = ref<CategoryOptionsKeys>('all');
 const currentType = ref<TypeOptionsKeys>('all');
 
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 
 const selectWorks = computed(() => {
   if (!works.value) return [];
