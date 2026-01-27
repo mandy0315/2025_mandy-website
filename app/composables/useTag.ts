@@ -2,8 +2,8 @@ export const useTag = async (
   collection: "blog" | "notes" = "blog",
   limit?: number,
 ) => {
-  const { data: allTags, refresh } = await useAsyncData(
-    `tag-${collection}-data`,
+  const { data: tagData, refresh } = await useAsyncData(
+    "tag-data",
     async () => {
       const data = await queryCollection(collection)
         .order("date", "DESC")
@@ -17,20 +17,16 @@ export const useTag = async (
   );
 
   const tags = computed(() => {
-    if (!allTags.value) return [];
+    if (!tagData.value) return [];
     // 判斷是否處理限制數量
     if (limit) {
-      return allTags.value.slice(0, limit);
+      return tagData.value.slice(0, limit);
     }
-    return allTags.value;
+    return tagData.value;
   });
 
-  const refreshTags = async () => {
-    await refresh();
-  };
-
   return {
-    refreshTags,
+    refresh,
     tags,
   };
 };
