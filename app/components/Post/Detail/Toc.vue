@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const route = useRoute();
 const { currSection,
-  setNavListener } = useNavListener();
+  setSectionListener } = useSectionTracker();
 
 const { data: collectionAllTocs } = await useAsyncData(`${props.collection}-detail-toc`, () => {
   return queryCollectionSearchSections(props.collection);
@@ -65,7 +65,7 @@ const initListenerPage = async (retryCount = 0) => {
   const foundElements = navs.filter(nav => nav.element).length;
 
   if (foundElements > 0) {
-    setNavListener({ navs });
+    setSectionListener({ navs });
     await navigateTo(route.fullPath); // 有抓到元素，重新導航以觸發導航事件
   } else if (retryCount < maxRetries) {
     setTimeout(() => initListenerPage(retryCount + 1), delay);

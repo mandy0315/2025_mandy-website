@@ -1,4 +1,5 @@
-export const useNavListener = () => {
+/** 監聽頁面區塊 */
+export const useSectionTracker = () => {
   const currSection = ref("");
   const parentSection = ref<Window | HTMLElement>(window);
   const navList = ref<
@@ -60,7 +61,7 @@ export const useNavListener = () => {
     currSection.value = nav;
   };
 
-  const setNavListener = ({
+  const setSectionListener = ({
     parent,
     navs,
   }: {
@@ -102,7 +103,7 @@ export const useNavListener = () => {
 
   return {
     currSection,
-    setNavListener,
+    setSectionListener,
     navList,
   };
 };
