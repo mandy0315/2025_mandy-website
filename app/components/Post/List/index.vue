@@ -2,15 +2,8 @@
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
-const { refreshPosts, posts, pending, currentSort, currentPage } = await usePosts(props.collection);
+const { posts, pending, currentSort, currentPage } = await usePosts(props.collection);
 
-watch(currentPage, async () => {
-  await refreshPosts();
-});
-watch(currentSort, async () => {
-  currentPage.value = 1;
-  await refreshPosts();
-});
 const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
 
 </script>
