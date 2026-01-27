@@ -56,7 +56,7 @@ onMounted(() => {
 
 <template>
   <Transition name="fade">
-    <div v-if="isLoading" class="fixed inset-0 z-120 bg-primary flex flex-col justify-center items-center gap-6">
+    <div v-if="isLoading" class="fixed inset-0 z-400 bg-primary flex flex-col justify-center items-center gap-6">
       <!-- SVG Logo -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.31 344" class="w-64 h-auto">
         <path v-for="(d, i) in paths" :ref="(el) => (pathRefs[i] = el as SVGPathElement)" :key="i" :d="d"
@@ -73,12 +73,18 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* https://cn.vuejs.org/guide/built-ins/transition#transition-classes */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.4s ease 0.3s;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
 .fade-leave-to {
   opacity: 0;
 }
@@ -89,7 +95,7 @@ path {
   stroke-dasharray: 2500;
   /* 預設隱藏 */
   stroke-dashoffset: 2500;
-  /* 隱藏填充 */
+  /* 預設顯示填充 */
   fill-opacity: 0;
 }
 </style>

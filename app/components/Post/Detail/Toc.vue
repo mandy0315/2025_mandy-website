@@ -73,14 +73,8 @@ const initListenerPage = async (retryCount = 0) => {
     console.warn('達到最大重試次數，無法找到導航元素');
   }
 };
-const { isLoading } = usePageLoading();
-
 onMounted(() => {
-  watch(isLoading, (newVal) => {
-    if (!newVal) {
-      initListenerPage();
-    }
-  });
+  initListenerPage();
 });
 </script>
 <template>
