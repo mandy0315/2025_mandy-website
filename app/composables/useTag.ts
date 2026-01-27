@@ -3,7 +3,7 @@ export const useTag = async (
   limit?: number,
 ) => {
   const { data: tagData, refresh } = await useAsyncData(
-    "tag-data",
+    `tag-data-${collection}`,
     async () => {
       const data = await queryCollection(collection)
         .order("date", "DESC")

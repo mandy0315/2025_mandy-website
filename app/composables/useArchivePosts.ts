@@ -25,7 +25,7 @@ export const useArchivePosts = async ({
 
   // 取得所有篩選後的資料
   const { data, refresh, pending } = useAsyncData(
-    "archive-data",
+    `archive-data-${type}-${collection}`,
     () => {
       return queryCollection(collection)
         .order("date", currentSort.value)

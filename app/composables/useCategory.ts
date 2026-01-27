@@ -4,7 +4,7 @@ export const useCategory = async (
 ) => {
   // 取所有分類，不含限制
   const { data: categorieData, refresh } = await useAsyncData(
-    "category-data",
+    `category-data-${collection}`,
     async () => {
       const data = await queryCollection(collection)
         .order("date", "DESC")

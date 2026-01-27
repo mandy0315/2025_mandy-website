@@ -14,7 +14,7 @@ export const usePosts = async (
 
   // 取得總文章數量和分頁後的文章資料
   const { data, refresh, pending } = await useAsyncData(
-    "post-data",
+    `post-data-${collection}`,
     () => {
       const skip = (currentPage.value - 1) * LIMIT_COUNT;
       return Promise.all([
