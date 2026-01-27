@@ -4,7 +4,6 @@ const props = defineProps<{
 }>();
 
 const route = useRoute()
-const { prevData, nextData } = await useNavigation(props.collection, route.path);
 
 // 路由守衛已確保文章存在，直接查詢
 const { data: post } = await useAsyncData(route.path, () => {
@@ -67,16 +66,7 @@ const goToCategoriesPage = async (category: string) => {
       </section>
 
       <!-- 上下篇文章 -->
-      <nav class="grid grid-cols-2 gap-x-4 ">
-        <div class="col-span-1">
-          <PostDetailSurroundCard v-if="prevData" :idx="0" :path="prevData.path" :title="prevData.title"
-            :description="prevData.description" />
-        </div>
-        <div class="col-span-1">
-          <PostDetailSurroundCard v-if="nextData" :idx="1" :path="nextData.path" :title="nextData.title"
-            :description="nextData.description" />
-        </div>
-      </nav>
+      <PostDetailNavigation :collection="collection" :current-path="route.path" />
     </article>
     <BaseButton variant="solid" @click="scrollToTop()" class="fixed z-100 bottom-6 right-6 w-14 rounded-full shadow-lg">
       <Icon name="i-solar:alt-arrow-up-linear" size="3rem" />
