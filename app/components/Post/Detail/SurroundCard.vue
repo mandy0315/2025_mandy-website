@@ -17,7 +17,7 @@ withDefaults(defineProps<{
       <p v-else class=" text-sm">下一篇</p>
 
       <p class="text-lg lg:text-base">{{ title }}</p>
-      <p class="text-sm c-text-secondary">{{ description }}</p>
+      <p class="text-sm c-text-secondary line-clamp-2">{{ description }}</p>
     </div>
     <div>
       <Icon v-if="idx === 0" name="solar:arrow-left-outline" size="1.5rem" />

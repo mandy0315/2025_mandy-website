@@ -1,5 +1,6 @@
-// composables/useScrollToTarget.ts
-export const useScrollToTarget = (targetValue: Ref<string>) => {
+/** 尋找目標滾動到那裡 */
+
+export const useScrollToTarget = () => {
   const containerRef = ref<HTMLElement | null>(null);
   const targetRefs = ref<HTMLElement[]>([]);
 
@@ -7,7 +8,7 @@ export const useScrollToTarget = (targetValue: Ref<string>) => {
     targetRefs.value = [];
   });
 
-  const scrollToTarget = () => {
+  const findAndScroll = (target: string) => {
     if (targetRefs.value.length === 0 || !containerRef.value) {
       console.log("元素或容器不存在");
       return;
@@ -15,8 +16,8 @@ export const useScrollToTarget = (targetValue: Ref<string>) => {
 
     const targetElement = targetRefs.value.find((el) => {
       const text = el.innerText.trim().toLowerCase();
-      const target = targetValue.value.toLowerCase();
-      return text === target;
+      const targetLower = target.toLowerCase();
+      return text === targetLower;
     });
 
     if (targetElement) {
@@ -25,18 +26,18 @@ export const useScrollToTarget = (targetValue: Ref<string>) => {
         behavior: "instant",
       });
     } else {
-      console.log("沒有找到匹配的元素，目標值:", targetValue.value);
+      console.log("沒有找到匹配的元素，目標值:", target);
     }
   };
 
-  const initScrollToTarget = async () => {
+  const scrollTo = async (target: string) => {
     await nextTick();
-    setTimeout(() => scrollToTarget(), 500);
+    setTimeout(() => findAndScroll(target), 500);
   };
 
   return {
     containerRef,
     targetRefs,
-    initScrollToTarget,
+    scrollTo,
   };
 };

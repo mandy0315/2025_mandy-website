@@ -13,7 +13,7 @@ definePageMeta({
     }
   },
 });
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
 const { works, pending } = await useWorks();
@@ -28,7 +28,7 @@ usePageSEO({
   path: route.path,
 })
 
-const { isMobile } = useResponsive();
+import { isMobile } from '@/utils/responsive';
 </script>
 <template>
   <div v-if="pending">載入中...</div>

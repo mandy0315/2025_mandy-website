@@ -6,7 +6,7 @@ const { categories } = await useCategory(props.collection, 5);
 const { tags } = await useTag(props.collection, 5);
 
 // 3D 翻轉卡片觸控事件（手機版）
-const { isMobile } = useResponsive();
+import { isMobile } from '@/utils/responsive';
 const isFlipped = ref(false);
 const startX = ref(0);
 const isDragging = ref(false);

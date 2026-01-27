@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
   isHorizontal: false,
 })
 
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 const processedSrc = computed(() => getAssetPath(props.image));
 </script>
 

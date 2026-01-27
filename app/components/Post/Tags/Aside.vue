@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const { tags } = await useTag(props.collection);
 const route = useRoute();
-const { isDesktop } = useResponsive();
+import { isDesktop } from '@/utils/responsive';
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
 
@@ -19,9 +19,11 @@ const isShowSidebar = computed(() => isDesktop.value ? true : isExpanded.value)
 const goToTagsPage = async (tag: string) => {
   await navigateTo(`/${props.collection}/tags/${tag}`);
 };
-const { initScrollToTarget, containerRef, targetRefs } = useScrollToTarget(currentTag);
+const { scrollTo, containerRef, targetRefs } = useScrollToTarget();
 onMounted(async () => {
-  await initScrollToTarget();
+  void containerRef; // 用於模板中的 ref="containerRef"
+  void targetRefs; // 用於模板中的 ref="targetRefs"
+  await scrollTo(currentTag.value);
 })
 </script>
 

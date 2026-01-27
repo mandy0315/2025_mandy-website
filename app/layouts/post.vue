@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isDesktop } from '@/utils/responsive';
+
 const isShowSidebar = useCookie('isShowSidebar', {
   default: () => true,
   path: '/',
@@ -9,7 +11,6 @@ const toggleSidebar = () => {
   refreshCookie('isShowSidebar');
 }
 const { sidebarHeightCalc, headerHeight } = useLayoutSizes();
-const { isDesktop } = useResponsive();
 
 watch(isDesktop, (val) => {
   if (!val) {

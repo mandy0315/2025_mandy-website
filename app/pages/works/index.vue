@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const { isMobile } = useResponsive();
+import { isMobile } from '@/utils/responsive';
 
 usePageSEO({
   title: '作品',
@@ -48,7 +48,7 @@ const typeOptions = {
 const currentCategory = ref<CategoryOptionsKeys>('all');
 const currentType = ref<TypeOptionsKeys>('all');
 
-const { getAssetPath } = useAssetPath();
+import { getAssetPath } from '@/utils/assetPath';
 
 const selectWorks = computed(() => {
   if (!works.value) return [];
@@ -86,7 +86,6 @@ const resetFilters = () => {
   currentType.value = 'all';
 }
 
-// 圖片觀察器邏輯
 const { imgRefs, initObserver, disconnectedObserver, resetImageRefsState } = useImageObserver();
 
 watch(selectWorks, async () => {
