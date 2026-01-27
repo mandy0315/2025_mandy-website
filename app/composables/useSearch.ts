@@ -141,17 +141,47 @@ const useSearch = async () => {
   // 搜尋作品
   const searchInWorks = async () => {
     try {
-      const { works: allWorks, worksByCategory } = await useWorks();
-      if (!allWorks.value) return [];
+      // 直接查詢作品數據並處理
+      const data = await queryCollection("works").all();
+      if (!data) return [];
+
+      const processedWorks = data.map((item) => {
+        let id = "";
+        let slug = "";
+
+        if (item.id) {
+          const match = item.id.match(/^.*\/(\d+)\.(.+)\.json$/);
+          if (match) {
+            id = match[1] || "";
+            slug = match[2] || "";
+          }
+        }
+
+        return {
+          ...item,
+          id,
+          slug,
+        };
+      });
+
+      // 根據數字排序：由大到小（最新的在前）
+      const allWorks = processedWorks.sort(
+        (a, b) => Number(b.id) - Number(a.id),
+      );
+
+      // 按分類分組
+      const worksByCategory = {
+        vision: allWorks.filter((work) => work.category === "vision"),
+        ui: allWorks.filter((work) => work.category === "ui"),
+        web: allWorks.filter((work) => work.category === "web"),
+      };
 
       // 沒有關鍵字，每個分類隨機一個
       if (keywordsToLower.value === "") {
         const randomWorks: Work[] = [];
-        for (const category in worksByCategory.value) {
+        for (const category in worksByCategory) {
           const worksInCategory =
-            worksByCategory.value[
-              category as keyof typeof worksByCategory.value
-            ];
+            worksByCategory[category as keyof typeof worksByCategory];
           const randomWork =
             worksInCategory[Math.floor(Math.random() * worksInCategory.length)];
           if (randomWork) {
@@ -167,7 +197,7 @@ const useSearch = async () => {
       }
 
       // 搜尋符合關鍵字的作品
-      const matchedWork = allWorks.value.filter((item) =>
+      const matchedWork = allWorks.filter((item) =>
         item.title.toLowerCase().includes(keywordsToLower.value),
       );
 
