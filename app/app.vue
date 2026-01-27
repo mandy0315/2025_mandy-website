@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { isShowSearchModal } = await useSearch();
-const { isLoading } = usePageLoading();
 const isOpenMenu = useState('isOpenMenu', () => false);
 
 const config = useRuntimeConfig();
@@ -20,7 +19,7 @@ useHead({
 </script>
 
 <template>
-  <Body :class="[{ 'overflow-hidden': isShowSearchModal || isOpenMenu }, { 'main-bg': !isLoading }]">
+  <Body :class="{ 'overflow-hidden': isShowSearchModal || isOpenMenu }">
     <AppPageLoading />
     <NuxtLayout>
       <NuxtPage />
