@@ -39,7 +39,7 @@ const routeName = computed(() => (route.name || '') as string);
 const getChildName = (words: string) => {
   return firstWordToUpper(words.split('-')[1] || words);
 };
-const { isDesktop } = useResponsive();
+import { isDesktop } from '@/utils/responsive';
 onClickOutside(containerRef, () => {
   if (isDesktop.value) {
     closeMenu();

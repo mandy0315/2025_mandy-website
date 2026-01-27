@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const { isMobile } = useResponsive();
+import { isMobile } from '@/utils/responsive';
 
 usePageSEO({
   title: '作品',

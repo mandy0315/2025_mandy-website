@@ -8,7 +8,7 @@ const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
 import { getAssetPath } from '@/utils/assetPath';
-const { isDesktop } = useResponsive();
+import { isDesktop } from '@/utils/responsive';
 const { width: windowWidth } = useWindowSize();
 const { worksByCategory } = await useWorks();
 

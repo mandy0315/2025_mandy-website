@@ -28,7 +28,7 @@ usePageSEO({
   path: route.path,
 })
 
-const { isMobile } = useResponsive();
+import { isMobile } from '@/utils/responsive';
 </script>
 <template>
   <div v-if="pending">載入中...</div>

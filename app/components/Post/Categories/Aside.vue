@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const { categories } = await useCategory(props.collection);
 const route = useRoute();
-const { isDesktop } = useResponsive();
+import { isDesktop } from '@/utils/responsive';
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
 
