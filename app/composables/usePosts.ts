@@ -1,20 +1,23 @@
 type SortOrder = "ASC" | "DESC";
 export const usePosts = async (
   collection: "blog" | "notes" = "blog",
-  limit = 9,
+  limit = 10,
 ) => {
   const LIMIT_COUNT = limit;
-  const currentSort = ref<SortOrder>("DESC");
-  const currentPage = ref<number>(1);
+  const currentSort = useState<SortOrder>(`${collection}-sort`, () => "DESC");
+  const currentPage = useState<number>(`${collection}-page`, () => 1);
 
   // 當排序改變時，重置頁面到第一頁
-  watch(currentSort, () => {
-    currentPage.value = 1;
+  watch([currentPage, currentSort], ([_, newSort], [___, oldSort]) => {
+    if (newSort !== oldSort) {
+      currentPage.value = 1;
+    }
+    refresh();
   });
 
   // 取得總文章數量和分頁後的文章資料
   const { data, refresh, pending } = await useAsyncData(
-    `post-data-${collection}`,
+    `${collection}-${limit}-data`,
     () => {
       const skip = (currentPage.value - 1) * LIMIT_COUNT;
       return Promise.all([
@@ -34,9 +37,6 @@ export const usePosts = async (
           .skip(skip)
           .all(),
       ]);
-    },
-    {
-      watch: [currentSort, currentPage],
     },
   );
 

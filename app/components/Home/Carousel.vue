@@ -155,8 +155,7 @@ const getItemStyle = (index: number) => {
                 width="480" height="270" loading="lazy" decoding="async" />
             </div>
             <template #fallback>
-              <div
-                class="z-10 object-cover shadow-xl relative overflow-hidden w-[320px] h-[180px] lg:w-[480px] lg:h-[270px]">
+              <div class="z-10 object-cover shadow-xl relative overflow-hidden w-81 h-45 lg:w-120 lg:h-67.5">
                 <img :src="getAssetPath(item.image)" :alt="item.title" class="w-full h-full absolute object-cover"
                   width="480" height="270" loading="lazy" decoding="async" />
               </div>

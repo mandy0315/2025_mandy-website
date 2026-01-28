@@ -10,8 +10,11 @@ export const useArchivePosts = async ({
 }) => {
   const route = useRoute();
   const LIMIT_COUNT = limit;
-  const currentSort = ref<SortOrder>("DESC");
-  const currentPage = ref<number>(1);
+  const currentSort = useState<SortOrder>(
+    `${collection}-${type}-sort`,
+    () => "DESC",
+  );
+  const currentPage = useState<number>(`${collection}-${type}-page`, () => 1);
 
   const currentValue = computed(() => {
     const paramKey = type === "tags" ? "tag" : "category";
@@ -19,13 +22,19 @@ export const useArchivePosts = async ({
     return decodeURIComponent(value);
   });
 
-  watch([currentSort, currentValue], () => {
-    currentPage.value = 1;
-  });
+  watch(
+    [currentPage, currentSort, currentValue],
+    ([_, newSort, __], [___, oldSort, ____]) => {
+      if (newSort !== oldSort) {
+        currentPage.value = 1;
+      }
+      refresh();
+    },
+  );
 
   // 取得所有篩選後的資料
   const { data, refresh, pending } = useAsyncData(
-    `archive-data-${type}-${collection}`,
+    `${collection}-${type}-${limit}-data`,
     () => {
       return queryCollection(collection)
         .order("date", currentSort.value)
@@ -39,9 +48,6 @@ export const useArchivePosts = async ({
           "date",
         )
         .all();
-    },
-    {
-      watch: [currentSort, currentPage],
     },
   );
 
