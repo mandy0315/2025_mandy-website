@@ -1,5 +1,4 @@
 /* @tailwindcss/typography 樣式套件修改 */
-
 /* title */
 .prose :where(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply no-underline!;
@@ -17,7 +16,6 @@
   @apply lg:opacity-100;
 }
 
-
 /* table */
 .prose :where(table):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply bg-gray-50 dark:bg-black/40 border border-gray-300;
@@ -31,15 +29,12 @@
   @apply p-2;
 }
 
-/* pre */
-:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)){
-  @apply mt-0 mb-0;
-}
-.prose :where(pre code .line):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply block;
+/* code */
+.prose :where(code):not(pre code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply bg-neutral-100 text-primary-dark px-2 py-1 rounded border border-gray-300 dark:bg-neutral-800 dark:text-primary;
 }
 
-/* code */
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply before:content-none after:content-none;
+/* a */
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply text-primary-dark dark:text-primary;
 }
