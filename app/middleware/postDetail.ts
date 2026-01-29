@@ -6,13 +6,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // 如果不是文章詳細頁面格式，直接跳過
   if (!collectionMatch) return;
   const collection = collectionMatch[1] as "blog" | "notes";
+
   // 在路由守衛中驗證文章是否存在
-  const { data: post, error } = await useAsyncData(`post-check-${path}`, () =>
-    queryCollection(collection).path(path).first(),
-  );
+  const { data: post, error } = await usePostDetail(collection, path);
+
   if (error.value) {
-    console.error("資料查詢錯誤:", error);
-    return navigateTo(`/${collection}`);
+    console.error("資料查詢錯誤:", error.value);
+    await navigateTo(`/${collection}`);
   }
   if (!post.value) {
     throw createError({
