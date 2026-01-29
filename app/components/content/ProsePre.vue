@@ -1,7 +1,8 @@
 <template>
   <div class="my-6 relative group">
     <button
-      class="cursor-pointer p-2 text-xl ml-auto absolute top-0 right-0 block lg:hidden lg:group-hover:inline-block"
+      class="p-2 text-xl ml-auto absolute top-0 right-0 block lg:hidden lg:group-hover:inline-block transition-opacity"
+      :class="isCopied ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'" :disabled="isCopied"
       @click="copyToClipboard">
       <Icon v-if="isCopied" name="solar:clipboard-check-outline" />
       <Icon v-else name="solar:clipboard-text-outline" />
