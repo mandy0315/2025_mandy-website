@@ -5,10 +5,7 @@ const props = defineProps<{
 
 const route = useRoute()
 
-// 路由守衛已確保文章存在，直接查詢
-const { data: post } = await useAsyncData(route.path, () => {
-  return queryCollection(props.collection).path(route.path).first()
-})
+const { data: post } = await usePostDetail(props.collection, route.path)
 
 usePageSEO({
   title: post.value?.title || '',

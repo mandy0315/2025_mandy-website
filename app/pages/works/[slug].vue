@@ -1,10 +1,13 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: async (to) => {
-    const { works } = await useWorks();
     const workParam = decodeURIComponent(String(to.params?.slug)) || '';
-    const workSlugs = works.value?.map(work => work.slug) || [];
-    if (!workSlugs.includes(workParam)) {
+    const { data: work, error } = await useWorkDetail(to.path, workParam);
+    if (error.value) {
+      console.error("資料查詢錯誤:", error.value);
+      await navigateTo('/works');
+    }
+    if (!work.value) {
       throw createError({
         statusCode: 404,
         statusMessage: `作品未找到：${workParam}`,
@@ -13,22 +16,19 @@ definePageMeta({
     }
   },
 });
+
 import { getAssetPath } from '@/utils/assetPath';
+import { isMobile } from '@/utils/responsive';
+
 const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
-const { works, pending } = await useWorks();
-const work = computed(() => {
-  return works.value?.find(w => w.slug === workParam) || null;
-});
-
+const { data: work, pending } = await useWorkDetail(route.path, workParam);
 
 usePageSEO({
   title: work.value?.title || '',
   description: work.value?.description || '',
   path: route.path,
 })
-
-import { isMobile } from '@/utils/responsive';
 </script>
 <template>
   <div v-if="pending">載入中...</div>
