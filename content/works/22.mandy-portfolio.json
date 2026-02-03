@@ -1,0 +1,17 @@
+{
+  "category": "web",
+  "type": "personal",
+  "title": "2020個人作品集",
+  "description": "以旅行方式呈現個人作品集，透過輪播方向介紹不同區塊，內容包含自我介紹、技能、作品展示，設計風格以手繪插畫為主，搭配明亮色彩與活潑字體，營造輕鬆愉快的氛圍。",
+  "link": "https://mandy0315.github.io/2020_mandy-portfolio",
+  "image": "/images/works/web/mandyPortfolio.jpg",
+  "skills": [
+    "Illustrator",
+    "Photoshop",
+    "HTML5",
+    "CSS3",
+    "JQuery"
+  ],
+  "date": "2020",
+  "status": "completed"
+}
