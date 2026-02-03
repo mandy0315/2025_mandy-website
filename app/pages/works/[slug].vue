@@ -68,7 +68,7 @@ usePageSEO({
         </div>
         <div v-if="work.link" class="mt-4 text-center lg:text-left">
           <Icon name="i-material-symbols:link-rounded" size="1.5rem" class="align-middle" />
-          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="work.link">
+          <BaseLink variant="underline" size="sm" class="pl-1 font-bold text-primary" :to="work.link" target="_blank">
             {{ work.link }}
           </BaseLink>
         </div>
