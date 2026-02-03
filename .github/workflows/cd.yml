@@ -1,8 +1,9 @@
-# https://github.com/actions/deploy-pages#usage
-name: CD to GitHub Pages
+# https://nuxt.com/deploy/github-pages
+name: CD workflows
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
