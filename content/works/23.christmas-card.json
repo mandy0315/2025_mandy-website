@@ -1,0 +1,15 @@
+{
+  "category": "web",
+  "type": "personal",
+  "title": "聖誕節賀卡互動網頁",
+  "description": "練習 WindiCSS 與 Vue.js 所製作的動畫互動網頁，並搭配黑暗模式與動畫特效，在畫面點擊信封後，進入歡樂的聖誕氣氛。",
+  "link": "https://mandy0315.github.io/2021_christmas-event",
+  "image": "/images/works/web/christmasCard.jpg",
+  "skills": [
+    "Illustrator",
+    "Vue",
+    "WindiCSS"
+  ],
+  "date": null,
+  "status": "completed"
+}
