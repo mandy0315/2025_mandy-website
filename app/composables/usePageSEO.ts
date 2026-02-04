@@ -1,30 +1,23 @@
 interface UsePageSEO {
   title?: string;
   description?: string;
-  path?: string;
+  path: string;
 }
 export const usePageSEO = ({
   title = "",
   description = "",
-  path = "",
+  path,
 }: UsePageSEO) => {
-  const config = useRuntimeConfig();
-  const baseURL = config.public.BASE_URL as string;
-
   const defaultTitle = "MandySpace";
   const titleTxt = computed(() =>
-    title === "" ? defaultTitle : `${title} - ${defaultTitle}`
+    title === "" ? defaultTitle : `${title} - ${defaultTitle}`,
   );
 
   const defaultDescription =
     "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～";
   const descriptionTxt = computed(() =>
-    description === "" ? defaultDescription : description
+    description === "" ? defaultDescription : description,
   );
-
-  const fullPath = computed(() => {
-    return path === "" ? baseURL : `${baseURL}${path}`;
-  });
 
   useSeoMeta({
     author: "蔡敏佳 Mandy",
@@ -32,7 +25,7 @@ export const usePageSEO = ({
     description: descriptionTxt.value,
     ogTitle: title || defaultTitle,
     ogDescription: descriptionTxt.value,
-    ogUrl: fullPath.value,
+    ogUrl: path,
     twitterTitle: title || defaultTitle,
     twitterDescription: descriptionTxt.value,
   });
