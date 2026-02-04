@@ -36,9 +36,9 @@ const { posts: blog } = await usePosts('blog', 6);
           <p class="text-xl">歡迎來到我的小空間，小空間<span
               class="bg-primary-dark text-white mx-2">記錄著我的生活點滴</span>，希望來到這裡的大家能有所收穫，如果沒有也有好心情！</p>
         </section>
-        <!-- VisualKV -->
+        <!-- HomeKV -->
         <div class="w-full flex justify-center pb-20 lg:hidden">
-          <VisualKV />
+          <HomeKV />
         </div>
 
         <!-- Profiles -->
@@ -72,10 +72,10 @@ const { posts: blog } = await usePosts('blog', 6);
         </section>
       </div>
 
-      <!-- VisualKV web -->
+      <!-- HomeKV web -->
       <div
         class="hidden lg:flex lg:w-5/10 lg:sticky lg:pointer-events-none top-0 h-screen ml-auto justify-center items-center">
-        <VisualKV />
+        <HomeKV />
       </div>
     </div>
 

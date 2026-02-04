@@ -41,20 +41,20 @@ watch(colorMode, () => {
 
       <!-- clouds -->
       <div class="absolute top-0 transition-opacity duration-500 delay-500 opacity-100 dark:opacity-0">
-        <VisualKVCloud size="sm" class="top-15 left-22" />
-        <VisualKVCloud class="top-20 left-0" />
-        <VisualKVCloud size="lg" class="top-30 left-10" />
-        <VisualKVCloud size="sm" class="top-15 left-50" />
+        <HomeKVCloud size="sm" class="top-15 left-22" />
+        <HomeKVCloud class="top-20 left-0" />
+        <HomeKVCloud size="lg" class="top-30 left-10" />
+        <HomeKVCloud size="sm" class="top-15 left-50" />
       </div>
       <!-- stars -->
       <div class="absolute top-0 transition-opacity duration-500 delay-500 opacity-0 dark:opacity-100">
-        <VisualKVStar size="sm" class="top-10 left-30" />
-        <VisualKVStar size="lg" class="top-16 left-45" />
-        <VisualKVStar size="sm" class="top-28 left-10" />
-        <VisualKVStar class="top-35 left-3" />
-        <VisualKVStar size="sm" class="top-45 left-10" />
-        <VisualKVStar size="sm" class="top-20 left-55" />
-        <VisualKVStar class="top-34 left-50" />
+        <HomeKVStar size="sm" class="top-10 left-30" />
+        <HomeKVStar size="lg" class="top-16 left-45" />
+        <HomeKVStar size="sm" class="top-28 left-10" />
+        <HomeKVStar class="top-35 left-3" />
+        <HomeKVStar size="sm" class="top-45 left-10" />
+        <HomeKVStar size="sm" class="top-20 left-55" />
+        <HomeKVStar class="top-34 left-50" />
       </div>
     </div>
   </div>
