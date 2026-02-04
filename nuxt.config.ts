@@ -8,8 +8,8 @@ const deployConfig = {
 };
 
 const getBaseURL = () => {
-  // 本機環境（開發或本機 build）
-  if (process.env.NODE_ENV === "development" || !process.env.CD) {
+  // 非 CD 環境（本機開發、本機 build、CI 測試等）
+  if (!process.env.CD) {
     return "/";
   }
 
@@ -18,8 +18,8 @@ const getBaseURL = () => {
 };
 
 const getSiteURL = () => {
-  // 本機環境（開發或本機 build）
-  if (process.env.NODE_ENV === "development" || !process.env.CD) {
+  // 非 CD 環境（本機開發、本機 build、CI 測試等）
+  if (!process.env.CD) {
     return "http://localhost:3000";
   }
 
