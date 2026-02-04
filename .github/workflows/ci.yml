@@ -23,7 +23,7 @@ jobs:
       - name: Build Nuxt
         run: pnpm generate
 
-      - name: Run Lighthouse CI
+      - name: Run Lighthouse
         run: |
           pnpm add -g @lhci/cli
           lhci autorun
