@@ -273,6 +273,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxt/content",
+    "@nuxt/test-utils/module",
   ],
 
   css: ["@/styles/tailwind/main.css"],
