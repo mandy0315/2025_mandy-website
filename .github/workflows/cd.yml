@@ -23,7 +23,7 @@ jobs:
         run: pnpm install
 
       - name: Setup Nuxt types
-        run: nuxi prepare
+        run: pnpm nuxi prepare
 
       - name: Run tests
         run: pnpm test
