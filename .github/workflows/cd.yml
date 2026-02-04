@@ -25,8 +25,7 @@ jobs:
       - name: Build
         run: pnpm generate
         env:
-          NUXT_APP_GITHUB_ACTIONS: ${{ vars.NUXT_APP_GITHUB_ACTIONS }}
-          NUXT_APP_CUSTOM_DOMAIN: ${{ vars.NUXT_APP_CUSTOM_DOMAIN }}
+          IS_CUSTOM_DOMAIN: ${{ vars.IS_CUSTOM_DOMAIN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

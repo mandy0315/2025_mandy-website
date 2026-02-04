@@ -2,15 +2,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 // 部署設定集中管理
 const deployConfig = {
-  isCustomDomain: false,
+  isCustomDomain: process.env.IS_CUSTOM_DOMAIN === "true",
   repositoryName: "2025_mandy-website",
   customDomain: "https://mandy315.com",
 };
 
 const getBaseURL = () => {
-  // if (process.env.NODE_ENV === "development") {
-  //   return "/";
-  // }
+  if (process.env.NODE_ENV === "development") {
+    return "/";
+  }
 
   return deployConfig.isCustomDomain ? "/" : `/${deployConfig.repositoryName}/`;
 };
@@ -285,10 +285,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      IS_CUSTOM_DOMAIN: deployConfig.isCustomDomain,
       SHOW_NOTES_PAGE: false,
-      CUSTOM_DOMAIN_URL: deployConfig.customDomain,
-      REPOSITORY_NAME: deployConfig.repositoryName,
       BASE_URL: baseURL,
     },
   },
