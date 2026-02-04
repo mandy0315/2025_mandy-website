@@ -30,7 +30,6 @@ const siteURL = getSiteURL();
 
 console.log("🔧 建置設定:", {
   NODE_ENV: process.env.NODE_ENV,
-  ...deployConfig,
   baseURL,
   siteURL,
 });
