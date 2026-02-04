@@ -1,11 +1,6 @@
 name: CI workflows
 on:
   pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
