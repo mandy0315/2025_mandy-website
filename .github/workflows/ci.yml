@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Setup Nuxt types
+        run: nuxi prepare
+
       - name: Run tests
         run: pnpm test
 
