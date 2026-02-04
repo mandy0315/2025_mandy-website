@@ -1,21 +1,6 @@
 <script setup lang="ts">
 const { isShowSearchModal } = await useSearch();
 const isOpenMenu = useState('isOpenMenu', () => false);
-
-const config = useRuntimeConfig();
-
-useHead({
-  htmlAttrs: {
-    lang: "zh-TW"
-  },
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: `${config.public.BASE_URL}favicon.ico`
-    }
-  ],
-})
 </script>
 
 <template>

@@ -17,11 +17,9 @@ const route = useRoute();
 const colorMode = useColorMode();
 const loaded = ref(false);
 
-const config = useRuntimeConfig();
-const siteUrl = config.public.BASE_URL
 const disqusConfig = () => ({
   identifier: props.id,
-  url: `${siteUrl}${route.path}`,
+  url: route.path,
   title: props.title
 });
 
