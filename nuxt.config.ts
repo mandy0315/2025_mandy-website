@@ -9,21 +9,21 @@ const deployConfig = {
 
 const getBaseURL = () => {
   // 本機環境（開發或本機 build）
-  if (process.env.NODE_ENV === "development" || !process.env.CI) {
+  if (process.env.NODE_ENV === "development" || !process.env.CD) {
     return "/";
   }
 
-  // CI 環境（GitHub Actions）
+  // CD 環境：只有明確設定使用自訂域名時才用根路徑，否則用 repository 路徑
   return deployConfig.isCustomDomain ? "/" : `/${deployConfig.repositoryName}/`;
 };
 
 const getSiteURL = () => {
   // 本機環境（開發或本機 build）
-  if (process.env.NODE_ENV === "development" || !process.env.CI) {
+  if (process.env.NODE_ENV === "development" || !process.env.CD) {
     return "http://localhost:3000";
   }
 
-  // CI 環境（GitHub Actions）
+  // CD 環境：根據是否使用自訂域名決定網站 URL
   return deployConfig.isCustomDomain
     ? deployConfig.customDomain
     : `https://mandy0315.github.io/${deployConfig.repositoryName}/`;
