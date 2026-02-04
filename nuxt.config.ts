@@ -1,29 +1,44 @@
 import tailwindcss from "@tailwindcss/vite";
 
-// 統一管理 baseURL
-const isGithubPages = process.env.NUXT_APP_GITHUB_ACTIONS === "true";
-const hasCustomDomain = process.env.NUXT_APP_CUSTOM_DOMAIN === "true";
-const baseURL = hasCustomDomain
-  ? "/"
-  : isGithubPages
-  ? "/2025_mandy-website/"
-  : "/";
+// 部署設定集中管理
+const deployConfig = {
+  isCustomDomain: false,
+  repositoryName: "2025_mandy-website",
+  customDomain: "https://mandy315.com",
+};
+
+const getBaseURL = () => {
+  // if (process.env.NODE_ENV === "development") {
+  //   return "/";
+  // }
+
+  return deployConfig.isCustomDomain ? "/" : `/${deployConfig.repositoryName}/`;
+};
+
+const getSiteURL = () => {
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
+  }
+
+  return deployConfig.isCustomDomain
+    ? deployConfig.customDomain
+    : `https://mandy0315.github.io/${deployConfig.repositoryName}/`;
+};
+
+const baseURL = getBaseURL();
+const siteURL = getSiteURL();
 
 console.log("🔧 建置設定:", {
-  isGithubPages,
-  hasCustomDomain,
-  baseURL,
   NODE_ENV: process.env.NODE_ENV,
+  ...deployConfig,
+  baseURL,
+  siteURL,
 });
 
 export default defineNuxtConfig({
   // SSG 設定
   nitro: {
-    preset: hasCustomDomain
-      ? "static"
-      : isGithubPages
-      ? "github-pages"
-      : "static",
+    preset: "static", // 部署到任何靜態託管服務
 
     prerender: {
       routes: [
@@ -61,7 +76,7 @@ export default defineNuxtConfig({
         };
         const extractCategoriesAndTags = async (
           type: "blog" | "notes",
-          filePath: string
+          filePath: string,
         ) => {
           try {
             const content = await fs.readFile(filePath, "utf-8");
@@ -72,7 +87,7 @@ export default defineNuxtConfig({
 
               // 提取 category
               const categoryMatch = frontmatter?.match(
-                /category:\s*['"]?([^'"\n]+)['"]?/
+                /category:\s*['"]?([^'"\n]+)['"]?/,
               );
               if (categoryMatch) {
                 const category = categoryMatch[1]?.trim();
@@ -112,7 +127,7 @@ export default defineNuxtConfig({
 
             // 過濾出 .md 檔案
             const mdFiles = markdownFiles.filter((file) =>
-              file.endsWith(".md")
+              file.endsWith(".md"),
             );
 
             // 生成路由
@@ -127,14 +142,14 @@ export default defineNuxtConfig({
             for (const file of mdFiles) {
               await extractCategoriesAndTags(
                 folderName,
-                path.join(`content/${folderName}`, file)
+                path.join(`content/${folderName}`, file),
               );
             }
 
             console.log(
               `📝 找到 ${routes.length} 篇${
                 folderName === "blog" ? "部落格文章" : "筆記"
-              }`
+              }`,
             );
 
             return routes;
@@ -155,7 +170,7 @@ export default defineNuxtConfig({
           categories.forEach(({ type, set }) => {
             set.forEach((category) => {
               const route = `/${type}/categories/${encodeURIComponent(
-                category
+                category,
               )}`;
               allRoutes.push(route);
             });
@@ -177,12 +192,12 @@ export default defineNuxtConfig({
           console.log(
             `📂 生成 ${
               categories.flatMap((c) => Array.from(c.set)).length
-            } 個分類路由`
+            } 個分類路由`,
           );
           console.log(
             `🏷️ 生成 ${
               tags.flatMap((t) => Array.from(t.set)).length
-            } 個標籤路由`
+            } 個標籤路由`,
           );
 
           return allRoutes;
@@ -194,7 +209,7 @@ export default defineNuxtConfig({
 
             // 過濾出 .json 檔案
             const workFiles = jsonFiles.filter((file) =>
-              file.endsWith(".json")
+              file.endsWith(".json"),
             );
 
             // 生成作品路由
@@ -234,6 +249,18 @@ export default defineNuxtConfig({
   app: {
     baseURL,
     buildAssetsDir: "/static/",
+    head: {
+      htmlAttrs: {
+        lang: "zh-TW",
+      },
+      link: [
+        {
+          rel: "icon",
+          type: "image/x-icon",
+          href: `${baseURL}favicon.ico`,
+        },
+      ],
+    },
   },
   devtools: { enabled: true },
 
@@ -258,9 +285,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      GITHUB_ACTIONS: process.env.NUXT_APP_GITHUB_ACTIONS || "false",
+      IS_CUSTOM_DOMAIN: deployConfig.isCustomDomain,
       SHOW_NOTES_PAGE: false,
-      CUSTOM_DOMAIN: process.env.NUXT_APP_CUSTOM_DOMAIN || "false",
+      CUSTOM_DOMAIN_URL: deployConfig.customDomain,
+      REPOSITORY_NAME: deployConfig.repositoryName,
       BASE_URL: baseURL,
     },
   },
@@ -287,7 +315,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://mandy315.com",
+    url: siteURL,
     name: "MandySpace",
   },
 
