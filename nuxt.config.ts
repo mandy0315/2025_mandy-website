@@ -8,18 +8,22 @@ const deployConfig = {
 };
 
 const getBaseURL = () => {
-  if (process.env.NODE_ENV === "development") {
+  // 本機環境（開發或本機 build）
+  if (process.env.NODE_ENV === "development" || !process.env.CI) {
     return "/";
   }
 
+  // CI 環境（GitHub Actions）
   return deployConfig.isCustomDomain ? "/" : `/${deployConfig.repositoryName}/`;
 };
 
 const getSiteURL = () => {
-  if (process.env.NODE_ENV === "development") {
+  // 本機環境（開發或本機 build）
+  if (process.env.NODE_ENV === "development" || !process.env.CI) {
     return "http://localhost:3000";
   }
 
+  // CI 環境（GitHub Actions）
   return deployConfig.isCustomDomain
     ? deployConfig.customDomain
     : `https://mandy0315.github.io/${deployConfig.repositoryName}/`;
