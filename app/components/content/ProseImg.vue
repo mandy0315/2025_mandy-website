@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getAssetPath } from '@/utils/assetPath';
+import { isMobile } from '@/utils/responsive';
 
 const props = defineProps({
   src: {
@@ -24,10 +25,10 @@ const processedSrc = computed(() => getAssetPath(props.src));
 const isOpenModal = ref(false);
 </script>
 <template>
-  <div @click="isOpenModal = true" class="my-5">
+  <button @click.stop="isOpenModal = true" :disabled="isMobile" class="my-5">
     <img :src="processedSrc" :alt :width :height class="pb-2 mb-0 mt-0" />
-    <span v-if="alt" class="font-bold pl-2">{{ alt }}</span>
-  </div>
+    <div v-if="alt" class="font-bold pl-2 text-left my-0">{{ alt }}</div>
+  </button>
   <Teleport to="body">
     <div v-if="isOpenModal" @click="isOpenModal = false"
       class="fixed inset-0 z-200 bg-black/60 flex items-center justify-center p-4">
