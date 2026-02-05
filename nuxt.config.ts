@@ -318,6 +318,10 @@ export default defineNuxtConfig({
   site: {
     url: siteURL,
     name: "MandySpace",
+    /** 開發環境下可以看到 robots.txt 設定
+     *
+     * `/robots.txt?mockProductionEnv=true` */
+    env: "production",
   },
 
   ogImage: {
@@ -325,5 +329,9 @@ export default defineNuxtConfig({
     defaults: {
       extension: "jpeg", // 預設 png 改為 jpeg
     },
+  },
+  robots: {
+    disallow: ["/notes/**"],
+    sitemap: `${siteURL}/sitemap.xml`,
   },
 });
