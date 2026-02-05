@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { pageInfo } from "@/utils/pageInfoMap";
 import { firstWordToUpper } from "@/utils/formatText";
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside } from '@vueuse/core';
+import { isDesktop } from '@/utils/responsive';
 
 const route = useRoute()
 const isOpenMenu = useState('isOpenMenu', () => false);
@@ -39,7 +40,7 @@ const routeName = computed(() => (route.name || '') as string);
 const getChildName = (words: string) => {
   return firstWordToUpper(words.split('-')[1] || words);
 };
-import { isDesktop } from '@/utils/responsive';
+
 onClickOutside(containerRef, () => {
   if (isDesktop.value) {
     closeMenu();

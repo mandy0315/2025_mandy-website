@@ -1,28 +1,4 @@
-<template>
-  <div class="my-6 relative group">
-    <button
-      class="p-2 text-xl ml-auto absolute top-0 right-0 block lg:hidden lg:group-hover:inline-block transition-opacity"
-      :class="isCopied ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'" :disabled="isCopied"
-      @click="copyToClipboard">
-      <Icon v-if="isCopied" name="solar:clipboard-check-outline" />
-      <Icon v-else name="solar:clipboard-text-outline" />
-    </button>
-
-    <div v-if="language !== 'plaintext'"
-      class="p-2 h-10 bg-white rounded-t border border-gray-300 dark:bg-neutral-900 flex items-center ">
-      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]" class="align-middle" />
-      <span class="pl-2">{{ filename }}</span>
-    </div>
-
-    <pre class="mt-0 mb-0 border-gray-300 bg-neutral-100 dark:bg-neutral-800 flex items-center min-h-12"
-      :class="[$props.class, language === 'plaintext' ? 'border text-black dark:text-white' : 'border-b border-l border-r rounded-t-none!']">
-      <slot />
-    </pre>
-  </div>
-</template>
-
 <script setup lang="ts">
-
 const props = withDefaults(defineProps<{
   code?: string;
   language?: LanguageIconKey | null;
@@ -68,3 +44,25 @@ const copyToClipboard = async () => {
   }
 };
 </script>
+<template>
+  <div class="my-6 relative group">
+    <button
+      class="p-2 text-xl ml-auto absolute top-0 right-0 block lg:hidden lg:group-hover:inline-block transition-opacity"
+      :class="isCopied ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'" :disabled="isCopied"
+      @click="copyToClipboard">
+      <Icon v-if="isCopied" name="solar:clipboard-check-outline" />
+      <Icon v-else name="solar:clipboard-text-outline" />
+    </button>
+
+    <div v-if="language !== 'plaintext'"
+      class="p-2 h-10 bg-white rounded-t border border-gray-300 dark:bg-neutral-900 flex items-center ">
+      <Icon v-if="language && LanguageIconList[language]" :name="LanguageIconList[language]" class="align-middle" />
+      <span class="pl-2">{{ filename }}</span>
+    </div>
+
+    <pre class="mt-0 mb-0 border-gray-300 bg-neutral-100 dark:bg-neutral-800 flex items-center min-h-12"
+      :class="[$props.class, language === 'plaintext' ? 'border text-black dark:text-white' : 'border-b border-l border-r rounded-t-none!']">
+      <slot />
+    </pre>
+  </div>
+</template>
