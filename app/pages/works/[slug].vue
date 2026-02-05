@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { getAssetPath } from '@/utils/assetPath';
+import { isMobile } from '@/utils/responsive';
+
 definePageMeta({
   middleware: async (to) => {
     const workParam = decodeURIComponent(String(to.params?.slug)) || '';
@@ -16,9 +19,6 @@ definePageMeta({
     }
   },
 });
-
-import { getAssetPath } from '@/utils/assetPath';
-import { isMobile } from '@/utils/responsive';
 
 const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';

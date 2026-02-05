@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { isDesktop } from '@/utils/responsive';
+
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
 
 const { tags } = await useTag(props.collection);
 const route = useRoute();
-import { isDesktop } from '@/utils/responsive';
+
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
 

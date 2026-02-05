@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getAssetPath } from '@/utils/assetPath';
+
 const props = withDefaults(defineProps<{
   path: string,
   image: string,
@@ -11,7 +13,6 @@ const props = withDefaults(defineProps<{
   isHorizontal: false,
 })
 
-import { getAssetPath } from '@/utils/assetPath';
 const processedSrc = computed(() => getAssetPath(props.image));
 </script>
 

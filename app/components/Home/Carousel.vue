@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
-import { useWindowSize } from '@vueuse/core'
+import { useWindowSize } from '@vueuse/core';
+import { getAssetPath } from '@/utils/assetPath';
+import { isDesktop } from '@/utils/responsive';
 
 const currentIndex = ref(0);
 const isAutoPlay = ref(true);
 const intervalId = ref<number | null>(null);
 const isMounted = ref(false);
 
-import { getAssetPath } from '@/utils/assetPath';
-import { isDesktop } from '@/utils/responsive';
+
 const { width: windowWidth } = useWindowSize();
 const { worksByCategory } = await useWorks();
 
