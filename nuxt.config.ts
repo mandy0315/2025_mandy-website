@@ -291,6 +291,7 @@ export default defineNuxtConfig({
     public: {
       SHOW_NOTES_PAGE: false,
       BASE_URL: baseURL,
+      SITE_URL: siteURL,
     },
   },
 
