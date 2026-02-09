@@ -24,12 +24,10 @@ const runtimeConfig = useRuntimeConfig();
 const disqusConfig = () => {
   // 清理 identifier：移除路徑和副檔名，只保留文章 slug
   const cleanIdentifier = props.id
-    .split('/').pop()      // 取最後一部分（檔名）
-    ?.replace(/\.\w+$/, '') // 移除副檔名
-    ?.replace(/^\d+\./, '') // 移除開頭的數字編號
-    || props.id;           // 如果處理失敗則用原始 ID
-
-  console.log(cleanIdentifier)
+    .split('/').pop()
+    ?.replace(/\.\w+$/, '')
+    ?.replace(/^\d+\./, '')
+    || props.id;
 
   return {
     identifier: cleanIdentifier,
