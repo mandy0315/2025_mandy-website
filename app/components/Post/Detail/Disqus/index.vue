@@ -21,11 +21,20 @@ const runtimeConfig = useRuntimeConfig();
 /** Disqus 配置
  * 網址：https://help.disqus.com/en/articles/1717084-javascript-configuration-variables
  */
-const disqusConfig = () => ({
-  identifier: props.id,
-  url: `${runtimeConfig.public.SITE_URL}${route.path}`,
-  title: props.title
-});
+const disqusConfig = () => {
+  // 清理 identifier：移除路徑和副檔名，只保留文章 slug
+  const cleanIdentifier = props.id
+    .split('/').pop()
+    ?.replace(/\.\w+$/, '')
+    ?.replace(/^\d+\./, '')
+    || props.id;
+
+  return {
+    identifier: cleanIdentifier,
+    url: `${runtimeConfig.public.SITE_URL}${route.path}`,
+    title: props.title
+  };
+};
 
 const loadDisqus = () => {
   if (loaded.value) return;
