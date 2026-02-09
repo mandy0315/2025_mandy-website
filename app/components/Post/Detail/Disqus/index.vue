@@ -16,10 +16,14 @@ const props = defineProps<{
 const route = useRoute();
 const colorMode = useColorMode();
 const loaded = ref(false);
+const runtimeConfig = useRuntimeConfig();
 
+/** Disqus 配置
+ * 網址：https://help.disqus.com/en/articles/1717084-javascript-configuration-variables
+ */
 const disqusConfig = () => ({
   identifier: props.id,
-  url: route.path,
+  url: `${runtimeConfig.public.SITE_URL}${route.path}`,
   title: props.title
 });
 
