@@ -84,11 +84,6 @@ onMounted(() => {
   loadDisqus();
 });
 
-watch(() => route.path, async (from, to) => {
-  if (from === to) return;
-  await reloadDisqus();
-});
-
 watch(colorMode, async () => {
   await reloadDisqus();
 });
