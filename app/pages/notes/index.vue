@@ -1,14 +1,14 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['tags'],
+  layout: false,
+})
+
 const route = useRoute();
 const rule = useRobotsRule();
 usePageSEO({
   title: '筆記',
   path: route.path,
-})
-
-definePageMeta({
-  middleware: ['tags'],
-  layout: false,
 })
 
 rule.value = 'noindex, nofollow';

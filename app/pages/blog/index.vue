@@ -1,11 +1,12 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: false,
+})
+
 const route = useRoute();
 usePageSEO({
   title: '部落格',
   path: route.path,
-})
-definePageMeta({
-  layout: false,
 })
 </script>
 <template>
