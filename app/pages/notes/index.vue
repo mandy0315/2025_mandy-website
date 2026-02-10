@@ -4,11 +4,10 @@ definePageMeta({
   layout: false,
 })
 
-const route = useRoute();
 const rule = useRobotsRule();
 usePageSEO({
   title: '筆記',
-  path: route.path,
+  path: '/notes',
 })
 
 rule.value = 'noindex, nofollow';

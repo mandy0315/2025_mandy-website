@@ -3,10 +3,9 @@ definePageMeta({
   layout: false,
 })
 
-const route = useRoute();
 usePageSEO({
   title: '部落格',
-  path: route.path,
+  path: '/blog',
 })
 </script>
 <template>

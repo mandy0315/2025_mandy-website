@@ -1,8 +1,7 @@
 <script setup lang="ts">
-const route = useRoute();
 usePageSEO({
   title: '作品',
-  path: route.path,
+  path: '/works',
 })
 const { works, pending, worksByCategory } = await useWorks();
 
