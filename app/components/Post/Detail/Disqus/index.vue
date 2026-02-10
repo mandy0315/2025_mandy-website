@@ -29,9 +29,14 @@ const disqusConfig = () => {
     ?.replace(/^\d+\./, '')
     || props.id;
 
+  const baseUrl = import.meta.dev
+    ? "http://localhost:3000"
+    : runtimeConfig.public.SITE_URL;
+
+  console.log('disqus url', `${baseUrl}${route.path}`)
   return {
     identifier: cleanIdentifier,
-    url: `${runtimeConfig.public.SITE_URL}${route.path}`,
+    url: `${baseUrl}${route.path}`,
     title: props.title
   };
 };

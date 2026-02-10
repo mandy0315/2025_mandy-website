@@ -1,8 +1,7 @@
 <script setup lang="ts">
-const route = useRoute()
 usePageSEO({
   title: '首頁',
-  path: route.path,
+  path: '/',
 })
 
 // 個人介紹
