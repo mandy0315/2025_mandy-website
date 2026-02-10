@@ -22,18 +22,18 @@ const props = defineProps({
 })
 
 const processedSrc = computed(() => getAssetPath(props.src));
-const isOpenImgModal = useState<boolean>('isOpenImgModal', () => false);
+const isOpenModal = ref(false);
 </script>
 <template>
-  <button @click.stop="isOpenImgModal = true" :disabled="isMobile" class="my-5">
+  <button @click.stop="isOpenModal = true" :disabled="isMobile" class="my-5">
     <img :src="processedSrc" :alt :width :height class="pb-2 mb-0 mt-0" />
     <div v-if="alt" class="font-bold pl-2 text-left my-0">{{ alt }}</div>
   </button>
   <Teleport to="body">
-    <div v-if="isOpenImgModal" @click="isOpenImgModal = false"
+    <div v-if="isOpenModal" @click="isOpenModal = false"
       class="fixed inset-0 z-200 bg-black/60 flex items-center justify-center p-4">
       <div @click.stop class="relative max-w-9/10 lg:max-w-200 max-h-full">
-        <button @click="isOpenImgModal = false"
+        <button @click="isOpenModal = false"
           class="absolute z-12 -top-2 -right-2 w-8 h-8 bg-primary rounded-full box-border">
           <Icon name="material-symbols:close-rounded" size="1.5rem" class="text-white mx-auto align-middle" />
         </button>
