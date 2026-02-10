@@ -3,37 +3,21 @@ import tailwindcss from "@tailwindcss/vite";
 // 部署設定集中管理
 const deployConfig = {
   isCustomDomain: process.env.IS_CUSTOM_DOMAIN === "true",
+  isPagesDeploy: process.env.IS_PAGES_DEPLOY === "true",
   repositoryName: "2025_mandy-website",
   customDomain: "https://mandy315.com",
 };
 
 const getBaseURL = () => {
-  // 非 CD 環境（本機開發、本機 build、CI 測試等）
-  if (!process.env.CD) {
-    return "/";
-  }
-
-  // CD 環境：只有明確設定使用自訂域名時才用根路徑，否則用 repository 路徑
-  return deployConfig.isCustomDomain ? "/" : `/${deployConfig.repositoryName}/`;
-};
-
-const getSiteURL = () => {
-  // 非 CD 環境（本機開發、本機 build、CI 測試等）
-  if (!process.env.CD) {
-    return "http://localhost:3000";
-  }
-
-  // CD 環境：根據是否使用自訂域名決定網站 URL
-  return deployConfig.isCustomDomain
-    ? deployConfig.customDomain
-    : `https://mandy0315.github.io/${deployConfig.repositoryName}/`;
+  return deployConfig.isPagesDeploy && !deployConfig.isCustomDomain
+    ? `/${deployConfig.repositoryName}/`
+    : "/";
 };
 
 const baseURL = getBaseURL();
-const siteURL = getSiteURL();
+const siteURL = deployConfig.customDomain;
 
 console.log("🔧 建置設定:", {
-  NODE_ENV: process.env.NODE_ENV,
   baseURL,
   siteURL,
 });
