@@ -31,9 +31,9 @@ const postIndex = computed(() => currentPage.value === 1 ? 1 : 0);
         <PostCard v-if="index >= postIndex" v-bind="post" class="col-span-1" />
       </template>
     </div>
-    <div v-if="collection === 'notes'" class="border-t border-b c-border-secondary">
+    <div v-if="collection === 'notes'" class="border-t border-b border-secondary/50 dark:border-secondary-light/50">
       <PostItem v-for="post in posts.list" v-bind="post" :key="post.title"
-        class="border-b c-border-secondary last:border-0" />
+        class="border-b border-secondary/50 dark:border-secondary-light/50 last:border-0" />
     </div>
 
 

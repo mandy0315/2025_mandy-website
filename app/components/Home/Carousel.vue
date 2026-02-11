@@ -190,7 +190,7 @@ const getItemStyle = (index: number) => {
       class="absolute bottom-4 text-3xl right-0 font-zen-old-mincho font-bold text-muted dark:text-inverse">
       <div class="relative px-2">
         <p class="px-2 absolute -left-6 -top-12 text-primary">{{ currentIndex + 1 }}</p>
-        <div class="border-l c-border-secondary h-16 rotate-45 absolute bottom-2"></div>
+        <div class="border-l border-secondary/50 dark:border-secondary-light/50 h-16 rotate-45 absolute bottom-2"></div>
         <p class="px-2">{{ items.length }}</p>
       </div>
     </div>

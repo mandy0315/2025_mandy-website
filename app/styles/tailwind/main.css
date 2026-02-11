@@ -16,7 +16,7 @@
 
   /* 輔助色系 (灰色) */
   --color-secondary: #686868;
-  --color-secondary-dark: #c5c5c5;
+  --color-secondary-light: #c5c5c5;
 
   /* 文字色系 (黑灰/灰/灰白) */
   --color-foreground: #111111;
@@ -88,11 +88,6 @@
   .c-container {
     @apply w-9/10 mx-auto lg:max-w-7xl;
   }
-
-  .c-border-secondary {
-    @apply border-secondary/50 dark:border-secondary-dark/50;
-  }
-
 }
 
 @import "./typography.css";

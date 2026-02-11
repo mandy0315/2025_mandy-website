@@ -75,7 +75,7 @@ onClickOutside(containerRef, () => {
           </BaseButton>
         </div>
         <div v-if="isExpanded(item.title) && item.childrens"
-          class="absolute border c-border-secondary left-0 right-0 bg-(--bg-color) p-2 top-10 rounded z-10 shadow shadow-gray-200 dark:shadow-black">
+          class="absolute border border-secondary/50 dark:border-secondary-light/50 left-0 right-0 bg-(--bg-color) p-2 top-10 rounded z-10 shadow shadow-gray-200 dark:shadow-black">
           <BaseLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
             class="py-2 text-sm transition-colors cursor-pointer whitespace-nowrap"
             :isAction="routeName.includes(child.name)">

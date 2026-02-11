@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <aside class="h-full border-y c-border-secondary lg:border-none">
+  <aside class="h-full border-y border-secondary/50 dark:border-secondary-light/50 lg:border-none">
     <BaseButton @click="isExpanded = !isExpanded" class="py-2 px-4 flex items-center w-full lg:hidden"
       :isAction="isExpanded">
       <p>
@@ -51,7 +51,7 @@ onMounted(async () => {
         <BaseLink v-if="isShowNotesPage" variant="outline" to="/notes/tags" size="xs"
           class="rounded-t-sm rounded-b-none border-b-0" :isAction="collection === 'notes'">
           筆記標籤</BaseLink>
-        <div class="border-b c-border-secondary border-dashed"></div>
+        <div class="border-b border-secondary/50 dark:border-secondary-light/50 border-dashed"></div>
       </div>
       <ul ref="containerRef" class="overflow-y-auto h-[calc(100%-2rem)]">
         <li ref="targetRefs" v-for="tag in tags" :key="tag" class="inline-block mr-1 mb-1">
@@ -60,7 +60,8 @@ onMounted(async () => {
             {{ tag }}
           </BaseButton>
         </li>
-        <li v-if="isDesktop" class="border-b c-border-secondary border-dashed mb-2"></li>
+        <li v-if="isDesktop" class="border-b border-secondary/50 dark:border-secondary-light/50 border-dashed mb-2">
+        </li>
       </ul>
     </div>
   </aside>
