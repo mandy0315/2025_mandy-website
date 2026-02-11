@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { isDesktop } = useResponsive();
-
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
@@ -9,6 +7,7 @@ const { categories } = await useCategory(props.collection);
 const route = useRoute();
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
+const { isDesktop } = useResponsive();
 
 
 const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
