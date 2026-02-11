@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDesktop } from '@/utils/responsive';
+
 
 const props = defineProps<{
   collection: 'blog' | 'notes';
@@ -10,6 +10,7 @@ const route = useRoute();
 
 const isExpanded = ref(false);
 const config = useRuntimeConfig();
+const { isDesktop } = useResponsive();
 
 const isShowNotesPage = computed(() => config.public.SHOW_NOTES_PAGE);
 const currentTag = computed(() => {

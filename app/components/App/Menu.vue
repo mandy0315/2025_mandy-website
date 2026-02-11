@@ -2,7 +2,8 @@
 import { pageInfo } from "@/utils/pageInfoMap";
 import { firstWordToUpper } from "@/utils/formatText";
 import { onClickOutside } from '@vueuse/core';
-import { isDesktop } from '@/utils/responsive';
+
+const { isDesktop } = useResponsive();
 
 const route = useRoute()
 const isOpenMenu = useState('isOpenMenu', () => false);

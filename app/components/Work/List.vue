@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T extends { id: string; title: string; slug: string; image: string }">
-import { isMobile } from '@/utils/responsive';
 import { getAssetPath } from '@/utils/assetPath';
+const { isMobile } = useResponsive();
+
 
 const props = defineProps<{
   works: T[];
