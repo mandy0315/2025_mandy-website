@@ -13,9 +13,9 @@ const value = defineModel<string>({
 })
 </script>
 <template>
-  <label class="inline-block text-lg lg:text-sm text-secondary-light dark:text-secondary-dark select-none">
+  <label class="inline-block text-lg lg:text-sm text-secondary dark:text-secondary-dark select-none">
     <span class="pr-2">{{ labelTitle }}</span>
-    <select v-model="value" class="border c-border-secondary rounded py-1 px-4 lg:px-2">
+    <select v-model="value" class="border border-secondary/50 dark:border-secondary-light/50 rounded py-1 px-4 lg:px-2">
       <option v-for="(option, index) in options" :key="index" :value="option.value">{{ option.label }}</option>
     </select>
   </label>

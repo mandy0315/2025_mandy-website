@@ -10,14 +10,15 @@ withDefaults(defineProps<{
 
 </script>
 <template>
-  <NuxtLink :to="path" class="flex justify-between p-4 rounded border c-border-secondary"
+  <NuxtLink :to="path"
+    class="flex justify-between p-4 rounded border border-secondary/50 dark:border-secondary-light/50"
     :class="idx === 0 ? 'flex-row-reverse' : ''">
     <div :class="{ 'text-right': idx === 0 }">
       <p v-if="idx === 0" class=" text-sm">上一篇</p>
       <p v-else class=" text-sm">下一篇</p>
 
       <p class="text-lg lg:text-base">{{ title }}</p>
-      <p class="text-sm c-text-secondary line-clamp-2">{{ description }}</p>
+      <p class="text-sm text-muted dark:text-inverse line-clamp-2">{{ description }}</p>
     </div>
     <div>
       <Icon v-if="idx === 0" name="solar:arrow-left-outline" size="1.5rem" />

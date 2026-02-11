@@ -12,7 +12,7 @@ withDefaults(defineProps<{
       <h1 class="text-6xl font-black text-left">
         {{ title }}
       </h1>
-      <p class="text-3xl text-secondary-light font-light">{{ description }}</p>
+      <p class="text-3xl text-secondary font-light">{{ description }}</p>
     </div>
     <div class="mt-auto mx-auto pb-3">
       <img src="/images/logo-horizontal.png" class="w-52 h-16" alt="logo">

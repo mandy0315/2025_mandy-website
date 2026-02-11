@@ -48,7 +48,7 @@ const { posts: blog } = await usePosts('blog', 6);
             <p class="py-4">
               大學畢業後，擔任設計師開始從事網頁設計相關工作，陸續工作中接觸到前端技術並產生興趣，透過線上學習與培訓班轉職前端工程師，轉職後經過了幾年洗禮，持續以自己步調精進中！
             </p>
-            <hr class="c-border-secondary" />
+            <hr class="border-secondary/50 dark:border-secondary-light/50" />
             <div class="py-2">
               <p class="font-bold">- 喜好</p>
               <p>顏色｜淺咖啡、黃、白、淺藍</p>

@@ -165,7 +165,7 @@ const getItemStyle = (index: number) => {
 
           <Transition name="slide-up">
             <p v-if="index === currentIndex"
-              class="absolute -bottom-20 left-0 right-0 px-4 text-lg lg:text-xl c-text-secondary line-clamp-2">
+              class="absolute -bottom-20 left-0 right-0 px-4 text-lg lg:text-xl text-muted dark:text-inverse line-clamp-2">
               {{ item.description }}
             </p>
           </Transition>
@@ -187,10 +187,10 @@ const getItemStyle = (index: number) => {
     </div>
     <!-- numbers -->
     <div v-if="items.length > 0"
-      class="absolute bottom-4 text-3xl right-0 font-zen-old-mincho font-bold c-text-secondary">
+      class="absolute bottom-4 text-3xl right-0 font-zen-old-mincho font-bold text-muted dark:text-inverse">
       <div class="relative px-2">
         <p class="px-2 absolute -left-6 -top-12 text-primary">{{ currentIndex + 1 }}</p>
-        <div class="border-l c-border-secondary h-16 rotate-45 absolute bottom-2"></div>
+        <div class="border-l border-secondary/50 dark:border-secondary-light/50 h-16 rotate-45 absolute bottom-2"></div>
         <p class="px-2">{{ items.length }}</p>
       </div>
     </div>

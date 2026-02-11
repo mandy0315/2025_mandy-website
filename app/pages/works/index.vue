@@ -80,7 +80,7 @@ const selectWorks = computed(() => {
             </template>
             <template v-else>
               顯示 <span class="text-primary-dark dark:text-primary font-medium">{{ selectWorks.length }}</span> 項
-              <span class="c-text-secondary">（共 {{ works.length }} 項）</span>
+              <span class="text-muted dark:text-inverse">（共 {{ works.length }} 項）</span>
             </template>
           </p>
         </div>

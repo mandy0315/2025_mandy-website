@@ -13,17 +13,15 @@
   /* 主色系 (棕色) */
   --color-primary: #cdb8a3;
   --color-primary-dark: #7D613F;
-  --color-disabled: #e5e7eb;
 
   /* 輔助色系 (灰色) */
-  --color-secondary-light: #686868;
-  --color-secondary-dark: #c5c5c5;
+  --color-secondary: #686868;
+  --color-secondary-light: #c5c5c5;
 
-  /* 文字色系 (黑灰/灰白) */
-  --color-text-light: #111111;
-  --color-text-dark: #f6f5f0;
-
-
+  /* 文字色系 (黑灰/灰/灰白) */
+  --color-foreground: #111111;
+  --color-muted: #686868; 
+  --color-inverse: #f6f5f0;
 
   /* 動畫 */
   --animate-rotating: rotating 2s ease-in-out;
@@ -55,13 +53,13 @@
 @layer base {
 
   :root {
-    --text-color: var(--color-text-light);
+    --text-color: var(--color-foreground);
     --bg-color: #fbf4ef;
     --loading-bg: var(--color-primary);
   }
 
   .dark {
-    --text-color: var(--color-text-dark);
+    --text-color: var(--color-inverse);
     --bg-color: #1c1a3a;
   }
 
@@ -89,14 +87,6 @@
 @layer components {
   .c-container {
     @apply w-9/10 mx-auto lg:max-w-7xl;
-  }
-
-  .c-border-secondary {
-    @apply border-secondary-light/50 dark:border-secondary-dark/50;
-  }
-
-  .c-text-secondary {
-    @apply text-secondary-light dark:text-secondary-dark;
   }
 }
 

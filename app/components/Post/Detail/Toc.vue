@@ -79,7 +79,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="hidden lg:block">
-    <p class="font-zen-old-mincho font-bold pb-2 text-lg border-b c-border-secondary">
+    <p class="font-zen-old-mincho font-bold pb-2 text-lg border-b border-secondary/50 dark:border-secondary-light/50">
       <span class="pr-2">目錄</span>
       <span>Toc</span>
     </p>
@@ -88,7 +88,7 @@ onMounted(() => {
       <ClientOnly fallback-tag="div" fallback="目錄內容">
 
         <div v-for="toc in tocsWithNumbers" :key="toc.id">
-          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary mt-2 block truncate"
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="text-muted dark:text-inverse mt-2 block truncate"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
             :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
             <span v-if="toc.level > 1">{{ toc.number }}<span class="px-1 opacity-50">|</span></span>

@@ -32,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <aside class="h-full border-y c-border-secondary lg:border-none">
+  <aside class="h-full border-y border-secondary/50 dark:border-secondary-light/50 lg:border-none">
     <BaseButton @click="isExpanded = !isExpanded" class="py-2 px-4 flex items-center w-full lg:hidden"
       :isAction="isExpanded">
       <p>
@@ -52,7 +52,7 @@ onMounted(async () => {
         <BaseLink v-if="isShowNotesPage" variant="outline" to="/notes/categories" size="xs"
           class="rounded-t-sm rounded-b-none border-b-0" :isAction="collection === 'notes'">
           筆記分類</BaseLink>
-        <div class="border-b c-border-secondary border-dashed"></div>
+        <div class="border-b border-secondary/50 dark:border-secondary-light/50 border-dashed"></div>
       </div>
       <ul ref="containerRef"
         class="grid grid-cols-2 gap-1 md:grid-cols-3 lg:block lg:overflow-y-auto lg:h-[calc(100%-2rem)]">
@@ -61,7 +61,7 @@ onMounted(async () => {
           <PostCategoryButton :category :isAction="currentCategory === category"
             @click="goToCategoriesPage(category)" />
         </li>
-        <li v-if="isDesktop" class="border-b c-border-secondary border-dashed"></li>
+        <li v-if="isDesktop" class="border-b border-secondary/50 dark:border-secondary-light/50 border-dashed"></li>
       </ul>
     </div>
   </aside>

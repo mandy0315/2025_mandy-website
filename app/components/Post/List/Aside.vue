@@ -97,7 +97,8 @@ const goToTagsPage = async (tag: string) => {
         <BaseLink variant="solid" class="ml-auto text-sm px-3 py-1 lg:text-xs" :to="`/${collection}/categories`">總覽
         </BaseLink>
       </div>
-      <div class="border-b c-border-secondary" v-for="category in categories" :key="category">
+      <div class="border-b border-secondary/50 dark:border-secondary-light/50" v-for="category in categories"
+        :key="category">
         <PostCategoryButton :category @click="goToCategoriesPage(category)" />
       </div>
     </section>
