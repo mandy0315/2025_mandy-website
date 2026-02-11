@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getAssetPath } from '@/utils/assetPath';
-import { isMobile } from '@/utils/responsive';
+const { isMobile } = useResponsive();
 
 const props = defineProps({
   src: {

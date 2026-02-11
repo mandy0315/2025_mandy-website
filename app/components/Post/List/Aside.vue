@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isMobile } from '@/utils/responsive';
+const { isMobile } = useResponsive();
 
 const props = defineProps<{
   collection: 'blog' | 'notes';

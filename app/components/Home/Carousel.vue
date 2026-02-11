@@ -2,7 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
 import { useWindowSize } from '@vueuse/core';
 import { getAssetPath } from '@/utils/assetPath';
-import { isDesktop } from '@/utils/responsive';
+const { isDesktop } = useResponsive();
 
 const currentIndex = ref(0);
 const isAutoPlay = ref(true);

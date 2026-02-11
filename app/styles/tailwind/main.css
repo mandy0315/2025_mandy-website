@@ -53,6 +53,10 @@
 }
 
 @layer base {
+  * {
+    transition: all 0.3s ease;   /* 全局過渡效果 */
+  }
+
   :root {
     --text-color: var(--color-text-light);
     --bg-color: #fbf4ef;
@@ -70,7 +74,6 @@
     /* 暗黑模式樣式與動畫 */
     color: var(--text-color);
     background: var(--bg-color);
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     /* 滾動 */
     scroll-behavior: smooth;
 

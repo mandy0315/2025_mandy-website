@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isDesktop } from '@/utils/responsive';
+const { isDesktop } = useResponsive();
 
 const props = defineProps<{
   collection: 'blog' | 'notes';
