@@ -270,6 +270,9 @@ export default defineNuxtConfig({
       sourcemap: false,
     },
   },
+  imports: {
+    dirs: ["@/composables/**"],
+  },
 
   runtimeConfig: {
     public: {
