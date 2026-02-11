@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getAssetPath } from '@/utils/assetPath';
 const { isMobile } = useResponsive();
+const { isScrollLocked } = useScrollLockPage();
 
 const props = defineProps({
   src: {
@@ -23,6 +24,11 @@ const props = defineProps({
 
 const processedSrc = computed(() => getAssetPath(props.src));
 const isOpenModal = ref(false);
+watch(isOpenModal, (newVal) => {
+  if (import.meta.client) {
+    isScrollLocked.value = newVal;
+  }
+});
 </script>
 <template>
   <button @click.stop="isOpenModal = true" :disabled="isMobile" class="my-5">

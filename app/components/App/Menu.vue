@@ -4,12 +4,19 @@ import { firstWordToUpper } from "@/utils/formatText";
 import { onClickOutside } from '@vueuse/core';
 
 const { isDesktop } = useResponsive();
+const { isScrollLocked } = useScrollLockPage();
 
 const route = useRoute()
-const isOpenMenu = useState('isOpenMenu', () => false);
+const isOpenMenu = ref(false);
 const expandedMenus = ref<string[]>([]);
 const config = useRuntimeConfig();
 const containerRef = ref<HTMLElement | null>(null);
+
+watch(isOpenMenu, (newVal) => {
+  if (import.meta.client) {
+    isScrollLocked.value = newVal;
+  }
+});
 
 const pageVals = computed(() => {
   if (!config.public.SHOW_NOTES_PAGE) {
@@ -47,7 +54,6 @@ onClickOutside(containerRef, () => {
     closeMenu();
   }
 })
-
 </script>
 
 <template>

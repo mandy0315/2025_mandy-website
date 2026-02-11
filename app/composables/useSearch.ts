@@ -19,7 +19,6 @@ interface Work {
 
 const useSearch = async () => {
   const isSearch = useState<boolean>("isSearch", () => false);
-  const isShowSearchModal = useState<boolean>("isShowSearchModal", () => false);
 
   const blog = useState<Post[]>("searchBlog", () => []);
   const notes = useState<Post[]>("searchNotes", () => []);
@@ -245,11 +244,6 @@ const useSearch = async () => {
     isSearch.value = true;
   };
 
-  const closeSearchModal = () => {
-    isShowSearchModal.value = false;
-    keywords.value = "";
-  };
-
   return {
     keywords,
     blog,
@@ -260,8 +254,6 @@ const useSearch = async () => {
     notesTags,
     pages,
     updateSearchList,
-    isShowSearchModal,
-    closeSearchModal,
     works,
     isSearch,
   };
