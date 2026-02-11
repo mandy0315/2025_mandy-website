@@ -3,10 +3,18 @@ import ItemTitle from '@/components/App/Search/ItemTitle.vue';
 import ItemButton from '@/components/App/Search/ItemButton.vue';
 import { watchDebounced } from '@vueuse/core';
 
-const { isSearch, keywords, isShowSearchModal, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList, closeSearchModal } = await useSearch();
+const { isSearch, keywords, blog, notes, pages, blogCategories, notesCategories, blogTags, notesTags, works, updateSearchList } = await useSearch();
 const config = useRuntimeConfig();
+const { isScrollLocked } = useScrollLockPage();
 
 const isShowNotesSearch = computed(() => config.public.SHOW_NOTES_PAGE);
+const isOpenModal = ref(false);
+
+watch(isOpenModal, (newVal) => {
+  if (import.meta.client) {
+    isScrollLocked.value = newVal;
+  }
+});
 
 const pageVals = computed(() => {
   if (!config.public.SHOW_NOTES_PAGE) {
@@ -14,6 +22,13 @@ const pageVals = computed(() => {
   }
   return pages.value;
 });
+
+
+const closeSearchModal = () => {
+  isOpenModal.value = false;
+  keywords.value = "";
+};
+
 watchDebounced(
   keywords,
   () => {
@@ -52,11 +67,11 @@ watch(isSearch, async (value) => {
 
 <template>
   <div>
-    <BaseButton @click="isShowSearchModal = true" title="search">
+    <BaseButton @click="isOpenModal = true" title="search">
       <Icon name="i-solar:magnifer-outline" class="text-2xl lg:text-lg align-middle" />
     </BaseButton>
     <Teleport to="body">
-      <div v-if="isShowSearchModal">
+      <div v-if="isOpenModal">
         <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
           <button @click="closeSearchModal"
             class="absolute w-10 h-10 top-1 right-1 c-text-secondary z-20 text-2xl bg-primary">
