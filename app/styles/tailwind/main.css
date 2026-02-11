@@ -16,7 +16,7 @@
   --color-disabled: #e5e7eb;
 
   /* 輔助色系 (灰色) */
-  --color-secondary-light: #686868;
+  --color-secondary: #686868;
   --color-secondary-dark: #c5c5c5;
 
   /* 文字色系 (黑灰/灰白) */
@@ -92,11 +92,11 @@
   }
 
   .c-border-secondary {
-    @apply border-secondary-light/50 dark:border-secondary-dark/50;
+    @apply border-secondary/50 dark:border-secondary-dark/50;
   }
 
   .c-text-secondary {
-    @apply text-secondary-light dark:text-secondary-dark;
+    @apply text-secondary dark:text-secondary-dark;
   }
 }
 
