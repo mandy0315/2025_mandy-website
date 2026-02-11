@@ -20,8 +20,8 @@
   --color-secondary-dark: #c5c5c5;
 
   /* 文字色系 (黑灰/灰白) */
-  --color-text-light: #111111;
-  --color-text-dark: #f6f5f0;
+  --color-text-primary: #111111;
+  --color-text-inverse: #f6f5f0;
 
 
 
@@ -55,13 +55,13 @@
 @layer base {
 
   :root {
-    --text-color: var(--color-text-light);
+    --text-color: var(--color-text-primary);
     --bg-color: #fbf4ef;
     --loading-bg: var(--color-primary);
   }
 
   .dark {
-    --text-color: var(--color-text-dark);
+    --text-color: var(--color-text-inverse);
     --bg-color: #1c1a3a;
   }
 
