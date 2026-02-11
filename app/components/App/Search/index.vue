@@ -74,7 +74,7 @@ watch(isSearch, async (value) => {
       <div v-if="isOpenModal">
         <div class="w-9/10 top-8 lg:w-5/10 fixed lg:top-20 transform -translate-x-1/2 left-1/2 overflow-hidden z-120">
           <button @click="closeSearchModal"
-            class="absolute w-10 h-10 top-1 right-1 c-text-secondary z-20 text-2xl bg-primary">
+            class="absolute w-10 h-10 top-1 right-1 text-muted dark:text-inverse z-20 text-2xl bg-primary">
             <Icon name="i-material-symbols:close-rounded" class=" align-middle text-white" />
           </button>
           <label class="relative w-full h-12 flex bg-(--bg-color) rounded-t border c-border-secondary ">
@@ -119,14 +119,14 @@ watch(isSearch, async (value) => {
                 :description="post.description" @handleToPage="setCloseModalAndToPage(post.path)" />
               <!-- 分類 -->
               <template v-if="blogCategories.length > 0">
-                <ItemTitle titleEn="categories" title="分類" class="c-text-secondary" />
+                <ItemTitle titleEn="categories" title="分類" class="text-muted dark:text-inverse" />
                 <ItemButton v-for="(category, idx) in blogCategories" :key="idx" icon="solar:folder-bold"
                   :keywords="keywords" :title="category"
                   @handleToPage="setCloseModalAndToPage(`/blog/categories/${category}`)" />
               </template>
               <!-- 標籤 -->
               <template v-if="blogTags.length > 0">
-                <ItemTitle titleEn="tags" title="標籤" class="c-text-secondary" />
+                <ItemTitle titleEn="tags" title="標籤" class="text-muted dark:text-inverse" />
                 <ItemButton v-for="(tag, idx) in blogTags" :key="idx" icon="solar:folder-bold" :keywords="keywords"
                   :title="tag" @handleToPage="setCloseModalAndToPage(`/blog/tags/${tag}`)" />
               </template>
@@ -145,14 +145,14 @@ watch(isSearch, async (value) => {
 
               <!-- 分類 -->
               <template v-if="notesCategories.length > 0">
-                <ItemTitle titleEn="categories" title="分類" class="c-text-secondary" />
+                <ItemTitle titleEn="categories" title="分類" class="text-muted dark:text-inverse" />
                 <ItemButton v-for="(category, idx) in notesCategories" :key="idx" icon="solar:folder-bold"
                   :keywords="keywords" :title="category"
                   @handleToPage="setCloseModalAndToPage(`/notes/categories/${category}`)" />
               </template>
               <!-- 標籤 -->
               <template v-if="notesTags.length > 0">
-                <ItemTitle titleEn="tags" title="標籤" class="c-text-secondary" />
+                <ItemTitle titleEn="tags" title="標籤" class="text-muted dark:text-inverse" />
                 <ItemButton v-for="(tag, idx) in notesTags" :key="idx" icon="solar:folder-bold" :keywords="keywords"
                   :title="tag" @handleToPage="setCloseModalAndToPage(`/notes/tags/${tag}`)" />
               </template>

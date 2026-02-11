@@ -37,7 +37,8 @@ const keywordsHighlight = (keywords: string, text: string) => {
     <div v-if="category" class="ml-1 text-sm px-1 bg-primary-dark text-white">{{ category }}</div>
     <p class="pl-2 grow line-clamp-1">
       <span v-html="keywordsHighlight(keywords, title)" class="pr-1"></span>
-      <span v-if="description" v-html="keywordsHighlight(keywords, description)" class="c-text-secondary"></span>
+      <span v-if="description" v-html="keywordsHighlight(keywords, description)"
+        class="text-muted dark:text-inverse"></span>
     </p>
   </button>
 </template>

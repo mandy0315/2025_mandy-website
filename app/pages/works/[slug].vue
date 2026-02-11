@@ -47,7 +47,7 @@ usePageSEO({
       </div>
     </section>
     <section class="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-x-4 mt-6 c-container">
-      <div class="lg:w-1/2 c-text-secondary text-center lg:text-left">
+      <div class="lg:w-1/2 text-muted dark:text-inverse text-center lg:text-left">
         <div v-if="work.date">
           <WorkTitle title="日期" subtitle="Date" />
           <p v-date-format="work.date"></p>
@@ -61,7 +61,7 @@ usePageSEO({
           <p v-if="work.skills.length > 0">{{ work.skills.join('、') }}</p>
         </div>
       </div>
-      <div class="p-4 lg:p-0 lg:w-1/2 c-text-secondary">
+      <div class="p-4 lg:p-0 lg:w-1/2 text-muted dark:text-inverse">
         <div>
           <WorkTitle class="text-center lg:text-left" title="概要" subtitle="Summary" />
           <p v-if="work.description">{{ work.description }}</p>

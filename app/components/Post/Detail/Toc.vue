@@ -88,7 +88,7 @@ onMounted(() => {
       <ClientOnly fallback-tag="div" fallback="目錄內容">
 
         <div v-for="toc in tocsWithNumbers" :key="toc.id">
-          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="c-text-secondary mt-2 block truncate"
+          <NuxtLink v-if="toc.level > 1" :to="toc.id" class="text-muted dark:text-inverse mt-2 block truncate"
             :class="[{ 'text-primary': currSection === toc.title }, { 'text-sm': toc.level !== 2 }]"
             :style="{ paddingLeft: `${(toc.level - 2) * 1}rem` }">
             <span v-if="toc.level > 1">{{ toc.number }}<span class="px-1 opacity-50">|</span></span>

@@ -33,7 +33,7 @@ const processedSrc = computed(() => getAssetPath(props.image));
       <div class="p-2 col-span-1" :class="isHorizontal ? 'lg:flex lg:flex-col lg:px-6 lg:py-4 lg:col-span-4' : ''">
         <PostDate :date />
         <p class="text-xl"> {{ title }}</p>
-        <p class="c-text-secondary line-clamp-2" :class="isHorizontal ? 'lg:line-clamp-3' : ''">
+        <p class="text-muted dark:text-inverse line-clamp-2" :class="isHorizontal ? 'lg:line-clamp-3' : ''">
           {{ description }}
         </p>
       </div>

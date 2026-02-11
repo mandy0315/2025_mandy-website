@@ -41,7 +41,7 @@ onMounted(() => {
       <div class="pb-4">
         <IconLogoHorizontal class="dark:fill-white w-36 mx-auto" />
         <div class="pt-2">
-          <p class="c-text-secondarys text-base lg:text-xs pl-1 pb-2 text-center lg:text-left">
+          <p class="text-muted dark:text-inverse text-base lg:text-xs pl-1 pb-2 text-center lg:text-left">
             <em><span class="hidden lg:block">嗨～我是蔓蒂</span>可以透過以下方式聯絡我：</em>
           </p>
           <div class="flex gap-x-3  lg:gap-x-1 justify-center lg:justify-start">

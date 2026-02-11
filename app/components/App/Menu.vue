@@ -124,7 +124,7 @@ onClickOutside(containerRef, () => {
 
             <div v-if="isExpanded(item.title) && item.childrens" class="flex flex-col">
               <NuxtLink v-for="child in item.childrens" :key="child.title" :to="child.path" @click="closeMenu"
-                class="py-3 cursor-pointer c-text-secondary"
+                class="py-3 cursor-pointer text-muted dark:text-inverse"
                 :class="routeName.includes(child.name) ? 'bg-primary/50' : 'hover:bg-primary/20'">
                 <p class="w-8/10 mx-auto">{{ child.title }} {{ getChildName(child.name) }}</p>
               </NuxtLink>
