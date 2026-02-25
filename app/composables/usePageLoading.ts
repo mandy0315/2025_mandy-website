@@ -26,7 +26,8 @@ export const usePageLoading = () => {
   const finishProgress = () => {
     // 延遲 300ms 讓使用者看到 100%
     timeoutId = setTimeout(() => {
-      closeLoading();
+      clearLoading();
+      isLoading.value = false;
     }, 300);
   };
 
@@ -44,16 +45,16 @@ export const usePageLoading = () => {
     updateProgress();
   };
 
-  const closeLoading = () => {
+  const clearLoading = () => {
     if (timeoutId) {
       clearTimeout(timeoutId);
       timeoutId = null;
     }
-    isLoading.value = false;
   };
 
   const startLoading = () => {
     // 重設狀態
+    clearLoading();
     renderStart = performance.now();
     progress.value = 0;
     isLoading.value = true;
@@ -67,6 +68,5 @@ export const usePageLoading = () => {
     progress,
     isLoading,
     startLoading,
-    closeLoading,
   };
 };
