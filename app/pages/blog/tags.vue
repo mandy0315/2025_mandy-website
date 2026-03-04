@@ -1,7 +1,4 @@
 <script setup lang="ts">
-const route = useRoute();
-const currentTag = computed(() => route.params.tag || '');
-
 definePageMeta({
   middleware: ['tags'],
   layout: false,

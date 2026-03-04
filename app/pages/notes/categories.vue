@@ -12,6 +12,9 @@ useSeoMeta({
   title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
   ogUrl: route.path,
 })
+defineOgImageComponent("CustomTemplate", {
+  title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
+});
 
 rule.value = 'noindex, nofollow';
 </script>

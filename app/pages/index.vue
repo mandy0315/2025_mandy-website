@@ -2,6 +2,9 @@
 useSeoMeta({
   title: '首頁',
 })
+defineOgImageComponent("CustomTemplate", {
+  title: '首頁',
+});
 
 // 個人介紹
 const isToolsExpanded = ref(false);

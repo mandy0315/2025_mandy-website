@@ -14,7 +14,6 @@ useSeoMeta({
   twitterDescription: defaultDescription,
   ogUrl: site,
 });
-defineOgImageComponent("CustomTemplate");
 </script>
 <template>
   <Body>

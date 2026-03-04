@@ -6,6 +6,10 @@ useSeoMeta({
   description: 'UI/UX 設計、網頁開發與視覺設計作品',
   ogUrl: `${site}/works`,
 })
+defineOgImageComponent("CustomTemplate", {
+  title: '作品',
+  description: 'UI/UX 設計、網頁開發與視覺設計作品',
+});
 
 const { works, pending, worksByCategory } = await useWorks();
 

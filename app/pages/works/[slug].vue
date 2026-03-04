@@ -31,6 +31,10 @@ useSeoMeta({
   description: work.value?.description || '',
   ogUrl: `${site}${route.path}`,
 })
+defineOgImageComponent("CustomTemplate", {
+  title: work.value?.title || '',
+  description: work.value?.description || '',
+});
 </script>
 <template>
   <div v-if="pending">載入中...</div>

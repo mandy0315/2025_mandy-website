@@ -10,6 +10,10 @@ useSeoMeta({
   description: '紀錄學習歷程與成長點滴 ✨',
   ogUrl: `${site}/blog`,
 })
+defineOgImageComponent("CustomTemplate", {
+  title: '部落格',
+  description: '紀錄學習歷程與成長點滴 ✨',
+});
 </script>
 <template>
   <NuxtLayout name="post">

@@ -14,6 +14,9 @@ useSeoMeta({
   title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
   ogUrl: `${site}${route.path}`,
 });
+defineOgImageComponent("CustomTemplate", {
+  title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
+});
 
 rule.value = 'noindex, nofollow';
 </script>
