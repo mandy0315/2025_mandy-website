@@ -1,3 +1,6 @@
+<script setup lang="ts">
+defineOgImageComponent("CustomTemplate");
+</script>
 <template>
   <Body>
     <AppPageLoading />

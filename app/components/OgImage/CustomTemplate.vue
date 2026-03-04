@@ -1,8 +1,10 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  title: string,
-  description: string,
+  title?: string,
+  description?: string,
 }>(), {
+  title: 'Mandy Space',
+  description: 'Hello～我是 Mandy！歡迎來到我的小天地 ✨',
 })
 </script>
 

@@ -6,6 +6,7 @@ definePageMeta({
 usePageSEO({
   title: '部落格',
   path: '/blog',
+  description: '紀錄學習歷程與成長點滴 ✨',
 })
 </script>
 <template>

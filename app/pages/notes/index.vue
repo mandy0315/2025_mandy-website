@@ -8,7 +8,8 @@ const rule = useRobotsRule();
 usePageSEO({
   title: '筆記',
   path: '/notes',
-})
+  description: '隨筆學習歷程 ✨'
+});
 
 rule.value = 'noindex, nofollow';
 </script>

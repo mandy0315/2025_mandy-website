@@ -7,10 +7,6 @@ definePageMeta({
   layout: false,
 })
 
-usePageSEO({
-  title: currentTag.value ? `${currentTag.value} | 部落格標籤` : '部落格標籤',
-  path: route.path,
-})
 </script>
 <template>
   <NuxtLayout name="post-archive">

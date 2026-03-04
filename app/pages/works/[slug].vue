@@ -26,7 +26,7 @@ const { data: work, pending } = await useWorkDetail(route.path, workParam);
 
 usePageSEO({
   title: work.value?.title || '',
-  description: work.value?.description || '',
+  description: work.value?.title || '',
   path: route.path,
 })
 </script>
