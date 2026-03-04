@@ -28,7 +28,7 @@ const runtimeConfig = useRuntimeConfig();
 const site = runtimeConfig.public.SITE_URL;
 useSeoMeta({
   title: work.value?.title || '',
-  description: work.value?.title || '',
+  description: work.value?.description || '',
   ogUrl: `${site}${route.path}`,
 })
 </script>
