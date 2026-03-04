@@ -5,10 +5,13 @@ definePageMeta({
 })
 
 const rule = useRobotsRule();
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: '筆記',
-  path: '/notes',
-})
+  ogUrl: `${site}/notes`,
+  description: '隨筆學習歷程 ✨'
+});
 
 rule.value = 'noindex, nofollow';
 </script>

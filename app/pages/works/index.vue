@@ -1,8 +1,12 @@
 <script setup lang="ts">
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: '作品',
-  path: '/works',
+  ogUrl: `${site}/works`,
+  description: 'UI/UX 設計、網頁開發與視覺設計作品',
 })
+
 const { works, pending, worksByCategory } = await useWorks();
 
 type CategoryOptionsKeys = keyof typeof categoryOptions;

@@ -6,11 +6,12 @@ definePageMeta({
   middleware: ['categories'],
   layout: false,
 })
-
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
-  path: route.path,
-})
+  ogUrl: `${site}${route.path}`,
+});
 </script>
 <template>
   <NuxtLayout name="post-archive">

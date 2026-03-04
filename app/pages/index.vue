@@ -1,7 +1,6 @@
 <script setup lang="ts">
-usePageSEO({
+useSeoMeta({
   title: '首頁',
-  path: '/',
 })
 
 // 個人介紹

@@ -3,9 +3,12 @@ definePageMeta({
   layout: false,
 })
 
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: '部落格',
-  path: '/blog',
+  ogUrl: `${site}/blog`,
+  description: '紀錄學習歷程與成長點滴 ✨',
 })
 </script>
 <template>

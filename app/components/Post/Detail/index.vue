@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const props = defineProps<{
   collection: 'blog' | 'notes';
 }>();
@@ -7,10 +8,12 @@ const route = useRoute()
 
 const { data: post } = await usePostDetail(props.collection, route.path)
 
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: post.value?.title || '',
   description: post.value?.description || '',
-  path: route.path,
+  ogUrl: `${site}${route.path}`,
 })
 
 const scrollToTop = () => {
