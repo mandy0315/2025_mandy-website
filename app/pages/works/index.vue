@@ -68,7 +68,7 @@ const selectWorks = computed(() => {
 </script>
 
 <template>
-  <div class="c-container">
+  <article class="c-container">
     <div v-if="pending" class="py-10 text-center">載入中...</div>
     <template v-else>
       <section class="pb-4">
@@ -90,5 +90,5 @@ const selectWorks = computed(() => {
 
       <WorkList :works="selectWorks" @resetFilters="resetFilters" />
     </template>
-  </div>
+  </article>
 </template>

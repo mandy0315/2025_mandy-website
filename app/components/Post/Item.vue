@@ -7,8 +7,10 @@ const props = defineProps<{
 
 </script>
 <template>
-  <NuxtLink :to="path" class="group block p-4 hover:bg-primary/20">
-    <PostDate :date class="block" />
-    <p class="text-xl"> {{ title }}</p>
-  </NuxtLink>
+  <article>
+    <NuxtLink :to="path" class="group block p-4 hover:bg-primary/20">
+      <PostDate :date class="block" />
+      <p class="text-xl"> {{ title }}</p>
+    </NuxtLink>
+  </article>
 </template>
