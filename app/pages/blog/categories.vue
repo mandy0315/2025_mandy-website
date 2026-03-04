@@ -12,6 +12,9 @@ useSeoMeta({
   title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
   ogUrl: `${site}${route.path}`,
 });
+defineOgImageComponent("CustomTemplate", {
+  title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
+});
 </script>
 <template>
   <NuxtLayout name="post-archive">

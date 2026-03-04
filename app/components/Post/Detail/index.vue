@@ -14,7 +14,11 @@ useSeoMeta({
   title: post.value?.title || '',
   description: post.value?.description || '',
   ogUrl: `${site}${route.path}`,
-})
+});
+defineOgImageComponent("CustomTemplate", {
+  title: post.value?.title || '',
+  description: post.value?.description || '',
+});
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });

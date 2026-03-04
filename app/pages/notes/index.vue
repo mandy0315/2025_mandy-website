@@ -12,6 +12,10 @@ useSeoMeta({
   description: '隨筆學習歷程 ✨',
   ogUrl: `${site}/notes`,
 });
+defineOgImageComponent("CustomTemplate", {
+  title: '筆記',
+  description: '隨筆學習歷程 ✨',
+});
 
 rule.value = 'noindex, nofollow';
 </script>
