@@ -9,8 +9,8 @@ const runtimeConfig = useRuntimeConfig();
 const site = runtimeConfig.public.SITE_URL;
 useSeoMeta({
   title: '筆記',
+  description: '隨筆學習歷程 ✨',
   ogUrl: `${site}/notes`,
-  description: '隨筆學習歷程 ✨'
 });
 
 rule.value = 'noindex, nofollow';

@@ -3,8 +3,8 @@ const runtimeConfig = useRuntimeConfig();
 const site = runtimeConfig.public.SITE_URL;
 useSeoMeta({
   title: '作品',
-  ogUrl: `${site}/works`,
   description: 'UI/UX 設計、網頁開發與視覺設計作品',
+  ogUrl: `${site}/works`,
 })
 
 const { works, pending, worksByCategory } = await useWorks();
