@@ -8,9 +8,9 @@ definePageMeta({
   layout: false,
 })
 
-usePageSEO({
+useSeoMeta({
   title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
-  path: route.path,
+  ogUrl: route.path,
 })
 
 rule.value = 'noindex, nofollow';

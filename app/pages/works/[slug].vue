@@ -24,10 +24,12 @@ const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
 const { data: work, pending } = await useWorkDetail(route.path, workParam);
 
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: work.value?.title || '',
   description: work.value?.title || '',
-  path: route.path,
+  ogUrl: `${site}${route.path}`,
 })
 </script>
 <template>

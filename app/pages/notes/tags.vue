@@ -8,9 +8,11 @@ definePageMeta({
   layout: false,
 })
 
-usePageSEO({
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.SITE_URL;
+useSeoMeta({
   title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
-  path: route.path,
+  ogUrl: `${site}${route.path}`,
 });
 
 rule.value = 'noindex, nofollow';
