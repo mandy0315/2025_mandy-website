@@ -10,6 +10,8 @@ const { data: post } = await usePostDetail(props.collection, route.path)
 
 const titleTxt = post.value?.title || '';
 const descriptionTxt = post.value?.description || '';
+const runtimeConfig = useRuntimeConfig();
+const site = runtimeConfig.public.site;
 useMetaPage({
   title: titleTxt,
   description: descriptionTxt,
@@ -19,6 +21,17 @@ defineOgImageComponent("CustomTemplate", {
   title: titleTxt,
   description: descriptionTxt,
 });
+useSchemaOrg([
+  defineArticle({
+    headline: post.value?.title || '',
+    image: post.value?.image || '',
+    datePublished: post.value?.date || '',
+    author: {
+      name: 'Mandy TSAI',
+      url: site,
+    }
+  })
+]);
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
