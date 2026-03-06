@@ -1,0 +1,16 @@
+{
+  "category": "web",
+  "type": "personal",
+  "title": "暫存網址套件",
+  "description": "一款專為暫時性網址儲存設計的 Chrome 擴充套件，類似書籤功能但更適合臨時使用。提供完整的網址管理功能：新增、編輯、刪除，也支援自訂暫存時間與儲存空間配置。內建深色模式切換，無需依賴瀏覽器書籤功能，讓使用者能夠快速且便利地存取暫存網址。",
+  "link": "https://reurl.cc/6GgeWM",
+  "image": "/images/works/web/searchURL.jpg",
+  "skills": [
+    "Vue.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Chrome Extension API"
+  ],
+  "date": null,
+  "status": "completed"
+}
