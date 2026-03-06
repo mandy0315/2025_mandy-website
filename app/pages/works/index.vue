@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: '作品',
-  description: 'UI/UX 設計、網頁開發與視覺設計作品',
-  ogUrl: `${site}/works`,
+const titleTxt = '作品';
+const descriptionTxt = '網頁開發、UI/UX 設計與視覺設計作品';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: '/works',
 })
 defineOgImageComponent("CustomTemplate", {
-  title: '作品',
-  description: 'UI/UX 設計、網頁開發與視覺設計作品',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 
 const { works, pending, worksByCategory } = await useWorks();

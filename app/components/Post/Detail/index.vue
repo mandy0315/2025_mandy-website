@@ -8,16 +8,16 @@ const route = useRoute()
 
 const { data: post } = await usePostDetail(props.collection, route.path)
 
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: post.value?.title || '',
-  description: post.value?.description || '',
-  ogUrl: `${site}${route.path}`,
+const titleTxt = post.value?.title || '';
+const descriptionTxt = post.value?.description || '';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 });
 defineOgImageComponent("CustomTemplate", {
-  title: post.value?.title || '',
-  description: post.value?.description || '',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 
 const scrollToTop = () => {

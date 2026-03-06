@@ -1,10 +1,9 @@
 <script setup lang="ts">
-useSeoMeta({
-  title: '首頁',
-})
-defineOgImageComponent("CustomTemplate", {
-  title: '首頁',
+useMetaPage({
+  title: "敏佳小空間",
+  description: "Hello～我是 Mandy！歡迎來到我的小天地 ✨ 這裡收藏著我的開發與設計作品、學習筆記、生活與技術文章，希望能與你分享我的所見所想～"
 });
+defineOgImageComponent("CustomTemplate",);
 
 // 個人介紹
 const isToolsExpanded = ref(false);

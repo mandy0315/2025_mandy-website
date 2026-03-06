@@ -8,12 +8,16 @@ definePageMeta({
   layout: false,
 })
 
-useSeoMeta({
-  title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
-  ogUrl: route.path,
+const titleTxt = currentCategory.value ? `分類-${currentCategory.value}` : '分類';
+const descriptionTxt = '所有學習筆記分類';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 })
 defineOgImageComponent("CustomTemplate", {
-  title: currentCategory.value ? `${currentCategory.value} | 筆記分類` : '筆記分類',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 
 rule.value = 'noindex, nofollow';

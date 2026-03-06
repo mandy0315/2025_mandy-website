@@ -3,16 +3,16 @@ definePageMeta({
   layout: false,
 })
 
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: '部落格',
-  description: '紀錄學習歷程與成長點滴 ✨',
-  ogUrl: `${site}/blog`,
+const titleTxt = '部落格';
+const descriptionTxt = '紀錄學習歷程與成長點滴 ✨';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: '/blog',
 })
 defineOgImageComponent("CustomTemplate", {
-  title: '部落格',
-  description: '紀錄學習歷程與成長點滴 ✨',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 </script>
 <template>

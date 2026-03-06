@@ -6,14 +6,17 @@ definePageMeta({
   middleware: ['categories'],
   layout: false,
 })
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
-  ogUrl: `${site}${route.path}`,
+
+const titleTxt = currentCategory.value ? `分類-${currentCategory.value}` : '分類';
+const descriptionTxt = '所有部落格文章分類';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 });
 defineOgImageComponent("CustomTemplate", {
-  title: currentCategory.value ? `${currentCategory.value} | 部落格分類` : '部落格分類',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 </script>
 <template>
