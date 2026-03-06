@@ -5,16 +5,16 @@ definePageMeta({
 })
 
 const rule = useRobotsRule();
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: '筆記',
-  description: '隨筆學習歷程 ✨',
-  ogUrl: `${site}/notes`,
+const titleTxt = '筆記';
+const descriptionTxt = '隨筆學習歷程 ✨';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: '/notes',
 });
 defineOgImageComponent("CustomTemplate", {
-  title: '筆記',
-  description: '隨筆學習歷程 ✨',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 
 rule.value = 'noindex, nofollow';

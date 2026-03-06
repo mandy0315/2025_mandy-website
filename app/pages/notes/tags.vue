@@ -8,14 +8,16 @@ definePageMeta({
   layout: false,
 })
 
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
-  ogUrl: `${site}${route.path}`,
+const titleTxt = currentTag.value ? `標籤-${currentTag.value}` : '標籤';
+const descriptionTxt = '所有學習筆記標籤';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 });
 defineOgImageComponent("CustomTemplate", {
-  title: currentTag.value ? `${currentTag.value} | 筆記標籤` : '筆記標籤',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 
 rule.value = 'noindex, nofollow';

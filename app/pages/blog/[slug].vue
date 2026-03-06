@@ -3,7 +3,6 @@ definePageMeta({
   middleware: ['post-detail'],
   layout: false,
 })
-
 </script>
 <template>
   <NuxtLayout name="post">
@@ -12,5 +11,4 @@ definePageMeta({
       <PostDetailToc collection="blog" />
     </template>
   </NuxtLayout>
-
 </template>

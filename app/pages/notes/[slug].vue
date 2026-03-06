@@ -1,11 +1,10 @@
 <script setup lang="ts">
-const rule = useRobotsRule();
-
 definePageMeta({
   middleware: ['post-detail'],
   layout: false,
 })
 
+const rule = useRobotsRule();
 rule.value = 'noindex, nofollow';
 </script>
 <template>

@@ -8,17 +8,30 @@ const route = useRoute()
 
 const { data: post } = await usePostDetail(props.collection, route.path)
 
+const titleTxt = post.value?.title || '';
+const descriptionTxt = post.value?.description || '';
 const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: post.value?.title || '',
-  description: post.value?.description || '',
-  ogUrl: `${site}${route.path}`,
+const site = runtimeConfig.public.site;
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 });
 defineOgImageComponent("CustomTemplate", {
-  title: post.value?.title || '',
-  description: post.value?.description || '',
+  title: titleTxt,
+  description: descriptionTxt,
 });
+useSchemaOrg([
+  defineArticle({
+    headline: post.value?.title || '',
+    image: post.value?.image || '',
+    datePublished: post.value?.date || '',
+    author: {
+      name: 'Mandy TSAI',
+      url: site,
+    }
+  })
+]);
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });

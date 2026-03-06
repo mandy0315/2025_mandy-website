@@ -24,16 +24,17 @@ const route = useRoute();
 const workParam = decodeURIComponent(String(route.params?.slug)) || '';
 const { data: work, pending } = await useWorkDetail(route.path, workParam);
 
-const runtimeConfig = useRuntimeConfig();
-const site = runtimeConfig.public.SITE_URL;
-useSeoMeta({
-  title: work.value?.title || '',
-  description: work.value?.description || '',
-  ogUrl: `${site}${route.path}`,
+
+const titleTxt = work.value?.title || '';
+const descriptionTxt = work.value?.description || '';
+useMetaPage({
+  title: titleTxt,
+  description: descriptionTxt,
+  path: route.path,
 })
 defineOgImageComponent("CustomTemplate", {
-  title: work.value?.title || '',
-  description: work.value?.description || '',
+  title: titleTxt,
+  description: descriptionTxt,
 });
 </script>
 <template>
