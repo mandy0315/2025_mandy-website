@@ -5,7 +5,7 @@ interface UseMetaPage {
 }
 export const useMetaPage = ({ title, description, path = "" }: UseMetaPage) => {
   const runtimeConfig = useRuntimeConfig();
-  const site = runtimeConfig.public.site + path;
+  const site = runtimeConfig.public.SITE_URL + path;
 
   useSeoMeta({
     author: "蔡敏佳 Mandy",
