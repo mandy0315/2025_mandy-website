@@ -9,7 +9,7 @@ definePageMeta({
 })
 
 const titleTxt = currentCategory.value ? `分類-${currentCategory.value}` : '分類';
-const descriptionTxt = '所有學習筆記分類';
+const descriptionTxt = '類別總覽頁面，可透過類別快速找到相關筆記，節省尋找時間，專注於閱讀內容，歡迎留言與我交流。';
 useMetaPage({
   title: titleTxt,
   description: descriptionTxt,

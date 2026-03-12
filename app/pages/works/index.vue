@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const titleTxt = '作品';
-const descriptionTxt = '網頁開發、UI/UX 設計與視覺設計作品';
+const descriptionTxt = '收錄我這些年的專案與練習作品，涵蓋 UI/UX 設計、視覺設計與網頁開發，包含商業合作及個人專案，可依分類與類型篩選，歡迎進來走走。';
 useMetaPage({
   title: titleTxt,
   description: descriptionTxt,
