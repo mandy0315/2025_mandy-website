@@ -25,7 +25,7 @@ console.log("🔧 建置設定:", {
 export default defineNuxtConfig({
   // SSG 設定
   nitro: {
-    preset: "static", // 部署到任何靜態託管服務
+    preset: "github-pages", // 部署到github-pages
 
     prerender: {
       routes: [
@@ -301,10 +301,15 @@ export default defineNuxtConfig({
 
   icon: {
     mode: "local",
-
     // 指定已安裝的圖示集
     serverBundle: {
       collections: ["logos", "mdi", "solar"],
+    },
+    clientBundle: {
+      scan: {
+        // 只掃描這些資料夾中使用的圖示
+        globInclude: ["components/**", "pages/**", "layouts/**"],
+      },
     },
   },
 
