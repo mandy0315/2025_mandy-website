@@ -25,7 +25,7 @@ console.log("🔧 建置設定:", {
 export default defineNuxtConfig({
   // SSG 設定
   nitro: {
-    preset: "static", // 部署到任何靜態託管服務
+    preset: "github-pages", // 部署到github-pages
 
     prerender: {
       routes: [
@@ -246,6 +246,23 @@ export default defineNuxtConfig({
           type: "image/x-icon",
           href: `${baseURL}favicon.ico`,
         },
+        // 優化 Google Fonts 載入
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+        // 直接載入字型，設定 media 為 "print" 以延遲載入，並在載入完成後切換到 "all"
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700&display=swap&subset=latin,latin-ext&text=0123456789",
+          media: "print", // 初始設定為「列印模式」樣式表
+          onload: "this.media='all'", // 載入完成後切換到「所有媒體」
+        },
       ],
     },
   },
@@ -284,10 +301,15 @@ export default defineNuxtConfig({
 
   icon: {
     mode: "local",
-
     // 指定已安裝的圖示集
     serverBundle: {
       collections: ["logos", "mdi", "solar"],
+    },
+    clientBundle: {
+      scan: {
+        // 只掃描這些資料夾中使用的圖示
+        globInclude: ["components/**", "pages/**", "layouts/**"],
+      },
     },
   },
 
