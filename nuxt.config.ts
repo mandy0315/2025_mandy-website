@@ -337,7 +337,7 @@ export default defineNuxtConfig({
   ogImage: {
     fonts: ["Noto+Sans+TC:700"],
     defaults: {
-      extension: "jpeg", // 預設 png 改為 jpeg
+      extension: "png",
     },
   },
   robots: {
