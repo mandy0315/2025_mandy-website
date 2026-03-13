@@ -19,6 +19,11 @@ jobs:
       - name: Enable pnpm via Corepack
         run: corepack enable
 
+      - name: Install system dependencies for OG Image generation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips-dev
+
       - name: Install dependencies
         run: pnpm install
 
