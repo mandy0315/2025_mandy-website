@@ -4,7 +4,7 @@
   "title": "CodePain練習網站",
   "description": "致敬 CodePen 開發部分功能，由 6 人歷時 1.5 個月共同開發，作為功能型網站開發的實戰練習。專案核心功能包含使用 Ace 套件實作線上編輯器，並透過 API 實現資料的新增、存取與修改。另設計社群互動功能，如愛心、鎖定、留言等，強化使用者參與感；會員系統則結合 Rails Devise 套件與第三方登入機制，打造完整的登入驗證流程。",
   "link": null,
-  "image": "/images/works/web/codePain.jpg",
+  "image": "/images/works/web/codePain.webp",
   "client": null,
   "skills": [
     "React-Hooks",
