@@ -259,7 +259,7 @@ export default defineNuxtConfig({
         // 直接載入字型，設定 media 為 "print" 以延遲載入，並在載入完成後切換到 "all"
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700&display=swap&subset=latin,latin-ext&text=0123456789",
+          href: "https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700&display=swap",
           media: "print", // 初始設定為「列印模式」樣式表
           onload: "this.media='all'", // 載入完成後切換到「所有媒體」
         },
