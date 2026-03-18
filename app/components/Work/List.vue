@@ -78,37 +78,53 @@ const onImageIntersect = (entries: IntersectionObserverEntry[]) => {
   });
 };
 
-const setupImageObserver = async (img: HTMLImageElement) => {
+const observeImage = async (img: HTMLImageElement) => {
   if (img && imageObserver.value) {
     imageObserver.value.observe(img);
   }
 };
 
-// 重置狀態
-watch(() => props.works, () => {
-  loadedImages.value.clear();
-  displayedCount.value = itemsPerPage;
-});
-
-onMounted(() => {
-  // 滾動加載觀察器
+// 設置滾動加載觀察器
+const setupScrollObserver = () => {
   observer.value = new IntersectionObserver(onLoadMoreIntersect, {
     threshold: 0.1 // 當元素至少有10%可見時觸發
   });
 
-  // 圖片懶加載觀察器
+  if (loadMoreEl.value) {
+    observer.value.observe(loadMoreEl.value);
+  }
+};
+// 設置圖片懶加載觀察器
+const setupImageObserver = () => {
   imageObserver.value = new IntersectionObserver(onImageIntersect, {
     rootMargin: '100px'
   });
+};
 
-  if (loadMoreEl.value) {
-    observer.value?.observe(loadMoreEl.value);
-  }
+const disconnectObservers = () => {
+  observer.value?.disconnect();
+  imageObserver.value?.disconnect();
+};
+
+watch(() => props.works, async () => {
+  loadedImages.value.clear();
+  displayedCount.value = itemsPerPage;
+
+  // 等待 DOM 更新後重新觀察加載更多元素
+  await nextTick();
+  disconnectObservers();
+
+  setupScrollObserver();
+  setupImageObserver();
+});
+
+onMounted(() => {
+  setupScrollObserver();
+  setupImageObserver()
 });
 
 onUnmounted(() => {
-  observer.value?.disconnect();
-  imageObserver.value?.disconnect();
+  disconnectObservers();
 });
 </script>
 
@@ -127,7 +143,7 @@ onUnmounted(() => {
           <NuxtLink class="w-full h-auto aspect-video relative bg-transparent overflow-hidden group block"
             :to="`/works/${data.slug}`" :aria-label="`前往${data.title}詳情頁面`">
             <BaseHoverMask :contentText="data.title" />
-            <img :ref="(el) => setupImageObserver(el as HTMLImageElement)" :data-src="getAssetPath(data.image)"
+            <img :ref="(el) => observeImage(el as HTMLImageElement)" :data-src="getAssetPath(data.image)"
               :data-index="index"
               class="w-full h-full inset-0 absolute overflow-hidden object-cover transition-all opacity-0 group-hover:blur-sm"
               :alt="data.title" />
