@@ -35,6 +35,7 @@
 
 ## 檔案命名
 - Components：使用 PascalCase（如 `PostCard.vue`、`BaseButton.vue`）
+  - 如果是資料夾裡面 index.vue 維持原裝 （如 `Pagination/index.vue`）
 - Composables：使用 camelCase 並以 `use` 開頭（如 `usePageLoading.ts`）
 - Utils：使用 camelCase（如 `formatText.ts`、`assetPath.ts`）
 - Content：使用 kebab-case 搭配排序數字（如 `1.how-this-project-was-planned.md`）
@@ -69,18 +70,19 @@
 - 色彩配置：支援深色模式，使用 `dark:` 暗黑模式
 
 ### 型別指引
-- **Props 和複雜型別**：使用 `type`（聯合、條件、映射型別等）
+- **元件Props 使用內聯定義**
+- **複雜型別**：使用 `type`（聯合、條件、映射型別等）
 - **資料結構和 API 回應**：使用 `interface`（物件結構更清晰，支援擴展）
 - 使用泛型增加型別安全性
 - 避免使用 `any`，必要時使用 `unknown`
 ```typescript
-// Props 型別定義（使用 type）
-type PostCardProps = {
+// Props 型別定義（內聯定義）
+const props = defineProps<{
   path: string
   title: string
   date: string
   category?: string
-}
+}>()
 
 // API 回應資料結構（使用 interface）
 interface BlogPost {
