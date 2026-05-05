@@ -1,33 +1,19 @@
-import { pageInfo } from "@/utils/pageInfoMap";
+import { pageInfo } from "@/utils/pageInfoMap/index";
 
-type Collection = "blog" | "notes";
-interface Post {
-  title: string;
-  description: string;
-  path: string;
-}
-interface Page {
-  title: string;
-  path: string;
-}
-
-interface Work {
-  title: string;
-  path: string;
-  category: "vision" | "ui" | "web";
-}
+import type { PostItem, PageItem, WorkItem } from "./types";
+import type { Collection } from "@/types";
 
 const useSearch = async () => {
   const isSearch = useState<boolean>("isSearch", () => false);
 
-  const blog = useState<Post[]>("searchBlog", () => []);
-  const notes = useState<Post[]>("searchNotes", () => []);
+  const blog = useState<PostItem[]>("searchBlog", () => []);
+  const notes = useState<PostItem[]>("searchNotes", () => []);
   const blogCategories = useState<string[]>("searchBlogCategories", () => []);
   const notesCategories = useState<string[]>("searchNotesCategories", () => []);
   const blogTags = useState<string[]>("searchBlogTags", () => []);
   const notesTags = useState<string[]>("searchNotesTags", () => []);
-  const pages = useState<Page[]>("searchPages", () => []);
-  const works = useState<Work[]>("searchWorks", () => []);
+  const pages = useState<PageItem[]>("searchPages", () => []);
+  const works = useState<WorkItem[]>("searchWorks", () => []);
   const keywords = useState<string>("keywords", () => "");
   const LIMIT_COUNT = 5; // 預設 5 筆列表
 
@@ -177,7 +163,7 @@ const useSearch = async () => {
 
       // 沒有關鍵字，每個分類隨機一個
       if (keywordsToLower.value === "") {
-        const randomWorks: Work[] = [];
+        const randomWorks: WorkItem[] = [];
         for (const category in worksByCategory) {
           const worksInCategory =
             worksByCategory[category as keyof typeof worksByCategory];

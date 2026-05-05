@@ -1,15 +1,4 @@
-interface PageInfoMap {
-  path: string;
-  title: string;
-  name: string;
-  childrens?: {
-    [key: string]: {
-      path: string;
-      title: string;
-      name: string;
-    };
-  };
-}
+import type { PageInfoMap } from "./types";
 
 export const pageInfo = new Map<string, PageInfoMap>([
   ["home", { name: "home", path: "/", title: "首頁" }],

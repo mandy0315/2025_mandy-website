@@ -1,11 +1,11 @@
-type SortOrder = "ASC" | "DESC";
+import type { SortOrder, Collection } from "@/types";
 export const useArchivePosts = async ({
   type,
   collection = "blog",
   limit = 9,
 }: {
   type: "category" | "tags";
-  collection?: "blog" | "notes";
+  collection?: Collection;
   limit?: number;
 }) => {
   const route = useRoute();

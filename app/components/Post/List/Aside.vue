@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const { isMobile } = useResponsive();
 
+import type { Collection } from '@/types';
 const props = defineProps<{
-  collection: 'blog' | 'notes';
+  collection: Collection;
 }>();
 const { categories } = await useCategory(props.collection, 5);
 const { tags } = await useTag(props.collection, 5);

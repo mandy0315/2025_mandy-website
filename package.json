@@ -6,6 +6,7 @@
     "dev": "nuxi dev",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
+    "typecheck": "npx nuxt typecheck",
     "test": "vitest --run --reporter verbose",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
@@ -39,7 +40,9 @@
     "happy-dom": "^20.5.0",
     "playwright-core": "^1.58.1",
     "sharp": "^0.34.5",
-    "vitest": "^3.2.0"
+    "typescript": "^6.0.3",
+    "vitest": "^3.2.0",
+    "vue-tsc": "^3.2.8"
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pageInfo } from "@/utils/pageInfoMap";
+import { pageInfo } from "@/utils/pageInfoMap/index";
 import { firstWordToUpper } from "@/utils/formatText";
 import { onClickOutside } from '@vueuse/core';
 

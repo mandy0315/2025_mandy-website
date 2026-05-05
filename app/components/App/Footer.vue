@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useElementVisibility } from "@vueuse/core";
-import { pageInfo } from '@/utils/pageInfoMap';
+import { pageInfo } from "@/utils/pageInfoMap/index";
 
 const { isFooterInView, footerHeight } = useLayoutSizes();
 

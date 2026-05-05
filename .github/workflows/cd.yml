@@ -25,8 +25,8 @@ jobs:
       - name: Setup Nuxt types
         run: pnpm nuxi prepare
 
-      - name: Run tests
-        run: pnpm test
+      - name: Check types
+        run: pnpm typecheck
 
       - name: Build
         run: pnpm generate

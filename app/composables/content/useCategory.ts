@@ -1,5 +1,6 @@
+import type { Collection } from "@/types";
 export const useCategory = async (
-  collection: "blog" | "notes" = "blog",
+  collection: Collection = "blog",
   limit?: number,
 ) => {
   // 取所有分類，不含限制
