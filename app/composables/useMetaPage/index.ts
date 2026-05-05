@@ -1,8 +1,4 @@
-interface UseMetaPage {
-  title: string;
-  description: string;
-  path?: string;
-}
+import type { UseMetaPage } from "./types";
 export const useMetaPage = ({ title, description, path = "" }: UseMetaPage) => {
   const runtimeConfig = useRuntimeConfig();
   const site = runtimeConfig.public.SITE_URL + path;

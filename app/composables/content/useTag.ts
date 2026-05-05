@@ -1,5 +1,6 @@
+import type { Collection } from "@/types";
 export const useTag = async (
-  collection: "blog" | "notes" = "blog",
+  collection: Collection = "blog",
   limit?: number,
 ) => {
   const { data: tagData, refresh } = await useAsyncData(

@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { Collection } from '@/types';
 const props = defineProps<{
-  collection: 'blog' | 'notes';
+  collection: Collection;
 }>();
 
 const route = useRoute();

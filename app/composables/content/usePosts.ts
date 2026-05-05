@@ -1,8 +1,5 @@
-type SortOrder = "ASC" | "DESC";
-export const usePosts = async (
-  collection: "blog" | "notes" = "blog",
-  limit = 10,
-) => {
+import type { SortOrder, Collection } from "@/types";
+export const usePosts = async (collection: Collection = "blog", limit = 10) => {
   const LIMIT_COUNT = limit;
   const currentSort = useState<SortOrder>(`${collection}-sort`, () => "DESC");
   const currentPage = useState<number>(`${collection}-page`, () => 1);
